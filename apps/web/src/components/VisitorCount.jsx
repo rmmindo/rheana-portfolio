@@ -3,54 +3,62 @@ import { useI18n } from '../hooks/useI18n.jsx';
 
 // Live unique-visitor count.
 //
+// Backed by GoatCounter rather than our own service. The Express API in
+// apps/api does this too, and does it well: the daily-rotating hash counts
+// unique visitors without ever storing an IP. But running it needs a host, and
+// the free hosts now want a card on file. GoatCounter is free without one, sets
+// no cookies, and stores no personal data either, so the privacy property that
+// made the custom service worth building survives the move.
+//
+// apps/api stays in the repo as the reference implementation, tested and
+// deployable, for whenever self-hosting is worth the trouble.
+//
+// /counter/TOTAL.json is a public endpoint: no key, no auth, safe to call from
+// a static page.
+//
 // Three things this deliberately does NOT do:
 //   - block rendering: it mounts after paint and fetches in the background,
 //     so it can never affect LCP
-//   - render a broken box: if the API is unreachable, or has not been deployed
-//     yet, the component returns null and the footer simply has one fewer line
-//   - render a zero: a counter showing 0 actively works against the site, so
-//     nothing appears until there is a real number
-//
-// The API base comes from VITE_API_BASE at build time. With no value set the
-// component short-circuits, which is what keeps the site deployable before the
-// backend exists.
-const API = import.meta.env?.VITE_API_BASE ?? '';
+//   - render a broken box: if the request fails, or no site code is set, the
+//     component returns null and the footer simply has one fewer line
+//   - render a zero: a counter showing 0 works against the site, so nothing
+//     appears until there is a real number
+const SITE = import.meta.env?.VITE_GOATCOUNTER ?? '';
 
 export default function VisitorCount() {
   const { t } = useI18n();
-  const [stats, setStats] = useState(null);
+  const [total, setTotal] = useState(null);
 
   useEffect(() => {
-    if (!API) return;
+    if (!SITE) return;
 
     const controller = new AbortController();
     // A counter is not worth making anyone wait for.
     const timeout = setTimeout(() => controller.abort(), 4000);
 
-    fetch(`${API}/api/visit`, {
-      method: 'POST',
-      signal: controller.signal,
-      headers: { 'Content-Type': 'application/json' },
-    })
+    fetch(`https://${SITE}.goatcounter.com/counter/TOTAL.json`, { signal: controller.signal })
       .then(res => (res.ok ? res.json() : null))
-      .then(data => { if (data && typeof data.total === 'number' && data.total > 0) setStats(data); })
-      .catch(() => { /* offline, blocked, cold-starting, or not deployed: stay silent */ })
+      .then(data => {
+        // The API returns a display string using thin spaces as separators,
+        // e.g. "1 089 925". Parse it back to a number so the page formats it
+        // for the reader's locale rather than echoing GoatCounter's.
+        const n = Number(String(data?.count_unique ?? '').replace(/\D/g, ''));
+        if (Number.isFinite(n) && n > 0) setTotal(n);
+      })
+      .catch(() => { /* offline, blocked, or not configured: stay silent */ })
       .finally(() => clearTimeout(timeout));
 
     return () => { clearTimeout(timeout); controller.abort(); };
   }, []);
 
-  if (!stats) return null;
+  if (total === null) return null;
 
   return (
     <p className="visitors">
       <span className="visitors__dot" aria-hidden="true" />
-      <span className="visitors__count">{stats.total.toLocaleString('en-US')}</span>
+      <span className="visitors__count">{total.toLocaleString('en-US')}</span>
       {' '}
-      {stats.total === 1 ? t('visitors.one') : t('visitors.many')}
-      {stats.today > 0 && (
-        <span className="visitors__today"> &middot; {stats.today.toLocaleString('en-US')} {t('visitors.today')}</span>
-      )}
+      {total === 1 ? t('visitors.one') : t('visitors.many')}
       <span className="visually-hidden">{'. ' + t('visitors.note')}</span>
     </p>
   );

@@ -60,6 +60,28 @@
     ]
   }
   </script>
+  <script>
+  // Analytics, loaded only after the page has finished painting so it can
+  // never contribute to LCP or Total Blocking Time. GoatCounter sets no
+  // cookies and stores no personal data, so there is nothing to consent to and
+  // no banner to show.
+  //
+  // VITE_GOATCOUNTER is substituted at build time; with no value set the
+  // script is never injected and the site simply has no analytics.
+  (function () {
+    var code = '%VITE_GOATCOUNTER%';
+    if (!code || code.indexOf('%') === 0) return;
+    function load() {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://gc.zgo.at/count.js';
+      s.setAttribute('data-goatcounter', 'https://' + code + '.goatcounter.com/count');
+      document.head.appendChild(s);
+    }
+    if (document.readyState === 'complete') load();
+    else window.addEventListener('load', load);
+  })();
+  </script>
 </head>
 <body>
   <div id="root"></div>

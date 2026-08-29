@@ -33,7 +33,12 @@ jobs:
       # reach production just because it compiled.
       - run: node tools/check-contrast.mjs
       - run: npm run test --workspaces --if-present
+      # Set VITE_GOATCOUNTER as a repository variable (Settings > Secrets and
+      # variables > Actions > Variables) to switch analytics and the visitor
+      # counter on. Unset, the site builds with neither and nothing breaks.
       - run: npm run build --workspace apps/web
+        env:
+          VITE_GOATCOUNTER: ${{ vars.VITE_GOATCOUNTER }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
