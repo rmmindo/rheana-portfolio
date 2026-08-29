@@ -110,11 +110,21 @@ for (const w of [320, 640]) {
 // whole composition. Instead: take a gentle 3:2 crop from the upper-middle of
 // the frame, where she and the laptop are, and render it larger so the band can
 // be tall without upscaling.
+// An explicit window, not a gravity guess. The frame is 4000x6000; she sits
+// between roughly y=1900 and y=4570, so a 4000x2667 extract from y=1900 holds
+// her face, the sablay and both hands on the keyboard. Cropping from the top
+// gave the ceiling and the crown of her head; the attention strategy zoomed
+// into her hands. Naming the rectangle is the only thing that reliably works.
+//
+// modulate lifts the exposure a little: the original is a deliberately dark
+// frame, and it sits on a light page.
 for (const w of [1200, 1800]) {
   const out = join(publicDir, `img/rheana-mindo-developer-at-work-${w}.webp`);
   await sharp(src.atWork)
-    .resize(w, Math.round(w * 0.66), { fit: 'cover', position: 'top' })
-    .webp({ quality: 72, effort: 6 }).toFile(out);
+    .extract({ left: 0, top: 1900, width: 4000, height: 2667 })
+    .resize(w, Math.round(w * 0.667))
+    .modulate({ brightness: 1.12 })
+    .webp({ quality: 74, effort: 6 }).toFile(out);
   await report(`rheana-mindo-developer-at-work-${w}.webp`, out);
 }
 
@@ -161,10 +171,15 @@ for (const [name, file, size] of ornaments) {
   await report(`${name}.webp`, out);
 }
 
-const markOut = join(publicDir, 'img/rheana-mindo-rm-monogram.webp');
-await sharp(src.monogram).resize(512, 512, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
-  .webp({ quality: 80, effort: 6 }).toFile(markOut);
-await report('rheana-mindo-rm-monogram.webp', markOut);
+// 512 for the social share card, 96 for the nav bar. Serving the 512 into a
+// 36px slot would be 34 kB to draw a thumbnail.
+for (const size of [96, 512]) {
+  const out = join(publicDir, `img/rheana-mindo-rm-monogram-${size}.webp`);
+  await sharp(src.monogram).trim()
+    .resize(size, size, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .webp({ quality: 84, effort: 6, alphaQuality: 100 }).toFile(out);
+  await report(`rheana-mindo-rm-monogram-${size}.webp`, out);
+}
 
 console.log('icons');
 for (const size of [32, 180, 192, 512]) {

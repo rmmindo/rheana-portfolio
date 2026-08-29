@@ -21,12 +21,17 @@ import { useReducedMotion } from '../hooks/useReducedMotion.js';
 // Reduced motion: the vine renders fully grown and never animates. It is
 // decorative, so it is aria-hidden either way.
 
+// Eight, alternating sides of the stem, so the vine reads as a plant rather
+// than a line with five dots on it. Sizes vary a little for the same reason.
 const BUDS = [
-  { at: 0.14, art: '/img/garden-sprout.webp', size: 34 },
-  { at: 0.31, art: '/img/garden-leaf.webp', size: 40 },
-  { at: 0.48, art: '/img/garden-flower.webp', size: 46 },
-  { at: 0.66, art: '/img/garden-lavender.webp', size: 42 },
-  { at: 0.83, art: '/img/garden-clover.webp', size: 38 },
+  { at: 0.07, art: '/img/garden-sprout.webp',   size: 26, side: -1 },
+  { at: 0.18, art: '/img/garden-leaf.webp',     size: 34, side:  1 },
+  { at: 0.30, art: '/img/garden-sprout.webp',   size: 28, side: -1 },
+  { at: 0.42, art: '/img/garden-flower.webp',   size: 44, side:  1 },
+  { at: 0.55, art: '/img/garden-leaf.webp',     size: 32, side: -1 },
+  { at: 0.67, art: '/img/garden-lavender.webp', size: 40, side:  1 },
+  { at: 0.79, art: '/img/garden-clover.webp',   size: 34, side: -1 },
+  { at: 0.91, art: '/img/fruit-cherry.webp',    size: 38, side:  1 },
 ];
 
 export default function GardenVine() {
@@ -85,7 +90,12 @@ export default function GardenVine() {
           height={bud.size}
           loading="lazy"
           decoding="async"
-          style={{ top: `${bud.at * 100}%`, width: bud.size, height: bud.size }}
+          style={{
+            top: `${bud.at * 100}%`,
+            width: bud.size,
+            height: bud.size,
+            '--side': bud.side,
+          }}
         />
       ))}
     </div>

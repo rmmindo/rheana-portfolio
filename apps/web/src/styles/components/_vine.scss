@@ -7,16 +7,21 @@
   display: none;
 }
 
-@media (min-width: v.bp(lg)) {
+// The rail only appears when there is genuinely gutter to put it in. The
+// content column is 78rem wide; the vine needs 60px plus clearance, so it needs
+// about 88rem of viewport before it stops touching card edges. Below that it is
+// hidden rather than squeezed - at 64rem it was overlapping the Volunteering
+// and Playground cards.
+@media (min-width: 88rem) {
   .vine {
     display: block;
     position: absolute;
     top: 0;
-    left: max(0.75rem, calc((100vw - 78rem) / 2 - 3.25rem));
-    width: 60px;
+    left: calc((100vw - 78rem) / 2 - 4.5rem);
+    width: 56px;
     height: 100%;
     pointer-events: none;
-    z-index: 1;
+    z-index: 0;
   }
 }
 
@@ -36,17 +41,19 @@
   opacity: 0.55;
 }
 
+// --side is +1 or -1, so buds alternate across the stem from one declaration.
 .vine__bud {
   position: absolute;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0);
+  --offset: calc(var(--side, 1) * 0.85rem);
+  transform: translate(calc(-50% + var(--offset)), -50%) scale(0) rotate(calc(var(--side, 1) * 14deg));
   opacity: 0;
   transform-origin: center;
 }
 
 .vine__bud.is-open {
   opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(calc(-50% + var(--offset)), -50%) scale(1) rotate(calc(var(--side, 1) * 14deg));
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -62,7 +69,10 @@
 // Fully grown and static for anyone who asked for less motion.
 @media (prefers-reduced-motion: reduce) {
   .vine__path { stroke-dashoffset: 0 !important; }
-  .vine__bud { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  .vine__bud {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--offset)), -50%) scale(1);
+  }
 }
 
 :root[data-theme="dark"] .vine__path { stroke: var(--glow-mint); opacity: 0.7; }

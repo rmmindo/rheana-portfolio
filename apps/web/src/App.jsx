@@ -51,8 +51,12 @@ function Page() {
 
       <header className="topbar">
         <a className="topbar__brand" href="#main">
-          <Petal size={28} />
-          <span className="topbar__mark">RM</span>
+          <Petal size={26} />
+          {/* The real monogram, not the letters R and M set in a body font.
+              alt is empty because the adjacent visually-hidden text already
+              names the link, and a screen reader should hear it once. */}
+          <img className="topbar__logo" src="/img/rheana-mindo-rm-monogram-96.webp"
+               alt="" width="36" height="36" />
           <span className="visually-hidden">{t('home')}</span>
         </a>
 

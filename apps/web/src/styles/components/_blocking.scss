@@ -1,69 +1,92 @@
 @use "../abstracts/variables" as v;
 @use "../abstracts/shapes" as s;
 
-// Section colour blocking.
+// One hue per growth stage.
 //
-// Every section previously sat on the same paper colour, so the page read as
-// one long scroll of white with small coloured accents. Giving each section its
-// own ground is what the reference board does, and it is what makes a long
-// single-page site feel like a sequence of places rather than one document.
+// Every section used to sit on the same paper colour, so white cards on a white
+// ground had no visible shape at all — the Experience cards were invisible
+// until you looked for the accent stripe. Giving each stage its own ground
+// fixes that AND uses the palette the brand actually has, instead of leaning on
+// powder blue and treating the other five as garnish.
 //
-// The pastels are used at low opacity over the paper colour so the text tokens
-// underneath still hold their measured contrast ratios.
+//   01 Seed         video          mint
+//   02 Bloom        experience     pink
+//   03 Harvest      projects       yellow
+//   04 Seeds shared volunteering   mint gingham
+//   05 Playground   baybayin       powder
+//   06 What grew    recommendations red stripes
+//   07 Toolshed     skills         purple
+//   08 Roots        education      powder
+//
+// The washes are pastels at low alpha over the paper colour, so every text
+// token underneath keeps the contrast ratio it was measured at.
 
-.trust {
+@mixin wash($hue, $amount: 32%) {
   background:
-    linear-gradient(color-mix(in srgb, var(--surface-powder) 35%, transparent),
-                    color-mix(in srgb, var(--surface-powder) 35%, transparent)),
-    var(--paper-raised);
-}
-
-.entries#experience { background: var(--paper); }
-
-.entries#projects {
-  background:
-    linear-gradient(color-mix(in srgb, var(--surface-mint) 30%, transparent),
-                    color-mix(in srgb, var(--surface-mint) 30%, transparent)),
+    linear-gradient(
+      color-mix(in srgb, var(--surface-#{$hue}) #{$amount}, transparent),
+      color-mix(in srgb, var(--surface-#{$hue}) #{$amount}, transparent)
+    ),
     var(--paper);
 }
 
-.entries#volunteering {
-  @include s.gingham(color-mix(in srgb, var(--surface-pink) 42%, transparent), 26px);
+.trust {
+  @include wash(powder, 40%);
 }
+
+.video { @include wash(mint, 34%); }
+
+// Bloom. This is the section whose cards were invisible on white.
+.entries#experience { @include wash(pink, 26%); }
+
+.entries#projects { @include wash(yellow, 30%); }
+
+.entries#volunteering {
+  @include s.gingham(color-mix(in srgb, var(--surface-mint) 46%, transparent), 26px);
+}
+
+.bay { @include wash(powder, 30%); }
 
 .proof {
-  @include s.stripes(color-mix(in srgb, var(--surface-yellow) 34%, transparent), 22px, 90deg);
+  @include s.stripes(color-mix(in srgb, var(--surface-red) 26%, transparent), 24px, 90deg);
 }
 
-.skills {
-  background:
-    linear-gradient(color-mix(in srgb, var(--surface-purple) 22%, transparent),
-                    color-mix(in srgb, var(--surface-purple) 22%, transparent)),
-    var(--paper-raised);
+.skills { @include wash(purple, 24%); }
+
+.education { @include wash(powder, 26%); }
+
+// Cards need to be lighter than the ground they sit on, or the scalloped edge
+// has nothing to read against.
+.entry,
+.rec,
+.education__item,
+.stage {
+  background: var(--paper-raised);
 }
 
-// Dark mode: the pastels are deep surfaces there, so the same blend would go
-// muddy. Each section keeps a hint of its hue instead of a wash of it.
-:root[data-theme="dark"] {
-  .trust, .entries#projects, .entries#volunteering, .proof, .skills {
+// Dark mode: the pastels are deep surfaces there, so the same washes would go
+// muddy. Sections keep a hue only as a hairline edge.
+@mixin dark-sections {
+  .trust, .video, .bay, .skills, .education,
+  .entries#experience, .entries#projects, .entries#volunteering, .proof {
     background-image: none;
     background-color: var(--paper);
   }
+
   .trust, .skills { background-color: var(--paper-raised); }
 
-  .entries#volunteering { border-block: 1px solid var(--glow-pink); }
-  .proof { border-block: 1px solid var(--glow-yellow); }
+  .video { border-block: 1px solid var(--glow-mint); }
+  .entries#experience { border-block: 1px solid var(--glow-pink); }
+  .entries#projects { border-block: 1px solid var(--glow-yellow); }
+  .entries#volunteering { border-block: 1px solid var(--glow-mint); }
+  .bay { border-block: 1px solid var(--glow-powder); }
+  .proof { border-block: 1px solid var(--glow-red); }
+  .skills { border-block: 1px solid var(--glow-purple); }
+  .education { border-block: 1px solid var(--glow-powder); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    .trust, .entries#projects, .entries#volunteering, .proof, .skills {
-      background-image: none;
-      background-color: var(--paper);
-    }
-    .trust, .skills { background-color: var(--paper-raised); }
+:root[data-theme="dark"] { @include dark-sections; }
 
-    .entries#volunteering { border-block: 1px solid var(--glow-pink); }
-    .proof { border-block: 1px solid var(--glow-yellow); }
-  }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { @include dark-sections; }
 }

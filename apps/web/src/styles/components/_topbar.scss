@@ -44,7 +44,11 @@
   --petal-star: var(--brand-yellow);
 }
 
-.topbar__mark { color: var(--brand-blue); }
+.topbar__logo {
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: contain;
+}
 
 // --- Navigation ------------------------------------------------------------//
 .topbar__nav {
@@ -87,20 +91,55 @@
 
 .topbar__link:hover { background: var(--paper-raised); }
 
-// The section currently in view. Not colour alone: the pill gets a fill, a
-// border and bold weight, so it is still distinguishable without colour
-// perception and in forced-colors mode.
+// The section currently in view.
+//
+// The filled pill read as a button rather than a location, and on a row of six
+// it made the bar look like a toolbar. This is a stem that grows under the
+// active item instead: on-theme for a page about things growing, quieter, and
+// it animates between sections rather than blinking.
+//
+// Three signals, not one: the stem, bold weight, and the ink colour. Weight
+// survives colour blindness, and the forced-colors rule below covers high
+// contrast mode, so the highlight never depends on hue alone.
+.topbar__link {
+  position: relative;
+  font-weight: v.$weight-regular;
+}
+
+.topbar__link::after {
+  content: "";
+  position: absolute;
+  left: v.space(3);
+  right: v.space(3);
+  bottom: 2px;
+  height: 3px;
+  border-radius: v.$radius-pill;
+  background: var(--ink-mint);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
 .topbar__link.is-current {
-  background: var(--surface-powder);
-  color: var(--ink-powder);
-  border-color: var(--ink-powder);
+  color: var(--ink-mint);
   font-weight: v.$weight-bold;
 }
 
-:root[data-theme="dark"] .topbar__link.is-current { color: var(--glow-powder); }
+.topbar__link.is-current::after { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .topbar__link::after { transition: transform 320ms v.$ease-spring; }
+}
+
+:root[data-theme="dark"] {
+  .topbar__link.is-current { color: var(--glow-mint); }
+  .topbar__link::after { background: var(--glow-mint); }
+}
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .topbar__link.is-current { color: var(--glow-powder); }
+  :root:not([data-theme="light"]) {
+    .topbar__link.is-current { color: var(--glow-mint); }
+    .topbar__link::after { background: var(--glow-mint); }
+  }
 }
 
 @media (forced-colors: active) {
