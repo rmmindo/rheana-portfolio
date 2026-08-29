@@ -1,0 +1,81 @@
+import { useState } from 'react';
+import transcript from '../content/transcript.json';
+import { useReveal } from '../hooks/useReveal.js';
+
+// The video is self-hosted with preload="none" and a poster image, so it costs
+// zero bytes until someone chooses to play it. That protects the Lighthouse
+// Performance budget without handing a third party an embed and its cookies.
+//
+// The <video> element is only mounted after the play button is pressed. Before
+// that the poster is a plain <img>, which is what the browser paints.
+export default function VideoResume() {
+  const ref = useReveal();
+  const [playing, setPlaying] = useState(false);
+  const [showTranscript, setShowTranscript] = useState(false);
+
+  return (
+    <section className="video" id="video" aria-labelledby="video-heading" ref={ref}>
+      <div className="section__inner">
+        <h2 id="video-heading" className="section__title">Meet me in 3 minutes</h2>
+
+        <p className="video__lead">
+          A dev with a poet&rsquo;s heart. Same person you would get on a call.
+        </p>
+
+        <div className="video__frame">
+          {playing ? (
+            <video
+              className="video__player"
+              controls
+              autoPlay
+              preload="metadata"
+              poster="/media/rheana-mindo-video-resume-poster.webp"
+            >
+              <source src="/media/rheana-mindo-video-resume.mp4" type="video/mp4" />
+              {/* Captions are still being timed. The full transcript below is
+                  published and linked so the content is available to everyone
+                  in the meantime. */}
+              Your browser cannot play embedded video.{' '}
+              <a href="/media/rheana-mindo-video-resume.mp4">Download the video résumé</a>.
+            </video>
+          ) : (
+            <button type="button" className="video__play" onClick={() => setPlaying(true)}>
+              <img
+                className="video__poster"
+                src="/media/rheana-mindo-video-resume-poster.webp"
+                alt="Rheana Mindo, mid-sentence and clearly enjoying herself, in the opening frame of her video résumé"
+                width="1280"
+                height="720"
+                loading="lazy"
+              />
+              <span className="video__play-badge" aria-hidden="true">▶</span>
+              <span className="video__play-label">
+                Play the video résumé
+                <span className="visually-hidden">
+                  . A full text transcript is available below the video.
+                </span>
+              </span>
+            </button>
+          )}
+        </div>
+
+        <div className="video__actions">
+          <button
+            type="button"
+            className="btn btn--ghost"
+            aria-expanded={showTranscript}
+            aria-controls="video-transcript"
+            onClick={() => setShowTranscript(t => !t)}
+          >
+            {showTranscript ? 'Hide transcript' : 'Read the transcript instead'}
+          </button>
+        </div>
+
+        <div id="video-transcript" className="video__transcript" hidden={!showTranscript}>
+          <h3 className="video__transcript-title">{transcript.title}</h3>
+          {transcript.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -4,6 +4,8 @@ import PetalBurst from './components/PetalBurst.jsx';
 import Petal from './components/Petal.jsx';
 import Hero from './sections/Hero.jsx';
 import TrustBar from './sections/TrustBar.jsx';
+import VideoResume from './sections/VideoResume.jsx';
+import Proof from './sections/Proof.jsx';
 import Entries from './sections/Entries.jsx';
 import Skills from './sections/Skills.jsx';
 import Education from './sections/Education.jsx';
@@ -30,6 +32,8 @@ export default function App() {
         <nav className="topbar__nav" aria-label="Sections">
           <a href="#experience">Experience</a>
           <a href="#projects">Projects</a>
+          <a href="#video">Video</a>
+          <a href="#proof">Recommendations</a>
           <a href="#skills">Skills</a>
         </nav>
         <ThemeToggle />
@@ -38,6 +42,7 @@ export default function App() {
       <main id="main">
         <Hero profile={resume.profile} />
         <TrustBar experience={experience} />
+        <VideoResume />
         {experience && (
           <Entries section={experience} id="experience"
                    accent={['powder', 'purple', 'pink', 'mint', 'red', 'yellow']} />
@@ -46,6 +51,7 @@ export default function App() {
           <Entries section={projects} id="projects"
                    accent={['mint', 'yellow', 'powder']} />
         )}
+        <Proof />
         {skills && <Skills section={skills} />}
         {education && <Education section={education} />}
       </main>

@@ -1,0 +1,26 @@
+{
+  "title": "Video résumé transcript",
+  "note": "Cleaned from an automatic transcription. Corrections applied where the intended word is unambiguous from the résumé: the speaker's name (rendered 'Rihanna Amo' / 'Rihanna Mindo' by the transcriber), 'ASUS' to Azeus Systems, 'longchain' to LangChain, 'Cold Wars' to Code Wars, 'comsai' to CMSC, 'doda' to DOST. Items still unverified are listed in unverified[] and were left as heard rather than guessed.",
+  "unverified": [
+    "'thanks to great mentors Hat Troco and Stack Overflow' — the mentor's name is a phonetic guess by the transcriber. Give me the correct spelling and I will fix it.",
+    "'from ICPC to city apps, bridges to bug hunts' — 'city apps' is unclear in the audio.",
+    "'teams of up to 20 developers' — the résumé states 19 developers on the ICS platform. Confirm which figure is right; the page currently shows 19 in Experience."
+  ],
+  "paragraphs": [
+    "With my hands I craft code, I weave words. Magic at my fingertips, creating worlds one line at a time — in a terminal, or in poetry. Sometimes it compiles. Sometimes it's a haiku. I'm a cultivator of stories.",
+    "Hi, I'm Rheana Mindo, a soon-to-be BS Computer Science graduate from UPLB. I'd like to think of myself as someone who likes to build things: systems, stories, and sometimes spaghetti code that works anyway. I believe tech should be useful, thoughtful and fun — just like this video.",
+    "From Philippine Science High School to UPLB, I've followed my curiosity in the world of coding. I'm graduating with honors, thanks to great mentors and Stack Overflow.",
+    "For my thesis I'm studying how AI might be biased towards certain religions, and I'm developing an equalizing loss function to help make these models fairer to all faiths while maintaining their performance — a topic that is close and dear to my heart.",
+    "Thanks to the DOST and UP scholarships, I was able to trade in my decade-old laptop for a powerful new one, fueling my passion for tech and making my dreams more achievable.",
+    "I've been lucky to compete in Informatics Olympiads, rank in national contests, and represent the Philippines across Asia — sharpening my skills one algorithm at a time. From ICPC to bridges to bug hunts, I've stumbled, learned and levelled up with every line of code. It's been a journey of grit, growth, and just the right amount of anime to keep me going.",
+    "At the UPLB Computer Science Society I've led initiatives that made computer science more accessible, from CMSC 101 articles to mock exams that reached over 400 students. I also worked with developers to build a real-time Code Wars platform for our flagship competitive programming contest.",
+    "As events treasurer I handled 10 fundraising events, reformed our financial systems, gained 64.7% profit and increased our budget by 756% — all while keeping events affordable at just 100 pesos.",
+    "At Azeus Systems I helped develop an AI-powered RAG chatbot using LangChain, integrating Redmine data to optimise search and information retrieval.",
+    "I've managed teams of up to 20 developers, built a platform for room reservation, developed a COVID-19 contact tracing mobile app and other software, and even created Arduino bots back in high school. My stack includes Python, React, SQL and Firebase — but I've learned that leadership, collaboration and clear documentation are just as essential.",
+    "And while I don't run on caffeine, I do rely on teamwork, motivational music, and a well-named variable or two.",
+    "My goal is to join a company where I can ship tech that matters — tools that don't just function, but resonate. Whether it's writing a script or writing backend logic, I bring the same energy. I thrive in fast-paced, interdisciplinary teams where I can wear many hats, and occasionally a party hat.",
+    "What makes me different? I'm a dev with a poet's heart. I code, I write, I lead, I listen. I even play the recorder. If you need a teammate who adapts fast, delivers well, and brings a healthy dose of nerdy jokes — I'm your girl.",
+    "I'm not just a software developer. I'm a builder, a storyteller, a lifelong learner. I'm versatile, driven, fun, and ready to create something magical with code and beyond. That's what makes me different.",
+    "Need a dev? I got you. Need a post, a script, an event flow, a pitch, a prototype, a snack during meetings? I can do that too. This is Rheana Mindo, and I'd love to hear from you."
+  ]
+}

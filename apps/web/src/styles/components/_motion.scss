@@ -10,6 +10,8 @@
   // --- Scroll reveal ------------------------------------------------------ //
   .trust,
   .entry,
+  .rec,
+  .video__frame,
   .skills__row,
   .education__item {
     opacity: 0;
@@ -21,6 +23,8 @@
 
   .is-revealed,
   .is-revealed .entry,
+  .is-revealed .rec,
+  .is-revealed .video__frame,
   .is-revealed .skills__row,
   .is-revealed .education__item {
     opacity: 1;
@@ -29,7 +33,8 @@
 
   // Children stagger off the parent's reveal so a card list arrives as a
   // sequence rather than all at once.
-  .is-revealed .entry { transition-delay: calc(var(--i, 0) * #{v.$stagger}); }
+  .is-revealed .entry,
+  .is-revealed .rec { transition-delay: calc(var(--i, 0) * #{v.$stagger}); }
   .is-revealed .skills__row { transition-delay: calc(var(--i, 0) * 40ms); }
 
   // --- Hero headline words ------------------------------------------------ //

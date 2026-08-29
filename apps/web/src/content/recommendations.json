@@ -1,0 +1,150 @@
+{
+  "source": "LinkedIn",
+  "note": "Verbatim LinkedIn recommendations. Text is quoted as written by each recommender; only obvious transcription-level typos in the original were left untouched. Do not paraphrase.",
+  "items": [
+    {
+      "name": "Michael Jay Makiling",
+      "title": "Project Manager & Software Developer",
+      "rel": "managed Rheana directly",
+      "date": "2026-01-30",
+      "featured": true,
+      "quote": "She's extremely proactive and doesn't wait to be told what to do. If something felt off or could turn into a problem later on, Rheana would call it out early and already have a few possible solutions in mind. That mindset saved the team a lot of time and back-and-forth.",
+      "more": "She's also very easy to work with because of how clear and direct her communication is. Rheana can lead meetings confidently, keep discussions focused, and coordinate with the right people without things getting messy. Even when dealing with complex or unclear requirements, she knew how to ask the right questions and move things forward.\n\nOn top of that, she's detail-oriented, goal-driven, and takes real ownership of her work. From a PM's point of view, she's someone you can rely on. You don't have to chase updates or worry about follow-through.\n\nI'd gladly work with Rheana again and would recommend her to any team looking for an AI Developer who's not just technically strong, but also great at collaboration and leadership."
+    },
+    {
+      "name": "Christian Jay Cuevas",
+      "title": "Machine & Deep Learning | AI Engineer | Fullstack Developer",
+      "rel": "worked with Rheana on the same team",
+      "date": "2026-01-28",
+      "featured": true,
+      "quote": "What sets Rhea apart is her ability to ship complete features independently with a level of precision that is rare at the junior level. Her approach to coding is deterministic and disciplined, ensuring high-quality, maintainable outputs.",
+      "more": "I had the pleasure of working closely with Rhea on the same development team, and she is easily one of the most reliable Junior AI Developers I've encountered.\n\nBeyond her strong foundation in full-stack development, cloud, and cybersecurity, her expertise in LLMs was a massive asset to our project. Rhea doesn't just build; she understands the nuances of AI implementation. She is a proactive learner, a superb communicator with clients, and a teammate who consistently raises the bar. Any engineering team would be lucky to have her."
+    },
+    {
+      "name": "Jet Timothy Cerezo",
+      "title": "Software Engineer | Full-Stack (MERN) & Python | UPLB CS '25",
+      "rel": "reported to Rheana directly",
+      "date": "2026-08-20",
+      "featured": true,
+      "quote": "It's pretty rare to find a lead who is both highly organized and deeply technical, but she handled both effortlessly. She kept our development sprints on track and set clear goals, but was never afraid to jump directly into the code to help us troubleshoot when we got stuck.",
+      "more": "Rheana managed our team during the '2 Weeks' project, and she was fantastic to work with. She creates the kind of environment where developers can actually focus and do their best work. Any engineering team would be lucky to have her."
+    },
+    {
+      "name": "Simond Lars Darwin Lenon",
+      "title": "Chemical Researcher | AI Engineer",
+      "rel": "worked with Rheana on the same team",
+      "date": "2026-01-30",
+      "featured": true,
+      "quote": "Rhea is an exceptional AI Developer with a sharp command of NLP and LLMs. She excels at translating complex requirements into robust, high-quality code, consistently meeting deadlines without compromising on precision.",
+      "more": "Her ability to troubleshoot and solve problems is impressive, but what truly sets her apart is her collaborative spirit. Rhea brings great energy to the team and makes every planning session more engaging. I would gladly work with her again."
+    },
+    {
+      "name": "John Felix Marc Balabat",
+      "title": "Full-Stack Engineer · React, TypeScript, Flutter",
+      "rel": "worked with Rheana on the same team",
+      "date": "2026-08-27",
+      "featured": false,
+      "quote": "Calling Rheana a skilled developer is an understatement. Her rare blend of technical problem-solving, deep empathy, and strategic thinking makes her an exceptional collaborator and leader.",
+      "more": "I first worked with her on a project way back named IMMA under tight deadlines. Even as a team member, she stepped in to recalibrate our workflow and clearly define team roles. This instantly relieved pressure across the team, aligned our execution, and ensured a successful delivery.\n\nLater, during a freelance project called \"2 Weeks,\" her leadership in client communication was instrumental. She listened intently to the client's pain points, clearly defined the underlying issues, and led us to deliver a tailored solution.\n\nI would eagerly work with Rheana again and highly recommend her to any team looking for an effective problem solver and dependable leader."
+    },
+    {
+      "name": "Wince Dela Fuente",
+      "title": "Software Developer",
+      "rel": "worked with Rheana on the same team",
+      "date": "2026-08-25",
+      "featured": false,
+      "quote": "Technical competence and hitting deadlines are baseline expectations, but true leadership and exceptional soft skills are rare, and she radiates with both so naturally it's apparent even on the first meeting.",
+      "more": "Had the pleasure of working with one of the most cracked intern teams in the PH, and Ray was the glue that held everyone together. Not only was she really good at the tasks at hand as well as in delegation, but she provided the energy that the three other introverts (us) needed.\n\nWhat could be an inherently routine standup gets way better when she is around. Any team would be genuinely lucky to have Ray on board!"
+    },
+    {
+      "name": "Joseph Ryan Peña",
+      "title": "Junior Full Stack Developer | UP Los Baños CS Cum Laude",
+      "rel": "worked with Rheana on the same team",
+      "date": "2026-08-21",
+      "featured": false,
+      "quote": "Ray is one of the smartest people I met during university. Because she understood both the management and development sides of the project, she was able to guide the team effectively while ensuring that we followed good engineering practices.",
+      "more": "I had the opportunity to collaborate with Ray as a classmate on a class project for CMSC 128 at UPLB. She served as our Project Manager while I worked as a Backend Developer, and she brought clarity and structure to the team through concise documentation, well-defined workflows, coding standards, and proper processes for pull requests and project documentation.\n\nShe has a strong grasp of software development and consistently helped me whenever I encountered technical challenges. I can confidently vouch for Ray's technical skills, leadership, and dependability. She is one of the hardest-working people I know, while remaining down-to-earth, approachable, and genuinely comfortable to work with."
+    },
+    {
+      "name": "Neil Vincent Alday",
+      "title": "Entry Java Cloud Engineer at Rocket Partners",
+      "rel": "worked with Rheana on the same team",
+      "date": "2026-08-21",
+      "featured": false,
+      "quote": "What stood out most was how she prepared her successor. She made it a point to pass on everything she knew to the next person in line, making sure the committee's work would continue smoothly even after her term ended.",
+      "more": "I had the pleasure of working closely with Rheana in two different capacities, and both experiences left me consistently impressed by her leadership and reliability.\n\nAs Education Committee Head of the UPLB Computer Science Society during my term as President, Rheana was someone I could always count on. She managed a demanding set of responsibilities without ever letting anything slip.\n\nI also had the opportunity to work with her on a university project, where she served as Project Manager while I led the Backend team. Her ability to coordinate a team, manage timelines, and keep everyone aligned toward the same goal was key to the project's success.\n\nBeyond her skills, Rheana is simply a joy to work with."
+    },
+    {
+      "name": "Beam Railey Damian",
+      "title": "Software Engineer @ Freelancer.com",
+      "rel": "worked with Rheana on the same team",
+      "date": "2026-08-20",
+      "featured": false,
+      "quote": "Even during our internship, she took the initiative to establish and reinforce coding standards, such as syntax and commit message conventions, helping ensure consistency across our work. Even then, she was already passionate about AI solutions.",
+      "more": "I worked with Ray during our internship at Azeus Systems Limited, where we created an internal, on-premise RAG chatbot with the company's Redmine data. Ray has great attention to detail and technical skills, combined with effective communication and leadership prowess."
+    },
+    {
+      "name": "Ivory Jean Hua",
+      "title": "Head of Human Resources Operations at Offshorly",
+      "rel": "was senior to Rheana",
+      "date": "2026-01-30",
+      "featured": false,
+      "quote": "She's hardworking and always willing to go the extra mile to deliver. She also has great communication skills, and I really appreciate how consistently positive she is.",
+      "more": "Rhea worked with us as a Junior AI Developer, and I can genuinely say she's bright, has a great personality, and is a great team player based on team feedback. Overall, I have only good things to say about Rhea and her engagement with the Offshorly team."
+    },
+    {
+      "name": "Em Rint Diaz",
+      "title": "Marketing Strategy & Operations Leader | Creative Director",
+      "rel": "worked with Rheana on the same team",
+      "date": "2026-08-20",
+      "featured": false,
+      "quote": "She has a really good eye for detail and gets through her work quickly without cutting corners. I can rely on her to get things done properly and keep things moving when there are plenty of other things happening.",
+      "more": "Ray has been a great addition to our web development team. She's also a great teammate, easy to work with, responsive, and always willing to help. I really appreciate having someone as dependable as Ray on the team."
+    },
+    {
+      "name": "Brian James Dela Cruz",
+      "title": "Software Developer",
+      "rel": "worked with Rheana on the same team",
+      "date": "2026-01-28",
+      "featured": false,
+      "quote": "I'm genuinely grateful to have had her as our team leader. She absolutely stood out during the pitching with the way she presented our idea with confidence and clarity. Her leadership and effort played a huge part in our win.",
+      "more": "I just want to recommend Rhei, who I worked with during a hackathon where our team became Champion. She helped keep everyone aligned and supported the team in building and delivering a solid MVP within the time limit. I highly recommend her to anyone looking for someone dependable, driven, and easy to work with."
+    },
+    {
+      "name": "Gabriel Nasol",
+      "title": "Software Developer | React, Next.js, TypeScript | Python",
+      "rel": "worked with Rheana on the same team",
+      "date": "2026-01-30",
+      "featured": false,
+      "quote": "She consistently stood out for her strong planning skills and clear strategic thinking. She has a great ability to identify the right structure early on and translate ideas into concrete, actionable steps.",
+      "more": "She was highly involved in brainstorming and problem solving, often guiding discussions toward practical and well thought out solutions. Her clarity, reliability, and collaborative mindset made a real difference to the team. I'd confidently recommend her to any team looking for someone who can think ahead, organize effectively, and contribute meaningfully to both planning and execution."
+    },
+    {
+      "name": "Marc Gerard Odon",
+      "title": "BS Computer Science Student at UP Los Baños",
+      "rel": "was mentored by Rheana",
+      "date": "2026-08-20",
+      "featured": false,
+      "quote": "She was the one that inspired me to embark on my own journey too as Education Committee Head. Her leadership helped create an environment where people felt supported to learn, grow, and contribute.",
+      "more": "I had the privilege of being mentored by Rheana (also known as Ray) during her time as Education Committee Head. Her dedication to fostering learning, supporting members, and creating meaningful educational opportunities was truly admirable.\n\nWhat stood out most was her ability to lead with both professionalism and genuine care. She was always approachable, willing to share her knowledge, and encouraging toward her members and the organization."
+    },
+    {
+      "name": "Julian Nicola Paclibar",
+      "title": "Student at De La Salle University",
+      "rel": "studied with Rheana",
+      "date": "2026-08-20",
+      "featured": false,
+      "quote": "She has this amazing ability to think things through, and even though she has that capability, she can still manage to work with different people in a harmonious manner and guide effectively.",
+      "more": "When Rheana, me, and other classmates were working on Scratch-a-Game, Rheana was very hands-on on the \"how to make it work\" side of it all. Throughout my knowing her, she manages to make all her projects work. I believe she could really be an amazing asset to any company, not just because of her hard skills but equally because of her soft skills, which is rare in anyone."
+    },
+    {
+      "name": "Gian Carlo Maglines",
+      "title": "Student at De La Salle-College of Saint Benilde",
+      "rel": "worked with Rheana on the same team",
+      "date": "2026-08-20",
+      "featured": false,
+      "quote": "She delivered exemplary skill that helped guide and inspire the rest of the team. She was very thorough and helped each and every one of us have a clear path to success.",
+      "more": "I worked with Rheana on a project named Scratch A Game that taught young aspiring game devs. She made sure the project went according to plan. I believe she has the leadership skills and the technical understanding to succeed in the industry."
+    }
+  ]
+}
