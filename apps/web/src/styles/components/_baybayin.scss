@@ -74,6 +74,7 @@
 }
 
 :root[data-theme="dark"] .bay__preset { color: var(--text); }
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .bay__preset { color: var(--text); }
 }
@@ -188,4 +189,29 @@
     from { opacity: 0; transform: translateY(10px) scale(0.9); }
     to   { opacity: 1; transform: none; }
   }
+}
+
+// Same problem as the hero: the pastel radials become deep surfaces in dark
+// mode and muddy the section. Same media-query guard applies.
+:root[data-theme="dark"] .bay {
+  background:
+    radial-gradient(40rem 20rem at 88% 0%, color-mix(in srgb, var(--glow-mint) 14%, transparent) 0%, transparent 64%),
+    radial-gradient(32rem 18rem at 4% 96%, color-mix(in srgb, var(--glow-yellow) 12%, transparent) 0%, transparent 68%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .bay {
+    background:
+    radial-gradient(40rem 20rem at 88% 0%, color-mix(in srgb, var(--glow-mint) 14%, transparent) 0%, transparent 64%),
+    radial-gradient(32rem 18rem at 4% 96%, color-mix(in srgb, var(--glow-yellow) 12%, transparent) 0%, transparent 68%);
+  }
+}
+
+.bay__output { background: var(--surface-mint); }
+.bay__glyphs { color: var(--ink-mint); }
+
+:root[data-theme="dark"] .bay__glyphs { color: var(--glow-mint); }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .bay__glyphs { color: var(--glow-mint); }
 }

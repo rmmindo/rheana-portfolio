@@ -1,5 +1,6 @@
 import { useReveal } from '../hooks/useReveal.js';
 import Stat from '../components/Stat.jsx';
+import { plain } from '../lib/richText.jsx';
 import { useI18n } from '../hooks/useI18n.jsx';
 
 // The orgs come from the resume JSON rather than a hand-written list, so a role
@@ -7,7 +8,7 @@ import { useI18n } from '../hooks/useI18n.jsx';
 export default function TrustBar({ experience }) {
   const ref = useReveal();
   const { t } = useI18n();
-  const orgs = experience ? experience.entries.map(e => e.org.replace(/<[^>]+>/g, '')) : [];
+  const orgs = experience ? experience.entries.map(e => plain(e.org)) : [];
 
   return (
     <section className="trust" aria-labelledby="trust-heading" ref={ref}>

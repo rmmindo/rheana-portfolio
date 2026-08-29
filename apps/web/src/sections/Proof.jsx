@@ -13,7 +13,7 @@ function Card({ item, hue, index }) {
   return (
     <li
       className="rec"
-      style={{ '--rec-accent': `var(--surface-${hue})`, '--rec-ink': `var(--ink-${hue})`, '--i': index }}
+      style={{ '--rec-accent': `var(--accent-${hue})`, '--rec-ink': `var(--ink-${hue})`, '--i': index }}
     >
       <Petal className="rec__mark" size={26} />
 
@@ -64,10 +64,7 @@ export default function Proof() {
       <div className="section__inner">
         <h2 id="proof-heading" className="section__title">{t('proof.heading')}</h2>
 
-        <p className="proof__lead">
-          {data.items.length} recommendations on LinkedIn, from people who managed
-          me, reported to me, and shipped alongside me.
-        </p>
+        <p className="proof__lead">{t('proof.lead', { count: data.items.length })}</p>
 
         <ul className="proof__list" role="list">
           {visible.map((item, i) => (

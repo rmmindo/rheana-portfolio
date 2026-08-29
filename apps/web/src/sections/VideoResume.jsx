@@ -52,7 +52,7 @@ export default function VideoResume() {
               <img
                 className="video__poster"
                 src="/media/rheana-mindo-video-resume-poster.webp"
-                alt="Rheana Mindo, mid-sentence and clearly enjoying herself, in the opening frame of her video résumé"
+                alt={t('video.poster.alt')}
                 width="1280"
                 height="720"
                 loading="lazy"
@@ -60,10 +60,7 @@ export default function VideoResume() {
               <span className="video__play-badge" aria-hidden="true">▶</span>
               <span className="video__play-label">
                 {t('video.play')}
-                <span className="visually-hidden">
-                  . Captions are on by default, and a full text transcript is
-                  available below the video.
-                </span>
+                <span className="visually-hidden">{'. ' + t('video.transcript.note')}</span>
               </span>
             </button>
           )}

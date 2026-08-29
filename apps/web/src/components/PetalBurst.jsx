@@ -1,16 +1,27 @@
 import { useEffect } from 'react';
 import { useReducedMotion } from '../hooks/useReducedMotion.js';
 
-// Scatters hydrangea petals from the pointer on click.
+// Scatters hydrangea petals from the pointer.
 //
-// Purely decorative, so it is built to be invisible to assistive technology and
-// to disappear entirely under prefers-reduced-motion. The layer is
-// pointer-events:none and aria-hidden, so it can never intercept a click or add
-// noise to a screen reader. Petals are plain divs with a masked background,
-// animated by CSS custom properties; the component only sets the numbers.
+// TOUCH IS NOT MOUSE.
+// The first version burst on pointerdown for everything. On a phone,
+// pointerdown fires the instant a finger lands, which is also how a scroll
+// begins - so every swipe threw petals across the screen. A mouse press is a
+// deliberate click; a finger press is usually the start of a gesture.
+//
+// So: a mouse bursts on press, because instant feedback feels better and a
+// mouse cannot scroll by pressing. Touch waits for release and only bursts if
+// the finger barely moved and did not linger, which is the definition of a tap
+// rather than a scroll or a long-press.
+//
+// Purely decorative, so the layer is aria-hidden and pointer-events:none, and
+// none of it mounts under prefers-reduced-motion.
 
 const COUNT = 9;
 const HUES = ['powder', 'purple', 'pink', 'mint', 'red', 'yellow'];
+const TAP_SLOP_PX = 10;     // finger wobble that still counts as a tap
+const TAP_MAX_MS = 500;     // longer than this is a long-press, not a tap
+const INTERACTIVE = 'a, button, input, textarea, select, label, [role="button"], canvas';
 
 export default function PetalBurst() {
   const reduced = useReducedMotion();
@@ -23,12 +34,7 @@ export default function PetalBurst() {
     layer.setAttribute('aria-hidden', 'true');
     document.body.appendChild(layer);
 
-    const onPointerDown = event => {
-      // Only real pointer input, and never on a control the user is operating:
-      // confetti on top of a submit button is noise, not delight.
-      if (event.button !== 0) return;
-      if (event.target.closest('a, button, input, textarea, select, [role="button"]')) return;
-
+    const burst = (x, y) => {
       for (let i = 0; i < COUNT; i++) {
         const petal = document.createElement('span');
         petal.className = 'petal-layer__petal';
@@ -44,17 +50,59 @@ export default function PetalBurst() {
         petal.style.setProperty('--d', `${760 + Math.random() * 340}ms`);
         petal.style.setProperty('--s', `${0.5 + Math.random() * 0.6}`);
         petal.style.setProperty('--petal-fill', `var(--surface-${HUES[i % HUES.length]})`);
-        petal.style.left = `${event.clientX}px`;
-        petal.style.top = `${event.clientY}px`;
+        petal.style.left = `${x}px`;
+        petal.style.top = `${y}px`;
 
         petal.addEventListener('animationend', () => petal.remove(), { once: true });
         layer.appendChild(petal);
       }
     };
 
+    // Confetti on top of a control the user is operating is noise, not delight.
+    const isInteractive = target => target?.closest?.(INTERACTIVE);
+
+    let pending = null;
+
+    const onPointerDown = event => {
+      if (event.button !== 0) return;
+      if (isInteractive(event.target)) return;
+
+      if (event.pointerType === 'mouse') {
+        burst(event.clientX, event.clientY);
+        return;
+      }
+
+      // Touch and pen: remember where and when, decide on release.
+      pending = { x: event.clientX, y: event.clientY, t: performance.now() };
+    };
+
+    const onPointerUp = event => {
+      if (!pending) return;
+      const { x, y, t } = pending;
+      pending = null;
+
+      if (isInteractive(event.target)) return;
+
+      const moved = Math.hypot(event.clientX - x, event.clientY - y);
+      const elapsed = performance.now() - t;
+      if (moved <= TAP_SLOP_PX && elapsed <= TAP_MAX_MS) {
+        burst(event.clientX, event.clientY);
+      }
+    };
+
+    // A scroll or a cancelled gesture must never leave a pending tap armed.
+    const onCancel = () => { pending = null; };
+
     document.addEventListener('pointerdown', onPointerDown);
+    document.addEventListener('pointerup', onPointerUp);
+    document.addEventListener('pointercancel', onCancel);
+    window.addEventListener('scroll', onCancel, { passive: true });
+
     return () => {
       document.removeEventListener('pointerdown', onPointerDown);
+      document.removeEventListener('pointerup', onPointerUp);
+      document.removeEventListener('pointercancel', onCancel);
+      window.removeEventListener('scroll', onCancel);
       layer.remove();
     };
   }, [reduced]);

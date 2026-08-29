@@ -51,10 +51,7 @@ export default function VisitorCount() {
       {stats.today > 0 && (
         <span className="visitors__today"> &middot; {stats.today.toLocaleString('en-US')} {t('visitors.today')}</span>
       )}
-      <span className="visually-hidden">
-        . Counted without storing any IP address: visitors are identified by a
-        hash that is regenerated every day.
-      </span>
+      <span className="visually-hidden">{'. ' + t('visitors.note')}</span>
     </p>
   );
 }

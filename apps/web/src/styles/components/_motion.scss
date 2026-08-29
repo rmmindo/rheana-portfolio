@@ -8,12 +8,14 @@
 @media (prefers-reduced-motion: no-preference) {
 
   // --- Scroll reveal ------------------------------------------------------ //
-  .trust,
-  .entry,
-  .rec,
-  .video__frame,
-  .skills__row,
-  .education__item {
+  // Scoped to .js-reveal: see main.jsx. If JavaScript never runs, nothing is
+  // hidden and the prerendered page reads normally.
+  .js-reveal .trust,
+  .js-reveal .entry,
+  .js-reveal .rec,
+  .js-reveal .video__frame,
+  .js-reveal .skills__row,
+  .js-reveal .education__item {
     opacity: 0;
     transform: translateY(28px);
     transition:

@@ -1,31 +1,47 @@
 import resume from './content/resume.json';
 import ThemeToggle from './components/ThemeToggle.jsx';
 import PetalBurst from './components/PetalBurst.jsx';
-import { SpeechProvider } from './components/SpeechProvider.jsx';
-import { I18nProvider, useI18n } from './hooks/useI18n.jsx';
-import LangToggle from './components/LangToggle.jsx';
 import VisitorCount from './components/VisitorCount.jsx';
 import Petal from './components/Petal.jsx';
+import { SpeechProvider } from './components/SpeechProvider.jsx';
+import { I18nProvider, useI18n } from './hooks/useI18n.jsx';
+import { useActiveSection } from './hooks/useActiveSection.js';
+import LangToggle from './components/LangToggle.jsx';
 import Hero from './sections/Hero.jsx';
 import TrustBar from './sections/TrustBar.jsx';
 import VideoResume from './sections/VideoResume.jsx';
-import Proof from './sections/Proof.jsx';
-import Baybayin from './sections/Baybayin.jsx';
 import Entries from './sections/Entries.jsx';
+import Baybayin from './sections/Baybayin.jsx';
+import Proof from './sections/Proof.jsx';
 import Skills from './sections/Skills.jsx';
 import Education from './sections/Education.jsx';
 
 const byType = type => resume.sections.find(s => s.type === type);
 
+// Nav order is the page order. Keeping the two in sync by hand is how they
+// drift, so this array is the single definition: it drives the links AND the
+// scroll-spy, and the sections below are rendered in the same sequence.
+const NAV = [
+  { id: 'video', key: 'nav.video' },
+  { id: 'experience', key: 'nav.experience' },
+  { id: 'projects', key: 'nav.projects' },
+  { id: 'baybayin', key: 'nav.play' },
+  { id: 'proof', key: 'nav.proof' },
+  { id: 'skills', key: 'nav.skills' },
+];
+const NAV_IDS = NAV.map(n => n.id);
+
 function Page() {
   const { t } = useI18n();
+  const active = useActiveSection(NAV_IDS);
+
   const experience = byType('experience');
   const projects = byType('projects');
   const education = byType('education');
   const skills = byType('skills');
 
   return (
-    <SpeechProvider>
+    <>
       <a className="skip-link" href="#main">{t('skip')}</a>
       <PetalBurst />
 
@@ -35,16 +51,32 @@ function Page() {
           <span className="topbar__mark">RM</span>
           <span className="visually-hidden">{t('home')}</span>
         </a>
+
         <nav className="topbar__nav" aria-label={t('nav.label')}>
-          <a href="#experience">{t('nav.experience')}</a>
-          <a href="#projects">{t('nav.projects')}</a>
-          <a href="#video">{t('nav.video')}</a>
-          <a href="#baybayin">{t('nav.play')}</a>
-          <a href="#proof">{t('nav.proof')}</a>
-          <a href="#skills">{t('nav.skills')}</a>
+          <ul className="topbar__links" role="list">
+            {NAV.map(item => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className={`topbar__link${active === item.id ? ' is-current' : ''}`}
+                  // aria-current tells a screen reader which section is in view,
+                  // so the highlight is not purely visual.
+                  aria-current={active === item.id ? 'true' : undefined}
+                >
+                  {t(item.key)}
+                </a>
+              </li>
+            ))}
+          </ul>
         </nav>
-        <LangToggle />
-        <ThemeToggle />
+
+        {/* A separate group with its own divider. Display controls are a
+            different kind of thing from navigation, and sitting them flush
+            against the links made them read as more nav items. */}
+        <div className="topbar__controls" role="group" aria-label={t('nav.controls')}>
+          <LangToggle />
+          <ThemeToggle />
+        </div>
       </header>
 
       <main id="main">
@@ -52,11 +84,11 @@ function Page() {
         <TrustBar experience={experience} />
         <VideoResume />
         {experience && (
-          <Entries section={experience} id="experience"
+          <Entries section={experience} id="experience" titleKey="section.experience"
                    accent={['powder', 'purple', 'pink', 'mint', 'red', 'yellow']} />
         )}
         {projects && (
-          <Entries section={projects} id="projects"
+          <Entries section={projects} id="projects" titleKey="section.projects"
                    accent={['mint', 'yellow', 'powder']} />
         )}
         <Baybayin />
@@ -72,14 +104,16 @@ function Page() {
           <VisitorCount />
         </div>
       </footer>
-    </SpeechProvider>
+    </>
   );
 }
 
 export default function App() {
   return (
     <I18nProvider>
-      <Page />
+      <SpeechProvider>
+        <Page />
+      </SpeechProvider>
     </I18nProvider>
   );
 }

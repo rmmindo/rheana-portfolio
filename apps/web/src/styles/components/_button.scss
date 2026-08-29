@@ -68,3 +68,15 @@
 }
 
 .section__head .section__title { margin-bottom: 0; }
+
+// Larger primary targets. The default 48px was legal but felt timid for a
+// conversion CTA, and small targets are harder for low-vision pointing.
+.btn--lg {
+  min-height: 56px;
+  padding: v.space(4) v.space(7);
+  font-size: v.$step-0;
+}
+
+@media (min-width: v.bp(md)) {
+  .btn--lg { min-height: 60px; font-size: v.$step-1; }
+}

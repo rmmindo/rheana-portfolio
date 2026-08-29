@@ -4,22 +4,72 @@ import PetalBurst from '../src/components/PetalBurst.jsx';
 import Stat from '../src/components/Stat.jsx';
 import { setReducedMotion } from './setup.js';
 
-const click = () => {
+const pointer = (type, opts) =>
+  Object.assign(new MouseEvent(type, { bubbles: true, button: 0, ...opts }), {
+    pointerType: opts.pointerType ?? 'mouse',
+  });
+
+// A mouse press bursts immediately.
+const click = (target = document.body) => {
+  act(() => { target.dispatchEvent(pointer('pointerdown', { clientX: 100, clientY: 100 })); });
+};
+
+// A touch tap: press and release in the same place, quickly.
+const tap = (target = document.body) => {
   act(() => {
-    document.body.dispatchEvent(
-      new MouseEvent('pointerdown', { bubbles: true, clientX: 100, clientY: 100, button: 0 })
-    );
+    target.dispatchEvent(pointer('pointerdown', { clientX: 100, clientY: 100, pointerType: 'touch' }));
+    target.dispatchEvent(pointer('pointerup', { clientX: 102, clientY: 101, pointerType: 'touch' }));
   });
 };
+
+// A touch scroll: press, move a long way, release.
+const swipe = (target = document.body) => {
+  act(() => {
+    target.dispatchEvent(pointer('pointerdown', { clientX: 100, clientY: 400, pointerType: 'touch' }));
+    target.dispatchEvent(pointer('pointerup', { clientX: 104, clientY: 90, pointerType: 'touch' }));
+  });
+};
+
+const petals = () => document.querySelectorAll('.petal-layer__petal').length;
 
 describe('PetalBurst', () => {
   beforeEach(() => { document.querySelectorAll('.petal-layer').forEach(n => n.remove()); });
 
-  it('scatters petals on a plain click', () => {
+  it('scatters petals on a mouse click', () => {
     setReducedMotion(false);
     render(<PetalBurst />);
     click();
-    expect(document.querySelectorAll('.petal-layer__petal').length).toBeGreaterThan(0);
+    expect(petals()).toBeGreaterThan(0);
+  });
+
+  it('scatters petals on a touch tap', () => {
+    setReducedMotion(false);
+    render(<PetalBurst />);
+    tap();
+    expect(petals()).toBeGreaterThan(0);
+  });
+
+  // The bug this prevents: pointerdown fires the moment a finger lands, which
+  // is also how a scroll starts, so every swipe used to throw petals.
+  it('does NOT scatter petals when a touch drag is a scroll', () => {
+    setReducedMotion(false);
+    render(<PetalBurst />);
+    swipe();
+    expect(petals()).toBe(0);
+  });
+
+  it('does not scatter when a touch gesture is cancelled', () => {
+    setReducedMotion(false);
+    render(<PetalBurst />);
+    act(() => {
+      document.body.dispatchEvent(
+        pointer('pointerdown', { clientX: 100, clientY: 100, pointerType: 'touch' }));
+      document.body.dispatchEvent(
+        pointer('pointercancel', { clientX: 100, clientY: 100, pointerType: 'touch' }));
+      document.body.dispatchEvent(
+        pointer('pointerup', { clientX: 100, clientY: 100, pointerType: 'touch' }));
+    });
+    expect(petals()).toBe(0);
   });
 
   it('mounts nothing at all under prefers-reduced-motion', () => {
@@ -40,11 +90,8 @@ describe('PetalBurst', () => {
   it('does not fire on interactive controls', () => {
     setReducedMotion(false);
     render(<><PetalBurst /><button type="button">Send</button></>);
-    act(() => {
-      screen.getByRole('button', { name: 'Send' })
-        .dispatchEvent(new MouseEvent('pointerdown', { bubbles: true, button: 0 }));
-    });
-    expect(document.querySelectorAll('.petal-layer__petal')).toHaveLength(0);
+    click(screen.getByRole('button', { name: 'Send' }));
+    expect(petals()).toBe(0);
   });
 });
 

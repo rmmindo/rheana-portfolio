@@ -1,17 +1,19 @@
-import RichText from '../lib/richText.jsx';
+import RichText, { plain } from '../lib/richText.jsx';
 import { useReveal } from '../hooks/useReveal.js';
+import { useI18n } from '../hooks/useI18n.jsx';
 
 export default function Skills({ section }) {
   const ref = useReveal();
+  const { t } = useI18n();
 
   return (
     <section className="skills" id="skills" aria-labelledby="skills-heading" ref={ref}>
       <div className="section__inner">
-        <h2 id="skills-heading" className="section__title">{section.title}</h2>
+        <h2 id="skills-heading" className="section__title">{t('section.skills')}</h2>
         <dl className="skills__list">
           {section.lines.map((line, i) => (
             <div className="skills__row" key={line.label} style={{ '--i': i }}>
-              <dt className="skills__label">{line.label}</dt>
+              <dt className="skills__label">{plain(line.label)}</dt>
               <dd className="skills__value"><RichText>{line.text}</RichText></dd>
             </div>
           ))}

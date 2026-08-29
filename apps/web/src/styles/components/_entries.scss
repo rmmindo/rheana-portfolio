@@ -90,3 +90,11 @@
 }
 
 .entry__lead { color: var(--text); }
+
+@media (min-width: v.bp(lg)) {
+  // Two columns for the shorter project entries; experience stays full width
+  // because its bullets are long and a narrow measure would hurt reading.
+  #projects .entries__list { grid-template-columns: repeat(2, 1fr); }
+
+  .entry__bullets li { max-width: 92ch; }
+}

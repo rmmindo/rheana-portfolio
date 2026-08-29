@@ -42,6 +42,21 @@ export function richText(input) {
   return nodes;
 }
 
+/**
+ * Decodes entities and strips markup, for fields rendered as plain strings
+ * rather than through RichText.
+ *
+ * raysume HTML-escapes every value before writing the JSON, so an ampersand
+ * arrives as &amp; and an apostrophe as &#x27;. RichText already decodes those
+ * on its way to React elements. Fields that skip RichText - section titles,
+ * an entry's location and context - would otherwise render the escape sequence
+ * literally on screen, which is exactly the "&amp;" showing up as text.
+ */
+export function plain(text) {
+  if (!text) return '';
+  return decodeEntities(String(text).replace(/<[^>]+>/g, ''));
+}
+
 export default function RichText({ children }) {
   return <>{richText(children)}</>;
 }

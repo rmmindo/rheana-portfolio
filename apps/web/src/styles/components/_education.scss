@@ -23,3 +23,16 @@
 .education__school { font-weight: v.$weight-bold; margin-top: v.space(1); }
 .education__dates { margin-top: v.space(1); font-size: v.$step--1; opacity: 0.85; }
 .education__honors { margin-top: v.space(3); font-size: v.$step--1; }
+
+// A ring rather than a flat pastel block reads better in both themes and stops
+// the card fighting the page background in dark mode.
+.education__item {
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--accent-mint);
+}
+
+:root[data-theme="dark"] .education__item { background: var(--paper-raised); }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .education__item { background: var(--paper-raised); }
+}

@@ -91,3 +91,31 @@
   .video__play-badge { transition: transform v.$dur-base v.$ease-spring; }
   .video__play:hover .video__play-badge { transform: translate(-50%, -50%) scale(1.08); }
 }
+
+// The facade and the real player must occupy the SAME box. Previously the
+// button collapsed to the poster's intrinsic ratio (1533x855, not exactly 16:9)
+// while the frame held 16/9, so the container was taller than the image and the
+// poster was cropped. Pinning both to the frame's ratio fixes both symptoms.
+.video__frame {
+  aspect-ratio: 16 / 9;
+  max-width: 64rem;
+  margin-inline: auto;
+}
+
+.video__play {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video__poster,
+.video__player {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center 22%;
+}

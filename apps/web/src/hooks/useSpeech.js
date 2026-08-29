@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { pickVoice } from '../lib/pickVoice.js';
 
 // Read-aloud built on the Web Speech API.
 //
@@ -20,6 +21,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 export function useSpeech() {
   const [supported, setSupported] = useState(false);
+  const [voices, setVoices] = useState([]);
   const [speakingId, setSpeakingId] = useState(null);
   const utteranceRef = useRef(null);
 
@@ -27,7 +29,11 @@ export function useSpeech() {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
 
     const synth = window.speechSynthesis;
-    const check = () => setSupported(synth.getVoices().length > 0);
+    const check = () => {
+      const list = synth.getVoices();
+      setVoices(list);
+      setSupported(list.length > 0);
+    };
 
     check();
     synth.addEventListener?.('voiceschanged', check);
@@ -62,7 +68,19 @@ export function useSpeech() {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 1;
     utterance.pitch = 1;
-    utterance.lang = document.documentElement.lang || 'en';
+    const locale = document.documentElement.lang || 'en';
+    utterance.lang = locale;
+
+    // Prefer a female Filipino voice, then a female voice in the page language,
+    // then anything intelligible. See lib/pickVoice.js for the ranking.
+    const chosen = pickVoice(window.speechSynthesis.getVoices(), locale);
+    if (chosen) {
+      utterance.voice = chosen;
+      // The voice's own language wins over the page's: setting lang to
+      // something the chosen voice does not speak makes some engines fall back
+      // to a different voice entirely.
+      utterance.lang = chosen.lang || locale;
+    }
     utterance.onend = () => setSpeakingId(null);
     utterance.onerror = () => setSpeakingId(null);
 
@@ -71,7 +89,7 @@ export function useSpeech() {
     synth.speak(utterance);
   }, [speakingId, stop]);
 
-  return { supported, speak, stop, speakingId };
+  return { supported, speak, stop, speakingId, voices };
 }
 
 /**

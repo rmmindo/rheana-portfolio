@@ -48,7 +48,9 @@ $paper-raised:#ffffff;
 $ink-strong:  #1a1626;  // 10.6:1 on powder, 14.6:1 on mint
 $ink-muted:   #4a4458;  // 7.9:1 on $paper - still AA, never below
 $night:       #12101a;
-$night-raised:#1c1927;
+// Raised surfaces sat only 4% above the page, so cards read as flat
+// background. This separation is visible without becoming grey.
+$night-raised:#221e30;
 $night-ink:   #f4f1fa;
 $night-muted: #b9b2c9;  // 7.4:1 on $night
 
