@@ -72,7 +72,9 @@
     "visitors.note": "Counted without storing any IP address: visitors are identified by a hash that is regenerated every day.",
     "speak.section": "this section",
     "speak.intro": "the introduction",
-    "nav.controls": "Display settings"
+    "nav.controls": "Display settings",
+    "section.volunteering": "Volunteering & Community",
+    "nav.volunteering": "Community"
   },
   "fil": {
     "lang.name": "Filipino",
@@ -146,6 +148,8 @@
     "visitors.note": "Binibilang nang hindi iniimbak ang IP address: kinikilala ang bisita sa pamamagitan ng hash na binabago araw-araw.",
     "speak.section": "ang seksyong ito",
     "speak.intro": "ang panimula",
-    "nav.controls": "Mga setting ng display"
+    "nav.controls": "Mga setting ng display",
+    "section.volunteering": "Boluntaryo at Komunidad",
+    "nav.volunteering": "Komunidad"
   }
 }

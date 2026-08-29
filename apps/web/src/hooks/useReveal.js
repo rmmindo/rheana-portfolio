@@ -18,7 +18,13 @@ import { useEffect, useRef } from 'react';
 // content permanently.
 const FAILSAFE_MS = 3000;
 
-export function useReveal({ rootMargin = '0px 0px -5% 0px' } = {}) {
+// rootMargin starts the reveal 300px BEFORE the element enters the viewport.
+// Two reasons. It hides the animation's start, so content is already solid by
+// the time it is readable. And it fixes a real accessibility defect: an
+// automated contrast check that samples a caption mid-fade sees 3.58:1, because
+// partial opacity composites the text toward its background. Finishing the
+// transition off-screen means text is never presented at reduced contrast.
+export function useReveal({ rootMargin = '300px 0px 300px 0px' } = {}) {
   const ref = useRef(null);
 
   useEffect(() => {

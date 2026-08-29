@@ -57,10 +57,19 @@ export default function GlyphRecogniser() {
       setTemplates(built);
     };
 
+    // Rasterising 17 glyphs is a few milliseconds of main-thread work. Doing it
+    // during hydration adds directly to Total Blocking Time for a feature most
+    // visitors never scroll to, so it waits for an idle moment.
+    const schedule = fn =>
+      (window.requestIdleCallback ?? (cb => setTimeout(cb, 200)))(fn, { timeout: 2000 });
+
     if (document.fonts?.ready) {
-      document.fonts.ready.then(() => document.fonts.load('40px "Noto Sans Tagalog"')).then(build).catch(build);
+      document.fonts.ready
+        .then(() => document.fonts.load('40px "Noto Sans Tagalog"'))
+        .then(() => schedule(build))
+        .catch(() => schedule(build));
     } else {
-      build();
+      schedule(build);
     }
     return () => { cancelled = true; };
   }, []);

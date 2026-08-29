@@ -25,6 +25,7 @@
   },
   "sections": [
     {
+      "id": "experience",
       "type": "experience",
       "title": "Experience",
       "entries": [
@@ -139,6 +140,7 @@
       ]
     },
     {
+      "id": "projects",
       "type": "projects",
       "title": "Leadership & Projects",
       "entries": [
@@ -153,24 +155,6 @@
             {
               "lead": "",
               "text": "Quantified religious bias in LLMs (<strong>BERT, RoBERTa, DistilBERT, GPT-2, T5-small</strong>) by developing the <strong>Rapid Religious Bias Probe (RRBP)</strong> and adapting a <strong>Religion-Equalizing Loss Function (RELF)</strong> using Python and PyTorch; evaluated bias with RBS, causal/embedding metrics, StereoSet, and CrowsPairs."
-            }
-          ]
-        },
-        {
-          "id": "",
-          "title": "Education Committee Head",
-          "org": "UPLB Computer Science Society",
-          "dates": "July 2024 – June 2025",
-          "location": "On-site · UPLB, Los Baños, Laguna",
-          "context": "Articles · Workshops · Mock Exams",
-          "bullets": [
-            {
-              "lead": "",
-              "text": "Published <strong>21 computer science articles</strong>, boosting the COSS page to the 2nd-most-popular section (next to CS Week) and helping grow followers to <strong>6,000+</strong> after my term."
-            },
-            {
-              "lead": "",
-              "text": "Initiated peer-driven mock exams for <strong>400+ students</strong> and workshops with alumni and industry experts on career-aligned tech skills, bridging curriculum gaps."
             }
           ]
         },
@@ -191,6 +175,60 @@
       ]
     },
     {
+      "id": "volunteering",
+      "type": "projects",
+      "title": "Volunteering & Community",
+      "entries": [
+        {
+          "id": "",
+          "title": "Education Committee Head",
+          "org": "UPLB Computer Science Society",
+          "dates": "July 2024 – June 2025",
+          "location": "On-site · UPLB, Los Baños, Laguna",
+          "context": "Articles · Workshops · Mock Exams",
+          "bullets": [
+            {
+              "lead": "",
+              "text": "Published <strong>21 computer science articles</strong>, boosting the COSS page to the 2nd-most-popular section (next to CS Week) and helping grow followers to <strong>6,000+</strong> after my term."
+            },
+            {
+              "lead": "",
+              "text": "Initiated peer-driven mock exams for <strong>400+ students</strong> and workshops with alumni and industry experts on career-aligned tech skills, bridging curriculum gaps."
+            }
+          ]
+        },
+        {
+          "id": "",
+          "title": "Events Treasurer",
+          "org": "UPLB Kaiban",
+          "dates": "2023 – 2024",
+          "location": "On-site · UPLB, Los Baños, Laguna",
+          "context": "Volunteer · Event Finance · Fundraising",
+          "bullets": [
+            {
+              "lead": "Event finance and fundraising.",
+              "text": "Handled <strong>10 fundraising events</strong> and reformed the organisation&#x27;s financial systems, returning <strong>64.7% profit</strong> and growing the budget by <strong>756%</strong> while holding ticket prices at <strong>100 pesos</strong> so events stayed affordable to every member."
+            }
+          ]
+        },
+        {
+          "id": "",
+          "title": "Technical Lead",
+          "org": "Scratch A Game",
+          "dates": "2022 – 2023",
+          "location": "Volunteer · Remote and on-site",
+          "context": "Teaching · Game Development Outreach",
+          "bullets": [
+            {
+              "lead": "Game development outreach.",
+              "text": "Led the build side of a volunteer programme teaching game development to young aspiring developers, taking the technical decisions that made each project actually run and setting a clear path for every member of the team to follow."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "education",
       "type": "education",
       "title": "Education",
       "entries": [
@@ -209,6 +247,7 @@
       ]
     },
     {
+      "id": "skills",
       "type": "skills",
       "title": "Skills & Awards",
       "lines": [

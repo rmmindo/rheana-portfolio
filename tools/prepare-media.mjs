@@ -49,7 +49,8 @@ console.log('media');
 
 // Video poster. 1280x720 is the largest size the player is ever shown at.
 const posterOut = join(publicDir, 'media/rheana-mindo-video-resume-poster.webp');
-await sharp(src.poster).resize(1280, 720, { fit: 'cover' }).webp({ quality: 78 }).toFile(posterOut);
+await sharp(src.poster).resize(1280, 720, { fit: 'cover' })
+  .webp({ quality: 72, effort: 6 }).toFile(posterOut);
 await report('rheana-mindo-video-resume-poster.webp', posterOut);
 
 const videoOut = join(publicDir, 'media/rheana-mindo-video-resume.mp4');
@@ -61,14 +62,15 @@ console.log('img');
 // Headshot at two widths for a responsive srcset. 2x covers retina at 320 CSS px.
 for (const w of [320, 640]) {
   const out = join(publicDir, `img/rheana-mindo-ai-developer-portrait-${w}.webp`);
-  await sharp(src.headshot).resize(w, w, { fit: 'cover' }).webp({ quality: 82 }).toFile(out);
+  await sharp(src.headshot).resize(w, w, { fit: 'cover' })
+    .webp({ quality: 76, effort: 6 }).toFile(out);
   await report(`rheana-mindo-ai-developer-portrait-${w}.webp`, out);
 }
 
 // Monogram, used as the social share image and the large tab icon.
 const markOut = join(publicDir, 'img/rheana-mindo-rm-monogram.webp');
 await sharp(src.monogram).resize(512, 512, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
-  .webp({ quality: 90 }).toFile(markOut);
+  .webp({ quality: 80, effort: 6 }).toFile(markOut);
 await report('rheana-mindo-rm-monogram.webp', markOut);
 
 console.log('icons');

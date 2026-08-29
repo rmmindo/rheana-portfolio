@@ -16,7 +16,7 @@ import Proof from './sections/Proof.jsx';
 import Skills from './sections/Skills.jsx';
 import Education from './sections/Education.jsx';
 
-const byType = type => resume.sections.find(s => s.type === type);
+const byId = id => resume.sections.find(s => s.id === id);
 
 // Nav order is the page order. Keeping the two in sync by hand is how they
 // drift, so this array is the single definition: it drives the links AND the
@@ -25,6 +25,7 @@ const NAV = [
   { id: 'video', key: 'nav.video' },
   { id: 'experience', key: 'nav.experience' },
   { id: 'projects', key: 'nav.projects' },
+  { id: 'volunteering', key: 'nav.volunteering' },
   { id: 'baybayin', key: 'nav.play' },
   { id: 'proof', key: 'nav.proof' },
   { id: 'skills', key: 'nav.skills' },
@@ -35,10 +36,11 @@ function Page() {
   const { t } = useI18n();
   const active = useActiveSection(NAV_IDS);
 
-  const experience = byType('experience');
-  const projects = byType('projects');
-  const education = byType('education');
-  const skills = byType('skills');
+  const experience = byId('experience');
+  const projects = byId('projects');
+  const volunteering = byId('volunteering');
+  const education = byId('education');
+  const skills = byId('skills');
 
   return (
     <>
@@ -90,6 +92,10 @@ function Page() {
         {projects && (
           <Entries section={projects} id="projects" titleKey="section.projects"
                    accent={['mint', 'yellow', 'powder']} />
+        )}
+        {volunteering && (
+          <Entries section={volunteering} id="volunteering" titleKey="section.volunteering"
+                   accent={['mint', 'pink', 'yellow']} />
         )}
         <Baybayin />
         <Proof />
