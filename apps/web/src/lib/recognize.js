@@ -25,17 +25,49 @@
 //                                             a cliff
 //   4. cosine similarity against each template
 
-export const GRID = 24;
+// A finer grid than the 24 used for base glyphs alone. A kudlit is a small mark
+// relative to the letter it sits on, and at 24x24 with a blur it smeared into
+// the body of the consonant, which is why the first version could only tell
+// base letters apart.
+export const GRID = 32;
 
-/** The base glyphs, without vowel marks. Kudlit detection is a separate problem. */
-export const GLYPHS = [
-  { char: 'ᜀ', latin: 'a' },  { char: 'ᜁ', latin: 'i/e' }, { char: 'ᜂ', latin: 'u/o' },
-  { char: 'ᜃ', latin: 'ka' }, { char: 'ᜄ', latin: 'ga' },  { char: 'ᜅ', latin: 'nga' },
-  { char: 'ᜆ', latin: 'ta' }, { char: 'ᜇ', latin: 'da/ra' }, { char: 'ᜈ', latin: 'na' },
-  { char: 'ᜉ', latin: 'pa' }, { char: 'ᜊ', latin: 'ba' },  { char: 'ᜋ', latin: 'ma' },
-  { char: 'ᜌ', latin: 'ya' }, { char: 'ᜎ', latin: 'la' },  { char: 'ᜏ', latin: 'wa' },
-  { char: 'ᜐ', latin: 'sa' }, { char: 'ᜑ', latin: 'ha' },
+/** The 17 base consonant and vowel signs of the U+1700 block. */
+export const BASE = [
+  { char: 'ᜀ', latin: 'a' },   { char: 'ᜁ', latin: 'i/e' },  { char: 'ᜂ', latin: 'u/o' },
+  { char: 'ᜃ', latin: 'ka' },  { char: 'ᜄ', latin: 'ga' },   { char: 'ᜅ', latin: 'nga' },
+  { char: 'ᜆ', latin: 'ta' },  { char: 'ᜇ', latin: 'da/ra' },{ char: 'ᜈ', latin: 'na' },
+  { char: 'ᜉ', latin: 'pa' },  { char: 'ᜊ', latin: 'ba' },   { char: 'ᜋ', latin: 'ma' },
+  { char: 'ᜌ', latin: 'ya' },  { char: 'ᜎ', latin: 'la' },   { char: 'ᜏ', latin: 'wa' },
+  { char: 'ᜐ', latin: 'sa' },  { char: 'ᜑ', latin: 'ha' },
 ];
+
+const KUDLIT_I = 'ᜒ';
+const KUDLIT_U = 'ᜓ';
+const VIRAMA = '᜔';
+
+/** The three independent vowels take no marks. */
+const VOWEL_CHARS = new Set(['ᜀ', 'ᜁ', 'ᜂ']);
+
+/**
+ * Every form a learner can actually draw: the bare consonant (inherent "a"),
+ * the same consonant with the kudlit above for i/e, with the kudlit below for
+ * u/o, and with the virama cancelling the vowel.
+ *
+ * 17 consonants x 4 forms, minus the three vowels which take no marks, plus
+ * those three on their own.
+ */
+export const GLYPHS = BASE.flatMap(g => {
+  if (VOWEL_CHARS.has(g.char)) return [{ ...g, form: 'vowel', reading: g.latin }];
+  // "ka" -> "k", "nga" -> "ng", "da/ra" -> "d". The consonant stem is what the
+  // kudlit forms are built on, so it is derived once here rather than listed.
+  const consonant = g.latin.split('/')[0].replace(/a$/, '');
+  return [
+    { char: g.char, latin: g.latin, form: 'a', reading: g.latin },
+    { char: g.char + KUDLIT_I, latin: `${consonant}i`, form: 'i', reading: `${consonant}i / ${consonant}e` },
+    { char: g.char + KUDLIT_U, latin: `${consonant}u`, form: 'u', reading: `${consonant}u / ${consonant}o` },
+    { char: g.char + VIRAMA, latin: consonant, form: 'virama', reading: `${consonant} (no vowel)` },
+  ];
+});
 
 /**
  * Smallest rectangle containing any ink. Returns null when the grid is empty,

@@ -61,7 +61,9 @@
   font-family: v.$font-heading;
   font-weight: v.$weight-bold;
   font-size: v.$step-2;
-  max-width: 26ch;
+  // 26ch broke "I build AI systems that ship" across too many short lines and
+  // made the sentence read as a stub. This fits the claim in two lines.
+  max-width: 42ch;
   margin-bottom: v.space(4);
   text-wrap: balance;
 }

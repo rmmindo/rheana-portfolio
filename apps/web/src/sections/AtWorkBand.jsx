@@ -12,12 +12,12 @@ export default function AtWorkBand() {
     <figure className="band" ref={ref}>
       <img
         className="band__img"
-        src="/img/rheana-mindo-developer-at-work-1600.webp"
-        srcSet="/img/rheana-mindo-developer-at-work-960.webp 960w, /img/rheana-mindo-developer-at-work-1600.webp 1600w"
+        src="/img/rheana-mindo-developer-at-work-1800.webp"
+        srcSet="/img/rheana-mindo-developer-at-work-1200.webp 1200w, /img/rheana-mindo-developer-at-work-1800.webp 1800w"
         sizes="100vw"
         alt={t('band.alt')}
-        width="1600"
-        height="800"
+        width="1800"
+        height="1188"
         loading="lazy"
         decoding="async"
       />

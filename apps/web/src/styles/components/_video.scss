@@ -99,7 +99,9 @@
 .video__frame {
   aspect-ratio: 16 / 9;
   max-width: 64rem;
-  margin-inline: auto;
+  // Left-aligned like every other block on the page. Centring it made the
+  // video look like it belonged to a different site.
+  margin-inline: 0;
 }
 
 .video__play {

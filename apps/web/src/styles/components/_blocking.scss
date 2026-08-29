@@ -1,0 +1,69 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/shapes" as s;
+
+// Section colour blocking.
+//
+// Every section previously sat on the same paper colour, so the page read as
+// one long scroll of white with small coloured accents. Giving each section its
+// own ground is what the reference board does, and it is what makes a long
+// single-page site feel like a sequence of places rather than one document.
+//
+// The pastels are used at low opacity over the paper colour so the text tokens
+// underneath still hold their measured contrast ratios.
+
+.trust {
+  background:
+    linear-gradient(color-mix(in srgb, var(--surface-powder) 35%, transparent),
+                    color-mix(in srgb, var(--surface-powder) 35%, transparent)),
+    var(--paper-raised);
+}
+
+.entries#experience { background: var(--paper); }
+
+.entries#projects {
+  background:
+    linear-gradient(color-mix(in srgb, var(--surface-mint) 30%, transparent),
+                    color-mix(in srgb, var(--surface-mint) 30%, transparent)),
+    var(--paper);
+}
+
+.entries#volunteering {
+  @include s.gingham(color-mix(in srgb, var(--surface-pink) 42%, transparent), 26px);
+}
+
+.proof {
+  @include s.stripes(color-mix(in srgb, var(--surface-yellow) 34%, transparent), 22px, 90deg);
+}
+
+.skills {
+  background:
+    linear-gradient(color-mix(in srgb, var(--surface-purple) 22%, transparent),
+                    color-mix(in srgb, var(--surface-purple) 22%, transparent)),
+    var(--paper-raised);
+}
+
+// Dark mode: the pastels are deep surfaces there, so the same blend would go
+// muddy. Each section keeps a hint of its hue instead of a wash of it.
+:root[data-theme="dark"] {
+  .trust, .entries#projects, .entries#volunteering, .proof, .skills {
+    background-image: none;
+    background-color: var(--paper);
+  }
+  .trust, .skills { background-color: var(--paper-raised); }
+
+  .entries#volunteering { border-block: 1px solid var(--glow-pink); }
+  .proof { border-block: 1px solid var(--glow-yellow); }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    .trust, .entries#projects, .entries#volunteering, .proof, .skills {
+      background-image: none;
+      background-color: var(--paper);
+    }
+    .trust, .skills { background-color: var(--paper-raised); }
+
+    .entries#volunteering { border-block: 1px solid var(--glow-pink); }
+    .proof { border-block: 1px solid var(--glow-yellow); }
+  }
+}

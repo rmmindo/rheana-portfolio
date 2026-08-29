@@ -1,0 +1,88 @@
+// _shapes.scss
+// The visual devices that carry the site's identity: scalloped edges, gingham
+// and stripe grounds. All of it is CSS, so it costs nothing to download and
+// recolours with the theme.
+//
+// The scalloped frame is the repeated motif of Rheana's reference board. Using
+// it once was decoration; using it consistently on cards, images and badges is
+// what makes the page look designed rather than assembled.
+
+@use "variables" as v;
+
+// Scalloped edge, cut with a mask.
+//
+// Two mask layers, unioned: a grid of circles tiled with `round` so they fit
+// the box exactly, plus an inner rectangle inset by one scallop so the middle
+// stays solid. `round` is what keeps the bumps evenly spaced at any width -
+// with `repeat` the last one gets clipped and the edge looks broken.
+//
+// border-radius is set FIRST as the fallback. A browser without mask support
+// gets soft rounded corners rather than a hard rectangle, which is a smaller
+// loss than a broken shape.
+@mixin scallop($size: 22px, $radius: v.$radius-lg) {
+  border-radius: $radius;
+
+  @supports (mask: radial-gradient(#000, transparent)) {
+    --scallop: #{$size};
+    border-radius: 0;
+    -webkit-mask:
+      radial-gradient(circle closest-side, #000 99%, transparent) 0 0 /
+        var(--scallop) var(--scallop) round,
+      linear-gradient(#000 0 0) center /
+        calc(100% - var(--scallop)) calc(100% - var(--scallop)) no-repeat;
+    mask:
+      radial-gradient(circle closest-side, #000 99%, transparent) 0 0 /
+        var(--scallop) var(--scallop) round,
+      linear-gradient(#000 0 0) center /
+        calc(100% - var(--scallop)) calc(100% - var(--scallop)) no-repeat;
+  }
+}
+
+// A mask clips a box-shadow away, so a scalloped card cannot lift off the page
+// with a shadow. It gets a solid offset copy of itself instead, which is how
+// the reference board does it and reads as a sticker rather than a panel.
+@mixin sticker-shadow($colour: var(--accent-powder), $x: 8px, $y: 10px) {
+  position: relative;
+  isolation: isolate;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    transform: translate(#{$x}, #{$y});
+    background: #{$colour};
+    @content;
+  }
+}
+
+// --- Pattern grounds ------------------------------------------------------ //
+// Both are pure gradients: no image request, and they follow the theme because
+// they are built from custom properties.
+
+@mixin gingham($colour: var(--surface-pink), $size: 22px) {
+  background-color: var(--paper);
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      #{$colour} 0 calc(#{$size} / 2),
+      transparent calc(#{$size} / 2) #{$size}
+    ),
+    repeating-linear-gradient(
+      0deg,
+      #{$colour} 0 calc(#{$size} / 2),
+      transparent calc(#{$size} / 2) #{$size}
+    );
+  // Multiply so the crossings darken, which is what makes it read as woven
+  // cloth rather than as two grids laid on top of each other.
+  background-blend-mode: multiply;
+}
+
+@mixin stripes($colour: var(--surface-yellow), $size: 16px, $angle: 90deg) {
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    #{$angle},
+    #{$colour} 0 calc(#{$size} / 2),
+    transparent calc(#{$size} / 2) #{$size}
+  );
+}

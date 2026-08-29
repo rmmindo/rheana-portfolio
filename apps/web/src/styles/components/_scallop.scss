@@ -1,0 +1,67 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/shapes" as s;
+
+// The scalloped edge, applied as a system rather than a one-off.
+//
+// box-shadow is clipped away by a mask, so these use filter: drop-shadow
+// instead. drop-shadow reads the element's alpha channel, which means the
+// shadow follows the scallops exactly rather than tracing the original
+// rectangle. That is the whole reason the edge reads as a cut shape.
+
+.entry {
+  @include s.scallop(20px);
+  box-shadow: none;
+  border: 0;
+  filter: drop-shadow(0 2px 0 var(--entry-accent))
+          drop-shadow(0 10px 18px rgb(0 0 0 / 0.10));
+}
+
+.rec {
+  @include s.scallop(18px);
+  box-shadow: none;
+  border: 0;
+  filter: drop-shadow(0 2px 0 var(--rec-accent))
+          drop-shadow(0 10px 18px rgb(0 0 0 / 0.10));
+}
+
+// Photography gets the same edge. This is the single strongest tie between the
+// pictures and the graphic language around them.
+.band__img,
+.bay__sablay-img,
+.education__photo {
+  @include s.scallop(22px);
+  border: 0;
+  box-shadow: none;
+  filter: drop-shadow(0 8px 16px rgb(0 0 0 / 0.14));
+}
+
+.video__frame {
+  @include s.scallop(24px);
+  border: 0;
+  box-shadow: none;
+}
+
+.education__item {
+  @include s.scallop(16px);
+  border: 0;
+  border-left: 0;
+  filter: drop-shadow(0 2px 0 var(--accent-mint));
+}
+
+.bay__output {
+  @include s.scallop(16px);
+  border: 0;
+}
+
+// A shadow under a dark-mode card should not be pure black on near-black.
+:root[data-theme="dark"] {
+  .entry, .rec { filter: drop-shadow(0 2px 0 var(--entry-accent, var(--rec-accent))); }
+  .band__img, .bay__sablay-img, .education__photo { filter: none; }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    .entry, .rec { filter: drop-shadow(0 2px 0 var(--entry-accent, var(--rec-accent))); }
+    .band__img, .bay__sablay-img, .education__photo { filter: none; }
+  }
+}

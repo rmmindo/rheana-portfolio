@@ -1,5 +1,6 @@
 // main.scss — the @use manifest. Import order is the cascade order.
 @use "abstracts/variables";
+@use "abstracts/shapes";
 @use "themes/tokens";
 @use "base/reset";
 @use "base/typography";
@@ -16,6 +17,8 @@
 @use "components/video";
 @use "components/proof";
 @use "components/baybayin";
+@use "components/blocking";
+@use "components/scallop";
 @use "components/footer";
 
 // Motion last: it overrides resting states set by the component styles above.

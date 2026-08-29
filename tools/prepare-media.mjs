@@ -90,10 +90,16 @@ for (const w of [320, 640]) {
 // At-work band: writing code by the light of the keyboard, in a barong and the
 // sablay. The single most on-message photograph in the set for a developer
 // portfolio, so it gets a wide crop and a full-width band.
-for (const w of [960, 1600]) {
+// A 2:3 original cropped to 2:1 throws away two thirds of the frame. Cropping
+// with the attention strategy on top of that zoomed into her hands and lost the
+// whole composition. Instead: take a gentle 3:2 crop from the upper-middle of
+// the frame, where she and the laptop are, and render it larger so the band can
+// be tall without upscaling.
+for (const w of [1200, 1800]) {
   const out = join(publicDir, `img/rheana-mindo-developer-at-work-${w}.webp`);
-  await sharp(src.atWork).resize(w, Math.round(w * 0.5), SMART)
-    .webp({ quality: 74, effort: 6 }).toFile(out);
+  await sharp(src.atWork)
+    .resize(w, Math.round(w * 0.66), { fit: 'cover', position: 'top' })
+    .webp({ quality: 72, effort: 6 }).toFile(out);
   await report(`rheana-mindo-developer-at-work-${w}.webp`, out);
 }
 

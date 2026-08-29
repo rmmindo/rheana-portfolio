@@ -39,9 +39,9 @@ section { padding-block: v.space(8); }
 
 .band__img {
   width: 100%;
-  height: clamp(14rem, 34vw, 26rem);
+  height: clamp(16rem, 40vw, 34rem);
   object-fit: cover;
-  object-position: center 40%;
+  object-position: center 35%;
   display: block;
 }
 

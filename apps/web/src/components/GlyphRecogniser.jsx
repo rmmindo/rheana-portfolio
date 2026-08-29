@@ -171,7 +171,7 @@ export default function GlyphRecogniser() {
             <p className="draw__label">{t('bay.draw.guess')}</p>
             <p className="draw__glyph" lang="tl-Tglg" aria-hidden="true">{best.char}</p>
             <p className="draw__latin">
-              {best.latin}
+              {best.reading ?? best.latin}
               <span className="draw__score"> · {Math.round(best.score * 100)}%</span>
             </p>
 
@@ -182,7 +182,7 @@ export default function GlyphRecogniser() {
                   {rest.map(g => (
                     <li key={g.char}>
                       <span lang="tl-Tglg" aria-hidden="true">{g.char}</span>
-                      <span className="draw__alt-latin">{g.latin}</span>
+                      <span className="draw__alt-latin">{g.reading ?? g.latin}</span>
                     </li>
                   ))}
                 </ul>

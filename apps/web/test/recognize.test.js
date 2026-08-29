@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
-  GRID, GLYPHS, boundingBox, cropAndScale, blur, similarity, normalise, classify,
+  GRID, GLYPHS, BASE, boundingBox, cropAndScale, blur, similarity, normalise, classify,
 } from '../src/lib/recognize.js';
 
 // Builds a raw grid from an ASCII picture, so the tests read as the shapes they
@@ -140,15 +140,42 @@ describe('classify', () => {
 });
 
 describe('glyph set', () => {
-  it('covers the 17 base Baybayin characters', () => {
-    expect(GLYPHS).toHaveLength(17);
+  it('covers the 17 base characters', () => {
+    expect(BASE).toHaveLength(17);
   });
 
-  it('has a unique character per entry', () => {
+  // The first version only had the 17 bare letters, so it could never tell
+  // "ka" from "ki" - the kudlit was invisible to it. Every writable form now
+  // has a template: 14 consonants x 4 forms, plus the 3 standalone vowels.
+  it('covers every writable form, not just the bare letters', () => {
+    expect(GLYPHS).toHaveLength(59);
+  });
+
+  it('includes the kudlit and virama forms of each consonant', () => {
+    const forms = GLYPHS.reduce((acc, g) => ({ ...acc, [g.form]: (acc[g.form] ?? 0) + 1 }), {});
+    expect(forms).toEqual({ vowel: 3, a: 14, i: 14, u: 14, virama: 14 });
+  });
+
+  it('builds the consonant stem correctly, including the ng digraph', () => {
+    const ng = GLYPHS.filter(g => g.form === 'i' && g.latin === 'ngi');
+    expect(ng).toHaveLength(1);
+  });
+
+  it('has a unique character sequence per entry', () => {
     expect(new Set(GLYPHS.map(g => g.char)).size).toBe(GLYPHS.length);
   });
 
-  it('labels every glyph with its Latin reading', () => {
-    for (const g of GLYPHS) expect(g.latin).toBeTruthy();
+  it('gives every glyph a human reading', () => {
+    for (const g of GLYPHS) expect(g.reading).toBeTruthy();
+  });
+
+  it('states both vowel readings a kudlit can carry', () => {
+    const ki = GLYPHS.find(g => g.latin === 'ki');
+    expect(ki.reading).toBe('ki / ke');
+  });
+
+  it('marks a virama form as carrying no vowel', () => {
+    const k = GLYPHS.find(g => g.form === 'virama' && g.latin === 'k');
+    expect(k.reading).toContain('no vowel');
   });
 });
