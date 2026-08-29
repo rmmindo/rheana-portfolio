@@ -1,0 +1,54 @@
+Language Standards
+=================
+Version: 1.0
+Date: 2026-03-17
+
+These standards apply to all written content: documentation, task files,
+reports, commit messages, PR descriptions, and code comments.
+
+1. Clarity
+   1.1. Use specific, concrete language. Avoid vague terms.
+        - Bad:  "It should handle the thing properly."
+        - Good: "The validate_input function must reject empty strings."
+   1.2. Every pronoun must have a clear, unambiguous antecedent.
+        - Bad:  "Update it so it works with the new version."
+        - Good: "Update the config parser so it works with schema v2."
+   1.3. Avoid abstract qualifiers: "really", "quite", "many", "some",
+        "great", "a lot", "big", "huge", "more", "better", "nice".
+        Replace with specific quantities or measurable descriptions.
+        - Bad:  "The response is really slow."
+        - Good: "The response takes 4.2 seconds, exceeding the 2-second target."
+
+2. Conciseness
+   2.1. Use the fewest words needed to convey the meaning.
+   2.2. Eliminate filler phrases: "in order to" (use "to"), "due to the
+        fact that" (use "because"), "at this point in time" (use "now").
+   2.3. One idea per sentence. Break compound sentences when clarity
+        improves.
+
+3. Structure
+   3.1. Lead with the most important information.
+   3.2. Use numbered lists for sequential steps.
+   3.3. Use bulleted lists for unordered items.
+   3.4. Use headings to separate sections in documents longer than
+        20 lines.
+
+4. Referrants
+   4.1. Never use "this", "that", "it", "they", or "these" without
+        a clear noun following or an unambiguous antecedent in the
+        same sentence or the immediately preceding sentence.
+        - Bad:  "This needs to be fixed before release."
+        - Good: "This validation bug needs to be fixed before release."
+   4.2. When referencing files, functions, variables, or systems,
+        use their exact names.
+        - Bad:  "Check the config file."
+        - Good: "Check config/settings.json."
+   4.3. When referencing tasks, use the full task ID.
+        - Bad:  "See the previous task."
+        - Good: "See 260317.task-01.setup-repos."
+
+5. Consistency
+   5.1. Use the same term for the same concept throughout a document.
+   5.2. Define abbreviations on first use.
+   5.3. Use present tense for current state, past tense for completed
+        actions, imperative mood for instructions.

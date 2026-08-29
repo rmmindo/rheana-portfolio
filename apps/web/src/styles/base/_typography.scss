@@ -1,0 +1,43 @@
+// _typography.scss
+@use "../abstracts/variables" as v;
+
+// Self-hosted so there is no render-blocking request to fonts.googleapis.com.
+// swap keeps text visible during load, which protects both LCP and the reader.
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("/fonts/atkinson-hyperlegible-regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("/fonts/atkinson-hyperlegible-bold.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Quicksand";
+  src: url("/fonts/quicksand-variable.woff2") format("woff2-variations");
+  font-weight: 400 700; font-style: normal; font-display: swap;
+}
+
+body {
+  font-family: v.$font-body;
+  font-size: v.$step-0;
+  line-height: v.$leading-body;
+  color: var(--text);
+  background: var(--paper);
+}
+
+h1, h2, h3, h4 {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  line-height: v.$leading-tight;
+  text-wrap: balance;
+}
+
+h1 { font-size: v.$step-4; }
+h2 { font-size: v.$step-3; }
+h3 { font-size: v.$step-2; }
+h4 { font-size: v.$step-1; }
+
+p, li { max-width: v.$measure; text-wrap: pretty; }
+strong { font-weight: v.$weight-bold; }

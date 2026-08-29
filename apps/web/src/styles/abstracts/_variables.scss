@@ -1,0 +1,94 @@
+// _variables.scss
+// The single source of truth for colour, type, spacing and motion.
+//
+// Two-tier colour rule, and it is the reason this file is shaped the way it is:
+// the brand pastels are SURFACES, never text. Measured against white, every
+// pastel lands between 1.21:1 and 3.35:1, and WCAG AA body text needs 4.5:1.
+// So each hue carries a surface value and a separate ink value, where the ink
+// is the same hue pushed dark enough to clear 4.5:1 on white AND on its own
+// pastel. Change a hue here and both tiers move together.
+//
+// Contrast figures in the comments are measured, not estimated. Re-run
+// tools/check-contrast.mjs after editing any value.
+
+@use "sass:map";
+
+// --- Brand ---------------------------------------------------------------- //
+// Sampled from the source artwork: hydrangea-petal.png and rm.png.
+// $brand-blue is the outline colour of both marks. At 3.35:1 on white it is
+// legal for borders, icons and large display text, and illegal for body copy.
+$brand-powder:  #a0cfeb;  // 1.66:1 on white  - surface only
+$brand-blue:    #3394ce;  // 3.35:1 on white  - borders, icons, 24px+ display
+$brand-yellow:  #f8cf2f;  // 1.50:1 on white  - decoration only
+$brand-petal:   #6ab7e7;  // petal centre, decoration only
+
+// --- Palette -------------------------------------------------------------- //
+// surface: fills and washes. ink: text and interactive foregrounds.
+// dark-surface / dark-ink: the same hue re-tuned for the dark theme.
+$palette: (
+  powder: (surface: #a0cfec, ink: #24597b, dark-surface: #1a262e, dark-ink: #47aceb),
+  purple: (surface: #ac8aea, ink: #3b0c92, dark-surface: #211a2e, dark-ink: #9a6cef),
+  pink:   (surface: #ffa0e2, ink: #862769, dark-surface: #2e1a28, dark-ink: #eb47b9),
+  mint:   (surface: #c8f1f3, ink: #227377, dark-surface: #1a2d2e, dark-ink: #47e3eb),
+  red:    (surface: #ff998f, ink: #82251c, dark-surface: #2e1b1a, dark-ink: #eb5647),
+  yellow: (surface: #ffd788, ink: #775a22, dark-surface: #2e271a, dark-ink: #ebb447),
+);
+
+// Neutrals. $ink-strong on any pastel surface clears 6.39:1 at worst (purple).
+$paper:       #fffdfa;  // warm white, softer than pure #fff under low vision
+$paper-raised:#ffffff;
+$ink-strong:  #1a1626;  // 10.6:1 on powder, 14.6:1 on mint
+$ink-muted:   #4a4458;  // 7.9:1 on $paper - still AA, never below
+$night:       #12101a;
+$night-raised:#1c1927;
+$night-ink:   #f4f1fa;
+$night-muted: #b9b2c9;  // 7.4:1 on $night
+
+@function surface($name) { @return map.get(map.get($palette, $name), surface); }
+@function ink($name)     { @return map.get(map.get($palette, $name), ink); }
+
+// --- Type ----------------------------------------------------------------- //
+// Body is Atkinson Hyperlegible, drawn by the Braille Institute with
+// deliberately disambiguated letterforms (1 vs l vs I, 0 vs O). It is the
+// correct choice for a site whose author is legally blind, not a flourish.
+// Headings are Quicksand for the rounded, high-energy character.
+$font-heading: "Quicksand", ui-rounded, "Segoe UI", system-ui, sans-serif;
+$font-body:    "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, sans-serif;
+$font-mono:    ui-monospace, "Cascadia Code", "Consolas", monospace;
+
+// 1rem = 16px floor. Body never ships below 1rem; low vision punishes 14px.
+$step--1: clamp(0.875rem, 0.84rem + 0.18vw, 0.95rem);
+$step-0:  clamp(1rem,     0.96rem + 0.22vw, 1.125rem);
+$step-1:  clamp(1.25rem,  1.16rem + 0.45vw, 1.5rem);
+$step-2:  clamp(1.5rem,   1.34rem + 0.8vw,  2rem);
+$step-3:  clamp(1.875rem, 1.6rem + 1.4vw,   2.75rem);
+$step-4:  clamp(2.25rem,  1.75rem + 2.5vw,  4rem);
+
+$weight-regular: 400;
+$weight-bold:    700;
+$leading-tight:  1.15;
+$leading-body:   1.65;   // generous; low-vision readers lose their place at 1.4
+$measure:        68ch;
+
+// --- Space, radius, motion ------------------------------------------------ //
+$space: (0: 0, 1: 0.25rem, 2: 0.5rem, 3: 0.75rem, 4: 1rem,
+         5: 1.5rem, 6: 2rem, 7: 3rem, 8: 4rem, 9: 6rem, 10: 8rem);
+@function space($k) { @return map.get($space, $k); }
+
+$radius-sm: 0.5rem;
+$radius-md: 1rem;
+$radius-lg: 1.75rem;
+$radius-pill: 999px;
+
+// Focus ring must hit 3:1 against BOTH the component and the page behind it.
+$focus-width: 3px;
+$focus-offset: 2px;
+
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+$ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+$dur-fast: 120ms;
+$dur-base: 240ms;
+$dur-slow: 420ms;
+
+$bp: (sm: 30rem, md: 48rem, lg: 64rem, xl: 80rem);
+@function bp($k) { @return map.get($bp, $k); }

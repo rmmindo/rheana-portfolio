@@ -1,0 +1,47 @@
+// _a11y.scss — the non-negotiables.
+@use "../abstracts/variables" as v;
+
+// Visually hidden but still read aloud. Never use display:none for this.
+.visually-hidden:not(:focus):not(:active) {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+// Skip link: hidden until focused, then unmissable.
+.skip-link {
+  position: absolute; top: 0; left: 0;
+  z-index: 999;
+  padding: v.space(3) v.space(5);
+  background: var(--paper-raised);
+  color: var(--text);
+  border: 2px solid var(--focus);
+  border-radius: 0 0 v.$radius-sm 0;
+  transform: translateY(-110%);
+  transition: transform v.$dur-fast v.$ease-out;
+
+  &:focus { transform: translateY(0); }
+}
+
+// One focus style everywhere. The halo guarantees 3:1 against BOTH the
+// component beneath and the page behind it, whatever the component colour.
+:focus-visible {
+  outline: v.$focus-width solid var(--focus);
+  outline-offset: v.$focus-offset;
+  border-radius: v.$radius-sm;
+  box-shadow: 0 0 0 calc(#{v.$focus-width} + #{v.$focus-offset}) var(--focus-halo);
+}
+// Only strip the default ring where :focus-visible has already replaced it.
+:focus:not(:focus-visible) { outline: none; }
+
+// Interactive targets meet the 24x24 CSS px minimum of WCAG 2.2 (2.5.8).
+a, button, [role="button"], input, select, textarea, summary {
+  min-height: 24px;
+}
+
+@media (forced-colors: active) {
+  :focus-visible { outline: 3px solid CanvasText; }
+}

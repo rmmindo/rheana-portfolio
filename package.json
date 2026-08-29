@@ -1,0 +1,14 @@
+{
+  "name": "rheana-portfolio",
+  "private": true,
+  "type": "module",
+  "workspaces": ["apps/web", "apps/api"],
+  "engines": { "node": ">=20.11" },
+  "scripts": {
+    "dev": "npm run dev --workspace apps/web",
+    "build": "npm run build --workspace apps/web",
+    "preview": "npm run preview --workspace apps/web",
+    "test": "npm run test --workspaces --if-present",
+    "test:contrast": "node tools/check-contrast.mjs"
+  }
+}

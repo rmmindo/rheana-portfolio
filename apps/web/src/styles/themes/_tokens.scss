@@ -1,0 +1,70 @@
+// _tokens.scss
+// Emits every CSS custom property, in the only cascade order that lets a
+// manual toggle win in BOTH directions:
+//
+//   1. :root                                    light defaults
+//   2. @media (prefers-color-scheme: dark)      OS preference, but scoped to
+//      :root:not([data-theme="light"])          so an explicit light choice wins
+//   3. :root[data-theme="dark"]                 explicit dark wins everywhere
+//
+// A colour defined ONLY inside a media query is a bug: the toggle cannot reach
+// it. Every property below is declared at :root first.
+
+@use "sass:map";
+@use "../abstracts/variables" as v;
+
+@mixin light-tokens {
+  --paper: #{v.$paper};
+  --paper-raised: #{v.$paper-raised};
+  --text: #{v.$ink-strong};
+  --text-muted: #{v.$ink-muted};
+  --brand-blue: #{v.$brand-blue};
+  --brand-powder: #{v.$brand-powder};
+  --brand-yellow: #{v.$brand-yellow};
+
+  @each $name, $vals in v.$palette {
+    --surface-#{$name}: #{map.get($vals, surface)};
+    --ink-#{$name}: #{map.get($vals, ink)};
+  }
+
+  --border: rgba(26, 22, 38, 0.16);
+  --border-strong: #{v.$brand-blue};
+  --shadow: 0 1px 2px rgba(26, 22, 38, 0.06), 0 8px 24px rgba(26, 22, 38, 0.08);
+  --focus: #{v.ink(purple)};
+  --focus-halo: #{v.$paper};
+}
+
+@mixin dark-tokens {
+  --paper: #{v.$night};
+  --paper-raised: #{v.$night-raised};
+  --text: #{v.$night-ink};
+  --text-muted: #{v.$night-muted};
+  // The logo blue is unusable as text on white (3.35:1) but clears 5.62:1 on
+  // the dark ground, so dark mode is where the brand colour gets to be text.
+  --brand-blue: #{v.$brand-blue};
+  --brand-powder: #{v.$brand-powder};
+  --brand-yellow: #{v.$brand-yellow};
+
+  @each $name, $vals in v.$palette {
+    --surface-#{$name}: #{map.get($vals, dark-surface)};
+    --ink-#{$name}: #{map.get($vals, dark-ink)};
+  }
+
+  --border: rgba(244, 241, 250, 0.18);
+  --border-strong: #{v.$brand-powder};
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.45);
+  --focus: #{v.$brand-yellow};
+  --focus-halo: #{v.$night};
+}
+
+:root {
+  color-scheme: light dark;
+  @include light-tokens;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { @include dark-tokens; }
+}
+
+:root[data-theme="dark"] { @include dark-tokens; }
+:root[data-theme="light"] { @include light-tokens; }

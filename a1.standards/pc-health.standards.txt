@@ -1,0 +1,39 @@
+PC Health Standards
+===================
+Version: 1.0
+Date: 2026-03-17
+
+1. Disk Usage
+   1.1. Warning threshold: 85% capacity.
+   1.2. Critical threshold: 90% capacity.
+   1.3. Target free space: minimum 50 GB on C: drive.
+   1.4. Run disk usage check weekly.
+   1.5. Large files (over 500 MB) should be reviewed monthly for
+        archival or deletion.
+
+2. RAM Usage
+   2.1. Warning threshold: 80% usage.
+   2.2. Critical threshold: 90% usage.
+   2.3. Monitor RAM usage during development sessions.
+
+3. Startup Programs
+   3.1. Maximum recommended startup programs: 5.
+   3.2. Essential startup programs: OneDrive, SecurityHealth, TimeDoctor2.
+   3.3. Non-essential programs must be launched manually when needed.
+   3.4. Review startup list monthly.
+
+4. Downloads Folder
+   4.1. Maximum unsorted files: 50.
+   4.2. Auto-sort script must run to categorize new downloads.
+   4.3. Files older than 30 days in the root of Downloads should be
+        reviewed and sorted or deleted.
+
+5. Network
+   5.1. Monitor active connections during health checks.
+   5.2. Flag unexpected outbound connections.
+   5.3. Check DNS resolution time as connectivity indicator.
+
+6. Maintenance Schedule
+   6.1. Weekly: Run PC health check script.
+   6.2. Monthly: Review large files, startup programs, and Downloads.
+   6.3. Quarterly: Full disk audit and cleanup.

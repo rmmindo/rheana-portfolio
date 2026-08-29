@@ -1,0 +1,17 @@
+File Format Standards
+=====================
+Version: 1.0
+Date: 2026-03-17
+
+1. File Extensions
+   1.1. Use .txt for all documentation, task files, reports, and standards.
+   1.2. Do not use .md (Markdown) files for documentation.
+   1.3. Code files use their language-specific extensions (.py, .js, .sh, etc.).
+
+2. README Files
+   2.1. Each repository root must contain a README.txt file.
+   2.2. Do not create README.md files.
+
+3. CLAUDE.md
+   3.1. One CLAUDE.md file exists at C:\Users\Ray\CLAUDE.md.
+   3.2. Do not create CLAUDE.md files inside individual repositories.

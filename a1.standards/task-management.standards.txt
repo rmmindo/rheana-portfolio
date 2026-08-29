@@ -1,0 +1,32 @@
+Task Management Standards
+=========================
+Version: 1.0
+Date: 2026-03-17
+
+1. Task Folder Naming
+   1.1. Format: yymmdd.task-NN.[description]-[status]/
+   1.2. NN is a zero-padded sequential number (01, 02, 03).
+   1.3. [description] is a lowercase, hyphen-separated summary.
+   1.4. [status] is one of: -pending, -active, -done.
+   1.5. Example: 260317.task-01.setup-repos-pending/
+
+2. Task Status Suffixes
+   2.1. -pending: Task is defined but work has not started.
+   2.2. -active: Task is currently in progress.
+   2.3. -done: Task is complete and merged.
+
+3. Task Folder Contents
+   3.1. Each task folder must contain these files:
+        - yymmdd.task-NN.00-[description].txt  (requirements and context)
+        - yymmdd.task-NN.01-notes.txt           (working notes and decisions)
+        - yymmdd.task-NN.log                    (chronological activity log)
+   3.2. The .00-[description].txt file contains all requirements and context
+        needed to understand and complete the task.
+   3.3. The .01-notes.txt file captures decisions, observations, and
+        working notes during task execution.
+   3.4. The .log file records timestamped actions taken during the task.
+
+4. Reports Before Tasks
+   4.1. Before creating any task, generate a context report in a1.reports/.
+   4.2. The report gathers relevant context needed to define the task.
+   4.3. Report naming: yymmdd.report-NN.[description].txt
