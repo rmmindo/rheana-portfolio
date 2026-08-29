@@ -10,6 +10,7 @@ import LangToggle from './components/LangToggle.jsx';
 import Hero from './sections/Hero.jsx';
 import TrustBar from './sections/TrustBar.jsx';
 import VideoResume from './sections/VideoResume.jsx';
+import AtWorkBand from './sections/AtWorkBand.jsx';
 import Entries from './sections/Entries.jsx';
 import Baybayin from './sections/Baybayin.jsx';
 import Proof from './sections/Proof.jsx';
@@ -85,6 +86,7 @@ function Page() {
         <Hero profile={resume.profile} />
         <TrustBar experience={experience} />
         <VideoResume />
+        <AtWorkBand />
         {experience && (
           <Entries section={experience} id="experience" titleKey="section.experience"
                    accent={['powder', 'purple', 'pink', 'mint', 'red', 'yellow']} />

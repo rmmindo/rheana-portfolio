@@ -29,3 +29,34 @@ section { padding-block: v.space(8); }
   border-radius: v.$radius-pill;
   background: var(--brand-blue);
 }
+
+// --- Full-width photo band ------------------------------------------------ //
+.band {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+}
+
+.band__img {
+  width: 100%;
+  height: clamp(14rem, 34vw, 26rem);
+  object-fit: cover;
+  object-position: center 40%;
+  display: block;
+}
+
+.band__caption {
+  position: absolute;
+  left: 50%;
+  bottom: v.space(4);
+  transform: translateX(-50%);
+  padding: v.space(2) v.space(5);
+  border-radius: v.$radius-pill;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(8px);
+  color: var(--text);
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: v.$step--1;
+  white-space: nowrap;
+}

@@ -317,3 +317,24 @@
   color: var(--text-muted);
   max-width: 62ch;
 }
+
+.bay__sablay {
+  margin: v.space(6) 0 v.space(5);
+  max-width: 22rem;
+}
+
+.bay__sablay-img {
+  width: 100%;
+  height: auto;
+  border-radius: v.$radius-lg;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.bay__sablay-caption {
+  margin-top: v.space(3);
+  font-size: v.$step--1;
+  color: var(--text-muted);
+  font-style: italic;
+  max-width: 34ch;
+}

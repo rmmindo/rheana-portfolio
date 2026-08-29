@@ -36,3 +36,18 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .education__item { background: var(--paper-raised); }
 }
+
+.education__grid { display: grid; gap: v.space(5); }
+
+@media (min-width: v.bp(md)) {
+  .education__grid { grid-template-columns: 20rem 1fr; align-items: start; gap: v.space(7); }
+  .education__list { grid-template-columns: 1fr; }
+}
+
+.education__photo {
+  width: 100%;
+  height: auto;
+  border-radius: v.$radius-lg;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}

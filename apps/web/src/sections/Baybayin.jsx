@@ -177,6 +177,21 @@ export default function Baybayin() {
         <GlyphRecogniser />
         <p className="bay__method">{t('bay.draw.method')}</p>
 
+        <figure className="bay__sablay">
+          <img
+            className="bay__sablay-img"
+            src="/img/rheana-mindo-sablay-baybayin-960.webp"
+            srcSet="/img/rheana-mindo-sablay-baybayin-480.webp 480w, /img/rheana-mindo-sablay-baybayin-960.webp 960w"
+            sizes="(min-width: 48rem) 22rem, 60vw"
+            alt={t('bay.sablay.alt')}
+            width="960"
+            height="1200"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption className="bay__sablay-caption">{t('bay.sablay.caption')}</figcaption>
+        </figure>
+
         <p className="bay__note">{t('bay.note')}</p>
       </div>
     </section>
