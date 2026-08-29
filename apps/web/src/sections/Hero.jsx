@@ -2,6 +2,7 @@ import RichText from '../lib/richText.jsx';
 import Petal from '../components/Petal.jsx';
 import { SpeakButton } from '../components/SpeechProvider.jsx';
 import { useRef } from 'react';
+import { useI18n } from '../hooks/useI18n.jsx';
 
 // Splits a plain string into words wrapped for the staggered rise-in. The
 // headline is read as one sentence by assistive tech because the wrapper spans
@@ -16,6 +17,7 @@ function Words({ text }) {
 
 export default function Hero({ profile }) {
   const introRef = useRef(null);
+  const { t } = useI18n();
   const links = profile.contact.filter(c => c.url);
   const email = profile.contact.find(c => c.label.includes('@'));
   const location = profile.contact.find(c => !c.url && !c.label.includes('@'));
@@ -28,7 +30,7 @@ export default function Hero({ profile }) {
       <div className="hero__inner" ref={introRef}>
         <p className="hero__eyebrow">
           <span className="hero__dot" aria-hidden="true" />
-          Available for remote, asynchronous work
+          {t('hero.available')}
         </p>
 
         <h1 id="hero-heading" className="hero__name">
@@ -36,18 +38,18 @@ export default function Hero({ profile }) {
         </h1>
 
         <p className="hero__claim">
-          I build AI systems that <em>ship</em> &mdash; and I can prove every number below.
+          {t('hero.claim.before')} <em>{t('hero.claim.em')}</em> {t('hero.claim.after')}
         </p>
 
         <p className="hero__headline"><RichText>{profile.headline}</RichText></p>
 
         <div className="hero__actions">
           <a className="btn btn--primary" href={`mailto:${email?.label ?? ''}`}>
-            Let&rsquo;s build something
+            {t('hero.cta.primary')}
           </a>
-          <a className="btn btn--ghost" href="#baybayin">Play with something I made</a>
+          <a className="btn btn--ghost" href="#baybayin">{t('hero.cta.play')}</a>
           <a className="btn btn--quiet" href="/rheana-mindo-cv.pdf" download>
-            Download CV
+            {t('hero.cta.cv')}
           </a>
           <SpeakButton targetRef={introRef} id="hero" label="the introduction" />
         </div>

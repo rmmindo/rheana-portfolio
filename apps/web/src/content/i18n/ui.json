@@ -1,0 +1,123 @@
+{
+  "note": "UI strings only. Résumé content is generated from raysume and is not translated: the roles, metrics and recommendations stay in English because that is the language they were written and verified in, and a machine-translated achievement is a misquoted one. Filipino covers the interface and Rheana's own voice.",
+  "en": {
+    "lang.name": "English",
+    "lang.switchTo": "Lumipat sa Filipino",
+    "nav.label": "Sections",
+    "nav.experience": "Experience",
+    "nav.projects": "Projects",
+    "nav.video": "Video",
+    "nav.play": "Play",
+    "nav.proof": "Recommendations",
+    "nav.skills": "Skills",
+    "skip": "Skip to content",
+    "home": "Rheana Mindo, home",
+
+    "hero.available": "Available for remote, asynchronous work",
+    "hero.claim.before": "I build AI systems that",
+    "hero.claim.em": "ship",
+    "hero.claim.after": "— and I can prove every number below.",
+    "hero.cta.primary": "Let’s build something",
+    "hero.cta.play": "Play with something I made",
+    "hero.cta.cv": "Download CV",
+
+    "trust.lead": "Trusted with production systems at",
+    "trust.heading": "Track record and where I have worked",
+    "stat.prs": "merged pull requests",
+    "stat.accuracy": "dead-code detection accuracy, up from 5%",
+    "stat.speedup": "faster dashboard builds in production",
+    "stat.roles": "paid roles, 3 of them concurrent",
+
+    "video.heading": "Meet me in 3 minutes",
+    "video.lead": "A dev with a poet’s heart. Same person you would get on a call.",
+    "video.play": "Play the video résumé",
+    "video.transcript.show": "Read the transcript instead",
+    "video.transcript.hide": "Hide transcript",
+
+    "bay.heading": "Write your name in Baybayin",
+    "bay.label": "Type anything",
+    "bay.sub": "How it breaks down",
+    "bay.clear": "Clear tracing",
+
+    "proof.heading": "What people say",
+    "proof.more": "Read all {count} recommendations",
+    "rec.expand": "Read the full recommendation",
+    "rec.collapse": "Show less",
+
+    "speak.listen": "Listen",
+    "speak.stop": "Stop reading",
+
+    "theme.system": "Theme: follow system",
+    "theme.light": "Theme: light",
+    "theme.dark": "Theme: dark",
+    "theme.system.short": "Auto",
+    "theme.light.short": "Light",
+    "theme.dark.short": "Dark",
+
+    "footer.font": "Set in Atkinson Hyperlegible, designed by the Braille Institute for readers with low vision.",
+    "footer.source": "Built by Rheana Mindo. Every fact on this page is generated from one source, so the résumé and this site cannot disagree.",
+    "visitors.one": "person has visited",
+    "visitors.many": "people have visited",
+    "visitors.today": "today"
+  },
+  "fil": {
+    "lang.name": "Filipino",
+    "lang.switchTo": "Switch to English",
+    "nav.label": "Mga seksyon",
+    "nav.experience": "Karanasan",
+    "nav.projects": "Mga Proyekto",
+    "nav.video": "Video",
+    "nav.play": "Laro",
+    "nav.proof": "Rekomendasyon",
+    "nav.skills": "Kasanayan",
+    "skip": "Lumaktaw sa nilalaman",
+    "home": "Rheana Mindo, home",
+
+    "hero.available": "Bukas para sa remote at asynchronous na trabaho",
+    "hero.claim.before": "Gumagawa ako ng AI na",
+    "hero.claim.em": "umaandar",
+    "hero.claim.after": "— at kaya kong patunayan ang bawat numero sa ibaba.",
+    "hero.cta.primary": "Gumawa tayo ng bago",
+    "hero.cta.play": "Subukan ang ginawa ko",
+    "hero.cta.cv": "I-download ang CV",
+
+    "trust.lead": "Pinagkatiwalaan ng mga production system sa",
+    "trust.heading": "Karanasan at mga pinagtrabahuhan",
+    "stat.prs": "na na-merge na pull request",
+    "stat.accuracy": "katumpakan sa paghanap ng dead code, mula 5%",
+    "stat.speedup": "na mas mabilis na paggawa ng dashboard sa produksyon",
+    "stat.roles": "na bayad na trabaho, 3 ang sabay-sabay",
+
+    "video.heading": "Makilala ako sa 3 minuto",
+    "video.lead": "Isang dev na may pusong makata. Ganito rin ako sa totoong tawag.",
+    "video.play": "Panoorin ang video résumé",
+    "video.transcript.show": "Basahin na lang ang transcript",
+    "video.transcript.hide": "Itago ang transcript",
+
+    "bay.heading": "Isulat ang pangalan mo sa Baybayin",
+    "bay.label": "Mag-type ng kahit ano",
+    "bay.sub": "Ganito ito hinahati",
+    "bay.clear": "Burahin ang guhit",
+
+    "proof.heading": "Ang sabi ng iba",
+    "proof.more": "Basahin lahat ng {count} rekomendasyon",
+    "rec.expand": "Basahin ang buong rekomendasyon",
+    "rec.collapse": "Bawasan",
+
+    "speak.listen": "Pakinggan",
+    "speak.stop": "Itigil",
+
+    "theme.system": "Tema: sumunod sa system",
+    "theme.light": "Tema: maliwanag",
+    "theme.dark": "Tema: madilim",
+    "theme.system.short": "Awto",
+    "theme.light.short": "Liwanag",
+    "theme.dark.short": "Dilim",
+
+    "footer.font": "Nakasulat sa Atkinson Hyperlegible, dinisenyo ng Braille Institute para sa mga mahina ang paningin.",
+    "footer.source": "Ginawa ni Rheana Mindo. Bawat detalye rito ay galing sa iisang pinagmulan, kaya hindi maaaring magkaiba ang résumé at ang site na ito.",
+    "visitors.one": "katao ang bumisita",
+    "visitors.many": "katao ang bumisita",
+    "visitors.today": "ngayong araw"
+  }
+}

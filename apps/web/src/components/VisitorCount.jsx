@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useI18n } from '../hooks/useI18n.jsx';
 
 // Live unique-visitor count.
 //
@@ -16,6 +17,7 @@ import { useEffect, useState } from 'react';
 const API = import.meta.env?.VITE_API_BASE ?? '';
 
 export default function VisitorCount() {
+  const { t } = useI18n();
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
@@ -45,9 +47,9 @@ export default function VisitorCount() {
       <span className="visitors__dot" aria-hidden="true" />
       <span className="visitors__count">{stats.total.toLocaleString('en-US')}</span>
       {' '}
-      {stats.total === 1 ? 'person has' : 'people have'} visited
+      {stats.total === 1 ? t('visitors.one') : t('visitors.many')}
       {stats.today > 0 && (
-        <span className="visitors__today"> &middot; {stats.today.toLocaleString('en-US')} today</span>
+        <span className="visitors__today"> &middot; {stats.today.toLocaleString('en-US')} {t('visitors.today')}</span>
       )}
       <span className="visually-hidden">
         . Counted without storing any IP address: visitors are identified by a

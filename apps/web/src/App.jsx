@@ -2,6 +2,8 @@ import resume from './content/resume.json';
 import ThemeToggle from './components/ThemeToggle.jsx';
 import PetalBurst from './components/PetalBurst.jsx';
 import { SpeechProvider } from './components/SpeechProvider.jsx';
+import { I18nProvider, useI18n } from './hooks/useI18n.jsx';
+import LangToggle from './components/LangToggle.jsx';
 import VisitorCount from './components/VisitorCount.jsx';
 import Petal from './components/Petal.jsx';
 import Hero from './sections/Hero.jsx';
@@ -15,7 +17,8 @@ import Education from './sections/Education.jsx';
 
 const byType = type => resume.sections.find(s => s.type === type);
 
-export default function App() {
+function Page() {
+  const { t } = useI18n();
   const experience = byType('experience');
   const projects = byType('projects');
   const education = byType('education');
@@ -23,23 +26,24 @@ export default function App() {
 
   return (
     <SpeechProvider>
-      <a className="skip-link" href="#main">Skip to content</a>
+      <a className="skip-link" href="#main">{t('skip')}</a>
       <PetalBurst />
 
       <header className="topbar">
         <a className="topbar__brand" href="#main">
           <Petal size={28} />
           <span className="topbar__mark">RM</span>
-          <span className="visually-hidden">Rheana Mindo, home</span>
+          <span className="visually-hidden">{t('home')}</span>
         </a>
-        <nav className="topbar__nav" aria-label="Sections">
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#video">Video</a>
-          <a href="#baybayin">Play</a>
-          <a href="#proof">Recommendations</a>
-          <a href="#skills">Skills</a>
+        <nav className="topbar__nav" aria-label={t('nav.label')}>
+          <a href="#experience">{t('nav.experience')}</a>
+          <a href="#projects">{t('nav.projects')}</a>
+          <a href="#video">{t('nav.video')}</a>
+          <a href="#baybayin">{t('nav.play')}</a>
+          <a href="#proof">{t('nav.proof')}</a>
+          <a href="#skills">{t('nav.skills')}</a>
         </nav>
+        <LangToggle />
         <ThemeToggle />
       </header>
 
@@ -63,17 +67,19 @@ export default function App() {
 
       <footer className="footer">
         <div className="section__inner">
-          <p>
-            Set in <strong>Atkinson Hyperlegible</strong>, designed by the Braille
-            Institute for readers with low vision.
-          </p>
-          <p className="footer__meta">
-            Built by Rheana Mindo. Every fact on this page is generated from one
-            source, so the r&eacute;sum&eacute; and this site cannot disagree.
-          </p>
+          <p>{t('footer.font')}</p>
+          <p className="footer__meta">{t('footer.source')}</p>
           <VisitorCount />
         </div>
       </footer>
     </SpeechProvider>
+  );
+}
+
+export default function App() {
+  return (
+    <I18nProvider>
+      <Page />
+    </I18nProvider>
   );
 }

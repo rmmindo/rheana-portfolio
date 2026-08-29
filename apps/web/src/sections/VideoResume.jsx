@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import transcript from '../content/transcript.json';
 import { useReveal } from '../hooks/useReveal.js';
+import { useI18n } from '../hooks/useI18n.jsx';
 
 // The video is self-hosted with preload="none" and a poster image, so it costs
 // zero bytes until someone chooses to play it. That protects the Lighthouse
@@ -10,16 +11,17 @@ import { useReveal } from '../hooks/useReveal.js';
 // that the poster is a plain <img>, which is what the browser paints.
 export default function VideoResume() {
   const ref = useReveal();
+  const { t } = useI18n();
   const [playing, setPlaying] = useState(false);
   const [showTranscript, setShowTranscript] = useState(false);
 
   return (
     <section className="video" id="video" aria-labelledby="video-heading" ref={ref}>
       <div className="section__inner">
-        <h2 id="video-heading" className="section__title">Meet me in 3 minutes</h2>
+        <h2 id="video-heading" className="section__title">{t('video.heading')}</h2>
 
         <p className="video__lead">
-          A dev with a poet&rsquo;s heart. Same person you would get on a call.
+          {t('video.lead')}
         </p>
 
         <div className="video__frame">
@@ -57,7 +59,7 @@ export default function VideoResume() {
               />
               <span className="video__play-badge" aria-hidden="true">▶</span>
               <span className="video__play-label">
-                Play the video résumé
+                {t('video.play')}
                 <span className="visually-hidden">
                   . Captions are on by default, and a full text transcript is
                   available below the video.
@@ -75,7 +77,7 @@ export default function VideoResume() {
             aria-controls="video-transcript"
             onClick={() => setShowTranscript(t => !t)}
           >
-            {showTranscript ? 'Hide transcript' : 'Read the transcript instead'}
+            {showTranscript ? t('video.transcript.hide') : t('video.transcript.show')}
           </button>
         </div>
 

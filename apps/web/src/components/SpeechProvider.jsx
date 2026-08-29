@@ -1,5 +1,6 @@
 import { createContext, useContext, useRef } from 'react';
 import { useSpeech, readableText } from '../hooks/useSpeech.js';
+import { useI18n } from '../hooks/useI18n.jsx';
 
 // One speech engine for the whole page. Sharing it through context is what
 // guarantees the "only one voice at a time" rule: every button speaks through
@@ -20,6 +21,7 @@ export function SpeechProvider({ children }) {
  */
 export function SpeakButton({ targetRef, id, label = 'this section' }) {
   const ctx = useContext(SpeechContext);
+  const { t } = useI18n();
   const fallbackRef = useRef(null);
   const ref = targetRef ?? fallbackRef;
 
@@ -36,7 +38,7 @@ export function SpeakButton({ targetRef, id, label = 'this section' }) {
       onClick={() => speak(readableText(ref.current), id)}
     >
       <span aria-hidden="true" className="speak__icon">{active ? '■' : '▶'}</span>
-      {active ? 'Stop reading' : 'Listen'}
+      {active ? t('speak.stop') : t('speak.listen')}
       <span className="visually-hidden">
         {active ? ` to ${label}` : ` to ${label} read aloud`}
       </span>

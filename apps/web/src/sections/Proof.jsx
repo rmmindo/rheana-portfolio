@@ -2,11 +2,13 @@ import { useState } from 'react';
 import data from '../content/recommendations.json';
 import { useReveal } from '../hooks/useReveal.js';
 import Petal from '../components/Petal.jsx';
+import { useI18n } from '../hooks/useI18n.jsx';
 
 const HUES = ['powder', 'purple', 'pink', 'mint', 'red', 'yellow'];
 
 function Card({ item, hue, index }) {
   const [open, setOpen] = useState(false);
+  const { t } = useI18n();
 
   return (
     <li
@@ -32,7 +34,7 @@ function Card({ item, hue, index }) {
               aria-controls={`rec-more-${index}`}
               onClick={() => setOpen(o => !o)}
             >
-              {open ? 'Show less' : 'Read the full recommendation'}
+              {open ? t('rec.collapse') : t('rec.expand')}
               <span className="visually-hidden"> from {item.name}</span>
             </button>
           </>
@@ -50,6 +52,7 @@ function Card({ item, hue, index }) {
 
 export default function Proof() {
   const ref = useReveal();
+  const { t } = useI18n();
   const [showAll, setShowAll] = useState(false);
 
   const featured = data.items.filter(i => i.featured);
@@ -59,7 +62,7 @@ export default function Proof() {
   return (
     <section className="proof" id="proof" aria-labelledby="proof-heading" ref={ref}>
       <div className="section__inner">
-        <h2 id="proof-heading" className="section__title">What people say</h2>
+        <h2 id="proof-heading" className="section__title">{t('proof.heading')}</h2>
 
         <p className="proof__lead">
           {data.items.length} recommendations on LinkedIn, from people who managed
@@ -74,7 +77,7 @@ export default function Proof() {
 
         {!showAll && (
           <button type="button" className="btn btn--ghost proof__more" onClick={() => setShowAll(true)}>
-            Read all {data.items.length} recommendations
+            {t('proof.more', { count: data.items.length })}
           </button>
         )}
       </div>

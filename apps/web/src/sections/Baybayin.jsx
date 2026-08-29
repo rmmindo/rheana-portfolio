@@ -1,6 +1,7 @@
 import { useId, useMemo, useRef, useState, useEffect } from 'react';
 import { transliterate, syllabify } from '../lib/baybayin.js';
 import { useReveal } from '../hooks/useReveal.js';
+import { useI18n } from '../hooks/useI18n.jsx';
 
 const PRESETS = ['Rheana', 'Kumusta', 'Mabuhay', 'Salamat'];
 
@@ -10,6 +11,7 @@ const PRESETS = ['Rheana', 'Kumusta', 'Mabuhay', 'Salamat'];
 // skipping it. It is excluded from the tab order and labelled as decorative
 // practice space rather than pretending to be an input.
 function TraceCanvas({ glyphs }) {
+  const { t } = useI18n();
   const canvasRef = useRef(null);
   const drawing = useRef(false);
 
@@ -82,7 +84,7 @@ function TraceCanvas({ glyphs }) {
         />
       </div>
       <button type="button" className="btn btn--quiet trace__clear" onClick={clear}>
-        Clear tracing
+        {t('bay.clear')}
       </button>
     </div>
   );
@@ -91,6 +93,7 @@ function TraceCanvas({ glyphs }) {
 export default function Baybayin() {
   const ref = useReveal();
   const inputId = useId();
+  const { t } = useI18n();
   const [text, setText] = useState('Rheana');
 
   const glyphs = useMemo(() => transliterate(text), [text]);
@@ -102,7 +105,7 @@ export default function Baybayin() {
   return (
     <section className="bay" id="baybayin" aria-labelledby="bay-heading" ref={ref}>
       <div className="section__inner">
-        <h2 id="bay-heading" className="section__title">Write your name in Baybayin</h2>
+        <h2 id="bay-heading" className="section__title">{t('bay.heading')}</h2>
 
         <p className="bay__lead">
           In 2024 I co-built a <strong>Baybayin Detector</strong> that read handwritten
@@ -113,7 +116,7 @@ export default function Baybayin() {
 
         <div className="bay__panel">
           <div className="bay__control">
-            <label className="bay__label" htmlFor={inputId}>Type anything</label>
+            <label className="bay__label" htmlFor={inputId}>{t('bay.label')}</label>
             <input
               id={inputId}
               className="bay__input"
@@ -156,7 +159,7 @@ export default function Baybayin() {
 
         {parts.length > 0 && (
           <>
-            <h3 className="bay__sub">How it breaks down</h3>
+            <h3 className="bay__sub">{t('bay.sub')}</h3>
             <ol className="bay__syllables" role="list">
               {parts.map((p, i) => (
                 <li className="syl" key={`${p.latin}-${i}`} style={{ '--i': i }}>
