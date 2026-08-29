@@ -25,13 +25,16 @@ $brand-petal:   #6ab7e7;  // petal centre, decoration only
 // --- Palette -------------------------------------------------------------- //
 // surface: fills and washes. ink: text and interactive foregrounds.
 // dark-surface / dark-ink: the same hue re-tuned for the dark theme.
+// Keys are quoted deliberately: purple, pink and red are CSS colour keywords,
+// and unquoted they interpolate as colour values rather than names, which
+// silently produces properties like --surface-purple with a mangled name.
 $palette: (
-  powder: (surface: #a0cfec, ink: #24597b, dark-surface: #1a262e, dark-ink: #47aceb),
-  purple: (surface: #ac8aea, ink: #3b0c92, dark-surface: #211a2e, dark-ink: #9a6cef),
-  pink:   (surface: #ffa0e2, ink: #862769, dark-surface: #2e1a28, dark-ink: #eb47b9),
-  mint:   (surface: #c8f1f3, ink: #227377, dark-surface: #1a2d2e, dark-ink: #47e3eb),
-  red:    (surface: #ff998f, ink: #82251c, dark-surface: #2e1b1a, dark-ink: #eb5647),
-  yellow: (surface: #ffd788, ink: #775a22, dark-surface: #2e271a, dark-ink: #ebb447),
+  "powder": (surface: #a0cfec, ink: #24597b, dark-surface: #1a262e, dark-ink: #47aceb),
+  "purple": (surface: #ac8aea, ink: #3b0c92, dark-surface: #211a2e, dark-ink: #9a6cef),
+  "pink":   (surface: #ffa0e2, ink: #862769, dark-surface: #2e1a28, dark-ink: #eb47b9),
+  "mint":   (surface: #c8f1f3, ink: #227377, dark-surface: #1a2d2e, dark-ink: #47e3eb),
+  "red":    (surface: #ff998f, ink: #82251c, dark-surface: #2e1b1a, dark-ink: #eb5647),
+  "yellow": (surface: #ffd788, ink: #775a22, dark-surface: #2e271a, dark-ink: #ebb447),
 );
 
 // Neutrals. $ink-strong on any pastel surface clears 6.39:1 at worst (purple).

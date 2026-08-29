@@ -1,0 +1,269 @@
+:root {
+  color-scheme: light dark;
+  --paper: #fffdfa;
+  --paper-raised: #ffffff;
+  --text: #1a1626;
+  --text-muted: #4a4458;
+  --brand-blue: #3394ce;
+  --brand-powder: #a0cfeb;
+  --brand-yellow: #f8cf2f;
+  --surface-powder: #a0cfec;
+  --ink-powder: #24597b;
+  --surface-purple: #ac8aea;
+  --ink-purple: #3b0c92;
+  --surface-pink: #ffa0e2;
+  --ink-pink: #862769;
+  --surface-mint: #c8f1f3;
+  --ink-mint: #227377;
+  --surface-red: #ff998f;
+  --ink-red: #82251c;
+  --surface-yellow: #ffd788;
+  --ink-yellow: #775a22;
+  --border: rgba(26, 22, 38, 0.16);
+  --border-strong: #3394ce;
+  --shadow: 0 1px 2px rgba(26, 22, 38, 0.06), 0 8px 24px rgba(26, 22, 38, 0.08);
+  --focus: #3b0c92;
+  --focus-halo: #fffdfa;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme=light]) {
+    --paper: #12101a;
+    --paper-raised: #1c1927;
+    --text: #f4f1fa;
+    --text-muted: #b9b2c9;
+    --brand-blue: #3394ce;
+    --brand-powder: #a0cfeb;
+    --brand-yellow: #f8cf2f;
+    --surface-powder: #1a262e;
+    --ink-powder: #47aceb;
+    --surface-purple: #211a2e;
+    --ink-purple: #9a6cef;
+    --surface-pink: #2e1a28;
+    --ink-pink: #eb47b9;
+    --surface-mint: #1a2d2e;
+    --ink-mint: #47e3eb;
+    --surface-red: #2e1b1a;
+    --ink-red: #eb5647;
+    --surface-yellow: #2e271a;
+    --ink-yellow: #ebb447;
+    --border: rgba(244, 241, 250, 0.18);
+    --border-strong: #a0cfeb;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.45);
+    --focus: #f8cf2f;
+    --focus-halo: #12101a;
+  }
+}
+:root[data-theme=dark] {
+  --paper: #12101a;
+  --paper-raised: #1c1927;
+  --text: #f4f1fa;
+  --text-muted: #b9b2c9;
+  --brand-blue: #3394ce;
+  --brand-powder: #a0cfeb;
+  --brand-yellow: #f8cf2f;
+  --surface-powder: #1a262e;
+  --ink-powder: #47aceb;
+  --surface-purple: #211a2e;
+  --ink-purple: #9a6cef;
+  --surface-pink: #2e1a28;
+  --ink-pink: #eb47b9;
+  --surface-mint: #1a2d2e;
+  --ink-mint: #47e3eb;
+  --surface-red: #2e1b1a;
+  --ink-red: #eb5647;
+  --surface-yellow: #2e271a;
+  --ink-yellow: #ebb447;
+  --border: rgba(244, 241, 250, 0.18);
+  --border-strong: #a0cfeb;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.45);
+  --focus: #f8cf2f;
+  --focus-halo: #12101a;
+}
+
+:root[data-theme=light] {
+  --paper: #fffdfa;
+  --paper-raised: #ffffff;
+  --text: #1a1626;
+  --text-muted: #4a4458;
+  --brand-blue: #3394ce;
+  --brand-powder: #a0cfeb;
+  --brand-yellow: #f8cf2f;
+  --surface-powder: #a0cfec;
+  --ink-powder: #24597b;
+  --surface-purple: #ac8aea;
+  --ink-purple: #3b0c92;
+  --surface-pink: #ffa0e2;
+  --ink-pink: #862769;
+  --surface-mint: #c8f1f3;
+  --ink-mint: #227377;
+  --surface-red: #ff998f;
+  --ink-red: #82251c;
+  --surface-yellow: #ffd788;
+  --ink-yellow: #775a22;
+  --border: rgba(26, 22, 38, 0.16);
+  --border-strong: #3394ce;
+  --shadow: 0 1px 2px rgba(26, 22, 38, 0.06), 0 8px 24px rgba(26, 22, 38, 0.08);
+  --focus: #3b0c92;
+  --focus-halo: #fffdfa;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body, h1, h2, h3, h4, p, figure, blockquote, dl, dd, ul, ol {
+  margin: 0;
+}
+
+ul[role=list], ol[role=list] {
+  list-style: none;
+  padding: 0;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img, picture, svg, video {
+  max-width: 100%;
+  display: block;
+}
+
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("/fonts/atkinson-hyperlegible-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("/fonts/atkinson-hyperlegible-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Quicksand";
+  src: url("/fonts/quicksand-variable.woff2") format("woff2-variations");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+body {
+  font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-size: clamp(1rem, 0.96rem + 0.22vw, 1.125rem);
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--paper);
+}
+
+h1, h2, h3, h4 {
+  font-family: "Quicksand", ui-rounded, "Segoe UI", system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.25rem, 1.75rem + 2.5vw, 4rem);
+}
+
+h2 {
+  font-size: clamp(1.875rem, 1.6rem + 1.4vw, 2.75rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 1.34rem + 0.8vw, 2rem);
+}
+
+h4 {
+  font-size: clamp(1.25rem, 1.16rem + 0.45vw, 1.5rem);
+}
+
+p, li {
+  max-width: 68ch;
+  text-wrap: pretty;
+}
+
+strong {
+  font-weight: 700;
+}
+
+.visually-hidden:not(:focus):not(:active) {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  padding: 0.75rem 1.5rem;
+  background: var(--paper-raised);
+  color: var(--text);
+  border: 2px solid var(--focus);
+  border-radius: 0 0 0.5rem 0;
+  transform: translateY(-110%);
+  transition: transform 120ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0 calc(3px + 2px) var(--focus-halo);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+a, button, [role=button], input, select, textarea, summary {
+  min-height: 24px;
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid CanvasText;
+  }
+}
