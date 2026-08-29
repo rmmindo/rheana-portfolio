@@ -215,3 +215,105 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .bay__glyphs { color: var(--glow-mint); }
 }
+
+// --- Draw to recognise ---------------------------------------------------- //
+.bay__draw-head {
+  margin: v.space(7) 0 v.space(3);
+  font-size: v.$step-2;
+}
+
+.bay__draw-lead {
+  max-width: 58ch;
+  margin-bottom: v.space(5);
+  color: var(--text-muted);
+}
+
+.draw {
+  display: grid;
+  gap: v.space(5);
+  align-items: start;
+}
+
+@media (min-width: v.bp(md)) {
+  .draw { grid-template-columns: auto 1fr; gap: v.space(7); }
+}
+
+.draw__board { display: grid; gap: v.space(3); justify-items: start; }
+
+.draw__canvas {
+  border-radius: v.$radius-md;
+  border: 2px dashed var(--border-strong);
+  background: var(--paper-raised);
+  touch-action: none;
+  cursor: crosshair;
+  max-width: 100%;
+}
+
+.draw__result {
+  padding: v.space(5);
+  border-radius: v.$radius-lg;
+  background: var(--paper-raised);
+  border: 1px solid var(--border);
+  min-height: 12rem;
+}
+
+.draw__label {
+  font-size: v.$step--1;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.draw__label--alt { margin-top: v.space(5); }
+
+.draw__glyph {
+  font-family: "Noto Sans Tagalog", v.$font-body;
+  font-size: clamp(3rem, 10vw, 5rem);
+  line-height: 1.2;
+  color: var(--ink-purple);
+}
+
+:root[data-theme="dark"] .draw__glyph { color: var(--glow-purple); }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .draw__glyph { color: var(--glow-purple); }
+}
+
+.draw__latin {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: v.$step-1;
+}
+
+.draw__score { color: var(--text-muted); font-weight: v.$weight-regular; }
+
+.draw__alts {
+  display: flex;
+  gap: v.space(4);
+  padding: 0;
+  margin-top: v.space(2);
+  list-style: none;
+}
+
+.draw__alts li {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  font-family: "Noto Sans Tagalog", v.$font-body;
+  font-size: 1.75rem;
+  color: var(--text-muted);
+}
+
+.draw__alt-latin {
+  font-family: v.$font-body;
+  font-size: v.$step--1;
+}
+
+.draw__empty { color: var(--text-muted); }
+
+.bay__method {
+  margin-top: v.space(4);
+  font-size: v.$step--1;
+  color: var(--text-muted);
+  max-width: 62ch;
+}

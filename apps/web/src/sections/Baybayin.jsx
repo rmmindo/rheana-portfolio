@@ -1,6 +1,7 @@
 import { useId, useMemo, useRef, useState, useEffect } from 'react';
 import { transliterate, syllabify } from '../lib/baybayin.js';
 import { useReveal } from '../hooks/useReveal.js';
+import GlyphRecogniser from '../components/GlyphRecogniser.jsx';
 import { useI18n } from '../hooks/useI18n.jsx';
 
 const PRESETS = ['Rheana', 'Kumusta', 'Mabuhay', 'Salamat'];
@@ -108,10 +109,8 @@ export default function Baybayin() {
         <h2 id="bay-heading" className="section__title">{t('bay.heading')}</h2>
 
         <p className="bay__lead">
-          In 2024 I co-built a <strong>Baybayin Detector</strong> that read handwritten
-          Baybayin from a webcam in real time, using OpenCV optical flow and a GRU
-          recurrent network. This is the easy half of that problem, running entirely
-          in your browser.
+          {t('bay.lead.before')} <strong>{t('bay.lead.strong')}</strong>{' '}
+          {t('bay.lead.after')}
         </p>
 
         <div className="bay__panel">
@@ -173,15 +172,12 @@ export default function Baybayin() {
 
         <TraceCanvas glyphs={glyphs} />
 
-        <p className="bay__note">
-          Baybayin is an abugida: every consonant already carries an{' '}
-          <strong>a</strong>. A mark above switches it to <strong>i</strong> or{' '}
-          <strong>e</strong>, a mark below to <strong>u</strong> or{' '}
-          <strong>o</strong>, and a <span lang="tl-Tglg">᜔</span> cancels the vowel
-          entirely. It is a lookup table and a state machine &mdash; no model, no
-          network call, and the same input always gives the same output. Knowing
-          when <em>not</em> to reach for an LLM is part of the job.
-        </p>
+        <h3 className="bay__draw-head">{t('bay.draw.heading')}</h3>
+        <p className="bay__draw-lead">{t('bay.draw.lead')}</p>
+        <GlyphRecogniser />
+        <p className="bay__method">{t('bay.draw.method')}</p>
+
+        <p className="bay__note">{t('bay.note')}</p>
       </div>
     </section>
   );
