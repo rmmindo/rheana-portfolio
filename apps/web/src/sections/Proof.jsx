@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import data from '../content/recommendations.json';
 import { useReveal } from '../hooks/useReveal.js';
+import Stage from '../components/Stage.jsx';
 import Petal from '../components/Petal.jsx';
 import { useI18n } from '../hooks/useI18n.jsx';
 
@@ -62,6 +63,7 @@ export default function Proof() {
   return (
     <section className="proof" id="proof" aria-labelledby="proof-heading" ref={ref}>
       <div className="section__inner">
+        <Stage n={6} nameKey="stage.whatgrew" art="/img/fruit-strawberry.webp" hue="pink" />
         <h2 id="proof-heading" className="section__title">{t('proof.heading')}</h2>
 
         <p className="proof__lead">{t('proof.lead', { count: data.items.length })}</p>

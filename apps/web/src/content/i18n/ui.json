@@ -13,9 +13,9 @@
     "skip": "Skip to content",
     "home": "Rheana Mindo, home",
     "hero.available": "Available for remote, asynchronous work",
-    "hero.claim.before": "I build AI systems that",
+    "hero.claim.before": "I cultivate stories — and systems that",
     "hero.claim.em": "ship",
-    "hero.claim.after": "— and I can prove every number below.",
+    "hero.claim.after": "Every number below is one I can show you.",
     "hero.cta.primary": "Let’s build something",
     "hero.cta.play": "Play with something I made",
     "hero.cta.cv": "Download CV",
@@ -79,7 +79,16 @@
     "band.caption": "Graduation day, still shipping.",
     "bay.sablay.alt": "Rheana Mindo holding a graduation cake decorated with the UP sablay pattern, both the sash and the icing carrying Baybayin script",
     "bay.sablay.caption": "The script on the UP sablay is Baybayin. So is the writing on the cake.",
-    "edu.photo.alt": "Rheana Mindo holding flowers in front of the UPLB Oblation on graduation day"
+    "edu.photo.alt": "Rheana Mindo holding flowers in front of the UPLB Oblation on graduation day",
+    "stage.seed": "Seed",
+    "stage.sprout": "Sprout",
+    "stage.bloom": "Bloom",
+    "stage.harvest": "Harvest",
+    "stage.share": "Seeds shared",
+    "stage.roots": "Roots",
+    "stage.playground": "Playground",
+    "stage.whatgrew": "What grew",
+    "stage.toolshed": "Toolshed"
   },
   "fil": {
     "lang.name": "Filipino",
@@ -94,9 +103,9 @@
     "skip": "Lumaktaw sa nilalaman",
     "home": "Rheana Mindo, home",
     "hero.available": "Bukas para sa remote at asynchronous na trabaho",
-    "hero.claim.before": "Gumagawa ako ng AI na",
+    "hero.claim.before": "Nagtatanim ako ng kuwento — at ng sistemang",
     "hero.claim.em": "umaandar",
-    "hero.claim.after": "— at kaya kong patunayan ang bawat numero sa ibaba.",
+    "hero.claim.after": "Bawat numero sa ibaba ay kaya kong ipakita.",
     "hero.cta.primary": "Gumawa tayo ng bago",
     "hero.cta.play": "Subukan ang ginawa ko",
     "hero.cta.cv": "I-download ang CV",
@@ -160,6 +169,15 @@
     "band.caption": "Araw ng graduation, patuloy pa rin sa paggawa.",
     "bay.sablay.alt": "Si Rheana Mindo hawak ang graduation cake na may disenyo ng UP sablay, parehong may Baybayin ang sablay at ang icing",
     "bay.sablay.caption": "Baybayin ang nakasulat sa UP sablay. Baybayin din ang nasa cake.",
-    "edu.photo.alt": "Si Rheana Mindo hawak ang bulaklak sa harap ng Oblation ng UPLB noong araw ng graduation"
+    "edu.photo.alt": "Si Rheana Mindo hawak ang bulaklak sa harap ng Oblation ng UPLB noong araw ng graduation",
+    "stage.seed": "Binhi",
+    "stage.sprout": "Usbong",
+    "stage.bloom": "Bulaklak",
+    "stage.harvest": "Ani",
+    "stage.share": "Ibinahaging binhi",
+    "stage.roots": "Ugat",
+    "stage.playground": "Palaruan",
+    "stage.whatgrew": "Ang tumubo",
+    "stage.toolshed": "Kamalig"
   }
 }

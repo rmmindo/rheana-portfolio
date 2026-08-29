@@ -1,5 +1,6 @@
 import RichText, { plain } from '../lib/richText.jsx';
 import { useReveal } from '../hooks/useReveal.js';
+import Stage from '../components/Stage.jsx';
 import { useI18n } from '../hooks/useI18n.jsx';
 
 export default function Education({ section }) {
@@ -9,6 +10,7 @@ export default function Education({ section }) {
   return (
     <section className="education" id="education" aria-labelledby="education-heading" ref={ref}>
       <div className="section__inner">
+        <Stage n={8} nameKey="stage.roots" art="/img/garden-lavender.webp" hue="powder" />
         <h2 id="education-heading" className="section__title">{t('section.education')}</h2>
         <div className="education__grid">
         <img

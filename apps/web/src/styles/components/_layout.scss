@@ -60,3 +60,6 @@ section { padding-block: v.space(8); }
   font-size: v.$step--1;
   white-space: nowrap;
 }
+
+// The vine is absolutely positioned against this.
+.garden { position: relative; }

@@ -1,6 +1,7 @@
 import { useId, useMemo, useRef, useState, useEffect } from 'react';
 import { transliterate, syllabify } from '../lib/baybayin.js';
 import { useReveal } from '../hooks/useReveal.js';
+import Stage from '../components/Stage.jsx';
 import GlyphRecogniser from '../components/GlyphRecogniser.jsx';
 import { useI18n } from '../hooks/useI18n.jsx';
 
@@ -106,6 +107,7 @@ export default function Baybayin() {
   return (
     <section className="bay" id="baybayin" aria-labelledby="bay-heading" ref={ref}>
       <div className="section__inner">
+        <Stage n={5} nameKey="stage.playground" art="/img/fruit-cherry.webp" hue="red" />
         <h2 id="bay-heading" className="section__title">{t('bay.heading')}</h2>
 
         <p className="bay__lead">

@@ -38,6 +38,21 @@ const src = {
   // fruit and confectionery, which would turn a developer portfolio into a
   // scrapbook, so it is deliberately left out.
   hydrangeaCluster: join(downloads, 'Untitled design (3).png'),
+
+  // Garden markers. One per stage of the page's growth narrative, plus the
+  // fruit for the gallery strip. The theme is not decoration for its own sake:
+  // Rheana's video resume opens with "I'm a cultivator of stories".
+  gardenLeaf: join(downloads, 'Untitled design (1).png'),
+  gardenClover: join(downloads, 'Untitled design (2).png'),
+  gardenFlower: join(downloads, 'Untitled design.png'),
+  gardenLavender: join(downloads, 'Untitled design (5).png'),
+  gardenLeafSmall: join(downloads, 'Untitled design (19).png'),
+  fruitLemon: join(downloads, 'Untitled design (8).png'),
+  fruitMango: join(downloads, 'Untitled design (10).png'),
+  fruitStrawberry: join(downloads, 'Untitled design (11).png'),
+  fruitApple: join(downloads, 'Untitled design (13).png'),
+  fruitCherry: join(downloads, 'Untitled design (14).png'),
+  fruitWatermelon: join(downloads, 'Untitled design (15).png'),
   scallopBlob: join(downloads, 'Untitled design (23).png'),
   scallopFrame: join(downloads, 'Untitled design (22).png'),
   atWork: join(photos, 'Rheana and Jet', 'Rhea&Jet_Pictures_Couple_Graduation_Creative_UPLB_2025-110.jpg'),
@@ -127,6 +142,17 @@ const ornaments = [
   ['hydrangea-cluster', src.hydrangeaCluster, 320],
   ['scallop-blob', src.scallopBlob, 640],
   ['scallop-frame', src.scallopFrame, 640],
+  ['garden-leaf', src.gardenLeaf, 200],
+  ['garden-clover', src.gardenClover, 200],
+  ['garden-flower', src.gardenFlower, 200],
+  ['garden-lavender', src.gardenLavender, 200],
+  ['garden-sprout', src.gardenLeafSmall, 200],
+  ['fruit-lemon', src.fruitLemon, 180],
+  ['fruit-mango', src.fruitMango, 180],
+  ['fruit-strawberry', src.fruitStrawberry, 180],
+  ['fruit-apple', src.fruitApple, 180],
+  ['fruit-cherry', src.fruitCherry, 180],
+  ['fruit-watermelon', src.fruitWatermelon, 180],
 ];
 for (const [name, file, size] of ornaments) {
   const out = join(publicDir, `img/${name}.webp`);

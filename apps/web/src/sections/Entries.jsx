@@ -2,11 +2,12 @@ import RichText, { plain } from '../lib/richText.jsx';
 import { useReveal } from '../hooks/useReveal.js';
 import { SpeakButton } from '../components/SpeechProvider.jsx';
 import { useI18n } from '../hooks/useI18n.jsx';
+import Stage from '../components/Stage.jsx';
 import { useRef } from 'react';
 
 // Renders an experience or projects section. Both share a shape in the resume
 // JSON, so they share a component rather than two near-identical ones.
-export default function Entries({ section, id, accent, titleKey }) {
+export default function Entries({ section, id, accent, titleKey, stage }) {
   const ref = useReveal();
   const listRef = useRef(null);
   const { t } = useI18n();
@@ -17,6 +18,7 @@ export default function Entries({ section, id, accent, titleKey }) {
   return (
     <section className="entries" id={id} aria-labelledby={`${id}-heading`} ref={ref}>
       <div className="section__inner">
+        {stage && <Stage {...stage} />}
         <div className="section__head">
           <h2 id={`${id}-heading`} className="section__title">{title}</h2>
           <SpeakButton targetRef={listRef} id={id} label={title} />

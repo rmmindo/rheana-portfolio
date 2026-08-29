@@ -1,0 +1,72 @@
+@use "../abstracts/variables" as v;
+
+// The scroll-drawn vine. Hidden below the large breakpoint: on a phone the
+// margins do not exist, and a decorative rail competing with the content is
+// worse than no rail.
+.vine {
+  display: none;
+}
+
+@media (min-width: v.bp(lg)) {
+  .vine {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: max(0.75rem, calc((100vw - 78rem) / 2 - 3.25rem));
+    width: 60px;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+.vine__svg {
+  width: 100%;
+  height: 100%;
+}
+
+.vine__path {
+  fill: none;
+  stroke: var(--ink-mint);
+  stroke-width: 3;
+  stroke-linecap: round;
+  // pathLength="1" on the element means the dash pattern is written in
+  // fractions of the path, so a single value covers any height.
+  stroke-dasharray: 1;
+  opacity: 0.55;
+}
+
+.vine__bud {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transform-origin: center;
+}
+
+.vine__bud.is-open {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .vine__path { transition: stroke-dashoffset 120ms linear; }
+
+  .vine__bud {
+    transition:
+      transform 520ms v.$ease-spring,
+      opacity 320ms v.$ease-out;
+  }
+}
+
+// Fully grown and static for anyone who asked for less motion.
+@media (prefers-reduced-motion: reduce) {
+  .vine__path { stroke-dashoffset: 0 !important; }
+  .vine__bud { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+:root[data-theme="dark"] .vine__path { stroke: var(--glow-mint); opacity: 0.7; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .vine__path { stroke: var(--glow-mint); opacity: 0.7; }
+}

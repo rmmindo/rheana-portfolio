@@ -1,6 +1,7 @@
 import resume from './content/resume.json';
 import ThemeToggle from './components/ThemeToggle.jsx';
 import PetalBurst from './components/PetalBurst.jsx';
+import GardenVine from './components/GardenVine.jsx';
 import VisitorCount from './components/VisitorCount.jsx';
 import Petal from './components/Petal.jsx';
 import { SpeechProvider } from './components/SpeechProvider.jsx';
@@ -82,21 +83,25 @@ function Page() {
         </div>
       </header>
 
-      <main id="main">
+      <main id="main" className="garden">
+        <GardenVine />
         <Hero profile={resume.profile} />
         <TrustBar experience={experience} />
         <VideoResume />
         <AtWorkBand />
         {experience && (
           <Entries section={experience} id="experience" titleKey="section.experience"
+                   stage={{ n: 2, nameKey: 'stage.bloom', art: '/img/garden-flower.webp', hue: 'pink' }}
                    accent={['powder', 'purple', 'pink', 'mint', 'red', 'yellow']} />
         )}
         {projects && (
           <Entries section={projects} id="projects" titleKey="section.projects"
+                   stage={{ n: 3, nameKey: 'stage.harvest', art: '/img/fruit-apple.webp', hue: 'red' }}
                    accent={['mint', 'yellow', 'powder']} />
         )}
         {volunteering && (
           <Entries section={volunteering} id="volunteering" titleKey="section.volunteering"
+                   stage={{ n: 4, nameKey: 'stage.share', art: '/img/garden-clover.webp', hue: 'mint' }}
                    accent={['mint', 'pink', 'yellow']} />
         )}
         <Baybayin />
