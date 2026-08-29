@@ -1,0 +1,114 @@
+@use "../abstracts/variables" as v;
+
+// Every rule in this file is inside @media (prefers-reduced-motion: no-preference).
+// That direction is deliberate: the default state is the finished, visible page,
+// and motion is added only for people who have not asked for less. If this
+// stylesheet failed to load, or JavaScript never ran, the page still reads.
+
+@media (prefers-reduced-motion: no-preference) {
+
+  // --- Scroll reveal ------------------------------------------------------ //
+  .trust,
+  .entry,
+  .skills__row,
+  .education__item {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity v.$dur-reveal v.$ease-out,
+      transform v.$dur-reveal v.$ease-out;
+  }
+
+  .is-revealed,
+  .is-revealed .entry,
+  .is-revealed .skills__row,
+  .is-revealed .education__item {
+    opacity: 1;
+    transform: none;
+  }
+
+  // Children stagger off the parent's reveal so a card list arrives as a
+  // sequence rather than all at once.
+  .is-revealed .entry { transition-delay: calc(var(--i, 0) * #{v.$stagger}); }
+  .is-revealed .skills__row { transition-delay: calc(var(--i, 0) * 40ms); }
+
+  // --- Hero headline words ------------------------------------------------ //
+  .word { display: inline-block; overflow: hidden; }
+
+  .word__inner {
+    display: inline-block;
+    animation: word-rise v.$dur-word v.$ease-out backwards;
+    animation-delay: calc(var(--i) * 90ms);
+  }
+
+  @keyframes word-rise {
+    from { transform: translateY(110%) rotate(4deg); opacity: 0; }
+    to   { transform: none; opacity: 1; }
+  }
+
+  // --- Hero blooms -------------------------------------------------------- //
+  .hero__bloom {
+    animation: bloom-drift 14s ease-in-out infinite alternate;
+  }
+  .hero__bloom--b { animation-duration: 19s; animation-delay: -6s; }
+
+  @keyframes bloom-drift {
+    from { transform: translate3d(0, 0, 0) rotate(0deg); }
+    to   { transform: translate3d(-14px, 18px, 0) rotate(12deg); }
+  }
+
+  // --- Trust bar orgs ----------------------------------------------------- //
+  .is-revealed .trust__org {
+    animation: org-in 480ms v.$ease-out backwards;
+    animation-delay: calc(var(--i) * 60ms);
+  }
+
+  @keyframes org-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  // --- Click petals ------------------------------------------------------- //
+  // The layer only exists when PetalBurst mounted it, and PetalBurst does not
+  // mount under reduced motion, so this block can never fire unwanted.
+  .petal-layer__petal {
+    animation:
+      petal-fly var(--d) v.$ease-out forwards,
+      petal-fade var(--d) linear forwards;
+  }
+
+  @keyframes petal-fly {
+    from { transform: translate(-50%, -50%) translate(var(--x0), var(--y0)) rotate(var(--a)) scale(0.3); }
+    to   { transform: translate(-50%, -50%) translate(var(--x1), var(--y1)) rotate(calc(var(--a) + 220deg)) scale(var(--s)); }
+  }
+
+  @keyframes petal-fade {
+    0%   { opacity: 0; }
+    18%  { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  .btn { transition: transform v.$dur-base v.$ease-spring, box-shadow v.$dur-base v.$ease-out; }
+  .btn:active { transform: translateY(1px) scale(0.98); }
+}
+
+// --- The petal layer itself ------------------------------------------------ //
+// Outside the media query because the layer must be inert even if it somehow
+// exists. pointer-events:none guarantees it can never swallow a click.
+.petal-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.petal-layer__petal {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  opacity: 0;
+  border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%;
+  background: var(--petal-fill, var(--surface-powder));
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.06);
+}

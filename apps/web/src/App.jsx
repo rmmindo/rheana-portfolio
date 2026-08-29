@@ -1,6 +1,9 @@
 import resume from './content/resume.json';
 import ThemeToggle from './components/ThemeToggle.jsx';
+import PetalBurst from './components/PetalBurst.jsx';
+import Petal from './components/Petal.jsx';
 import Hero from './sections/Hero.jsx';
+import TrustBar from './sections/TrustBar.jsx';
 import Entries from './sections/Entries.jsx';
 import Skills from './sections/Skills.jsx';
 import Education from './sections/Education.jsx';
@@ -16,10 +19,12 @@ export default function App() {
   return (
     <>
       <a className="skip-link" href="#main">Skip to content</a>
+      <PetalBurst />
 
       <header className="topbar">
         <a className="topbar__brand" href="#main">
-          <span className="topbar__mark" aria-hidden="true">RM</span>
+          <Petal size={28} />
+          <span className="topbar__mark">RM</span>
           <span className="visually-hidden">Rheana Mindo, home</span>
         </a>
         <nav className="topbar__nav" aria-label="Sections">
@@ -32,6 +37,7 @@ export default function App() {
 
       <main id="main">
         <Hero profile={resume.profile} />
+        <TrustBar experience={experience} />
         {experience && (
           <Entries section={experience} id="experience"
                    accent={['powder', 'purple', 'pink', 'mint', 'red', 'yellow']} />
@@ -51,8 +57,8 @@ export default function App() {
             Institute for readers with low vision.
           </p>
           <p className="footer__meta">
-            Built by Rheana Mindo. Content generated from a single source, so the
-            r&eacute;sum&eacute; and this page cannot disagree.
+            Built by Rheana Mindo. Every fact on this page is generated from one
+            source, so the r&eacute;sum&eacute; and this site cannot disagree.
           </p>
         </div>
       </footer>

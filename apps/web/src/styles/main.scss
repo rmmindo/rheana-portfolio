@@ -12,4 +12,8 @@
 @use "components/entries";
 @use "components/skills";
 @use "components/education";
+@use "components/trust";
 @use "components/footer";
+
+// Motion last: it overrides resting states set by the component styles above.
+@use "components/motion";

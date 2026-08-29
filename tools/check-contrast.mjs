@@ -19,12 +19,12 @@ const INK_STRONG = '#1a1626', INK_MUTED = '#4a4458';
 const NIGHT_INK = '#f4f1fa', NIGHT_MUTED = '#b9b2c9';
 
 const PALETTE = {
-  powder: { surface: '#a0cfec', ink: '#24597b', darkSurface: '#1a262e', darkInk: '#47aceb' },
-  purple: { surface: '#ac8aea', ink: '#3b0c92', darkSurface: '#211a2e', darkInk: '#9a6cef' },
-  pink:   { surface: '#ffa0e2', ink: '#862769', darkSurface: '#2e1a28', darkInk: '#eb47b9' },
-  mint:   { surface: '#c8f1f3', ink: '#227377', darkSurface: '#1a2d2e', darkInk: '#47e3eb' },
-  red:    { surface: '#ff998f', ink: '#82251c', darkSurface: '#2e1b1a', darkInk: '#eb5647' },
-  yellow: { surface: '#ffd788', ink: '#775a22', darkSurface: '#2e271a', darkInk: '#ebb447' },
+  powder: { surface: '#a0cfec', ink: '#24597b', darkSurface: '#26495e', darkInk: '#63bcf2', glow: '#1997e6' },
+  purple: { surface: '#ac8aea', ink: '#3b0c92', darkSurface: '#3a265e', darkInk: '#ac84f5', glow: '#905eed' },
+  pink:   { surface: '#ffa0e2', ink: '#862769', darkSurface: '#5e264d', darkInk: '#f47bd0', glow: '#e935b3' },
+  mint:   { surface: '#c8f1f3', ink: '#227377', darkSurface: '#25585b', darkInk: '#39e6ef', glow: '#17c5cf' },
+  red:    { surface: '#ff998f', ink: '#82251c', darkSurface: '#5e2b26', darkInk: '#f4857b', glow: '#ea4c3e' },
+  yellow: { surface: '#ffd788', ink: '#775a22', darkSurface: '#5e4c26', darkInk: '#f0b642', glow: '#cf9117' },
 };
 
 const AA_TEXT = 4.5, AA_UI = 3.0;
@@ -42,6 +42,11 @@ for (const [name, p] of Object.entries(PALETTE)) {
   add(`${name}: strong ink on surface`, INK_STRONG, p.surface, AA_TEXT);
   add(`${name}: dark ink on dark surface`, p.darkInk, p.darkSurface, AA_TEXT);
   add(`${name}: dark ink on night`, p.darkInk, NIGHT, AA_TEXT);
+  // Dark surfaces must stay readable AND stay chromatic. 7:1 is deliberately
+  // stricter than AA: the first attempt desaturated every hue to near-black,
+  // which passed contrast and destroyed the palette.
+  add(`${name}: text on dark surface`, NIGHT_INK, p.darkSurface, 7.0);
+  add(`${name}: glow border on dark surface`, p.glow, p.darkSurface, AA_UI);
 }
 
 // Brand blue is deliberately UI-only in light mode. Assert BOTH facts, so a

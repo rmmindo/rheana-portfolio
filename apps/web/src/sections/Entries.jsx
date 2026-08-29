@@ -1,10 +1,13 @@
 import RichText from '../lib/richText.jsx';
+import { useReveal } from '../hooks/useReveal.js';
 
 // Renders an experience or projects section. Both share a shape in the resume
 // JSON, so they share a component rather than two near-identical ones.
 export default function Entries({ section, id, accent }) {
+  const ref = useReveal();
+
   return (
-    <section className="entries" id={id} aria-labelledby={`${id}-heading`}>
+    <section className="entries" id={id} aria-labelledby={`${id}-heading`} ref={ref}>
       <div className="section__inner">
         <h2 id={`${id}-heading`} className="section__title">{section.title}</h2>
 
@@ -14,7 +17,8 @@ export default function Entries({ section, id, accent }) {
               className="entry"
               key={`${entry.org}-${entry.dates}`}
               style={{ '--entry-accent': `var(--surface-${accent[i % accent.length]})`,
-                       '--entry-ink': `var(--ink-${accent[i % accent.length]})` }}
+                       '--entry-ink': `var(--ink-${accent[i % accent.length]})`,
+                       '--i': i }}
             >
               <div className="entry__head">
                 <h3 className="entry__title">

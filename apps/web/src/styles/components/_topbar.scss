@@ -65,3 +65,11 @@
 @media (min-width: v.bp(md)) {
   .theme-toggle { margin-left: 0; }
 }
+
+.topbar__brand {
+  gap: v.space(2);
+  --petal-fill: var(--brand-powder);
+  --petal-star: var(--brand-yellow);
+}
+
+.topbar__mark { color: var(--brand-blue); }

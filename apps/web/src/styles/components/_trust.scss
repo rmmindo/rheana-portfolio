@@ -1,0 +1,58 @@
+@use "../abstracts/variables" as v;
+
+.trust {
+  padding-block: v.space(7);
+  border-block: 1px solid var(--border);
+  background: var(--paper-raised);
+}
+
+.trust__lead {
+  font-size: v.$step--1;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  margin-bottom: v.space(4);
+}
+
+.trust__orgs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.space(3) v.space(6);
+  padding: 0;
+  margin: 0 0 v.space(7);
+  list-style: none;
+}
+
+.trust__org {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: v.$step-1;
+  color: var(--text);
+  opacity: 0.72;
+}
+
+.trust__stats {
+  display: grid;
+  gap: v.space(5);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: v.bp(md)) {
+  .trust__stats { grid-template-columns: repeat(4, 1fr); }
+}
+
+.stat__value {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: v.$step-3;
+  line-height: 1;
+  color: var(--stat-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat__label {
+  margin-top: v.space(2);
+  font-size: v.$step--1;
+  color: var(--text-muted);
+  max-width: 22ch;
+}

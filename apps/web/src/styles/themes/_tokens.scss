@@ -25,6 +25,7 @@
   @each $name, $vals in v.$palette {
     --surface-#{$name}: #{map.get($vals, surface)};
     --ink-#{$name}: #{map.get($vals, ink)};
+    --glow-#{$name}: #{map.get($vals, ink)};
   }
 
   --border: rgba(26, 22, 38, 0.16);
@@ -53,6 +54,9 @@
   @each $name, $vals in v.$palette {
     --surface-#{$name}: #{map.get($vals, dark-surface)};
     --ink-#{$name}: #{map.get($vals, dark-ink)};
+    // Borders and rings in dark mode. Measured at 3:1 minimum against the
+    // matching dark surface, so they stay visible as UI without glare.
+    --glow-#{$name}: #{map.get($vals, glow)};
   }
 
   --border: rgba(244, 241, 250, 0.18);

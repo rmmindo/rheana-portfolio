@@ -25,16 +25,21 @@ $brand-petal:   #6ab7e7;  // petal centre, decoration only
 // --- Palette -------------------------------------------------------------- //
 // surface: fills and washes. ink: text and interactive foregrounds.
 // dark-surface / dark-ink: the same hue re-tuned for the dark theme.
+// dark-surface values are deliberately chromatic rather than near-black. The
+// first version desaturated every hue to roughly #1a1f2e, which made dark mode
+// read as flat grey and threw away the whole palette. These sit at 42%
+// saturation and still clear 7:1 against the light text colour.
+//
 // Keys are quoted deliberately: purple, pink and red are CSS colour keywords,
 // and unquoted they interpolate as colour values rather than names, which
 // silently produces properties like --surface-purple with a mangled name.
 $palette: (
-  "powder": (surface: #a0cfec, ink: #24597b, dark-surface: #1a262e, dark-ink: #47aceb),
-  "purple": (surface: #ac8aea, ink: #3b0c92, dark-surface: #211a2e, dark-ink: #9a6cef),
-  "pink":   (surface: #ffa0e2, ink: #862769, dark-surface: #2e1a28, dark-ink: #eb47b9),
-  "mint":   (surface: #c8f1f3, ink: #227377, dark-surface: #1a2d2e, dark-ink: #47e3eb),
-  "red":    (surface: #ff998f, ink: #82251c, dark-surface: #2e1b1a, dark-ink: #eb5647),
-  "yellow": (surface: #ffd788, ink: #775a22, dark-surface: #2e271a, dark-ink: #ebb447),
+  "powder": (surface: #a0cfec, ink: #24597b, dark-surface: #26495e, dark-ink: #63bcf2, glow: #1997e6),
+  "purple": (surface: #ac8aea, ink: #3b0c92, dark-surface: #3a265e, dark-ink: #ac84f5, glow: #905eed),
+  "pink":   (surface: #ffa0e2, ink: #862769, dark-surface: #5e264d, dark-ink: #f47bd0, glow: #e935b3),
+  "mint":   (surface: #c8f1f3, ink: #227377, dark-surface: #25585b, dark-ink: #39e6ef, glow: #17c5cf),
+  "red":    (surface: #ff998f, ink: #82251c, dark-surface: #5e2b26, dark-ink: #f4857b, glow: #ea4c3e),
+  "yellow": (surface: #ffd788, ink: #775a22, dark-surface: #5e4c26, dark-ink: #f0b642, glow: #cf9117),
 );
 
 // Neutrals. $ink-strong on any pastel surface clears 6.39:1 at worst (purple).
@@ -92,6 +97,14 @@ $ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 $dur-fast: 120ms;
 $dur-base: 240ms;
 $dur-slow: 420ms;
+
+// --- Motion ---------------------------------------------------------------- //
+// Durations for the choreographed reveals. Every one of these is applied only
+// inside @media (prefers-reduced-motion: no-preference).
+$dur-reveal: 620ms;
+$dur-word: 520ms;
+$dur-burst: 900ms;
+$stagger: 70ms;
 
 $bp: (sm: 30rem, md: 48rem, lg: 64rem, xl: 80rem);
 @function bp($k) { @return map.get($bp, $k); }

@@ -26,3 +26,11 @@
   color: var(--text);
   border-color: var(--border-strong);
 }
+
+.btn--quiet {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}

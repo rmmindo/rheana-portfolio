@@ -1,8 +1,11 @@
 import RichText from '../lib/richText.jsx';
+import { useReveal } from '../hooks/useReveal.js';
 
 export default function Education({ section }) {
+  const ref = useReveal();
+
   return (
-    <section className="education" id="education" aria-labelledby="education-heading">
+    <section className="education" id="education" aria-labelledby="education-heading" ref={ref}>
       <div className="section__inner">
         <h2 id="education-heading" className="section__title">{section.title}</h2>
         <ul className="education__list" role="list">
