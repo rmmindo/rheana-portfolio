@@ -38,6 +38,9 @@ const CORRECTIONS = [
   [/Longchain/g, 'LangChain', 'library name'],
   [/codewords platform/g, 'Code Wars platform', 'the COSS Code Wars contest platform'],
   [/As Kaeban's treasurer/g, "As Kaiban's treasurer", 'UPLB Kaiban'],
+  [/great mentors at Choco and Stack Overflow/g,
+   'great mentors, hot choco, and Stack Overflow',
+   'hot chocolate; it sets up the caffeine joke later in the video'],
   [/I don't run on pathing/g, "I don't run on caffeine", 'caffeine'],
 ];
 

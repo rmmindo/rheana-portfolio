@@ -1,5 +1,7 @@
 import RichText from '../lib/richText.jsx';
 import Petal from '../components/Petal.jsx';
+import { SpeakButton } from '../components/SpeechProvider.jsx';
+import { useRef } from 'react';
 
 // Splits a plain string into words wrapped for the staggered rise-in. The
 // headline is read as one sentence by assistive tech because the wrapper spans
@@ -13,6 +15,7 @@ function Words({ text }) {
 }
 
 export default function Hero({ profile }) {
+  const introRef = useRef(null);
   const links = profile.contact.filter(c => c.url);
   const email = profile.contact.find(c => c.label.includes('@'));
   const location = profile.contact.find(c => !c.url && !c.label.includes('@'));
@@ -22,7 +25,7 @@ export default function Hero({ profile }) {
       <Petal className="hero__bloom hero__bloom--a" size={220} />
       <Petal className="hero__bloom hero__bloom--b" size={140} />
 
-      <div className="hero__inner">
+      <div className="hero__inner" ref={introRef}>
         <p className="hero__eyebrow">
           <span className="hero__dot" aria-hidden="true" />
           Available for remote, asynchronous work
@@ -46,6 +49,7 @@ export default function Hero({ profile }) {
           <a className="btn btn--quiet" href="/rheana-mindo-cv.pdf" download>
             Download CV
           </a>
+          <SpeakButton targetRef={introRef} id="hero" label="the introduction" />
         </div>
 
         <ul className="hero__links" role="list">

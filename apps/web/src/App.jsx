@@ -1,6 +1,7 @@
 import resume from './content/resume.json';
 import ThemeToggle from './components/ThemeToggle.jsx';
 import PetalBurst from './components/PetalBurst.jsx';
+import { SpeechProvider } from './components/SpeechProvider.jsx';
 import VisitorCount from './components/VisitorCount.jsx';
 import Petal from './components/Petal.jsx';
 import Hero from './sections/Hero.jsx';
@@ -21,7 +22,7 @@ export default function App() {
   const skills = byType('skills');
 
   return (
-    <>
+    <SpeechProvider>
       <a className="skip-link" href="#main">Skip to content</a>
       <PetalBurst />
 
@@ -73,6 +74,6 @@ export default function App() {
           <VisitorCount />
         </div>
       </footer>
-    </>
+    </SpeechProvider>
   );
 }

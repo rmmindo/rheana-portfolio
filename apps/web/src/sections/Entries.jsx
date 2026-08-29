@@ -1,17 +1,23 @@
 import RichText from '../lib/richText.jsx';
 import { useReveal } from '../hooks/useReveal.js';
+import { SpeakButton } from '../components/SpeechProvider.jsx';
+import { useRef } from 'react';
 
 // Renders an experience or projects section. Both share a shape in the resume
 // JSON, so they share a component rather than two near-identical ones.
 export default function Entries({ section, id, accent }) {
   const ref = useReveal();
+  const listRef = useRef(null);
 
   return (
     <section className="entries" id={id} aria-labelledby={`${id}-heading`} ref={ref}>
       <div className="section__inner">
-        <h2 id={`${id}-heading`} className="section__title">{section.title}</h2>
+        <div className="section__head">
+          <h2 id={`${id}-heading`} className="section__title">{section.title}</h2>
+          <SpeakButton targetRef={listRef} id={id} label={section.title} />
+        </div>
 
-        <ol className="entries__list" role="list">
+        <ol className="entries__list" role="list" ref={listRef}>
           {section.entries.map((entry, i) => (
             <li
               className="entry"

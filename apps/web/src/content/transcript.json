@@ -1,15 +1,14 @@
 {
   "title": "Video résumé transcript",
-  "note": "Cleaned from the timed transcript export. Corrections applied where the intended word is unambiguous from the resume: the speaker's name, 'ASUS' to Azeus Systems, 'Longchain' to LangChain, 'drug chatbot' to RAG chatbot, 'codewords' to Code Wars, 'Kaeban' to Kaiban, 'DOSDSA and UP's last grant' to DOST-SEI and UP SLAS, 'text should be useful' to 'tech should be useful'. Items still unverified are listed in unverified[].",
+  "note": "Cleaned from the timed transcript export. Corrections applied where the intended word is unambiguous from the resume: the speaker's name, 'ASUS' to Azeus Systems, 'Longchain' to LangChain, 'drug chatbot' to RAG chatbot, 'codewords' to Code Wars, 'Kaeban' to Kaiban, 'DOSDSA and UP's last grant' to DOST-SEI and UP SLAS, 'text should be useful' to 'tech should be useful', and 'at Choco' to 'hot choco'. Items still unverified are listed in unverified[].",
   "unverified": [
-    "'thanks to great mentors ... and Stack Overflow' - two transcription passes rendered the mentor's name as 'Hat Troco' and 'at Choco'. Left out rather than guessed. Give me the spelling and I will restore it.",
     "'from ICPC to city apps, bridges to bug hunts' - 'city apps' is unclear in both passes.",
     "'teams of up to 20 developers' - the resume states 19 developers on the ICS platform. The page currently shows 19 in Experience."
   ],
   "paragraphs": [
     "With my hands I craft code, I weave words. Magic at my fingertips, creating worlds one line at a time — in a terminal, or in poetry. Sometimes it compiles. Sometimes it's a haiku. I'm a cultivator of stories.",
     "Hi, I'm Rheana Mindo, a soon-to-be BS Computer Science graduate from UPLB. I'd like to think of myself as someone who likes to build things: systems, stories, and sometimes spaghetti code that works anyway. I believe tech should be useful, thoughtful and fun — just like this video.",
-    "From Philippine Science High School to UPLB, I've followed my curiosity in the world of coding. I'm graduating with honors, thanks to great mentors and Stack Overflow.",
+    "From Philippine Science High School to UPLB, I've followed my curiosity in the world of coding. I'm graduating with honors, thanks to great mentors, hot choco, and Stack Overflow.",
     "For my thesis I'm studying how AI might be biased towards certain religions, and I'm developing an equalizing loss function to help make these models fairer to all faiths while maintaining their performance — a topic that is close and dear to my heart.",
     "Thanks to the DOST-SEI and UP SLAS scholarships, I was able to trade in my decade-old laptop for a powerful new one, fueling my passion for tech and making my dreams more achievable.",
     "I've been lucky to compete in Informatics Olympiads, rank in national contests, and represent the Philippines across Asia — sharpening my skills one algorithm at a time. From ICPC to bridges to bug hunts, I've stumbled, learned and levelled up with every line of code. It's been a journey of grit, growth, and just the right amount of anime to keep me going.",

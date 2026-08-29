@@ -34,3 +34,37 @@
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+
+.speak {
+  display: inline-flex;
+  align-items: center;
+  gap: v.space(2);
+  min-height: 40px;
+  padding: v.space(2) v.space(4);
+  border-radius: v.$radius-pill;
+  border: 1px solid var(--border);
+  background: var(--paper-raised);
+  color: var(--text);
+  font-size: v.$step--1;
+  cursor: pointer;
+}
+
+.speak__icon { color: var(--ink-purple); font-size: 0.75em; }
+
+.speak--active {
+  background: var(--ink-purple);
+  color: var(--paper);
+  border-color: var(--ink-purple);
+}
+
+.speak--active .speak__icon { color: var(--paper); }
+
+.section__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: v.space(4);
+  margin-bottom: v.space(6);
+}
+
+.section__head .section__title { margin-bottom: 0; }
