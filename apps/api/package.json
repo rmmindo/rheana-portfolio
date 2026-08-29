@@ -1,0 +1,21 @@
+{
+  "name": "@rheana/api",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "better-sqlite3": "^11.7.0",
+    "express-rate-limit": "^7.5.0"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.8",
+    "supertest": "^7.0.0"
+  }
+}

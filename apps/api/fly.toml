@@ -1,0 +1,40 @@
+# fly.toml - rheana-portfolio API
+# Deploy:  fly launch --no-deploy   (first time, creates the app)
+#          fly volumes create data --size 1 --region sin
+#          fly secrets set VISITOR_SALT=$(openssl rand -hex 32)
+#          fly deploy
+
+app = "rheana-api"
+primary_region = "sin"          # Singapore: closest Fly region to the Philippines
+
+[build]
+
+[env]
+  PORT = "8080"
+  ALLOWED_ORIGINS = "https://rheanamindo.me,https://www.rheanamindo.me"
+
+# The SQLite file lives on a volume so the counter is not reset by a redeploy.
+[mounts]
+  source = "data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  # Stopping when idle keeps this inside the free allowance. Fly restarts the
+  # machine on the next request in about a second, which is fine for a counter
+  # that renders after the page has already painted.
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [[http_service.checks]]
+    interval = "30s"
+    timeout = "3s"
+    grace_period = "5s"
+    method = "GET"
+    path = "/healthz"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"

@@ -1,6 +1,7 @@
 import resume from './content/resume.json';
 import ThemeToggle from './components/ThemeToggle.jsx';
 import PetalBurst from './components/PetalBurst.jsx';
+import VisitorCount from './components/VisitorCount.jsx';
 import Petal from './components/Petal.jsx';
 import Hero from './sections/Hero.jsx';
 import TrustBar from './sections/TrustBar.jsx';
@@ -69,6 +70,7 @@ export default function App() {
             Built by Rheana Mindo. Every fact on this page is generated from one
             source, so the r&eacute;sum&eacute; and this site cannot disagree.
           </p>
+          <VisitorCount />
         </div>
       </footer>
     </>

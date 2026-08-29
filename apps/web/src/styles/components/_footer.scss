@@ -9,3 +9,40 @@
 
 .footer p { margin-bottom: v.space(2); }
 .footer strong { color: var(--text); }
+
+.visitors {
+  display: inline-flex;
+  align-items: center;
+  gap: v.space(2);
+  margin-top: v.space(3);
+  padding: v.space(2) v.space(4);
+  border-radius: v.$radius-pill;
+  background: var(--paper-raised);
+  border: 1px solid var(--border);
+  font-size: v.$step--1;
+}
+
+.visitors__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--ink-mint);
+}
+
+.visitors__count {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  color: var(--ink-mint);
+  font-variant-numeric: tabular-nums;
+}
+
+.visitors__today { color: var(--text-muted); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .visitors__dot { animation: visitors-pulse 2.4s ease-in-out infinite; }
+
+  @keyframes visitors-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ink-mint) 45%, transparent); }
+    50%      { box-shadow: 0 0 0 6px color-mix(in srgb, var(--ink-mint) 0%, transparent); }
+  }
+}
