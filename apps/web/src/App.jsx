@@ -6,6 +6,7 @@ import Hero from './sections/Hero.jsx';
 import TrustBar from './sections/TrustBar.jsx';
 import VideoResume from './sections/VideoResume.jsx';
 import Proof from './sections/Proof.jsx';
+import Baybayin from './sections/Baybayin.jsx';
 import Entries from './sections/Entries.jsx';
 import Skills from './sections/Skills.jsx';
 import Education from './sections/Education.jsx';
@@ -33,6 +34,7 @@ export default function App() {
           <a href="#experience">Experience</a>
           <a href="#projects">Projects</a>
           <a href="#video">Video</a>
+          <a href="#baybayin">Play</a>
           <a href="#proof">Recommendations</a>
           <a href="#skills">Skills</a>
         </nav>
@@ -51,6 +53,7 @@ export default function App() {
           <Entries section={projects} id="projects"
                    accent={['mint', 'yellow', 'powder']} />
         )}
+        <Baybayin />
         <Proof />
         {skills && <Skills section={skills} />}
         {education && <Education section={education} />}
