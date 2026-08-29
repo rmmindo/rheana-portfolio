@@ -1,0 +1,35 @@
+@use "../abstracts/variables" as v;
+
+.skills { background: var(--paper-raised); }
+
+.skills__list {
+  display: grid;
+  gap: v.space(4);
+  margin: 0;
+}
+
+.skills__row {
+  display: grid;
+  gap: v.space(1);
+  padding-bottom: v.space(4);
+  border-bottom: 1px solid var(--border);
+}
+
+@media (min-width: v.bp(md)) {
+  .skills__row {
+    grid-template-columns: 14rem 1fr;
+    gap: v.space(5);
+    align-items: start;
+  }
+}
+
+.skills__label {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  color: var(--ink-powder);
+}
+
+.skills__value {
+  margin: 0;
+  max-width: 80ch;
+}

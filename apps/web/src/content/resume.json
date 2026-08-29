@@ -1,0 +1,250 @@
+{
+  "generated_by": "raysume",
+  "profile": {
+    "name": "RHEANA MINDO",
+    "headline": "Full Stack Software Developer &amp; AI Developer · Python · C# / .NET 8 · AI Services, LLM Agents &amp; Automation",
+    "summary": "AI + Full-Stack Software Developer with <strong>2+ years across 6 paid roles, including 3 concurrent in 2025</strong>. <strong>Cut dashboard creation 61× in production</strong> as sole developer on a FastAPI + LangChain service; <strong>closed an ad-attribution gap that had excluded ~78% of in-window payments</strong> from conversion reporting; built a <strong>Roslyn code-analysis platform</strong> and a <strong>native C# GPU training stack</strong>, shipping <strong>2,320 merged PRs at 96.5%</strong> across 16 repositories. Stack: Python, C# / .NET, FastAPI, LangChain, LangGraph, RAG, Docker, AWS. Drawn to problems where fast feedback loops let teams ship the right thing, not just ship fast.",
+    "contact": [
+      {
+        "label": "Philippines - GMT+8",
+        "url": null
+      },
+      {
+        "label": "rheanammindo@gmail.com",
+        "url": null
+      },
+      {
+        "label": "linkedin.com/in/rheana-mindo",
+        "url": "https://linkedin.com/in/rheana-mindo"
+      },
+      {
+        "label": "github.com/rmmindo",
+        "url": "https://github.com/rmmindo"
+      }
+    ]
+  },
+  "sections": [
+    {
+      "type": "experience",
+      "title": "Experience",
+      "entries": [
+        {
+          "id": "",
+          "title": "Software Developer",
+          "org": "Iosys Ltd",
+          "dates": "October 2025 – Present",
+          "location": "Remote · Shanghai, China",
+          "context": "C# / .NET 8 · Static Analysis · Machine Learning",
+          "bullets": [
+            {
+              "lead": "Built the code-analysis platform.",
+              "text": "Highest-volume contributor to a .NET 8 Roslyn static-analysis and refactoring platform (<strong>1,672 of 2,996 commits</strong>): a solution-wide extraction engine emitting a typed entity graph, an architecture-metrics engine (<strong>Design Structure Matrix with Tarjan SCC cycle detection</strong>, coupling, Halstead), a <strong>60-route REST API</strong>, and the entire <strong>37-component Blazor WebAssembly dashboard</strong> written solo, including a <strong>hand-written query language</strong> (tokenizer, parser, expression tree) for filtering millions of code entities. Raised dead-code detection accuracy <strong>from ~5% to 96.9%</strong> and rebuilt the cycle scanner from regex to Roslyn semantic analysis, taking false positives <strong>from 88% to 0%</strong> across 457 projects."
+            },
+            {
+              "lead": "Architecture enforcement &amp; platform reliability.",
+              "text": "Authored <strong>40+ production Roslyn analyzer rules</strong> (~5,700 lines) enforcing architecture at build time across four repositories, plus a 473-line analyzer checking <strong>.csproj/.sln structure at compile time</strong>; drove build warnings <strong>1,982 to 0</strong> and <strong>4,408 to 78</strong>. Became the person who unbroke the build across the estate: <strong>71 PRs repairing a broken solution</strong> across 8 repositories, including single repairs of <strong>4,062 and 3,202 compile errors</strong> from upstream breaking changes, and <strong>161 errors to zero across 335 files in one day</strong>."
+            },
+            {
+              "lead": "ML infrastructure &amp; production incidents.",
+              "text": "Built a <strong>native C# GPU training pipeline on TorchSharp</strong> — memory-mapped streaming mini-epoch loader, two-stage fetcher/uploader threads, bounded CPU/GPU queues — removing the Python subprocess boundary, plus <strong>NanoGPT, MinGRU and MinLSTM</strong> pipelines and a <strong>Bradley-Terry pairwise ranking trainer</strong> on 1,024-dim CLIP embeddings. Shipped an LLM-driven service generating <strong>1,800 images/day</strong> across CPPN, SD 1.4 and Flux. Root-caused <strong>30,368 silently failed embedding tasks</strong>, a <strong>1000× memory waste</strong> OOM-killing the orchestration server (40 MB to 40 KB per page), and an <strong>O(N²) pagination scan</strong> degrading from 0.84s to 37.68s per page; designed the GPU prefetch architecture after thermal cycling <strong>destroyed 4 GPUs (~$12,000)</strong>."
+            }
+          ]
+        },
+        {
+          "id": "",
+          "title": "AI Automation + WordPress Developer &amp; QA Engineer",
+          "org": "Luxe Lips Pty Ltd",
+          "dates": "October 2025 – Present",
+          "location": "Remote · Melbourne, Australia",
+          "context": "Python · CI/CD · WordPress Elementor · Regulated Medical Advertising",
+          "bullets": [
+            {
+              "lead": "AI automation platform.",
+              "text": "Second-highest contributor of eight on the company&#x27;s internal automation platform — <strong>1,195 commits (40% of the repository), 89 of 90 PRs merged</strong> — plus sole author of a separate 131-commit QA system. Authored <strong>9 Claude Code skills</strong> (`/qa`, `/daily-check`, `/code-review`, `/replace`, `/weekly-review`, `/popup-setup`, `/snippet-cleanup`) and <strong>39 Python tools</strong>, compressing <strong>5-hour manual QA passes to 3–10 minutes</strong> (~30–100× faster)."
+            },
+            {
+              "lead": "Ad-attribution revenue recovery.",
+              "text": "Found that the Google Ads and TikTok offline-conversion uploaders selected contacts by <strong>signup date rather than payment date</strong>, silently dropping returning patients who paid in-window — <strong>~78% of in-window payments in the June backfill</strong>. Wrote the payment-date scanner that became the shared source of truth for the window boundary, then hardened the recovery path across seven commits: deterministic order IDs, window-invariant revenue keying, UTC-consistent scoping, and test-mode and future-date guards."
+            },
+            {
+              "lead": "Site Health Dashboard (sole author).",
+              "text": "Designed and shipped a <strong>Flask service on Google Cloud Run end to end as its only contributor</strong> — every file, both GCS feed publishers, all tests, the reusable deploy workflow and its four callers. Serves booking and compliance health above Core Web Vitals, backed by an <strong>LRU window cache with lock-guarded background builds</strong> and self-reloading placeholders on cold ranges; ranks Lighthouse opportunities by pages affected then savings and sorts worst-mobile-first because mobile is the booking surface. Fails fast at import when `FLASK_SECRET_KEY` is unset to prevent silent open-access deploys."
+            },
+            {
+              "lead": "Booking integration, compliance &amp; site quality.",
+              "text": "Fixed misrouted GoHighLevel calendars across 3 clinics and 100+ pages; <strong>hit a Monday peak near 100 bookings, previously only seen mid-to-late week</strong>. Built the tiered <strong>AHPRA/TGA compliance scanner</strong> gating a 438-page prescription-medicine advertiser, and drove PageSpeed Insights <strong>red to green</strong> across image compression, font consolidation, JS-error remediation and a cache-layer conflict that had stopped the CDN serving."
+            }
+          ]
+        },
+        {
+          "id": "",
+          "title": "Junior AI Developer",
+          "org": "Offshorly Ltd",
+          "dates": "September 2025 – January 2026",
+          "location": "Remote · Quezon City, Philippines",
+          "context": "Python · LLM / AI Platform",
+          "bullets": [
+            {
+              "lead": "Production AI service (sole developer).",
+              "text": "Designed and shipped a FastAPI + LangChain microservice with REST endpoints that ingests markdown from upstream Insights and Analytics bots and auto-generates positioned dashboards: <strong>61× speedup</strong> over the prior manual workflow (36 widgets in 35 s vs. ~36 min). Authored <strong>100 of 115 commits (87%) and 18,040 lines of Python across 94 files</strong>; containerized via Docker and deployed via GitLab CI/CD to AWS in 6 weeks. Hit <strong>pylint 10/10, 0 SonarQube issues</strong>, and <strong>379 unit tests at 77.8% coverage</strong>; integrated Sentry SDK for production telemetry."
+            },
+            {
+              "lead": "LLM agent platform (core contributor).",
+              "text": "Shipped <strong>7 production LangGraph subagents</strong> on the SourceFit onboarding AI, including a datasource agent with a dynamic OpenAPI registry (replacing a hardcoded API list), a schema-driven data-validation agent, and a KPI-retrieval agent integrated into the dashboard-selection workflow. <strong>58 of 145 commits (40%)</strong>."
+            }
+          ]
+        },
+        {
+          "id": "",
+          "title": "Full Stack Developer",
+          "org": "Baybayin Detector",
+          "dates": "January 2024 – November 2024",
+          "location": "Freelance · Remote",
+          "context": "Python · OpenCV · GRU RNN · Computer Vision",
+          "bullets": [
+            {
+              "lead": "",
+              "text": "Co-developed a <strong>Baybayin Detector</strong> that recognized handwritten characters in real time using Python, OpenCV (Lucas-Kanade optical flow with KLT tracking), and a <strong>GRU RNN model</strong>, deployed with a Tkinter interface."
+            }
+          ]
+        },
+        {
+          "id": "",
+          "title": "Full Stack Developer",
+          "org": "2 Weeks",
+          "dates": "August 2024 – October 2024",
+          "location": "Freelance · Remote",
+          "context": "MERN · Interactive Game App",
+          "bullets": [
+            {
+              "lead": "",
+              "text": "Served as <strong>client-facing point of contact</strong> for a 3-person team building a story-based interactive game app. Handled GoDaddy deployment, coordinated feature assignments across developers, and ensured client satisfaction with the final product."
+            }
+          ]
+        },
+        {
+          "id": "",
+          "title": "Software Developer Intern",
+          "org": "Azeus Systems Philippines Limited",
+          "dates": "June 2024 – July 2024",
+          "location": "Hybrid · Manila, Philippines",
+          "context": "Python · LangChain · AI Knowledge Solutions",
+          "bullets": [
+            {
+              "lead": "",
+              "text": "Developed an <strong>AI-powered knowledge solution</strong> optimizing search and information retrieval, including a <strong>RAG chatbot</strong> built with SQLite, LangChain, Ollama, and ChromaDB integrated with Redmine data; drastically faster than the prior workflow of manually searching through Redmine posts and re-posting to surface answers."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "projects",
+      "title": "Leadership & Projects",
+      "entries": [
+        {
+          "id": "",
+          "title": "Author",
+          "org": "Quantifying Religious Bias in Large Language Models",
+          "dates": "August 2024 – May 2025",
+          "location": "Undergraduate Research · UPLB",
+          "context": "Python · PyTorch · LLM Bias Research",
+          "bullets": [
+            {
+              "lead": "",
+              "text": "Quantified religious bias in LLMs (<strong>BERT, RoBERTa, DistilBERT, GPT-2, T5-small</strong>) by developing the <strong>Rapid Religious Bias Probe (RRBP)</strong> and adapting a <strong>Religion-Equalizing Loss Function (RELF)</strong> using Python and PyTorch; evaluated bias with RBS, causal/embedding metrics, StereoSet, and CrowsPairs."
+            }
+          ]
+        },
+        {
+          "id": "",
+          "title": "Education Committee Head",
+          "org": "UPLB Computer Science Society",
+          "dates": "July 2024 – June 2025",
+          "location": "On-site · UPLB, Los Baños, Laguna",
+          "context": "Articles · Workshops · Mock Exams",
+          "bullets": [
+            {
+              "lead": "",
+              "text": "Published <strong>21 computer science articles</strong>, boosting the COSS page to the 2nd-most-popular section (next to CS Week) and helping grow followers to <strong>6,000+</strong> after my term."
+            },
+            {
+              "lead": "",
+              "text": "Initiated peer-driven mock exams for <strong>400+ students</strong> and workshops with alumni and industry experts on career-aligned tech skills, bridging curriculum gaps."
+            }
+          ]
+        },
+        {
+          "id": "",
+          "title": "Project Manager",
+          "org": "Platform for ICS Events, Scheduling, and Logistics",
+          "dates": "February 2024 – June 2024",
+          "location": "On-site · UPLB Institute of Computer Science",
+          "context": "PERN · Vercel · Render · Room Reservation System",
+          "bullets": [
+            {
+              "lead": "",
+              "text": "Spearheaded the development of an ICS room reservation system with a team of <strong>19 developers</strong> using PERN, Vercel, and Render; ensured comprehensive documentation and proper code reviews."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "education",
+      "title": "Education",
+      "entries": [
+        {
+          "degree": "B.S. Computer Science",
+          "school": "University of the Philippines Los Baños (UPLB)",
+          "dates": "July 2025",
+          "honors": "GWA 1.43 (1.0 = highest), <strong>Magna Cum Laude</strong>, Chancellor&#x27;s &amp; Dean&#x27;s List, UPLB Kaiban Leadership &amp; Service Award"
+        },
+        {
+          "degree": "STEM Strand",
+          "school": "Philippine Science High School – SOCCSKSARGEN (PSHS-SRC)",
+          "dates": "May 2021",
+          "honors": "GWA 1.21, <strong>With High Honors</strong>, Proficiency Award in Computer Science, Excellence Award in Filipino"
+        }
+      ]
+    },
+    {
+      "type": "skills",
+      "title": "Skills & Awards",
+      "lines": [
+        {
+          "label": "Languages",
+          "text": "Python, C# / .NET 8, JavaScript/TypeScript, C/C++, Java, SQL, PHP/WordPress"
+        },
+        {
+          "label": "AI / ML",
+          "text": "LangChain, LangGraph, OpenAI SDK, Claude Code (103 skills), Ollama, ChromaDB, RAG, PyTorch, TorchSharp, CLIP, Stable Diffusion/Flux, TensorFlow, Hugging Face, ONNX, CUDA, scikit-learn, OpenCV"
+        },
+        {
+          "label": "Backend &amp; Web",
+          "text": "FastAPI, Flask, Pydantic, REST APIs, Blazor WebAssembly/Razor, MERN/PERN, WordPress, Roslyn, MSBuild, SQLite, DuckDB, MongoDB"
+        },
+        {
+          "label": "DevOps &amp; Tooling",
+          "text": "Docker, AWS, GCP Cloud Run, GitLab CI/CD, GitHub Actions, MSBuild, Playwright, pytest, xUnit, pylint, SonarQube, Sentry, Agile"
+        },
+        {
+          "label": "APIs &amp; Integrations",
+          "text": "GoHighLevel, Slack API, monday.com, Google Ads API, Meta Marketing API, TikTok Events/Ads API, Google Sheets, PageSpeed Insights API, WordPress REST, GCS, Secret Manager"
+        },
+        {
+          "label": "Research",
+          "text": "Author, Quantifying Religious Bias in LLMs (BERT/RoBERTa/DistilBERT/GPT-2/T5-small, RRBP probe + RELF loss function)"
+        },
+        {
+          "label": "Scholarships",
+          "text": "DOST-SEI RA 7687, UP SLAS, AWS re/Start, NVIDIA ML"
+        },
+        {
+          "label": "Competitions",
+          "text": "Asia Pacific Informatics Olympiad national selection (1 of 38), NOI.PH 2020 Finalist, ICPC Asia Manila, Algolympics, HackForGov 2025 CALABARZON shortlist · CodeBreak 2.0 (Champion), C(old) (St)art 2024 Hackathon (2nd Place), CNSEC CTF (2nd Place)"
+        }
+      ]
+    }
+  ]
+}

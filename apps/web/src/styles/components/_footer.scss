@@ -1,0 +1,11 @@
+@use "../abstracts/variables" as v;
+
+.footer {
+  padding-block: v.space(7);
+  border-top: 1px solid var(--border);
+  font-size: v.$step--1;
+  color: var(--text-muted);
+}
+
+.footer p { margin-bottom: v.space(2); }
+.footer strong { color: var(--text); }

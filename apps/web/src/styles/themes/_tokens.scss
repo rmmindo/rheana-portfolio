@@ -30,6 +30,11 @@
   --border: rgba(26, 22, 38, 0.16);
   --border-strong: #{v.$brand-blue};
   --shadow: 0 1px 2px rgba(26, 22, 38, 0.06), 0 8px 24px rgba(26, 22, 38, 0.08);
+  // Education cards sit on the mint surface. In light mode that needs near-black
+  // text (14.61:1); in dark mode the mint surface is itself dark, so the normal
+  // text colour applies. Declared per theme rather than hard-coded in the
+  // component, so the toggle can reach it.
+  --education-ink: #{v.$ink-strong};
   --focus: #{v.ink("purple")};
   --focus-halo: #{v.$paper};
 }
@@ -53,6 +58,7 @@
   --border: rgba(244, 241, 250, 0.18);
   --border-strong: #{v.$brand-powder};
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(0, 0, 0, 0.45);
+  --education-ink: #{v.$night-ink};
   --focus: #{v.$brand-yellow};
   --focus-halo: #{v.$night};
 }

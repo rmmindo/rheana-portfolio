@@ -4,3 +4,12 @@
 @use "base/reset";
 @use "base/typography";
 @use "base/a11y";
+
+@use "components/layout";
+@use "components/topbar";
+@use "components/button";
+@use "components/hero";
+@use "components/entries";
+@use "components/skills";
+@use "components/education";
+@use "components/footer";

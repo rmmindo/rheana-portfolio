@@ -1,0 +1,69 @@
+@use "../abstracts/variables" as v;
+
+.hero {
+  padding-block: v.space(8) v.space(9);
+  background:
+    radial-gradient(60rem 30rem at 12% -10%, var(--surface-powder) 0%, transparent 60%),
+    radial-gradient(46rem 26rem at 92% 6%, var(--surface-pink) 0%, transparent 62%),
+    radial-gradient(38rem 24rem at 60% 40%, var(--surface-mint) 0%, transparent 70%);
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: v.space(2);
+  padding: v.space(2) v.space(4);
+  border-radius: v.$radius-pill;
+  background: var(--paper-raised);
+  border: 1px solid var(--border);
+  font-size: v.$step--1;
+  font-weight: v.$weight-bold;
+  margin-bottom: v.space(5);
+}
+
+.hero__dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--ink-mint);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ink-mint) 22%, transparent);
+}
+
+.hero__name {
+  font-size: v.$step-4;
+  letter-spacing: -0.02em;
+  margin-bottom: v.space(3);
+}
+
+.hero__headline {
+  font-size: v.$step-1;
+  font-weight: v.$weight-bold;
+  color: var(--ink-powder);
+  max-width: 34ch;
+  margin-bottom: v.space(5);
+}
+
+.hero__summary {
+  font-size: v.$step-0;
+  max-width: 62ch;
+  margin-bottom: v.space(6);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.space(3);
+  margin-bottom: v.space(6);
+}
+
+.hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.space(2) v.space(5);
+  font-size: v.$step--1;
+  padding: 0;
+  margin: 0;
+}
+
+.hero__links a { color: var(--ink-purple); }
+.hero__meta { color: var(--text-muted); }

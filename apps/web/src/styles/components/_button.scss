@@ -1,0 +1,28 @@
+@use "../abstracts/variables" as v;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: v.space(3) v.space(6);
+  border-radius: v.$radius-pill;
+  font-weight: v.$weight-bold;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: transform v.$dur-base v.$ease-spring, box-shadow v.$dur-base v.$ease-out;
+}
+
+.btn:hover { transform: translateY(-2px); }
+
+.btn--primary {
+  background: var(--ink-purple);
+  color: var(--paper);
+  box-shadow: var(--shadow);
+}
+
+.btn--ghost {
+  background: var(--paper-raised);
+  color: var(--text);
+  border-color: var(--border-strong);
+}
