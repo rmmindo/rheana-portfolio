@@ -31,6 +31,15 @@ const src = {
 
   // Photography. RM_Linkedin_Photo.jpg is deliberately no longer used.
   portrait: join(photos, 'Olive Studio Graduation', '938 MINDO RHEAN OS_75002 8R FRAME.jpg'),
+
+  // Decorative shapes from the sticker set. Only these five are used: they are
+  // on-brand (the hydrangea cluster is Rheana's own motif, the star matches the
+  // one at the centre of her logo) and they do a job. The rest of the set is
+  // fruit and confectionery, which would turn a developer portfolio into a
+  // scrapbook, so it is deliberately left out.
+  hydrangeaCluster: join(downloads, 'Untitled design (3).png'),
+  scallopBlob: join(downloads, 'Untitled design (23).png'),
+  scallopFrame: join(downloads, 'Untitled design (22).png'),
   atWork: join(photos, 'Rheana and Jet', 'Rhea&Jet_Pictures_Couple_Graduation_Creative_UPLB_2025-110.jpg'),
   sablay: join(photos, 'Rheana_s Family', 'Rheana_Family_Graduation_UPLB_Photoshoot-8.jpg'),
   oblation: join(photos, 'Rheana_s Family', 'Rheana_Family_Graduation_UPLB_Photoshoot-32.jpg'),
@@ -103,6 +112,21 @@ for (const w of [480, 960]) {
   await sharp(src.oblation).resize(w, Math.round(w * 1.25), SMART)
     .webp({ quality: 76, effort: 6 }).toFile(out);
   await report(`rheana-mindo-uplb-graduation-${w}.webp`, out);
+}
+
+console.log('ornament');
+
+// trim() crops the transparent margin so the shape sits flush in its box.
+const ornaments = [
+  ['hydrangea-cluster', src.hydrangeaCluster, 320],
+  ['scallop-blob', src.scallopBlob, 640],
+  ['scallop-frame', src.scallopFrame, 640],
+];
+for (const [name, file, size] of ornaments) {
+  const out = join(publicDir, `img/${name}.webp`);
+  await sharp(file).trim().resize(size, size, { fit: 'inside' })
+    .webp({ quality: 82, effort: 6, alphaQuality: 100 }).toFile(out);
+  await report(`${name}.webp`, out);
 }
 
 const markOut = join(publicDir, 'img/rheana-mindo-rm-monogram.webp');

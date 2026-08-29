@@ -27,7 +27,10 @@ export default function Hero({ profile }) {
 
   return (
     <section className="hero" aria-labelledby="hero-heading">
-      <Petal className="hero__bloom hero__bloom--a" size={260} />
+      {/* Decorative only, so both are aria-hidden and neither carries meaning
+          the text does not already give. */}
+      <img className="hero__bloom hero__bloom--a" src="/img/hydrangea-cluster.webp"
+           alt="" aria-hidden="true" width="320" height="320" loading="lazy" decoding="async" />
       <Petal className="hero__bloom hero__bloom--b" size={170} />
 
       <div className="hero__inner">

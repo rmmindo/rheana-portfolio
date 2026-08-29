@@ -119,3 +119,15 @@
   background: var(--petal-fill, var(--surface-powder));
   box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.06);
 }
+
+// Two petal shapes, not one. The burst previously threw identical blobs; mixing
+// in the four-point star from the centre of Rheana's hydrangea mark makes it
+// read as her artwork scattering rather than as generic confetti. Drawn with
+// clip-path so it stays a zero-download CSS shape.
+.petal-layer__petal--star {
+  border-radius: 0;
+  clip-path: polygon(
+    50% 0%, 61% 35%, 98% 50%, 61% 65%,
+    50% 100%, 39% 65%, 2% 50%, 39% 35%
+  );
+}

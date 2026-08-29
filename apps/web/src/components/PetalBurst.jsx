@@ -37,7 +37,9 @@ export default function PetalBurst() {
     const burst = (x, y) => {
       for (let i = 0; i < COUNT; i++) {
         const petal = document.createElement('span');
-        petal.className = 'petal-layer__petal';
+        // Every third one is the star from the centre of the hydrangea mark.
+        petal.className = 'petal-layer__petal'
+          + (i % 3 === 0 ? ' petal-layer__petal--star' : '');
 
         const angle = (Math.PI * 2 * i) / COUNT + Math.random() * 0.5;
         const distance = 60 + Math.random() * 90;
