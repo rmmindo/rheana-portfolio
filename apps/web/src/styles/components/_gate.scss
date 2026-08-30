@@ -2,29 +2,28 @@
 
 // The vision gate.
 //
-// The blur sits on the PAGE behind the overlay, not on the overlay itself, so
-// what resolves is the real hero rather than a picture of one.
+// The blur sits on the PAGE, not on a stand-in, so what comes into focus is the
+// real hero. Both the blur and its removal are driven by classes on <html>,
+// because the element being blurred is the gate's sibling and CSS cannot reach
+// upward from a component.
 
 .is-gated body { overflow: hidden; }
 
 .is-gated #root > *:not(.gate) {
-  filter: blur(18px) saturate(1.15);
-  transform: scale(1.03);
+  filter: blur(20px) saturate(1.1);
+  transform: scale(1.04);
   transform-origin: center;
+}
+
+.is-gated.is-clearing #root > *:not(.gate) {
+  filter: none;
+  transform: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .is-gated #root > *:not(.gate) {
-    transition: filter 900ms v.$ease-out, transform 900ms v.$ease-out;
+    transition: filter 1000ms v.$ease-out, transform 1000ms v.$ease-out;
   }
-}
-
-// Once the glasses are lifted the blur clears. The class lands on the gate, so
-// the sibling selector reaches back out to the page.
-.gate.is-revealing ~ * ,
-.is-gated:has(.gate.is-revealing) #root > *:not(.gate) {
-  filter: none;
-  transform: none;
 }
 
 .gate {
@@ -34,12 +33,10 @@
   display: grid;
   place-items: center;
   padding: v.space(5);
-  background:
-    radial-gradient(60rem 40rem at 50% 40%,
-      color-mix(in srgb, var(--surface-powder) 55%, transparent) 0%,
-      transparent 70%),
-    color-mix(in srgb, var(--paper) 82%, transparent);
-  backdrop-filter: blur(2px);
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  // A perspective on the container is what lets the glasses travel toward the
+  // viewer rather than merely getting bigger.
+  perspective: 800px;
 }
 
 .gate__skip {
@@ -59,44 +56,32 @@
 .gate__stage {
   display: grid;
   justify-items: center;
-  gap: v.space(5);
-  text-align: center;
-  max-width: 40rem;
+  gap: v.space(4);
+  transform-style: preserve-3d;
 }
 
-.gate__prompt {
-  font-family: v.$font-heading;
-  font-weight: v.$weight-bold;
-  font-size: v.$step-1;
-  color: var(--text-muted);
-}
-
-// The glasses are the control, so they get a real target and a real focus ring.
 .gate__glasses {
   display: grid;
   place-items: center;
   padding: v.space(5) v.space(6);
   min-height: 96px;
   border: 0;
-  border-radius: v.$radius-lg;
   background: none;
   color: var(--ink-powder);
   cursor: pointer;
+  transform-style: preserve-3d;
 }
 
-.gate__glasses svg { width: clamp(11rem, 34vw, 17rem); height: auto; }
+.gate__glasses svg { width: clamp(12rem, 36vw, 20rem); height: auto; }
 
-.gate__line {
-  font-family: v.$font-heading;
-  font-weight: v.$weight-bold;
-  font-size: v.$step-2;
-  color: var(--text);
-  min-height: 2.4em;
-  text-wrap: balance;
+.gate__hint {
+  font-size: v.$step--1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  // A slow drift, so the glasses read as pick-up-able rather than as a logo.
   .gate__glasses svg { animation: gate-float 3.4s ease-in-out infinite alternate; }
 
   @keyframes gate-float {
@@ -107,32 +92,34 @@
   .gate__glasses:hover svg,
   .gate__glasses:focus-visible svg { animation-play-state: paused; }
 
-  .gate.is-revealing .gate__glasses svg {
-    animation: gate-lift 900ms v.$ease-out forwards;
+  // Putting them on.
+  //
+  // translateZ carries the glasses toward the camera and past it, which is what
+  // an object does when it arrives at your face. The slight downward drift and
+  // the scale are what stop it reading as a plain zoom: they arrive at eye
+  // level, tilt, and pass.
+  .gate.is-wearing .gate__glasses svg {
+    animation: gate-wear 900ms cubic-bezier(0.5, 0, 0.75, 0) forwards;
   }
 
-  @keyframes gate-lift {
-    to { transform: translateY(-40px) scale(0.7); opacity: 0; }
+  @keyframes gate-wear {
+    0%   { transform: translate3d(0, 0, 0) rotateX(0deg); opacity: 1; }
+    35%  { transform: translate3d(0, 6px, 120px) rotateX(6deg); opacity: 1; }
+    100% { transform: translate3d(0, 34px, 620px) rotateX(16deg); opacity: 0; }
   }
 
-  .gate.is-revealing .gate__prompt { animation: gate-out 320ms v.$ease-out forwards; }
-
-  @keyframes gate-out { to { opacity: 0; transform: translateY(-8px); } }
-
-  .gate.is-revealing .gate__line { animation: gate-in 620ms v.$ease-out 260ms backwards; }
-
-  @keyframes gate-in {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: none; }
+  .gate.is-wearing .gate__hint,
+  .gate.is-wearing .gate__skip {
+    animation: gate-out 240ms v.$ease-out forwards;
   }
 
-  .gate.is-revealing { animation: gate-fade 420ms v.$ease-out 620ms forwards; }
+  @keyframes gate-out { to { opacity: 0; } }
+
+  .gate.is-wearing { animation: gate-fade 500ms v.$ease-out 500ms forwards; }
 
   @keyframes gate-fade { to { opacity: 0; } }
 }
 
-// Nothing blurs, nothing floats. The gate is not mounted at all under reduced
-// motion, but if it ever is, it must still be readable and static.
 @media (prefers-reduced-motion: reduce) {
   .is-gated #root > *:not(.gate) { filter: none; transform: none; }
   .gate__glasses svg { animation: none; }

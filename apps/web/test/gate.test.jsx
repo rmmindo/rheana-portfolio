@@ -61,10 +61,24 @@ describe('VisionGate', () => {
     expect(screen.getByRole('button', { name: /glasses/i })).toBeInTheDocument();
   });
 
-  it('reveals the line when the glasses are lifted', async () => {
+  it('clears the page blur when the glasses go on', async () => {
+    await act(async () => { render(<VisionGate />); });
+    expect(document.documentElement.classList.contains('is-clearing')).toBe(false);
+    await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
+    expect(document.documentElement.classList.contains('is-clearing')).toBe(true);
+  });
+
+  it('plays the wearing animation rather than a plain fade', async () => {
     await act(async () => { render(<VisionGate />); });
     await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
-    expect(screen.getByText(/bring it to life/i)).toBeInTheDocument();
+    expect(document.querySelector('.gate').className).toContain('is-wearing');
+  });
+
+  // The gate explains nothing. The blur is the explanation, and the hero says
+  // what it meant afterwards.
+  it('carries no explanatory copy', async () => {
+    await act(async () => { render(<VisionGate />); });
+    expect(screen.queryByText(/myopia/i)).toBeNull();
   });
 
   it('marks the page as gated so the blur can be applied and removed', async () => {

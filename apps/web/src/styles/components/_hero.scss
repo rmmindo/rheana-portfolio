@@ -20,60 +20,37 @@
 
 .hero__text { min-width: 0; }
 
-.hero__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: v.space(2);
-  padding: v.space(2) v.space(4);
-  border-radius: v.$radius-pill;
-  background: var(--paper-raised);
-  border: 1px solid var(--border);
+// One idea, at size. The old hero had five stacked blocks of text; this has a
+// label, a headline and one aside.
+.hero__role {
   font-size: v.$step--1;
-  font-weight: v.$weight-bold;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: v.space(6);
+}
+
+.hero__line {
+  font-size: clamp(2.75rem, 8.5vw, 7rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
   margin-bottom: v.space(5);
-}
-
-.hero__dot {
-  width: 0.6rem;
-  height: 0.6rem;
-  border-radius: 50%;
-  background: var(--ink-mint);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ink-mint) 22%, transparent);
-}
-
-.hero__name {
-  font-size: clamp(2.75rem, 9vw, 6.5rem);
-  letter-spacing: -0.03em;
-  margin-bottom: v.space(4);
-}
-
-.hero__claim {
-  font-family: v.$font-heading;
-  font-weight: v.$weight-bold;
-  font-size: v.$step-2;
-  max-width: 42ch;
-  margin-bottom: v.space(4);
+  display: grid;
   text-wrap: balance;
 }
 
-.hero__claim em {
-  font-style: normal;
-  background: linear-gradient(transparent 62%, var(--surface-yellow) 62%);
-  padding-inline: 0.1em;
+// The second line is the answer to the first, so it is set apart rather than
+// running on: indented, and in the brand ink.
+.hero__line-b {
+  color: var(--ink-purple);
+  padding-left: 0.08em;
 }
 
-.hero__headline {
-  font-size: v.$step-1;
-  font-weight: v.$weight-bold;
-  color: var(--ink-powder);
-  max-width: 44ch;
-  margin-bottom: v.space(5);
-}
-
-.hero__summary {
+.hero__aside {
   font-size: v.$step-0;
-  max-width: 66ch;
-  margin-bottom: v.space(6);
+  color: var(--text-muted);
+  max-width: 40ch;
+  margin-bottom: v.space(7);
 }
 
 .hero__actions {
@@ -81,20 +58,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: v.space(3);
-  margin-bottom: v.space(6);
 }
-
-.hero__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: v.space(2) v.space(5);
-  font-size: v.$step--1;
-  padding: 0;
-  margin: 0;
-}
-
-.hero__links a { color: var(--ink-purple); }
-.hero__meta { color: var(--text-muted); }
 
 // Dark mode.
 //

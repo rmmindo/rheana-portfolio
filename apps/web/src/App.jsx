@@ -2,7 +2,6 @@ import resume from './content/resume.json';
 import ThemeToggle from './components/ThemeToggle.jsx';
 import PetalBurst from './components/PetalBurst.jsx';
 import VisionGate from './components/VisionGate.jsx';
-import GardenVine from './components/GardenVine.jsx';
 import VisitorCount from './components/VisitorCount.jsx';
 import Petal from './components/Petal.jsx';
 import { SpeechProvider } from './components/SpeechProvider.jsx';
@@ -87,7 +86,6 @@ function Page() {
       </header>
 
       <main id="main" className="garden">
-        <GardenVine />
         <Hero profile={resume.profile} />
         <TrustBar experience={experience} />
         <VideoResume />

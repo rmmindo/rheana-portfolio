@@ -93,10 +93,13 @@
     "season.summer": "Summer",
     "season.autumn": "Autumn",
     "season.winter": "Winter",
-    "gate.prompt": "I have 850 myopia. This is roughly what I see without my glasses.",
-    "gate.action": "Put the glasses on to bring the page into focus",
-    "gate.line": "You bring the vision. I'll bring it to life.",
-    "gate.skip": "Skip"
+    "gate.prompt": "put these on",
+    "gate.action": "Put the glasses on",
+    "gate.skip": "Skip",
+    "hero.line": "You bring the vision.",
+    "hero.line2": "I'll bring it to life.",
+    "hero.aside": "That blur was 850 myopia. Mine.",
+    "hero.role": "Rheana Mindo, Full-Stack AI Developer"
   },
   "fil": {
     "lang.name": "Filipino",
@@ -191,9 +194,12 @@
     "season.summer": "Tag-araw",
     "season.autumn": "Taglagas",
     "season.winter": "Taglamig",
-    "gate.prompt": "May 850 myopia ako. Ganito ang nakikita ko kapag walang salamin.",
-    "gate.action": "Isuot ang salamin para luminaw ang pahina",
-    "gate.line": "Ikaw ang may bisyon. Ako ang bubuhay nito.",
-    "gate.skip": "Laktawan"
+    "gate.prompt": "isuot mo 'to",
+    "gate.action": "Isuot ang salamin",
+    "gate.skip": "Laktawan",
+    "hero.line": "Ikaw ang may bisyon.",
+    "hero.line2": "Ako ang bubuhay nito.",
+    "hero.aside": "Ang labo na iyon ay 850 myopia. Akin.",
+    "hero.role": "Rheana Mindo, Full-Stack AI Developer"
   }
 }
