@@ -34,9 +34,17 @@ export function useActiveSection(ids, { rootMargin = '-20% 0px -70% 0px' } = {})
         else visible.delete(entry.target.id);
       }
       const first = ids.find(id => visible.has(id));
-      // Keep the previous value when nothing is in the band (between sections,
-      // or at the very top) instead of blanking the highlight and flickering.
-      if (first) setActive(first);
+      if (first) { setActive(first); return; }
+
+      // Above the first section - in the hero - nothing should be marked
+      // current. Keeping the previous value meant loading the page after a
+      // scroll left "Skills" highlighted while the reader looked at the hero.
+      // Between two sections, keep the last value so the highlight does not
+      // flicker.
+      const firstEl = document.getElementById(ids[0]);
+      if (firstEl && firstEl.getBoundingClientRect().top > window.innerHeight * 0.5) {
+        setActive(null);
+      }
     }, { rootMargin, threshold: 0 });
 
     elements.forEach(el => observer.observe(el));

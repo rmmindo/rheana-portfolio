@@ -30,7 +30,10 @@ const src = {
   video: join(downloads, 'Rheana_Mindo_Video_Resume.mp4'),
 
   // Photography. RM_Linkedin_Photo.jpg is deliberately no longer used.
-  portrait: join(photos, 'Olive Studio Graduation', '938 MINDO RHEAN OS_75002 8R FRAME.jpg'),
+  // The outdoor frame, not the studio one. Masked into the scalloped shape a
+  // black studio backdrop fills the whole silhouette and reads as a dark blob;
+  // greenery reads as a garden, which is the theme.
+  portrait: join(photos, 'Rheana and Jet', 'Rhea&Jet_Pictures_Couple_Graduation_Creative_UPLB_2025-34.jpg'),
 
   // Decorative shapes from the sticker set. Only these five are used: they are
   // on-brand (the hydrangea cluster is Rheana's own motif, the star matches the
@@ -98,7 +101,11 @@ console.log('photography');
 // because the hero renders it in an organic rounded shape.
 for (const w of [320, 640]) {
   const out = join(publicDir, `img/rheana-mindo-ai-developer-portrait-${w}.webp`);
-  await sharp(src.portrait).resize(w, w, SMART).webp({ quality: 78, effort: 6 }).toFile(out);
+  // Named window again rather than a gravity guess: she occupies roughly
+  // y=1500..4100 of the 4000x6000 frame.
+  await sharp(src.portrait)
+    .extract({ left: 700, top: 1450, width: 2700, height: 2700 })
+    .resize(w, w).webp({ quality: 80, effort: 6 }).toFile(out);
   await report(`rheana-mindo-ai-developer-portrait-${w}.webp`, out);
 }
 

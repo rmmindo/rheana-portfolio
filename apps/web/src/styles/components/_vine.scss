@@ -12,16 +12,27 @@
 // about 88rem of viewport before it stops touching card edges. Below that it is
 // hidden rather than squeezed - at 64rem it was overlapping the Volunteering
 // and Playground cards.
-@media (min-width: 88rem) {
+// z-index 2, not 0.
+//
+// Each section sets `isolation: isolate` for its wallpaper ornament, which
+// makes it a stacking context that paints over anything at z-index 0 or below.
+// The vine was being covered by every section background, so it only showed in
+// the gaps and looked cut off at the first section. It sits in the gutter
+// beside the content column, so painting above the backgrounds covers nothing.
+//
+// The column is 68rem; the rail needs about 5rem of clearance beside it, so it
+// appears from 82rem of viewport and is hidden below that rather than squeezed
+// against the cards.
+@media (min-width: 82rem) {
   .vine {
     display: block;
     position: absolute;
     top: 0;
-    left: calc((100vw - 78rem) / 2 - 4.5rem);
+    left: calc((100vw - 68rem) / 2 - 4.75rem);
     width: 56px;
     height: 100%;
     pointer-events: none;
-    z-index: 0;
+    z-index: 2;
   }
 }
 

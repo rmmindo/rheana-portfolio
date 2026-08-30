@@ -1,7 +1,7 @@
 @use "../abstracts/variables" as v;
 
 .section__inner, .hero__inner {
-  width: min(100% - 2 * #{v.space(5)}, 78rem);
+  width: min(100% - 2 * #{v.space(5)}, 68rem);
   margin-inline: auto;
 }
 
@@ -9,7 +9,7 @@ section { padding-block: v.space(8); }
 
 @media (min-width: v.bp(md)) {
   section { padding-block: v.space(9); }
-  .section__inner, .hero__inner { width: min(100% - 2 * #{v.space(7)}, 78rem); }
+  .section__inner, .hero__inner { width: min(100% - 2 * #{v.space(7)}, 68rem); }
 }
 
 .section__title {
