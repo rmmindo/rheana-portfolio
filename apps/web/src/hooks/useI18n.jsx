@@ -8,7 +8,7 @@ import strings from '../content/i18n/ui.json';
 // features this page does not use. The cost of writing it here is one function;
 // the cost of the library would be paid by every visitor on every load.
 //
-// What it does NOT translate: the résumé content. Roles, metrics and
+// What it does NOT translate: the resume content. Roles, metrics and
 // recommendations stay in English because that is the language they were
 // written and verified in. A machine-translated achievement is a misquoted one,
 // and a recommendation is someone else's words to begin with.

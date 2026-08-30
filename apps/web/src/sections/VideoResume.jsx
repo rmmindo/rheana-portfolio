@@ -47,7 +47,7 @@ export default function VideoResume() {
                 default
               />
               Your browser cannot play embedded video.{' '}
-              <a href="/media/rheana-mindo-video-resume.mp4">Download the video résumé</a>.
+              <a href="/media/rheana-mindo-video-resume.mp4">Download the video resume</a>.
             </video>
           ) : (
             <button type="button" className="video__play" onClick={() => setPlaying(true)}>

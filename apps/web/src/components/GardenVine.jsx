@@ -3,7 +3,7 @@ import { useReducedMotion } from '../hooks/useReducedMotion.js';
 
 // A vine that grows down the page as you scroll.
 //
-// This is the site's spine, in both senses. Rheana's video résumé opens with
+// This is the site's spine, in both senses. Rheana's video resume opens with
 // "I'm a cultivator of stories", and the page is arranged as a growth cycle:
 // seed, sprout, bloom, harvest, seeds shared. The vine is what makes that
 // legible rather than a caption nobody reads.
@@ -23,7 +23,22 @@ import { useReducedMotion } from '../hooks/useReducedMotion.js';
 
 // Eight, alternating sides of the stem, so the vine reads as a plant rather
 // than a line with five dots on it. Sizes vary a little for the same reason.
-const STEM = 'M30 0 C 8 90, 52 170, 30 260 S 8 430, 30 520 S 52 690, 30 780 S 8 930, 30 1000';
+// The stem is generated, not hand-drawn.
+//
+// A path with four wide S-curves looks like a vine in isolation and like a
+// straight line once preserveAspectRatio="none" stretches a 1000-unit viewBox
+// down a 15,000px page. Twenty-eight short alternating curves keep a visible
+// wave at any page length.
+const WAVES = 28;
+const STEM = (() => {
+  const step = 1000 / WAVES;
+  let d = `M30 0`;
+  for (let i = 0; i < WAVES; i++) {
+    const dir = i % 2 === 0 ? 1 : -1;
+    d += ` q ${13 * dir} ${step / 2} 0 ${step}`;
+  }
+  return d;
+})();
 
 const BUDS = [
   { at: 0.07, art: '/img/garden-sprout.webp',   size: 26, side: -1 },

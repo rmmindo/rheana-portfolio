@@ -23,21 +23,31 @@
       transform v.$dur-reveal v.$ease-out;
   }
 
-  .is-revealed,
-  .is-revealed .entry,
-  .is-revealed .rec,
-  .is-revealed .video__frame,
-  .is-revealed .skills__row,
-  .is-revealed .education__item {
+  // SPECIFICITY, not decoration.
+  //
+  // The hidden rules above are `.js-reveal .trust` and friends: 0-2-0. A bare
+  // `.is-revealed` is 0-1-0, so it LOST, and any element that is itself the
+  // reveal target stayed at opacity 0 forever. That is what made the trust bar
+  // render as 380px of blank page. Elements like .entry were fine only because
+  // `.is-revealed .entry` happens to also be 0-2-0.
+  //
+  // Scoping these with .js-reveal makes both sides 0-2-0 or better, and source
+  // order then decides - which is what was intended all along.
+  .js-reveal .is-revealed,
+  .js-reveal .is-revealed .entry,
+  .js-reveal .is-revealed .rec,
+  .js-reveal .is-revealed .video__frame,
+  .js-reveal .is-revealed .skills__row,
+  .js-reveal .is-revealed .education__item {
     opacity: 1;
     transform: none;
   }
 
   // Children stagger off the parent's reveal so a card list arrives as a
   // sequence rather than all at once.
-  .is-revealed .entry,
-  .is-revealed .rec { transition-delay: calc(var(--i, 0) * #{v.$stagger}); }
-  .is-revealed .skills__row { transition-delay: calc(var(--i, 0) * 40ms); }
+  .js-reveal .is-revealed .entry,
+  .js-reveal .is-revealed .rec { transition-delay: calc(var(--i, 0) * #{v.$stagger}); }
+  .js-reveal .is-revealed .skills__row { transition-delay: calc(var(--i, 0) * 40ms); }
 
   // --- Hero headline words ------------------------------------------------ //
   .word { display: inline-block; overflow: hidden; }

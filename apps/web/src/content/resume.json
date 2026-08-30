@@ -3,7 +3,7 @@
   "profile": {
     "name": "RHEANA MINDO",
     "headline": "Full Stack Software Developer &amp; AI Developer · Python · C# / .NET 8 · AI Services, LLM Agents &amp; Automation",
-    "summary": "AI + Full-Stack Software Developer with <strong>2+ years across 6 paid roles, including 3 concurrent in 2025</strong>. <strong>Cut dashboard creation 61× in production</strong> as sole developer on a FastAPI + LangChain service; <strong>closed an ad-attribution gap that had excluded ~78% of in-window payments</strong> from conversion reporting; built a <strong>Roslyn code-analysis platform</strong> and a <strong>native C# GPU training stack</strong>, shipping <strong>2,320 merged PRs at 96.5%</strong> across 16 repositories. Stack: Python, C# / .NET, FastAPI, LangChain, LangGraph, RAG, Docker, AWS. Drawn to problems where fast feedback loops let teams ship the right thing, not just ship fast.",
+    "summary": "AI + Full-Stack Software Developer with <strong>2+ years across 6 paid roles, including 3 concurrent in 2025</strong>. <strong>Cut dashboard creation 61x in production</strong> as sole developer on a FastAPI + LangChain service; <strong>closed an ad-attribution gap that had excluded ~78% of in-window payments</strong> from conversion reporting; built a <strong>Roslyn code-analysis platform</strong> and a <strong>native C# GPU training stack</strong>, shipping <strong>2,320 merged PRs at 96.5%</strong> across 16 repositories. Stack: Python, C# / .NET, FastAPI, LangChain, LangGraph, RAG, Docker, AWS. Drawn to problems where fast feedback loops let teams ship the right thing, not just ship fast.",
     "contact": [
       {
         "label": "Philippines - GMT+8",
@@ -47,7 +47,7 @@
             },
             {
               "lead": "ML infrastructure &amp; production incidents.",
-              "text": "Built a <strong>native C# GPU training pipeline on TorchSharp</strong> — memory-mapped streaming mini-epoch loader, two-stage fetcher/uploader threads, bounded CPU/GPU queues — removing the Python subprocess boundary, plus <strong>NanoGPT, MinGRU and MinLSTM</strong> pipelines and a <strong>Bradley-Terry pairwise ranking trainer</strong> on 1,024-dim CLIP embeddings. Shipped an LLM-driven service generating <strong>1,800 images/day</strong> across CPPN, SD 1.4 and Flux. Root-caused <strong>30,368 silently failed embedding tasks</strong>, a <strong>1000× memory waste</strong> OOM-killing the orchestration server (40 MB to 40 KB per page), and an <strong>O(N²) pagination scan</strong> degrading from 0.84s to 37.68s per page; designed the GPU prefetch architecture after thermal cycling <strong>destroyed 4 GPUs (~$12,000)</strong>."
+              "text": "Built a <strong>native C# GPU training pipeline on TorchSharp</strong> — memory-mapped streaming mini-epoch loader, two-stage fetcher/uploader threads, bounded CPU/GPU queues — removing the Python subprocess boundary, plus <strong>NanoGPT, MinGRU and MinLSTM</strong> pipelines and a <strong>Bradley-Terry pairwise ranking trainer</strong> on 1,024-dim CLIP embeddings. Shipped an LLM-driven service generating <strong>1,800 images/day</strong> across CPPN, SD 1.4 and Flux. Root-caused <strong>30,368 silently failed embedding tasks</strong>, a <strong>1000x memory waste</strong> OOM-killing the orchestration server (40 MB to 40 KB per page), and an <strong>O(N²) pagination scan</strong> degrading from 0.84s to 37.68s per page; designed the GPU prefetch architecture after thermal cycling <strong>destroyed 4 GPUs (~$12,000)</strong>."
             }
           ]
         },
@@ -61,7 +61,7 @@
           "bullets": [
             {
               "lead": "AI automation platform.",
-              "text": "Second-highest contributor of eight on the company&#x27;s internal automation platform — <strong>1,195 commits (40% of the repository), 89 of 90 PRs merged</strong> — plus sole author of a separate 131-commit QA system. Authored <strong>9 Claude Code skills</strong> (`/qa`, `/daily-check`, `/code-review`, `/replace`, `/weekly-review`, `/popup-setup`, `/snippet-cleanup`) and <strong>39 Python tools</strong>, compressing <strong>5-hour manual QA passes to 3–10 minutes</strong> (~30–100× faster)."
+              "text": "Second-highest contributor of eight on the company&#x27;s internal automation platform — <strong>1,195 commits (40% of the repository), 89 of 90 PRs merged</strong> — plus sole author of a separate 131-commit QA system. Authored <strong>9 Claude Code skills</strong> (`/qa`, `/daily-check`, `/code-review`, `/replace`, `/weekly-review`, `/popup-setup`, `/snippet-cleanup`) and <strong>39 Python tools</strong>, compressing <strong>5-hour manual QA passes to 3–10 minutes</strong> (~30–100x faster)."
             },
             {
               "lead": "Ad-attribution revenue recovery.",
@@ -87,7 +87,7 @@
           "bullets": [
             {
               "lead": "Production AI service (sole developer).",
-              "text": "Designed and shipped a FastAPI + LangChain microservice with REST endpoints that ingests markdown from upstream Insights and Analytics bots and auto-generates positioned dashboards: <strong>61× speedup</strong> over the prior manual workflow (36 widgets in 35 s vs. ~36 min). Authored <strong>100 of 115 commits (87%) and 18,040 lines of Python across 94 files</strong>; containerized via Docker and deployed via GitLab CI/CD to AWS in 6 weeks. Hit <strong>pylint 10/10, 0 SonarQube issues</strong>, and <strong>379 unit tests at 77.8% coverage</strong>; integrated Sentry SDK for production telemetry."
+              "text": "Designed and shipped a FastAPI + LangChain microservice with REST endpoints that ingests markdown from upstream Insights and Analytics bots and auto-generates positioned dashboards: <strong>61x speedup</strong> over the prior manual workflow (36 widgets in 35 s vs. ~36 min). Authored <strong>100 of 115 commits (87%) and 18,040 lines of Python across 94 files</strong>; containerized via Docker and deployed via GitLab CI/CD to AWS in 6 weeks. Hit <strong>pylint 10/10, 0 SonarQube issues</strong>, and <strong>379 unit tests at 77.8% coverage</strong>; integrated Sentry SDK for production telemetry."
             },
             {
               "lead": "LLM agent platform (core contributor).",

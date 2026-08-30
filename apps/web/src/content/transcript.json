@@ -1,5 +1,5 @@
 {
-  "title": "Video résumé transcript",
+  "title": "Video resume transcript",
   "note": "Cleaned from the timed transcript export. Corrections applied where the intended word is unambiguous from the resume: the speaker's name, 'ASUS' to Azeus Systems, 'Longchain' to LangChain, 'drug chatbot' to RAG chatbot, 'codewords' to Code Wars, 'Kaeban' to Kaiban, 'DOSDSA and UP's last grant' to DOST-SEI and UP SLAS, 'text should be useful' to 'tech should be useful', and 'at Choco' to 'hot choco'. Items still unverified are listed in unverified[].",
   "unverified": [
     "'from ICPC to city apps, bridges to bug hunts' - 'city apps' is unclear in both passes.",
