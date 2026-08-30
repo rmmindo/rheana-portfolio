@@ -23,6 +23,8 @@ import { useReducedMotion } from '../hooks/useReducedMotion.js';
 
 // Eight, alternating sides of the stem, so the vine reads as a plant rather
 // than a line with five dots on it. Sizes vary a little for the same reason.
+const STEM = 'M30 0 C 8 90, 52 170, 30 260 S 8 430, 30 520 S 52 690, 30 780 S 8 930, 30 1000';
+
 const BUDS = [
   { at: 0.07, art: '/img/garden-sprout.webp',   size: 26, side: -1 },
   { at: 0.18, art: '/img/garden-leaf.webp',     size: 34, side:  1 },
@@ -72,10 +74,13 @@ export default function GardenVine() {
   return (
     <div className="vine" aria-hidden="true">
       <svg className="vine__svg" viewBox="0 0 60 1000" preserveAspectRatio="none" focusable="false">
+        {/* The full stem, faint. Without it the drawn portion ends mid-air and
+            reads as a line that has been cut off rather than one still growing. */}
+        <path className="vine__ghost" d={STEM} />
         <path
           className="vine__path"
           pathLength="1"
-          d="M30 0 C 8 90, 52 170, 30 260 S 8 430, 30 520 S 52 690, 30 780 S 8 930, 30 1000"
+          d={STEM}
           style={{ strokeDashoffset: 1 - progress }}
         />
       </svg>

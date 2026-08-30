@@ -30,8 +30,27 @@
     var(--paper);
 }
 
+// The hero carries a wide gingham band at the foot rather than a flat wash, so
+// the pattern language starts on the first screen instead of appearing three
+// sections down.
+.hero {
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 5rem;
+  pointer-events: none;
+  @include s.gingham(color-mix(in srgb, var(--surface-powder) 55%, transparent), 20px);
+  -webkit-mask-image: linear-gradient(transparent, #000 70%);
+  mask-image: linear-gradient(transparent, #000 70%);
+}
+
 .trust {
-  @include wash(powder, 40%);
+  @include s.stripes(color-mix(in srgb, var(--surface-powder) 42%, transparent), 18px, 45deg);
 }
 
 .video { @include wash(mint, 34%); }
@@ -42,16 +61,18 @@
 .entries#projects { @include wash(yellow, 30%); }
 
 .entries#volunteering {
-  @include s.gingham(color-mix(in srgb, var(--surface-mint) 46%, transparent), 26px);
+  @include s.gingham(color-mix(in srgb, var(--surface-mint) 62%, transparent), 26px);
 }
 
-.bay { @include wash(powder, 30%); }
+.bay {
+  @include s.gingham(color-mix(in srgb, var(--surface-yellow) 46%, transparent), 22px);
+}
 
 .proof {
-  @include s.stripes(color-mix(in srgb, var(--surface-red) 26%, transparent), 24px, 90deg);
+  @include s.stripes(color-mix(in srgb, var(--surface-red) 40%, transparent), 24px, 90deg);
 }
 
-.skills { @include wash(purple, 24%); }
+.skills { @include s.stripes(color-mix(in srgb, var(--surface-purple) 30%, transparent), 20px, 0deg); }
 
 .education { @include wash(powder, 26%); }
 
@@ -67,6 +88,8 @@
 // Dark mode: the pastels are deep surfaces there, so the same washes would go
 // muddy. Sections keep a hue only as a hairline edge.
 @mixin dark-sections {
+  .hero::after { display: none; }
+
   .trust, .video, .bay, .skills, .education,
   .entries#experience, .entries#projects, .entries#volunteering, .proof {
     background-image: none;
