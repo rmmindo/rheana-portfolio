@@ -20,6 +20,10 @@ import { useI18n } from '../hooks/useI18n.jsx';
 // The index is READ BACK from scroll position rather than owned by React, so a
 // drag and the buttons can never disagree about which card is showing.
 
+// Paragraph break, built from char codes rather than an escape sequence so
+// no tooling in the pipeline can turn it back into a literal newline.
+const PARA = String.fromCharCode(10, 10);
+
 const HUES = ['powder', 'purple', 'pink', 'mint', 'red', 'yellow'];
 
 export default function Proof() {
@@ -116,7 +120,13 @@ export default function Proof() {
             }}
           >
             <figure className="rec__figure">
-              <blockquote className="rec__quote"><p>{item.quote}</p></blockquote>
+              {/* VERBATIM AND WHOLE. The entire recommendation is shown - not
+                  clamped, not scrolled, not truncated. Cards are as tall as the
+                  words require, which is the correct way round: the testimony
+                  sets the layout, the layout does not edit the testimony. */}
+              <blockquote className="rec__quote">
+                {item.text.split(PARA).map((para, k) => <p key={k}>{para}</p>)}
+              </blockquote>
               <figcaption className="rec__by">
                 <span className="rec__name">{item.name}</span>
                 <span className="rec__title">{item.title}</span>

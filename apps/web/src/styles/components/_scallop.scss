@@ -7,21 +7,25 @@
 // instead. drop-shadow reads the element's alpha channel, which means the
 // shadow follows the scallops exactly rather than tracing the original
 // rectangle. That is the whole reason the edge reads as a cut shape.
+//
+// What is NOT here any more: a `drop-shadow(0 2px 0 accent)` layer. It painted
+// a solid copy of the card two pixels down, and because the card is masked the
+// copy only showed along the bottom - which read as a stray line sitting under
+// the card rather than as part of its border. The accent belongs on the card
+// itself, as a border or a stripe, not as a shadow pretending to be one.
 
 .entry {
   @include s.scallop(20px);
   box-shadow: none;
   border: 0;
-  filter: drop-shadow(0 2px 0 var(--entry-accent))
-          drop-shadow(0 10px 18px rgb(0 0 0 / 0.10));
+  filter: drop-shadow(0 10px 18px rgb(0 0 0 / 0.10));
 }
 
 .rec {
   @include s.scallop(18px);
   box-shadow: none;
   border: 0;
-  filter: drop-shadow(0 2px 0 var(--rec-accent))
-          drop-shadow(0 10px 18px rgb(0 0 0 / 0.10));
+  filter: drop-shadow(0 10px 18px rgb(0 0 0 / 0.10));
 }
 
 // Photography gets the same edge. This is the single strongest tie between the
@@ -45,7 +49,7 @@
   @include s.scallop(16px);
   border: 0;
   border-left: 0;
-  filter: drop-shadow(0 2px 0 var(--accent-mint));
+  filter: drop-shadow(0 6px 14px rgb(0 0 0 / 0.10));
 }
 
 .bay__output {
@@ -55,13 +59,12 @@
 
 // A shadow under a dark-mode card should not be pure black on near-black.
 :root[data-theme="dark"] {
-  .entry, .rec { filter: drop-shadow(0 2px 0 var(--entry-accent, var(--rec-accent))); }
-  .band__img, .bay__sablay-img, .education__photo { filter: none; }
+  .entry, .rec { filter: none; }
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    .entry, .rec { filter: drop-shadow(0 2px 0 var(--entry-accent, var(--rec-accent))); }
+    .entry, .rec { filter: none; }
     .band__img, .bay__sablay-img, .education__photo { filter: none; }
   }
 }

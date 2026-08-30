@@ -1,0 +1,170 @@
+Task ID: 260829.task-01
+Title:   Portfolio site at rheanamindo.me
+Status:  active
+Priority: high
+Date:    2026-08-29 (started), audited 2026-08-30
+Report:  a1.reports/260829.report-01.portfolio-site-context.txt
+
+================================================================================
+1. PURPOSE
+================================================================================
+
+A single-page portfolio at rheanamindo.me that converts a visitor into remote,
+asynchronous client work. It is not a CV rendered in a browser. The CV already
+exists and carries the exhaustive detail; the site exists to make a stranger
+want to write to Rheana.
+
+Rheana is legally blind (850 myopia), so accessibility is a requirement of the
+work rather than a score to chase.
+
+================================================================================
+2. STANDING RULES
+================================================================================
+
+These are rules Rheana has stated. They apply to every future change. A rule
+here overrides any general preference.
+
+R-01  Recommendations are VERBATIM.
+      Other people's words about her are never edited, corrected, shortened,
+      reordered or tidied. Not spelling, not grammar, not pronouns. They are
+      also shown WHOLE - never clamped, scrolled or truncated.
+      Guarded by: apps/web/test/proof.test.jsx
+      VIOLATED ONCE on 2026-08-30 (grammar "fixed", text split into pull-quote
+      plus remainder). Restored the same day.
+
+R-02  The website is not the CV.
+      No word vomit. One claim per section, one figure per claim. Everything
+      else goes behind a disclosure, which keeps it in the HTML for crawlers
+      while keeping it off the surface for readers.
+      Guarded by: apps/web/test/work.test.jsx
+
+R-03  Speak to the client, not about herself.
+      Lead with their pain, answer as her. Second person first, first person
+      second. Show value rather than asserting it. Some self-description is
+      wanted - a byline is fine - but it never leads.
+
+R-04  Every figure on the site must exist in the resume.
+      work.json chooses which claim leads; resume.json is the source of every
+      fact. No number is invented for the website.
+      Guarded by: apps/web/test/work.test.jsx
+
+R-05  No decorative images.
+      Shapes and colour only, from the stated palette. The only images kept are
+      the video resume, its poster and captions, and the RM monogram. The
+      hydrangea mark is drawn in SVG, not an image.
+
+R-06  No gingham, plaid or pattern grounds.
+      Flat colour washes only.
+
+R-07  English only for now.
+      The i18n layer stays wired and Filipino strings stay maintained, but the
+      language switcher is not shown.
+
+R-08  Keep light, dark and auto themes. Keep text to speech.
+
+R-09  Text-to-speech prefers a female Filipino voice, then female in the page
+      language, then any female. Intelligibility outranks the preference.
+      Guarded by: apps/web/test/pickVoice.test.js
+
+R-10  ASCII where the character is a LETTER.
+      resume -> resume, 61x not 61 multiplication-sign. But "n with tilde" in
+      Los Banos stays: removing it misspells a real place name. Punctuation
+      (dashes, middots) stays.
+
+R-11  Do not link 2weeks.me. Sensitive subject.
+      luxelips.com.au may be linked; an outbound link does not harm their SEO.
+
+R-12  Never name Iosys internal repositories. The resume abstracts that work to
+      "a C# ML platform" and the site keeps that abstraction.
+
+R-13  Commits are single-line, type: description, lowercase, no Co-Authored-By
+      and no session trailer. Per a1.standards/pr-review.standards.txt 4.1-4.2.
+
+R-14  Motion is an invitation, not decoration. Everything animated must respect
+      prefers-reduced-motion, and nothing may hide content permanently.
+
+================================================================================
+3. DONE
+================================================================================
+
+Infrastructure
+  D-01  Repo rheana-portfolio, public, GitHub Pages, deploy via Actions.
+  D-02  rheanamindo.me moved from rmmindo.github.io. HTTPS enforced, valid cert.
+  D-03  Old class site redirects with noindex and a canonical to the new one.
+  D-04  Vite 5 + React 18, prerendered at build so LCP does not wait on JS and
+        crawlers get real markup. CSS inlined; zero render-blocking stylesheets.
+  D-05  Contrast suite gates the deploy. 50 assertions.
+  D-06  Playwright screenshot harness, tools/shots.mjs.
+
+Content pipeline
+  D-07  raysume gained a web variant emitting JSON, and a webpdf variant for the
+        public CV. Both strip the phone number and the city.
+  D-08  tools/sync-content.mjs refuses to sync if either leaks.
+  D-09  Volunteering entries added to raysume: kaiban, scratch-a-game.
+
+Design system
+  D-10  Two-tier palette: pastels are surfaces, derived inks are text. Every
+        pastel fails as text on white; all six pass as surfaces.
+  D-11  Dark mode with chromatic surfaces, not desaturated greys.
+  D-12  Scalloped edges as a CSS mask. Fonts self-hosted, 63 kB.
+  D-13  Seasonal colour progression, spring at the top to winter at the bottom.
+
+Sections
+  D-14  Vision gate: page loads blurred, glasses travel toward the viewer and
+        past, page comes into focus. Once per visitor, never under reduced
+        motion, Escape closes, not in the prerendered HTML.
+  D-15  Hero: "You bring the vision. / I'll bring it to life."
+  D-16  Trust bar with odometer digits that roll into place.
+  D-17  Work: horizontal timeline of roles, one claim and one figure each,
+        ARIA tabs pattern, detail behind a disclosure.
+  D-18  Recommendations carousel, CSS scroll-snap, whole text per card.
+  D-19  Roots: degrees, certifications, competitions, scholarships.
+  D-20  Write to me: "Hey Rheana, build me ___", posts to an endpoint when
+        configured and falls back to a pre-filled email when not.
+  D-21  Baybayin playground: type to transliterate, draw to recognise. 59
+        templates covering kudlit and virama forms.
+  D-22  Video resume with click-to-load facade, 42 WebVTT captions, transcript.
+  D-23  Visitor counter and analytics via GoatCounter. No cookies, no card.
+
+================================================================================
+4. NOT DONE
+================================================================================
+
+Blocked on Rheana
+  N-01  GoatCounter account name. Everything is wired; one repo variable to set.
+  N-02  Qwen or Gemini or Groq key for the chatbot.
+  N-03  Google Search Console: verify the domain, submit the sitemap, request
+        indexing. The domain is days old, which is why it does not rank yet.
+  N-04  Confirm 19 or 20 developers on the ICS platform. The resume says 19, the
+        video says 20.
+  N-05  "city apps" in the video transcript is unresolved.
+
+Agreed, not yet built
+  N-06  A mini playground per role, so each claim is demonstrated rather than
+        asserted. Baybayin exists and belongs inside the Baybayin role.
+  N-07  Bias probe playground, from the undergraduate thesis.
+  N-08  AI chatbot.
+  N-09  The Plot: volunteering, competitions and awards as cards.
+  N-10  "Would you like to grow with me?" as the closing hook.
+  N-11  "The next step" long-form pitch, revealed on click.
+  N-12  How I work: the steps of working with her.
+  N-13  Philosophy: technology that is fun, a portfolio that makes you smile.
+  N-14  Footer, privacy policy and legal notice pages. Philippine Data Privacy
+        Act, not the German statutes the reference site cites.
+  N-15  Projects, Community and Skills still use the old bullet layout.
+  N-16  Seasonal weather on hover in the timeline: rain, falling leaves, snow.
+  N-17  Section indicator in the centre of the nav, and a scroll progress bar.
+  N-18  Restate the Offshorly problem. "36 minutes of clicking" is too specific;
+        the real client pain is closer to ramp-up time.
+
+================================================================================
+5. OPEN QUESTIONS
+================================================================================
+
+Q-01  Structure versus palette. The reference site Rheana keeps returning to is
+      monochrome, serif and radically empty. Her moodboard is saturated,
+      scalloped and maximal. Current working answer: take his restraint and
+      pacing, keep her colour. Not yet confirmed as the final target.
+
+Q-02  Whether the remaining sections convert to the Work pattern before or
+      after the mini playgrounds are built.

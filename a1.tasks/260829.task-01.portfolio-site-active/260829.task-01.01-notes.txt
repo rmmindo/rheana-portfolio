@@ -1,0 +1,108 @@
+Task ID: 260829.task-01
+File:    working notes and decisions
+
+================================================================================
+DECISIONS AND WHY
+================================================================================
+
+2026-08-29  Domain moved rather than re-registered.
+  rheanamindo.me already had correct DNS on all four GitHub Pages apex IPs.
+  Claiming a new .tech domain would have restarted certificate provisioning on
+  the critical path for no gain. The certificate issued in under two minutes.
+
+2026-08-29  Site content generated from raysume, not retyped.
+  The April PDFs in Downloads and the August raysume YAML disagreed: 759 PRs
+  versus 2,320, and 116 Claude Code skills versus 103. Generating the site from
+  the same source as the PDFs makes that class of drift impossible.
+
+2026-08-29  Pastels are surfaces, never text.
+  Measured: every one of the six fails WCAG as text on white, between 1.21 and
+  3.35 against a 4.5 requirement. All six pass as surfaces with dark ink. Hence
+  the two-tier token system and the contrast suite that gates the deploy.
+
+2026-08-30  Fly.io abandoned for the visitor counter.
+  Fly now requires a card on file even inside the free allowance. GoatCounter is
+  free without one, sets no cookies, and stores no personal data, so the privacy
+  property that justified building the Express service survives the move.
+  apps/api stays in the repo as the tested reference implementation.
+
+2026-08-30  Template matching, not a model, for Baybayin recognition.
+  A trained model would handle messy input better and would mean shipping
+  weights and a runtime to every visitor for a toy. Templates are rasterised
+  from the font the page already loads: nothing to download, deterministic, and
+  wrong in ways you can explain by looking at the shapes.
+
+2026-08-30  The reference site was studied properly, with Playwright.
+  Earlier rounds worked from a text summary of justus-john.com, which is why
+  repeated tweaking never converged. Measured: Instrument Serif at 90 to 102px
+  with line-height 1.0, body at 22 to 27px, one accent used 91 times against
+  1069 uses of near-black, and sections 7 to 11 screens tall. It is a sequence
+  of scroll-driven scenes, not a stack of sections.
+
+================================================================================
+BUGS FOUND AND FIXED
+================================================================================
+
+B-01  Reveal threshold hid every tall section on mobile.
+      threshold 0.15 is a fraction of the OBSERVED ELEMENT. The Experience
+      section is several screens tall on a phone, so 15 percent of it could
+      never be visible and the observer never fired. Everything stayed at
+      opacity 0. Fixed with threshold 0, plus a js-reveal class so the hidden
+      state only exists while JavaScript is running, plus a 3 second failsafe.
+
+B-02  Reveal specificity hid the trust bar entirely.
+      .js-reveal .trust is 0-2-0; .is-revealed is 0-1-0. The hidden rule won and
+      the section sat at opacity 0 as 380px of blank page. Cards escaped only
+      because .is-revealed .entry is also 0-2-0.
+
+B-03  Sass colour-keyword map keys.
+      purple, pink and red are CSS colour keywords. Unquoted as map keys they
+      interpolated as colour VALUES, producing malformed custom property names.
+
+B-04  A stray line under every card.
+      drop-shadow with a 2px offset painted a solid copy of the card two pixels
+      down. Because the card is masked into a scallop, the copy only showed
+      along the bottom and read as a line sitting under the card.
+
+B-05  The vine flattened into a straight stroke.
+      A 1000-unit viewBox with preserveAspectRatio none stretched down a
+      15,000px page turns four S-curves into a vertical line. Later removed.
+
+B-06  The vision gate could flash at a reduced-motion user.
+      useReducedMotion resolves in an effect and reports false on the first
+      pass. The gate now reads the media query directly at the moment it decides
+      whether to open.
+
+B-07  Odometer sat on zero when IntersectionObserver never fired.
+      Failsafe added. A correct number late beats a wrong number indefinitely.
+
+B-08  Entity escapes rendered as text.
+      raysume HTML-escapes every value, so ampersands arrived escaped. Fields
+      that bypassed the RichText decoder printed the escape sequence on screen.
+
+B-09  Hero name ran together as one word.
+      The separating space sat INSIDE an inline-block with overflow hidden, so
+      it collapsed.
+
+B-10  The at-work photograph showed the top of her head.
+      A 2:3 original cropped to 2:1 with position top. Replaced with a named
+      extract window after rendering three candidates and looking at them.
+
+================================================================================
+MISTAKES MADE
+================================================================================
+
+M-01  Edited the recommendations. Corrected grammar, fixed a pronoun, and split
+      each into a pull-quote plus a remainder. They are other people's words and
+      were not mine to tidy. Restored verbatim and guarded with tests. See R-01.
+
+M-02  Designed for several rounds without ever looking at the site Rheana kept
+      pointing at, working from a text summary instead. Playwright was available
+      the whole time.
+
+M-03  Took the site down for about four minutes by toggling the custom domain
+      off and on to re-trigger a www certificate, which dropped the live
+      deployment. Do not touch Pages domain settings on a live site.
+
+M-04  Built toward the Pinterest moodboard while Rheana kept citing a monochrome
+      reference, and did not name the contradiction for several rounds.

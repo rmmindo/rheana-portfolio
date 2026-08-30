@@ -55,6 +55,7 @@
 // --- The track ------------------------------------------------------------ //
 .proof__track {
   display: flex;
+  align-items: start;
   gap: v.space(5);
   list-style: none;
   margin: 0;
@@ -78,6 +79,8 @@
   border-top: 5px solid var(--rec-accent);
   @include s.scallop(18px);
   filter: drop-shadow(0 8px 18px rgb(0 0 0 / 0.08));
+  // The mask cuts the border with the card, so the accent stays part of the
+  // shape instead of sitting behind it.
 }
 
 .rec__figure { margin: 0; display: grid; height: 100%; }
@@ -126,3 +129,9 @@
   // scroll-behavior: smooth is motion too.
   .proof__track { scroll-behavior: auto; }
 }
+
+// No clamp, no inner scroll, no ellipsis. Every recommendation is shown whole,
+// so a card is exactly as tall as the words require. A long recommendation
+// making a tall card is the correct outcome; hiding half of what someone wrote
+// about you is not.
+.rec__quote p + p { margin-top: v.space(3); }
