@@ -15,7 +15,8 @@ import Work from './sections/Work.jsx';
 import Baybayin from './sections/Baybayin.jsx';
 import Proof from './sections/Proof.jsx';
 import Skills from './sections/Skills.jsx';
-import Education from './sections/Education.jsx';
+import Roots from './sections/Roots.jsx';
+import WriteToMe from './sections/WriteToMe.jsx';
 
 const byId = id => resume.sections.find(s => s.id === id);
 
@@ -104,7 +105,8 @@ function Page() {
         <Baybayin />
         <Proof />
         {skills && <Skills section={skills} />}
-        {education && <Education section={education} />}
+        <Roots />
+        <WriteToMe email={resume.profile.contact.find(c => c.label.includes('@'))?.label ?? ''} />
       </main>
 
       <footer className="footer">

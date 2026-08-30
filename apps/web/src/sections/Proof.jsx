@@ -1,85 +1,131 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import data from '../content/recommendations.json';
 import { useReveal } from '../hooks/useReveal.js';
-import Stage from '../components/Stage.jsx';
-import Petal from '../components/Petal.jsx';
 import { useI18n } from '../hooks/useI18n.jsx';
 
+// Recommendations, as a carousel you can shove.
+//
+// Sixteen stacked cards was a wall. This is one card at a time on a scroll-snap
+// track: the pattern browsers already implement well, and the one the reference
+// sites use for galleries.
+//
+// Why CSS scroll-snap rather than a carousel library:
+//   - it is a real scroll container, so trackpad, touch swipe, shift-wheel and
+//     scrollbar drag all work with no code of ours
+//   - keyboard users get arrow buttons and can also tab card to card
+//   - with JavaScript broken it degrades to a horizontally scrollable list,
+//     which is still perfectly usable
+//   - it costs nothing to download
+//
+// The index is READ BACK from scroll position rather than owned by React, so a
+// drag and the buttons can never disagree about which card is showing.
+
 const HUES = ['powder', 'purple', 'pink', 'mint', 'red', 'yellow'];
-
-function Card({ item, hue, index }) {
-  const [open, setOpen] = useState(false);
-  const { t } = useI18n();
-
-  return (
-    <li
-      className="rec"
-      style={{ '--rec-accent': `var(--accent-${hue})`, '--rec-ink': `var(--ink-${hue})`, '--i': index }}
-    >
-      <Petal className="rec__mark" size={26} />
-
-      {/* blockquote + figcaption so the attribution is programmatically tied to
-          the quote, rather than being a visually adjacent paragraph. */}
-      <figure className="rec__figure">
-        <blockquote className="rec__quote"><p>{item.quote}</p></blockquote>
-
-        {item.more && (
-          <>
-            <div id={`rec-more-${index}`} className="rec__more" hidden={!open}>
-              {item.more.split('\n\n').map((p, i) => <p key={i}>{p}</p>)}
-            </div>
-            <button
-              type="button"
-              className="rec__toggle"
-              aria-expanded={open}
-              aria-controls={`rec-more-${index}`}
-              onClick={() => setOpen(o => !o)}
-            >
-              {open ? t('rec.collapse') : t('rec.expand')}
-              <span className="visually-hidden"> from {item.name}</span>
-            </button>
-          </>
-        )}
-
-        <figcaption className="rec__by">
-          <span className="rec__name">{item.name}</span>
-          <span className="rec__title">{item.title}</span>
-          <span className="rec__rel">{item.rel}</span>
-        </figcaption>
-      </figure>
-    </li>
-  );
-}
 
 export default function Proof() {
   const ref = useReveal();
   const { t } = useI18n();
-  const [showAll, setShowAll] = useState(false);
+  const trackRef = useRef(null);
+  const [index, setIndex] = useState(0);
 
-  const featured = data.items.filter(i => i.featured);
-  const rest = data.items.filter(i => !i.featured);
-  const visible = showAll ? [...featured, ...rest] : featured;
+  const items = data.items;
+
+  const stepWidth = () => {
+    const track = trackRef.current;
+    const card = track?.querySelector('.rec');
+    if (!track || !card) return 0;
+    return card.offsetWidth + parseFloat(getComputedStyle(track).columnGap || 0);
+  };
+
+  const onScroll = useCallback(() => {
+    const track = trackRef.current;
+    const step = stepWidth();
+    if (!track || !step) return;
+    setIndex(Math.round(track.scrollLeft / step));
+  }, []);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    track.addEventListener('scroll', onScroll, { passive: true });
+    return () => track.removeEventListener('scroll', onScroll);
+  }, [onScroll]);
+
+  const go = useCallback(delta => {
+    const track = trackRef.current;
+    const step = stepWidth();
+    if (!track || !step) return;
+    const next = Math.min(items.length - 1, Math.max(0, index + delta));
+    track.scrollTo({ left: next * step, behavior: 'smooth' });
+  }, [index, items.length]);
 
   return (
     <section className="proof" id="proof" aria-labelledby="proof-heading" ref={ref}>
       <div className="section__inner">
-        <Stage n={6} nameKey="stage.whatgrew" season="autumn" hue="pink" />
-        <h2 id="proof-heading" className="section__title">{t('proof.heading')}</h2>
+        <div className="proof__head">
+          <div>
+            <h2 id="proof-heading" className="proof__heading">{t('proof.heading')}</h2>
+            <p className="proof__lead">{t('proof.lead', { count: items.length })}</p>
+          </div>
 
-        <p className="proof__lead">{t('proof.lead', { count: data.items.length })}</p>
-
-        <ul className="proof__list" role="list">
-          {visible.map((item, i) => (
-            <Card key={item.name} item={item} hue={HUES[i % HUES.length]} index={i} />
-          ))}
-        </ul>
-
-        {!showAll && (
-          <button type="button" className="btn btn--ghost proof__more" onClick={() => setShowAll(true)}>
-            {t('proof.more', { count: data.items.length })}
-          </button>
-        )}
+          <div className="proof__nav">
+            <button
+              type="button"
+              className="proof__arrow"
+              onClick={() => go(-1)}
+              disabled={index === 0}
+              aria-label={t('proof.prev')}
+            >
+              &larr;
+            </button>
+            <p className="proof__count" aria-live="polite">
+              <span className="visually-hidden">{t('proof.position')} </span>
+              {index + 1} / {items.length}
+            </p>
+            <button
+              type="button"
+              className="proof__arrow"
+              onClick={() => go(1)}
+              disabled={index === items.length - 1}
+              aria-label={t('proof.next')}
+            >
+              &rarr;
+            </button>
+          </div>
+        </div>
       </div>
+
+      {/* The track bleeds past the content column so the next card peeks in and
+          the row reads as continuing rather than ending. tabIndex makes it a
+          keyboard-scrollable region, which any scroll container needs if it is
+          not otherwise focusable. */}
+      <ul
+        className="proof__track"
+        ref={trackRef}
+        role="list"
+        tabIndex={0}
+        aria-label={t('proof.rail')}
+      >
+        {items.map((item, i) => (
+          <li
+            className="rec"
+            key={item.name}
+            style={{
+              '--rec-accent': `var(--accent-${HUES[i % HUES.length]})`,
+              '--rec-ink': `var(--ink-${HUES[i % HUES.length]})`,
+            }}
+          >
+            <figure className="rec__figure">
+              <blockquote className="rec__quote"><p>{item.quote}</p></blockquote>
+              <figcaption className="rec__by">
+                <span className="rec__name">{item.name}</span>
+                <span className="rec__title">{item.title}</span>
+                <span className="rec__rel">{item.rel}</span>
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

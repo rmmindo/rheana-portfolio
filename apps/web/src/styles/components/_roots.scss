@@ -1,0 +1,114 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/shapes" as s;
+
+.roots { padding-block: v.space(9); }
+
+.roots__heading {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.roots__lead {
+  margin-top: v.space(3);
+  margin-bottom: v.space(8);
+  color: var(--text-muted);
+  max-width: 46ch;
+}
+
+.roots__list {
+  display: grid;
+  gap: v.space(6);
+  padding: 0;
+  margin: 0;
+}
+
+@media (min-width: v.bp(md)) {
+  .roots__list { grid-template-columns: repeat(2, 1fr); gap: v.space(7); }
+}
+
+// Each group hangs from a rule at the top, so the set reads as four things
+// growing down from the same line.
+.root {
+  border-top: 3px solid var(--root-accent);
+  padding-top: v.space(4);
+}
+
+.root__label {
+  font-size: v.$step--1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--root-ink);
+  margin-bottom: v.space(3);
+}
+
+.root__claim {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  max-width: 24ch;
+  margin-bottom: v.space(5);
+  text-wrap: balance;
+}
+
+.root__figure {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1;
+  color: var(--root-ink);
+}
+
+.root__caption {
+  margin-top: v.space(2);
+  margin-bottom: v.space(4);
+  font-size: v.$step--1;
+  color: var(--text-muted);
+  max-width: 34ch;
+}
+
+.root__more summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-size: v.$step--1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--root-ink);
+}
+
+.root__more ul {
+  margin-top: v.space(3);
+  display: grid;
+  gap: v.space(3);
+  padding-left: v.space(5);
+  color: var(--text-muted);
+}
+
+.root__more li { list-style: none; position: relative; max-width: 52ch; }
+
+.root__more li::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * #{v.space(4)});
+  top: 0.62em;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 60% 5% 60% 5%;
+  background: var(--root-accent);
+  transform: rotate(-20deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js-reveal .root {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity v.$dur-reveal v.$ease-out, transform v.$dur-reveal v.$ease-out;
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  .js-reveal .is-revealed .root { opacity: 1; transform: none; }
+}

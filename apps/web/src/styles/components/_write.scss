@@ -1,0 +1,142 @@
+@use "../abstracts/variables" as v;
+
+// The close. A half-written letter, at reading size.
+
+.write { padding-block: v.space(9) v.space(10); }
+
+.write__form { max-width: 46rem; }
+
+.write__greeting {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(2rem, 5.5vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin-bottom: v.space(4);
+}
+
+// The stem and the input sit on one line so it reads as a sentence being
+// finished rather than a labelled field being filled.
+.write__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: v.space(3);
+  padding-bottom: v.space(3);
+  border-bottom: 2px solid var(--border-strong);
+  margin-bottom: v.space(4);
+}
+
+.write__stem {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(1.5rem, 3.6vw, 2.5rem);
+  color: var(--text-muted);
+}
+
+.write__ask {
+  flex: 1 1 14rem;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(1.5rem, 3.6vw, 2.5rem);
+  padding: 0;
+}
+
+.write__ask::placeholder {
+  color: var(--text-muted);
+  opacity: 0.55;
+  font-weight: v.$weight-regular;
+}
+
+// The underline already marks the field; a second ring inside it is noise. The
+// focus indicator moves to the whole line instead.
+.write__ask:focus { outline: none; }
+.write__line:focus-within { border-bottom-color: var(--ink-purple); }
+
+.write__prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.space(2);
+  padding: 0;
+  margin: 0 0 v.space(6);
+  list-style: none;
+}
+
+.write__prompt {
+  min-height: 40px;
+  padding: v.space(2) v.space(4);
+  border-radius: v.$radius-pill;
+  border: 1px solid var(--border);
+  background: var(--paper-raised);
+  color: var(--text-muted);
+  font-size: v.$step--1;
+  cursor: pointer;
+  text-align: left;
+}
+
+.write__prompt:hover { color: var(--text); border-color: var(--border-strong); }
+
+.write__from {
+  display: grid;
+  gap: v.space(2);
+  max-width: 26rem;
+  margin-bottom: v.space(5);
+}
+
+.write__from label {
+  font-size: v.$step--1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.write__from input {
+  min-height: 52px;
+  padding: v.space(3) v.space(4);
+  border-radius: v.$radius-md;
+  border: 2px solid var(--border);
+  background: var(--paper-raised);
+  color: var(--text);
+  font-size: v.$step-0;
+}
+
+.write__send {
+  min-height: 56px;
+  padding: v.space(3) v.space(6);
+  border: 0;
+  border-radius: v.$radius-pill;
+  background: var(--ink-purple);
+  color: var(--paper);
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: v.$step-1;
+  cursor: pointer;
+}
+
+.write__send:disabled { opacity: 0.6; cursor: default; }
+
+.write__sub {
+  margin-top: v.space(3);
+  color: var(--text-muted);
+  max-width: 44ch;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .write__send { transition: transform v.$dur-base v.$ease-spring; }
+  .write__send:hover:not(:disabled) { transform: translateY(-2px); }
+
+  // A slow blink on the empty field: the one thing on this screen asking to be
+  // touched, so it is the one thing that moves.
+  .write__line:not(:focus-within) .write__ask:placeholder-shown {
+    animation: write-cue 2.6s ease-in-out infinite;
+  }
+
+  @keyframes write-cue {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.55; }
+  }
+}

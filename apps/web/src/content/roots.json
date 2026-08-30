@@ -1,0 +1,56 @@
+{
+  "note": "The foundation section. Facts come from the resume and from Rheana's own account of her schooling, certifications and contests; the wording here is written for the site rather than copied from anywhere. One claim and one figure per group, with the full list behind a disclosure so the page stays calm and a crawler still sees everything.",
+  "groups": [
+    {
+      "id": "degrees",
+      "label": "Degrees",
+      "hue": "powder",
+      "claim": "Two schools that pick who gets in.",
+      "figure": { "value": 1.43, "decimals": 2, "unit": "", "caption": "final GWA at UP Los Banos, where 1.0 is the ceiling" },
+      "items": [
+        "BS Computer Science, University of the Philippines Los Banos, 2021 to 2025. Magna Cum Laude. Chancellor's and Dean's List. UPLB Kaiban Leadership and Service Award.",
+        "STEM, Philippine Science High School SOCCSKSARGEN, 2015 to 2021. Graduated With High Honors, fourth in the batch, GWA 1.21. Excellence Award in Filipino, Proficiency Award in Computer Science.",
+        "Entry to PSHS is by national competitive exam. She was among the 5.9 percent of examinees who passed it."
+      ]
+    },
+    {
+      "id": "certifications",
+      "label": "Certifications",
+      "hue": "mint",
+      "claim": "Cloud and deep learning, from the people who build them.",
+      "figure": { "value": 60, "decimals": 0, "unit": "", "caption": "scholars chosen for AWS re/Start from over a thousand applicants" },
+      "items": [
+        "AWS re/Start, batch PHMAN28, 2025. Roughly 60 scholars selected from more than 1,000 applicants.",
+        "Fundamentals of Deep Learning, NVIDIA, 2025.",
+        "Java (Intermediate), Java (Basic) and C++ (Basic), HackerRank, 2020."
+      ]
+    },
+    {
+      "id": "competitions",
+      "label": "Competitions",
+      "hue": "red",
+      "claim": "Six years of solving things against a clock.",
+      "figure": { "value": 38, "decimals": 0, "unit": "", "caption": "programmers picked to represent the Philippines at the Asia-Pacific Informatics Olympiad. She was one." },
+      "items": [
+        "Asia-Pacific Informatics Olympiad 2020: one of 38 selected for the national team.",
+        "National Olympiad in Informatics Philippines: 54th of 141 in the 2019 eliminations, then a 2020 finalist.",
+        "ICPC Asia Manila and Algolympics with the UPLB team, consistently inside the top 15.",
+        "CodeBreak 2.0: champion. C(old) (St)art 2024 hackathon: second place, plus Best Pitcher and Best Frontend.",
+        "CNSEC Capture the Flag: second place. Shortlisted with the UPLB CTF team for HackForGov 2025 CALABARZON."
+      ]
+    },
+    {
+      "id": "scholarships",
+      "label": "Scholarships",
+      "hue": "yellow",
+      "claim": "Someone paid for this before anyone had to.",
+      "figure": { "value": 4, "decimals": 0, "unit": "", "caption": "scholarships across high school and university" },
+      "items": [
+        "DOST-SEI RA 7687 scholarship.",
+        "UP Study Load Assistance and financial assistance.",
+        "AWS re/Start scholarship.",
+        "NVIDIA machine learning programme."
+      ]
+    }
+  ]
+}
