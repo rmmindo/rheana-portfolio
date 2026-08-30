@@ -1,0 +1,161 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/shapes" as s;
+
+// Experience, paced.
+//
+// The type here is deliberately much larger than the old bullet lists: one
+// claim gets the room five bullets used to take. The section hue comes from the
+// selected role, so moving along the timeline changes the accent - colour marks
+// where you are rather than decorating the background.
+
+.work { padding-block: v.space(9); }
+
+.work__heading {
+  font-size: v.$step-1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-family: v.$font-body;
+  font-weight: v.$weight-regular;
+  margin-bottom: v.space(6);
+}
+
+// --- The timeline rail ---------------------------------------------------- //
+.work__rail {
+  display: flex;
+  gap: v.space(2);
+  overflow-x: auto;
+  padding-bottom: v.space(3);
+  margin-bottom: v.space(8);
+  border-bottom: 1px solid var(--border);
+  scrollbar-width: none;
+}
+
+.work__rail::-webkit-scrollbar { display: none; }
+
+.work__tab {
+  flex: 0 0 auto;
+  display: grid;
+  gap: 2px;
+  justify-items: start;
+  text-align: left;
+  padding: v.space(3) v.space(4);
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.work__tab-org {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: v.$step-0;
+}
+
+.work__tab-period {
+  font-size: v.$step--1;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+
+// Three signals for the selected tab, not one: colour, weight and the rule
+// beneath it. The rule is what survives a colour-blind reader.
+.work__tab.is-active {
+  color: var(--tab-ink);
+  border-bottom-color: var(--tab-ink);
+}
+
+.work__tab:hover { color: var(--text); }
+
+// --- The claim ------------------------------------------------------------ //
+.work__panel:focus-visible { outline-offset: 6px; }
+
+.work__label {
+  font-size: v.$step--1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--work-ink);
+  margin-bottom: v.space(5);
+}
+
+// Two sentences at real size. "You" is the reader's problem; "I" is the answer.
+.work__you,
+.work__me {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(1.75rem, 4.5vw, 3.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
+.work__you { color: var(--text); }
+
+.work__me {
+  color: var(--work-ink);
+  margin-bottom: v.space(7);
+}
+
+.work__figure {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(3rem, 9vw, 6rem);
+  line-height: 1;
+  color: var(--work-ink);
+}
+
+.work__caption {
+  font-size: v.$step-0;
+  color: var(--text-muted);
+  max-width: 34ch;
+  margin-top: v.space(2);
+  margin-bottom: v.space(6);
+}
+
+// --- Everything else ------------------------------------------------------ //
+.work__more {
+  max-width: 62ch;
+  border-top: 1px solid var(--border);
+  padding-top: v.space(4);
+}
+
+.work__more summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-size: v.$step--1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--work-ink);
+}
+
+.work__more p {
+  margin-top: v.space(3);
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .work__tab,
+  .work__label,
+  .work__you,
+  .work__me,
+  .work__figure,
+  .work__caption {
+    transition: color v.$dur-base v.$ease-out, border-color v.$dur-base v.$ease-out;
+  }
+
+  // The claim arrives rather than swapping. Keyed on the panel so it replays
+  // each time a different role is selected.
+  .work__panel:not([hidden]) .work__you { animation: work-in 520ms v.$ease-out backwards; }
+  .work__panel:not([hidden]) .work__me { animation: work-in 520ms v.$ease-out 90ms backwards; }
+  .work__panel:not([hidden]) .work__figure { animation: work-in 520ms v.$ease-out 180ms backwards; }
+
+  @keyframes work-in {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+  }
+}

@@ -11,6 +11,7 @@ import Hero from './sections/Hero.jsx';
 import TrustBar from './sections/TrustBar.jsx';
 import VideoResume from './sections/VideoResume.jsx';
 import Entries from './sections/Entries.jsx';
+import Work from './sections/Work.jsx';
 import Baybayin from './sections/Baybayin.jsx';
 import Proof from './sections/Proof.jsx';
 import Skills from './sections/Skills.jsx';
@@ -89,11 +90,7 @@ function Page() {
         <Hero profile={resume.profile} />
         <TrustBar experience={experience} />
         <VideoResume />
-        {experience && (
-          <Entries section={experience} id="experience" titleKey="section.experience"
-                   stage={{ n: 2, nameKey: 'stage.bloom', season: 'summer', hue: 'pink' }}
-                   accent={['powder', 'purple', 'pink', 'mint', 'red', 'yellow']} />
-        )}
+        <Work />
         {projects && (
           <Entries section={projects} id="projects" titleKey="section.projects"
                    stage={{ n: 3, nameKey: 'stage.harvest', season: 'summer', hue: 'red' }}

@@ -9,9 +9,11 @@ import { useI18n } from '../hooks/useI18n.jsx';
 //
 //     You bring the vision. I'll bring it to life.
 //
-// The gate explains nothing. The blur is roughly what Rheana sees without
-// correction - 850 myopia - and the hero says so afterwards, once. Explaining
-// it first would turn a thing you feel into a caption you skim.
+// The gate makes one statement and asks nothing. The blur is roughly what
+// Rheana sees without correction - 850 myopia - and the hero names it
+// afterwards, once. Explaining it first would turn a thing you feel into a
+// caption you skim, and a yes/no question would add a decision where the page
+// wants an action.
 //
 // "Putting them on" is literal: the glasses rush toward the camera and past it
 // on a perspective transform, the way an object does when it arrives at your
@@ -96,13 +98,19 @@ export default function VisionGate() {
       className={`gate${wearing ? ' is-wearing' : ''}`}
       role="dialog"
       aria-modal="true"
-      aria-label={t('gate.action')}
+      aria-labelledby="gate-statement"
     >
       <button type="button" className="gate__skip" onClick={dismiss}>
         {t('gate.skip')}
       </button>
 
       <div className="gate__stage">
+        {/* A statement, not a question. Nothing here asks for consent: the
+            visitor is already inside her eyesight, and the only thing to do is
+            take the glasses. A yes/no would add a decision exactly where the
+            page wants none. */}
+        <p id="gate-statement" className="gate__statement">{t('gate.statement')}</p>
+
         <button ref={buttonRef} type="button" className="gate__glasses" onClick={wear}>
           <svg viewBox="0 0 200 80" width="200" height="80" aria-hidden="true" focusable="false">
             <g fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round">
@@ -116,7 +124,7 @@ export default function VisionGate() {
           <span className="visually-hidden">{t('gate.action')}</span>
         </button>
 
-        <p className="gate__hint" aria-hidden="true">{t('gate.prompt')}</p>
+        <p className="gate__hint" aria-hidden="true">{t('gate.prompt')} &rarr;</p>
       </div>
     </div>
   );

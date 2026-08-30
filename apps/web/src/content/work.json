@@ -1,0 +1,77 @@
+{
+  "note": "The web-facing version of the work history. The resume JSON stays the source of every FACT; this file decides which single claim leads for each role and how it is said. Nothing here may state a figure that is not in resume.json.\n\nRules: one claim per role. One figure, not five. Second person first, first person second. Short closed sentences. The detail exists for anyone who wants it and for search engines, but it is not the surface.",
+  "roles": [
+    {
+      "id": "iosys",
+      "org": "Iosys",
+      "label": "Static analysis",
+      "period": "2025 -> now",
+      "season": "summer",
+      "hue": "purple",
+      "you": "Your build is broken across eight repositories.",
+      "me": "I make that my problem.",
+      "figure": { "value": 4062, "unit": "", "caption": "compile errors cleared in a single pull request" },
+      "detail": "A .NET 8 Roslyn platform: a solution-wide extraction engine, an architecture-metrics engine with Tarjan cycle detection, a 60-route API, and a 37-component Blazor dashboard written solo. Dead-code detection went from roughly 5% accurate to 96.9%, and the cycle scanner from 88% false positives to none across 457 projects."
+    },
+    {
+      "id": "luxelips",
+      "org": "Luxe Lips",
+      "label": "Attribution",
+      "period": "2025 -> now",
+      "season": "summer",
+      "hue": "pink",
+      "you": "You were paying for ads that looked like they failed.",
+      "me": "They had not.",
+      "figure": { "value": 78, "unit": "%", "caption": "of in-window payments were missing from conversion reporting" },
+      "detail": "The Google Ads and TikTok uploaders were selecting contacts by signup date instead of payment date, so returning patients who paid inside the window were silently dropped. I wrote the payment-date scanner that became the shared source of truth, then hardened the recovery path: deterministic order IDs, window-invariant revenue keying, UTC-consistent scoping, and guards for test mode and future dates."
+    },
+    {
+      "id": "offshorly",
+      "org": "Offshorly",
+      "label": "AI services",
+      "period": "2025 - 2026",
+      "season": "spring",
+      "hue": "mint",
+      "you": "Thirty-six minutes of clicking to build one dashboard.",
+      "me": "Now thirty-five seconds.",
+      "figure": { "value": 61, "unit": "x", "caption": "faster in production, as the only developer on it" },
+      "detail": "A FastAPI and LangChain service that reads markdown from upstream bots and lays out positioned dashboards. 100 of 115 commits, 18,040 lines across 94 files, containerised and deployed to AWS in six weeks at pylint 10/10 with zero SonarQube issues and 379 tests. Also seven production LangGraph subagents on the onboarding AI."
+    },
+    {
+      "id": "baybayin",
+      "org": "Baybayin Detector",
+      "label": "Computer vision",
+      "period": "2024",
+      "season": "autumn",
+      "hue": "yellow",
+      "you": "A script older than the alphabet you are reading.",
+      "me": "I taught a camera to read it.",
+      "figure": { "value": 1, "unit": "", "caption": "webcam, reading handwriting in real time" },
+      "detail": "Handwritten Baybayin recognised live using Python and OpenCV, with Lucas-Kanade optical flow and KLT tracking feeding a GRU recurrent network, wrapped in a Tkinter interface. The playground further down this page is the browser-sized version of the same problem."
+    },
+    {
+      "id": "azeus",
+      "org": "Azeus Systems",
+      "label": "Retrieval",
+      "period": "2024",
+      "season": "autumn",
+      "hue": "red",
+      "you": "The answer was already written down somewhere.",
+      "me": "Finding it was the hard part.",
+      "figure": { "value": 1, "unit": "", "caption": "chatbot, replacing a manual search through years of posts" },
+      "detail": "An on-premise retrieval chatbot over the company's Redmine data, built with SQLite, LangChain, Ollama and ChromaDB. It replaced a workflow of searching old posts by hand and re-posting the answer."
+    },
+    {
+      "id": "twoweeks",
+      "org": "2 Weeks",
+      "label": "Client work",
+      "period": "2024",
+      "season": "winter",
+      "hue": "powder",
+      "you": "You need one person who answers for the whole thing.",
+      "me": "That was me.",
+      "figure": { "value": 3, "unit": "", "caption": "developers, one point of contact, shipped on time" },
+      "detail": "Client-facing lead for a three-person team building a story-based interactive game. I handled deployment, coordinated feature assignments, and owned the relationship through delivery."
+    }
+  ]
+}

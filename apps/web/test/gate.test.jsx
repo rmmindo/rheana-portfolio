@@ -74,11 +74,20 @@ describe('VisionGate', () => {
     expect(document.querySelector('.gate').className).toContain('is-wearing');
   });
 
-  // The gate explains nothing. The blur is the explanation, and the hero says
-  // what it meant afterwards.
-  it('carries no explanatory copy', async () => {
+  // The gate states one thing and asks nothing. The blur is the explanation;
+  // the hero names it afterwards.
+  it('states rather than explains, and never mentions myopia', async () => {
     await act(async () => { render(<VisionGate />); });
+    expect(screen.getByText(/already seeing it my way/i)).toBeInTheDocument();
     expect(screen.queryByText(/myopia/i)).toBeNull();
+  });
+
+  // A yes/no puts a decision in front of someone who has not been given a
+  // reason to care yet. There is only ever an action.
+  it('asks no question the visitor has to answer', async () => {
+    await act(async () => { render(<VisionGate />); });
+    expect(screen.queryByRole('button', { name: /^yes$/i })).toBeNull();
+    expect(screen.queryByRole('button', { name: /^no$/i })).toBeNull();
   });
 
   it('marks the page as gated so the blur can be applied and removed', async () => {

@@ -93,13 +93,17 @@
     "season.summer": "Summer",
     "season.autumn": "Autumn",
     "season.winter": "Winter",
-    "gate.prompt": "put these on",
-    "gate.action": "Put the glasses on",
+    "gate.prompt": "take the glasses",
+    "gate.action": "Take the glasses to bring the page into focus",
     "gate.skip": "Skip",
     "hero.line": "You bring the vision.",
     "hero.line2": "I'll bring it to life.",
-    "hero.aside": "That blur was 850 myopia. Mine.",
-    "hero.role": "Rheana Mindo, Full-Stack AI Developer"
+    "hero.aside": "That blur was 850 myopia. Mine — and why this site is built to be read by anyone.",
+    "hero.role": "Rheana Mindo, Full-Stack AI Developer",
+    "gate.statement": "You're already seeing it my way.",
+    "work.heading": "Where I have shipped",
+    "work.rail": "Roles, in order",
+    "work.how": "How"
   },
   "fil": {
     "lang.name": "Filipino",
@@ -194,12 +198,16 @@
     "season.summer": "Tag-araw",
     "season.autumn": "Taglagas",
     "season.winter": "Taglamig",
-    "gate.prompt": "isuot mo 'to",
-    "gate.action": "Isuot ang salamin",
+    "gate.prompt": "kunin ang salamin",
+    "gate.action": "Kunin ang salamin para luminaw ang pahina",
     "gate.skip": "Laktawan",
     "hero.line": "Ikaw ang may bisyon.",
     "hero.line2": "Ako ang bubuhay nito.",
-    "hero.aside": "Ang labo na iyon ay 850 myopia. Akin.",
-    "hero.role": "Rheana Mindo, Full-Stack AI Developer"
+    "hero.aside": "Ang labo na iyon ay 850 myopia. Akin — at kaya ginawa ang site na ito para mabasa ng kahit sino.",
+    "hero.role": "Rheana Mindo, Full-Stack AI Developer",
+    "gate.statement": "Nakikita mo na ito sa paraang nakikita ko.",
+    "work.heading": "Kung saan ako nag-ship",
+    "work.rail": "Mga trabaho, magkasunod",
+    "work.how": "Paano"
   }
 }
