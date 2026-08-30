@@ -39,3 +39,14 @@
     to   { transform: none; }
   }
 }
+
+.stage__season {
+  padding: 2px v.space(3);
+  border-radius: v.$radius-pill;
+  background: var(--stage-ink, var(--ink-mint));
+  color: var(--paper);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: v.$weight-bold;
+}

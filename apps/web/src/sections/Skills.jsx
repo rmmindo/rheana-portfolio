@@ -10,7 +10,7 @@ export default function Skills({ section }) {
   return (
     <section className="skills" id="skills" aria-labelledby="skills-heading" ref={ref}>
       <div className="section__inner">
-        <Stage n={7} nameKey="stage.toolshed" art="/img/garden-leaf.webp" hue="purple" />
+        <Stage n={7} nameKey="stage.toolshed" season="autumn" art="/img/garden-leaf.webp" hue="purple" />
         <h2 id="skills-heading" className="section__title">{t('section.skills')}</h2>
         <dl className="skills__list">
           {section.lines.map((line, i) => (

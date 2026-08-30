@@ -88,7 +88,11 @@
     "stage.roots": "Roots",
     "stage.playground": "Playground",
     "stage.whatgrew": "What grew",
-    "stage.toolshed": "Toolshed"
+    "stage.toolshed": "Toolshed",
+    "season.spring": "Spring",
+    "season.summer": "Summer",
+    "season.autumn": "Autumn",
+    "season.winter": "Winter"
   },
   "fil": {
     "lang.name": "Filipino",
@@ -178,6 +182,10 @@
     "stage.roots": "Ugat",
     "stage.playground": "Palaruan",
     "stage.whatgrew": "Ang tumubo",
-    "stage.toolshed": "Kamalig"
+    "stage.toolshed": "Kamalig",
+    "season.spring": "Tagsibol",
+    "season.summer": "Tag-araw",
+    "season.autumn": "Taglagas",
+    "season.winter": "Taglamig"
   }
 }

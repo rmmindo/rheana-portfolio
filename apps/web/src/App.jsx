@@ -95,17 +95,17 @@ function Page() {
         <AtWorkBand />
         {experience && (
           <Entries section={experience} id="experience" titleKey="section.experience"
-                   stage={{ n: 2, nameKey: 'stage.bloom', art: '/img/garden-flower.webp', hue: 'pink' }}
+                   stage={{ n: 2, nameKey: 'stage.bloom', season: 'summer', art: '/img/garden-flower.webp', hue: 'pink' }}
                    accent={['powder', 'purple', 'pink', 'mint', 'red', 'yellow']} />
         )}
         {projects && (
           <Entries section={projects} id="projects" titleKey="section.projects"
-                   stage={{ n: 3, nameKey: 'stage.harvest', art: '/img/fruit-apple.webp', hue: 'red' }}
+                   stage={{ n: 3, nameKey: 'stage.harvest', season: 'summer', art: '/img/fruit-apple.webp', hue: 'red' }}
                    accent={['mint', 'yellow', 'powder']} />
         )}
         {volunteering && (
           <Entries section={volunteering} id="volunteering" titleKey="section.volunteering"
-                   stage={{ n: 4, nameKey: 'stage.share', art: '/img/garden-clover.webp', hue: 'mint' }}
+                   stage={{ n: 4, nameKey: 'stage.share', season: 'summer', art: '/img/garden-clover.webp', hue: 'mint' }}
                    accent={['mint', 'pink', 'yellow']} />
         )}
         <Baybayin />

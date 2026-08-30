@@ -19,7 +19,7 @@ export default function VideoResume() {
   return (
     <section className="video" id="video" aria-labelledby="video-heading" ref={ref}>
       <div className="section__inner">
-        <Stage n={1} nameKey="stage.seed" art="/img/garden-sprout.webp" hue="mint" />
+        <Stage n={1} nameKey="stage.seed" season="spring" art="/img/garden-sprout.webp" hue="mint" />
         <h2 id="video-heading" className="section__title">{t('video.heading')}</h2>
 
         <p className="video__lead">

@@ -1,25 +1,29 @@
 @use "../abstracts/variables" as v;
 @use "../abstracts/shapes" as s;
 
-// One hue per growth stage.
+// The page moves through a year.
 //
-// Every section used to sit on the same paper colour, so white cards on a white
-// ground had no visible shape at all — the Experience cards were invisible
-// until you looked for the accent stripe. Giving each stage its own ground
-// fixes that AND uses the palette the brand actually has, instead of leaning on
-// powder blue and treating the other five as garnish.
+// Every section used to have a hue because it needed one - eight colours in no
+// particular order. Seasons give the palette a reason to change, and the growth
+// stages already map onto it without forcing anything:
 //
-//   01 Seed         video          mint
-//   02 Bloom        experience     pink
-//   03 Harvest      projects       yellow
-//   04 Seeds shared volunteering   mint gingham
-//   05 Playground   baybayin       powder
-//   06 What grew    recommendations red stripes
-//   07 Toolshed     skills         purple
-//   08 Roots        education      powder
+//   hero            early spring   powder + pale pink, cool and opening
+//   trust           spring         powder stripes
+//   01 Seed         spring         mint
+//   02 Bloom        early summer   pink, saturating
+//   03 Harvest      high summer    yellow, hot
+//   04 Seeds shared late summer    mint gingham
+//   05 Playground   early autumn   yellow gingham
+//   06 What grew    autumn         red stripes
+//   07 Toolshed     late autumn    purple
+//   08 Roots        winter         cool powder, quiet
 //
-// The washes are pastels at low alpha over the paper colour, so every text
-// token underneath keeps the contrast ratio it was measured at.
+// Winter last is deliberate. Roots are dormant and underground, which is where
+// everything on the page came from, and winter turns back into spring - so the
+// last section points at the first.
+//
+// Washes are pastels at low alpha over the paper colour, so every text token
+// underneath keeps the contrast ratio it was measured at.
 
 @mixin wash($hue, $amount: 32%) {
   background:
@@ -30,13 +34,20 @@
     var(--paper);
 }
 
-// The hero carries a wide gingham band at the foot rather than a flat wash, so
-// the pattern language starts on the first screen instead of appearing three
-// sections down.
-.hero {
-  position: relative;
+// Two hues blended vertically, for the sections that sit between seasons.
+@mixin turning($from, $to, $a: 30%, $b: 30%) {
+  background:
+    linear-gradient(
+      color-mix(in srgb, var(--surface-#{$from}) #{$a}, transparent),
+      color-mix(in srgb, var(--surface-#{$to}) #{$b}, transparent)
+    ),
+    var(--paper);
 }
 
+// --- Early spring --------------------------------------------------------- //
+.hero { position: relative; }
+
+// A gingham band at the foot, so the pattern language starts on screen one.
 .hero::after {
   content: "";
   position: absolute;
@@ -53,28 +64,39 @@
   @include s.stripes(color-mix(in srgb, var(--surface-powder) 42%, transparent), 18px, 45deg);
 }
 
-.video { @include wash(mint, 34%); }
+// --- Spring --------------------------------------------------------------- //
+.video { @include turning(powder, mint, 26%, 34%); }
 
-// Bloom. This is the section whose cards were invisible on white.
-.entries#experience { @include wash(pink, 26%); }
+// --- Early summer: things open ------------------------------------------- //
+.entries#experience { @include turning(mint, pink, 20%, 30%); }
 
-.entries#projects { @include wash(yellow, 30%); }
+// --- High summer ---------------------------------------------------------- //
+.entries#projects { @include turning(pink, yellow, 18%, 34%); }
 
+// --- Late summer ---------------------------------------------------------- //
 .entries#volunteering {
   @include s.gingham(color-mix(in srgb, var(--surface-mint) 62%, transparent), 26px);
 }
 
+// --- Early autumn --------------------------------------------------------- //
 .bay {
   @include s.gingham(color-mix(in srgb, var(--surface-yellow) 46%, transparent), 22px);
 }
 
+// --- Autumn --------------------------------------------------------------- //
 .proof {
   @include s.stripes(color-mix(in srgb, var(--surface-red) 40%, transparent), 24px, 90deg);
 }
 
-.skills { @include s.stripes(color-mix(in srgb, var(--surface-purple) 30%, transparent), 20px, 0deg); }
+// --- Late autumn ---------------------------------------------------------- //
+.skills {
+  @include s.stripes(color-mix(in srgb, var(--surface-purple) 30%, transparent), 20px, 0deg);
+}
 
-.education { @include wash(powder, 26%); }
+// --- Winter, and back to the start ---------------------------------------- //
+.education { @include turning(purple, powder, 14%, 30%); }
+
+.footer { @include wash(powder, 18%); }
 
 // Cards need to be lighter than the ground they sit on, or the scalloped edge
 // has nothing to read against.
@@ -86,11 +108,11 @@
 }
 
 // Dark mode: the pastels are deep surfaces there, so the same washes would go
-// muddy. Sections keep a hue only as a hairline edge.
+// muddy. Sections keep their season only as a hairline edge.
 @mixin dark-sections {
   .hero::after { display: none; }
 
-  .trust, .video, .bay, .skills, .education,
+  .trust, .video, .bay, .skills, .education, .footer,
   .entries#experience, .entries#projects, .entries#volunteering, .proof {
     background-image: none;
     background-color: var(--paper);
@@ -102,7 +124,7 @@
   .entries#experience { border-block: 1px solid var(--glow-pink); }
   .entries#projects { border-block: 1px solid var(--glow-yellow); }
   .entries#volunteering { border-block: 1px solid var(--glow-mint); }
-  .bay { border-block: 1px solid var(--glow-powder); }
+  .bay { border-block: 1px solid var(--glow-yellow); }
   .proof { border-block: 1px solid var(--glow-red); }
   .skills { border-block: 1px solid var(--glow-purple); }
   .education { border-block: 1px solid var(--glow-powder); }
