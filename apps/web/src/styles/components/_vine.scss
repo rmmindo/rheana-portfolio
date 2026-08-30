@@ -65,14 +65,17 @@
   position: absolute;
   left: 50%;
   --offset: calc(var(--side, 1) * 0.85rem);
-  transform: translate(calc(-50% + var(--offset)), -50%) scale(0) rotate(calc(var(--side, 1) * 14deg));
+  transform: translate(calc(-50% + var(--offset)), -50%) scale(0) rotate(calc(var(--side, 1) * 30deg));
   opacity: 0;
   transform-origin: center;
+  // A leaf, drawn: one rounded end, one pointed.
+  border-radius: 70% 0 70% 0;
+  background: var(--leaf, var(--ink-mint));
 }
 
 .vine__bud.is-open {
   opacity: 1;
-  transform: translate(calc(-50% + var(--offset)), -50%) scale(1) rotate(calc(var(--side, 1) * 14deg));
+  transform: translate(calc(-50% + var(--offset)), -50%) scale(1) rotate(calc(var(--side, 1) * 30deg));
 }
 
 @media (prefers-reduced-motion: no-preference) {

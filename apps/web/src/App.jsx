@@ -7,11 +7,9 @@ import Petal from './components/Petal.jsx';
 import { SpeechProvider } from './components/SpeechProvider.jsx';
 import { I18nProvider, useI18n } from './hooks/useI18n.jsx';
 import { useActiveSection } from './hooks/useActiveSection.js';
-import LangToggle from './components/LangToggle.jsx';
 import Hero from './sections/Hero.jsx';
 import TrustBar from './sections/TrustBar.jsx';
 import VideoResume from './sections/VideoResume.jsx';
-import AtWorkBand from './sections/AtWorkBand.jsx';
 import Entries from './sections/Entries.jsx';
 import Baybayin from './sections/Baybayin.jsx';
 import Proof from './sections/Proof.jsx';
@@ -82,7 +80,6 @@ function Page() {
             different kind of thing from navigation, and sitting them flush
             against the links made them read as more nav items. */}
         <div className="topbar__controls" role="group" aria-label={t('nav.controls')}>
-          <LangToggle />
           <ThemeToggle />
         </div>
       </header>
@@ -92,20 +89,19 @@ function Page() {
         <Hero profile={resume.profile} />
         <TrustBar experience={experience} />
         <VideoResume />
-        <AtWorkBand />
         {experience && (
           <Entries section={experience} id="experience" titleKey="section.experience"
-                   stage={{ n: 2, nameKey: 'stage.bloom', season: 'summer', art: '/img/garden-flower.webp', hue: 'pink' }}
+                   stage={{ n: 2, nameKey: 'stage.bloom', season: 'summer', hue: 'pink' }}
                    accent={['powder', 'purple', 'pink', 'mint', 'red', 'yellow']} />
         )}
         {projects && (
           <Entries section={projects} id="projects" titleKey="section.projects"
-                   stage={{ n: 3, nameKey: 'stage.harvest', season: 'summer', art: '/img/fruit-apple.webp', hue: 'red' }}
+                   stage={{ n: 3, nameKey: 'stage.harvest', season: 'summer', hue: 'red' }}
                    accent={['mint', 'yellow', 'powder']} />
         )}
         {volunteering && (
           <Entries section={volunteering} id="volunteering" titleKey="section.volunteering"
-                   stage={{ n: 4, nameKey: 'stage.share', season: 'summer', art: '/img/garden-clover.webp', hue: 'mint' }}
+                   stage={{ n: 4, nameKey: 'stage.share', season: 'summer', hue: 'mint' }}
                    accent={['mint', 'pink', 'yellow']} />
         )}
         <Baybayin />

@@ -40,15 +40,17 @@ const STEM = (() => {
   return d;
 })();
 
+// Leaves drawn as shapes, not images: an asymmetric border-radius makes a
+// convincing leaf, and it takes the palette rather than a fixed colour.
 const BUDS = [
-  { at: 0.07, art: '/img/garden-sprout.webp',   size: 26, side: -1 },
-  { at: 0.18, art: '/img/garden-leaf.webp',     size: 34, side:  1 },
-  { at: 0.30, art: '/img/garden-sprout.webp',   size: 28, side: -1 },
-  { at: 0.42, art: '/img/garden-flower.webp',   size: 44, side:  1 },
-  { at: 0.55, art: '/img/garden-leaf.webp',     size: 32, side: -1 },
-  { at: 0.67, art: '/img/garden-lavender.webp', size: 40, side:  1 },
-  { at: 0.79, art: '/img/garden-clover.webp',   size: 34, side: -1 },
-  { at: 0.91, art: '/img/fruit-cherry.webp',    size: 38, side:  1 },
+  { at: 0.07, hue: 'mint',   size: 14, side: -1 },
+  { at: 0.18, hue: 'powder', size: 18, side:  1 },
+  { at: 0.30, hue: 'mint',   size: 15, side: -1 },
+  { at: 0.42, hue: 'pink',   size: 22, side:  1 },
+  { at: 0.55, hue: 'yellow', size: 16, side: -1 },
+  { at: 0.67, hue: 'purple', size: 20, side:  1 },
+  { at: 0.79, hue: 'red',    size: 17, side: -1 },
+  { at: 0.91, hue: 'powder', size: 19, side:  1 },
 ];
 
 export default function GardenVine() {
@@ -101,20 +103,15 @@ export default function GardenVine() {
       </svg>
 
       {BUDS.map(bud => (
-        <img
+        <span
           key={bud.at}
           className={`vine__bud${progress >= bud.at ? ' is-open' : ''}`}
-          src={bud.art}
-          alt=""
-          width={bud.size}
-          height={bud.size}
-          loading="lazy"
-          decoding="async"
           style={{
             top: `${bud.at * 100}%`,
             width: bud.size,
             height: bud.size,
             '--side': bud.side,
+            '--leaf': `var(--accent-${bud.hue})`,
           }}
         />
       ))}

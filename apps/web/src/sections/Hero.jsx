@@ -27,11 +27,6 @@ export default function Hero({ profile }) {
 
   return (
     <section className="hero" aria-labelledby="hero-heading">
-      {/* Decorative only, so both are aria-hidden and neither carries meaning
-          the text does not already give. */}
-      <img className="hero__bloom hero__bloom--a" src="/img/hydrangea-cluster.webp"
-           alt="" aria-hidden="true" width="320" height="320" loading="lazy" decoding="async" />
-      <Petal className="hero__bloom hero__bloom--b" size={170} />
 
       <div className="hero__inner">
         <div className="hero__text" ref={introRef}>
@@ -68,25 +63,6 @@ export default function Hero({ profile }) {
               <li key={l.url}><a href={l.url} rel="me noopener">{l.label}</a></li>
             ))}
           </ul>
-        </div>
-
-        {/* The portrait fills the right-hand column that was previously empty
-            on wide screens. It is decorative-adjacent but not decorative: a
-            client wants to see who they would be working with, so it gets a
-            real alt description rather than alt="". */}
-        <div className="hero__portrait">
-          <img
-            className="hero__photo"
-            src="/img/rheana-mindo-ai-developer-portrait-640.webp"
-            srcSet="/img/rheana-mindo-ai-developer-portrait-320.webp 320w, /img/rheana-mindo-ai-developer-portrait-640.webp 640w"
-            sizes="(min-width: 64rem) 22rem, 12rem"
-            alt={t('hero.portrait.alt')}
-            width="640"
-            height="640"
-            fetchPriority="high"
-            decoding="async"
-          />
-          <Petal className="hero__photo-mark" size={64} />
         </div>
       </div>
     </section>

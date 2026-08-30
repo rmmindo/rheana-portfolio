@@ -63,7 +63,7 @@ export default function Proof() {
   return (
     <section className="proof" id="proof" aria-labelledby="proof-heading" ref={ref}>
       <div className="section__inner">
-        <Stage n={6} nameKey="stage.whatgrew" season="autumn" art="/img/fruit-strawberry.webp" hue="pink" />
+        <Stage n={6} nameKey="stage.whatgrew" season="autumn" hue="pink" />
         <h2 id="proof-heading" className="section__title">{t('proof.heading')}</h2>
 
         <p className="proof__lead">{t('proof.lead', { count: data.items.length })}</p>

@@ -13,7 +13,14 @@
   border: 1px solid var(--border);
 }
 
-.stage__art { width: 2rem; height: 2rem; object-fit: contain; }
+.stage__dot {
+  width: 0.9rem;
+  height: 0.9rem;
+  // An asymmetric radius reads as a leaf rather than a bullet.
+  border-radius: 60% 5% 60% 5%;
+  background: var(--stage-ink, var(--ink-mint));
+  transform: rotate(-20deg);
+}
 
 .stage__num {
   font-family: v.$font-heading;
@@ -30,7 +37,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .is-revealed .stage__art {
+  .js-reveal .is-revealed .stage__dot {
     animation: stage-pop 620ms v.$ease-spring backwards;
   }
 

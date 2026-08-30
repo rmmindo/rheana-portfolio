@@ -1,5 +1,8 @@
 @use "../abstracts/variables" as v;
 
+// Shapes and colour only. Every decorative image has been stripped out; what is
+// left is gradients, radii and type.
+
 .hero {
   position: relative;
   overflow: hidden;
@@ -10,22 +13,9 @@
     radial-gradient(38rem 24rem at 60% 40%, var(--surface-mint) 0%, transparent 70%);
 }
 
-// Two columns from the large breakpoint. The single-column version left the
-// whole right-hand half of a desktop viewport empty while the text stayed
-// clamped to a readable measure on the left.
 .hero__inner {
   position: relative;
   z-index: 1;
-  display: grid;
-  gap: v.space(7);
-  align-items: center;
-}
-
-@media (min-width: v.bp(lg)) {
-  .hero__inner {
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
-    gap: v.space(8);
-  }
 }
 
 .hero__text { min-width: 0; }
@@ -52,8 +42,8 @@
 }
 
 .hero__name {
-  font-size: clamp(2.75rem, 7vw, 5.5rem);
-  letter-spacing: -0.025em;
+  font-size: clamp(2.75rem, 9vw, 6.5rem);
+  letter-spacing: -0.03em;
   margin-bottom: v.space(4);
 }
 
@@ -61,8 +51,6 @@
   font-family: v.$font-heading;
   font-weight: v.$weight-bold;
   font-size: v.$step-2;
-  // 26ch broke "I build AI systems that ship" across too many short lines and
-  // made the sentence read as a stub. This fits the claim in two lines.
   max-width: 42ch;
   margin-bottom: v.space(4);
   text-wrap: balance;
@@ -78,7 +66,7 @@
   font-size: v.$step-1;
   font-weight: v.$weight-bold;
   color: var(--ink-powder);
-  max-width: 40ch;
+  max-width: 44ch;
   margin-bottom: v.space(5);
 }
 
@@ -108,108 +96,17 @@
 .hero__links a { color: var(--ink-purple); }
 .hero__meta { color: var(--text-muted); }
 
-// --- Portrait -------------------------------------------------------------//
-.hero__portrait {
-  position: relative;
-  isolation: isolate;
-  justify-self: start;
-  width: min(12rem, 45vw);
-}
-
-@media (min-width: v.bp(lg)) {
-  .hero__portrait { justify-self: center; width: min(22rem, 100%); }
-}
-
-// The portrait is masked into the scalloped shape from Rheana's sticker set,
-// so the photograph carries the same soft language as the hydrangea mark.
+// Dark mode.
 //
-// border-radius is declared FIRST as the fallback: a browser without
-// mask-image still gets a rounded organic crop rather than a bare square.
-.hero__photo {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1;
-  object-fit: cover;
-  border-radius: 42% 58% 52% 48% / 48% 44% 56% 52%;
-  box-shadow: var(--shadow);
-}
-
-@supports (mask-image: url("/img/scallop-blob.webp")) {
-  .hero__photo {
-    border-radius: 0;
-    box-shadow: none;
-    -webkit-mask-image: url("/img/scallop-blob.webp");
-    mask-image: url("/img/scallop-blob.webp");
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-  }
-
-  // A tinted copy of the same shape sits behind the photo, offset, so the
-  // portrait reads as a sticker rather than a floating cut-out.
-  .hero__portrait::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transform: translate(10px, 12px) scale(0.99);
-    background: var(--surface-powder);
-    -webkit-mask-image: url("/img/scallop-blob.webp");
-    mask-image: url("/img/scallop-blob.webp");
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
-    z-index: -1;
-  }
-}
-
-.hero__photo-mark {
-  position: absolute;
-  right: -0.75rem;
-  bottom: -0.5rem;
-  --petal-fill: var(--surface-yellow);
-  --petal-star: var(--brand-blue);
-  filter: drop-shadow(0 4px 10px rgb(0 0 0 / 0.18));
-}
-
-// --- Decorative blooms ----------------------------------------------------//
-.hero__bloom {
-  position: absolute;
-  pointer-events: none;
-  opacity: 0.45;
-  --petal-fill: var(--surface-powder);
-  --petal-star: var(--brand-yellow);
-}
-
-.hero__bloom--a { top: -4rem; right: -4rem; }
-
-.hero__bloom--b {
-  bottom: 1rem;
-  left: -3rem;
-  display: none;
-  --petal-fill: var(--surface-pink);
-}
-
-@media (min-width: v.bp(md)) {
-  .hero__bloom--b { display: block; }
-}
-
-// Dark-mode washes.
-//
-// CAREFUL: `:root:not([data-theme="light"])` ALSO matches when no data-theme
+// CAREFUL: `:root:not([data-theme="light"])` also matches when no data-theme
 // attribute is set, which is the default. On its own it would apply these dark
-// gradients in system-LIGHT mode too. It is only correct inside a
-// prefers-color-scheme: dark query, which is why the rule is duplicated rather
+// gradients in system-LIGHT mode too, so it is only correct inside a
+// prefers-color-scheme: dark query. That is why the rule is duplicated rather
 // than written once with a comma.
 //
-// The light washes are broad pastel radials. In dark mode those same tokens are
-// deep surfaces, and three overlapping deep radials read as blotchy mud, so
-// dark mode uses tighter and dimmer washes built from the glow colours instead.
+// The light washes are broad pastels. In dark mode those same tokens are deep
+// surfaces, and three overlapping deep radials read as mud, so dark mode uses
+// tighter, dimmer washes built from the glow colours instead.
 :root[data-theme="dark"] .hero {
   background:
     radial-gradient(44rem 22rem at 8% -12%, color-mix(in srgb, var(--glow-powder) 20%, transparent) 0%, transparent 64%),
@@ -220,18 +117,8 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .hero {
     background:
-    radial-gradient(44rem 22rem at 8% -12%, color-mix(in srgb, var(--glow-powder) 20%, transparent) 0%, transparent 64%),
-    radial-gradient(34rem 20rem at 96% 4%, color-mix(in srgb, var(--glow-pink) 16%, transparent) 0%, transparent 66%),
-    radial-gradient(30rem 18rem at 52% 96%, color-mix(in srgb, var(--glow-mint) 12%, transparent) 0%, transparent 70%);
+      radial-gradient(44rem 22rem at 8% -12%, color-mix(in srgb, var(--glow-powder) 20%, transparent) 0%, transparent 64%),
+      radial-gradient(34rem 20rem at 96% 4%, color-mix(in srgb, var(--glow-pink) 16%, transparent) 0%, transparent 66%),
+      radial-gradient(30rem 18rem at 52% 96%, color-mix(in srgb, var(--glow-mint) 12%, transparent) 0%, transparent 70%);
   }
-}
-
-// The cluster artwork replaces the single SVG petal in the top corner: it is
-// the same motif at more detail, and it is Rheana's own.
-img.hero__bloom--a {
-  width: clamp(9rem, 22vw, 17rem);
-  height: auto;
-  opacity: 0.5;
-  top: -2.5rem;
-  right: -2.5rem;
 }

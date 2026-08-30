@@ -107,7 +107,7 @@ export default function Baybayin() {
   return (
     <section className="bay" id="baybayin" aria-labelledby="bay-heading" ref={ref}>
       <div className="section__inner">
-        <Stage n={5} nameKey="stage.playground" season="autumn" art="/img/fruit-cherry.webp" hue="red" />
+        <Stage n={5} nameKey="stage.playground" season="autumn" hue="red" />
         <h2 id="bay-heading" className="section__title">{t('bay.heading')}</h2>
 
         <p className="bay__lead">
@@ -178,21 +178,6 @@ export default function Baybayin() {
         <p className="bay__draw-lead">{t('bay.draw.lead')}</p>
         <GlyphRecogniser />
         <p className="bay__method">{t('bay.draw.method')}</p>
-
-        <figure className="bay__sablay">
-          <img
-            className="bay__sablay-img"
-            src="/img/rheana-mindo-sablay-baybayin-960.webp"
-            srcSet="/img/rheana-mindo-sablay-baybayin-480.webp 480w, /img/rheana-mindo-sablay-baybayin-960.webp 960w"
-            sizes="(min-width: 48rem) 22rem, 60vw"
-            alt={t('bay.sablay.alt')}
-            width="960"
-            height="1200"
-            loading="lazy"
-            decoding="async"
-          />
-          <figcaption className="bay__sablay-caption">{t('bay.sablay.caption')}</figcaption>
-        </figure>
 
         <p className="bay__note">{t('bay.note')}</p>
       </div>
