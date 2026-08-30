@@ -95,24 +95,33 @@ describe('PetalBurst', () => {
   });
 });
 
+// Stat renders through the Odometer now, so the digits live in per-column
+// strips rather than one text node. These assert the same properties against
+// the new shape: the number is right, the precision survives, and a screen
+// reader hears the value once rather than ten digits per column.
 describe('Stat', () => {
-  it('shows the exact value immediately under reduced motion', () => {
+  it('shows the exact value under reduced motion', () => {
     setReducedMotion(true);
     render(<Stat value={2320} label="merged pull requests" hue="powder" />);
-    expect(screen.getByText('2,320')).toBeInTheDocument();
+    expect(document.querySelector('.visually-hidden'))
+      .toHaveTextContent('2,320 merged pull requests');
   });
 
   it('keeps decimal precision rather than rounding a measured result', () => {
     setReducedMotion(true);
     render(<Stat value={96.9} decimals={1} suffix="%" label="accuracy" hue="mint" />);
-    expect(screen.getByText('96.9%')).toBeInTheDocument();
+    expect(document.querySelector('.visually-hidden')).toHaveTextContent('96.9% accuracy');
   });
 
-  it('announces the final value once instead of every increment', () => {
+  it('rounds to a whole number when no precision is asked for', () => {
+    setReducedMotion(true);
+    render(<Stat value={60.6} suffix="x" label="faster" hue="pink" />);
+    expect(document.querySelector('.visually-hidden')).toHaveTextContent('61x faster');
+  });
+
+  it('hides the rolling columns from assistive technology', () => {
     setReducedMotion(true);
     render(<Stat value={61} suffix="x" label="faster" hue="pink" />);
-    const sr = document.querySelector('.visually-hidden');
-    expect(sr).toHaveTextContent('61x faster');
-    expect(document.querySelector('.stat__value')).toHaveAttribute('aria-hidden', 'true');
+    expect(document.querySelector('.odo__col')).toHaveAttribute('aria-hidden', 'true');
   });
 });
