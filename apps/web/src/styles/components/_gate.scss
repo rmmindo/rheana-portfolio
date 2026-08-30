@@ -1,0 +1,139 @@
+@use "../abstracts/variables" as v;
+
+// The vision gate.
+//
+// The blur sits on the PAGE behind the overlay, not on the overlay itself, so
+// what resolves is the real hero rather than a picture of one.
+
+.is-gated body { overflow: hidden; }
+
+.is-gated #root > *:not(.gate) {
+  filter: blur(18px) saturate(1.15);
+  transform: scale(1.03);
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .is-gated #root > *:not(.gate) {
+    transition: filter 900ms v.$ease-out, transform 900ms v.$ease-out;
+  }
+}
+
+// Once the glasses are lifted the blur clears. The class lands on the gate, so
+// the sibling selector reaches back out to the page.
+.gate.is-revealing ~ * ,
+.is-gated:has(.gate.is-revealing) #root > *:not(.gate) {
+  filter: none;
+  transform: none;
+}
+
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  padding: v.space(5);
+  background:
+    radial-gradient(60rem 40rem at 50% 40%,
+      color-mix(in srgb, var(--surface-powder) 55%, transparent) 0%,
+      transparent 70%),
+    color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter: blur(2px);
+}
+
+.gate__skip {
+  position: absolute;
+  top: v.space(5);
+  right: v.space(5);
+  min-height: 44px;
+  padding: v.space(2) v.space(5);
+  border-radius: v.$radius-pill;
+  border: 1px solid var(--border);
+  background: var(--paper-raised);
+  color: var(--text-muted);
+  font-size: v.$step--1;
+  cursor: pointer;
+}
+
+.gate__stage {
+  display: grid;
+  justify-items: center;
+  gap: v.space(5);
+  text-align: center;
+  max-width: 40rem;
+}
+
+.gate__prompt {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: v.$step-1;
+  color: var(--text-muted);
+}
+
+// The glasses are the control, so they get a real target and a real focus ring.
+.gate__glasses {
+  display: grid;
+  place-items: center;
+  padding: v.space(5) v.space(6);
+  min-height: 96px;
+  border: 0;
+  border-radius: v.$radius-lg;
+  background: none;
+  color: var(--ink-powder);
+  cursor: pointer;
+}
+
+.gate__glasses svg { width: clamp(11rem, 34vw, 17rem); height: auto; }
+
+.gate__line {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: v.$step-2;
+  color: var(--text);
+  min-height: 2.4em;
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  // A slow drift, so the glasses read as pick-up-able rather than as a logo.
+  .gate__glasses svg { animation: gate-float 3.4s ease-in-out infinite alternate; }
+
+  @keyframes gate-float {
+    from { transform: translateY(-5px) rotate(-2deg); }
+    to   { transform: translateY(5px) rotate(2deg); }
+  }
+
+  .gate__glasses:hover svg,
+  .gate__glasses:focus-visible svg { animation-play-state: paused; }
+
+  .gate.is-revealing .gate__glasses svg {
+    animation: gate-lift 900ms v.$ease-out forwards;
+  }
+
+  @keyframes gate-lift {
+    to { transform: translateY(-40px) scale(0.7); opacity: 0; }
+  }
+
+  .gate.is-revealing .gate__prompt { animation: gate-out 320ms v.$ease-out forwards; }
+
+  @keyframes gate-out { to { opacity: 0; transform: translateY(-8px); } }
+
+  .gate.is-revealing .gate__line { animation: gate-in 620ms v.$ease-out 260ms backwards; }
+
+  @keyframes gate-in {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .gate.is-revealing { animation: gate-fade 420ms v.$ease-out 620ms forwards; }
+
+  @keyframes gate-fade { to { opacity: 0; } }
+}
+
+// Nothing blurs, nothing floats. The gate is not mounted at all under reduced
+// motion, but if it ever is, it must still be readable and static.
+@media (prefers-reduced-motion: reduce) {
+  .is-gated #root > *:not(.gate) { filter: none; transform: none; }
+  .gate__glasses svg { animation: none; }
+}

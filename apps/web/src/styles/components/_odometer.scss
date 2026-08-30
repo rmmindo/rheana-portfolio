@@ -1,0 +1,38 @@
+@use "../abstracts/variables" as v;
+
+// Digit columns. Each is one line tall with the overflow hidden, so only the
+// digit currently in the window is visible.
+.odo {
+  display: inline-flex;
+  align-items: baseline;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.odo__col {
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+  vertical-align: baseline;
+}
+
+.odo__strip {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+
+.odo__digit {
+  height: 1em;
+  line-height: 1;
+  display: block;
+}
+
+.odo__fixed { display: inline-block; }
+
+@media (prefers-reduced-motion: no-preference) {
+  // 900ms with a slight overshoot, so each column lands rather than stops.
+  .odo.is-settled .odo__strip {
+    transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}

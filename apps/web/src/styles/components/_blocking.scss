@@ -1,26 +1,24 @@
 @use "../abstracts/variables" as v;
-@use "../abstracts/shapes" as s;
 
-// The page moves through a year.
+// Section colour, and nothing else.
 //
-// Every section used to have a hue because it needed one - eight colours in no
-// particular order. Seasons give the palette a reason to change, and the growth
-// stages already map onto it without forcing anything:
+// No gingham, no stripes, no wallpaper. Each section gets a flat wash of one
+// hue, and the page moves through a year as you scroll: cool and opening at the
+// top, warm through the middle, cool and quiet at the bottom.
 //
-//   hero            early spring   powder + pale pink, cool and opening
-//   trust           spring         powder stripes
+//   hero            early spring   powder + pink, opening
+//   trust           spring         powder
 //   01 Seed         spring         mint
-//   02 Bloom        early summer   pink, saturating
-//   03 Harvest      high summer    yellow, hot
-//   04 Seeds shared late summer    mint gingham
-//   05 Playground   early autumn   yellow gingham
-//   06 What grew    autumn         red stripes
+//   02 Bloom        early summer   pink
+//   03 Harvest      high summer    yellow
+//   04 Seeds shared late summer    mint
+//   05 Playground   early autumn   yellow
+//   06 What grew    autumn         red
 //   07 Toolshed     late autumn    purple
-//   08 Roots        winter         cool powder, quiet
+//   08 Roots        winter         powder
 //
-// Winter last is deliberate. Roots are dormant and underground, which is where
-// everything on the page came from, and winter turns back into spring - so the
-// last section points at the first.
+// Winter last is deliberate: roots are dormant and underground, which is where
+// everything on the page came from, and winter turns back into spring.
 //
 // Washes are pastels at low alpha over the paper colour, so every text token
 // underneath keeps the contrast ratio it was measured at.
@@ -44,56 +42,22 @@
     var(--paper);
 }
 
-// --- Early spring --------------------------------------------------------- //
-.hero { position: relative; }
+.trust { @include wash(powder, 34%); }
 
-// A gingham band at the foot, so the pattern language starts on screen one.
-.hero::after {
-  content: "";
-  position: absolute;
-  inset-inline: 0;
-  bottom: 0;
-  height: 5rem;
-  pointer-events: none;
-  @include s.gingham(color-mix(in srgb, var(--surface-powder) 55%, transparent), 20px);
-  -webkit-mask-image: linear-gradient(transparent, #000 70%);
-  mask-image: linear-gradient(transparent, #000 70%);
-}
-
-.trust {
-  @include s.stripes(color-mix(in srgb, var(--surface-powder) 42%, transparent), 18px, 45deg);
-}
-
-// --- Spring --------------------------------------------------------------- //
 .video { @include turning(powder, mint, 26%, 34%); }
 
-// --- Early summer: things open ------------------------------------------- //
 .entries#experience { @include turning(mint, pink, 20%, 30%); }
 
-// --- High summer ---------------------------------------------------------- //
 .entries#projects { @include turning(pink, yellow, 18%, 34%); }
 
-// --- Late summer ---------------------------------------------------------- //
-.entries#volunteering {
-  @include s.gingham(color-mix(in srgb, var(--surface-mint) 62%, transparent), 26px);
-}
+.entries#volunteering { @include turning(yellow, mint, 20%, 34%); }
 
-// --- Early autumn --------------------------------------------------------- //
-.bay {
-  @include s.gingham(color-mix(in srgb, var(--surface-yellow) 46%, transparent), 22px);
-}
+.bay { @include turning(mint, yellow, 18%, 32%); }
 
-// --- Autumn --------------------------------------------------------------- //
-.proof {
-  @include s.stripes(color-mix(in srgb, var(--surface-red) 40%, transparent), 24px, 90deg);
-}
+.proof { @include turning(yellow, red, 16%, 26%); }
 
-// --- Late autumn ---------------------------------------------------------- //
-.skills {
-  @include s.stripes(color-mix(in srgb, var(--surface-purple) 30%, transparent), 20px, 0deg);
-}
+.skills { @include turning(red, purple, 12%, 24%); }
 
-// --- Winter, and back to the start ---------------------------------------- //
 .education { @include turning(purple, powder, 14%, 30%); }
 
 .footer { @include wash(powder, 18%); }
@@ -110,8 +74,6 @@
 // Dark mode: the pastels are deep surfaces there, so the same washes would go
 // muddy. Sections keep their season only as a hairline edge.
 @mixin dark-sections {
-  .hero::after { display: none; }
-
   .trust, .video, .bay, .skills, .education, .footer,
   .entries#experience, .entries#projects, .entries#volunteering, .proof {
     background-image: none;

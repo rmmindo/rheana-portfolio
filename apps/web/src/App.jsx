@@ -1,6 +1,7 @@
 import resume from './content/resume.json';
 import ThemeToggle from './components/ThemeToggle.jsx';
 import PetalBurst from './components/PetalBurst.jsx';
+import VisionGate from './components/VisionGate.jsx';
 import GardenVine from './components/GardenVine.jsx';
 import VisitorCount from './components/VisitorCount.jsx';
 import Petal from './components/Petal.jsx';
@@ -46,6 +47,7 @@ function Page() {
     <>
       <a className="skip-link" href="#main">{t('skip')}</a>
       <PetalBurst />
+      <VisionGate />
 
       <header className="topbar">
         <a className="topbar__brand" href="#main">

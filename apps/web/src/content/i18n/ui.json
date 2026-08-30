@@ -92,7 +92,11 @@
     "season.spring": "Spring",
     "season.summer": "Summer",
     "season.autumn": "Autumn",
-    "season.winter": "Winter"
+    "season.winter": "Winter",
+    "gate.prompt": "I have 850 myopia. This is roughly what I see without my glasses.",
+    "gate.action": "Put the glasses on to bring the page into focus",
+    "gate.line": "You bring the vision. I'll bring it to life.",
+    "gate.skip": "Skip"
   },
   "fil": {
     "lang.name": "Filipino",
@@ -186,6 +190,10 @@
     "season.spring": "Tagsibol",
     "season.summer": "Tag-araw",
     "season.autumn": "Taglagas",
-    "season.winter": "Taglamig"
+    "season.winter": "Taglamig",
+    "gate.prompt": "May 850 myopia ako. Ganito ang nakikita ko kapag walang salamin.",
+    "gate.action": "Isuot ang salamin para luminaw ang pahina",
+    "gate.line": "Ikaw ang may bisyon. Ako ang bubuhay nito.",
+    "gate.skip": "Laktawan"
   }
 }
