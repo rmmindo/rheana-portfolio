@@ -278,3 +278,20 @@ B-26  A regex tidy-up broke the gate stylesheet.
       was to repair it by hand and stop reaching for a regex to edit
       structured text.
 
+D-06  Two slow blinks after the glasses go on.
+      Three attempts drew ONE enormous eyelid across the whole viewport and
+      none of them read as an eye. A lid stretched to the width of a screen has
+      almost no curvature left, and stretching the drawing to fit stretched the
+      lashes with it, so what arrived was a row of hatch marks. Adjusting the
+      numbers three times did not help, because the shape was wrong rather than
+      the values.
+      Fourth attempt: two eyes at a readable size, side by side, the way the
+      two lenses just were. Nothing stretched, one viewBox keeping its own
+      proportions. The blink is a scaleY about each eye's midline.
+      One thing the scaling got wrong at first: the lashes squashed with
+      everything else, so at the exact moment the eye was shut - the moment
+      they should be clearest - they were a smear. Lashes now keep their length
+      and travel down to the midline instead, on the same timing.
+      Sequence: glasses 1250ms, blink 1400ms, page. About 2.7 seconds. Worth
+      watching for whether it wears thin now the gate opens on every visit.
+

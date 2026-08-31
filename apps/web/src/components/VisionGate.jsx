@@ -39,12 +39,79 @@ import { useI18n } from '../hooks/useI18n.jsx';
 
 const WEAR_MS = 1250;
 
+// Two slow blinks after the glasses go on, then the page. Settling into a new
+// pair is not instant, and the eyes are the thing this whole screen is about.
+const BLINK_MS = 1500;
+
+// Two eyes, blinking twice, once the glasses are on.
+//
+// The first three attempts drew one enormous eyelid across the whole viewport.
+// It never read as an eye. A lid stretched to the width of a screen has almost
+// no curvature left, and stretching the drawing to fit meant the lashes
+// stretched with it, so what arrived on screen was a row of hatch marks. Three
+// rounds of adjusting the numbers did not fix that, because the shape was
+// wrong rather than the values.
+//
+// So: two eyes at a readable size, side by side, the way the two lenses just
+// were. Nothing is stretched - one viewBox, its own proportions kept - and the
+// blink is a single scaleY about each eye's own midline, which is what a lid
+// closing actually does to the shape of an eye.
+
+const EYE = { w: 132, h: 86 };
+
+function Eye({ x }) {
+  // The almond, drawn as two arcs meeting at the corners.
+  const almond = `M6 43 Q66 -1 126 43 Q66 87 6 43 Z`;
+
+  // Lashes along the upper arc, longest in the middle, fanning outwards.
+  const lashes = [];
+  for (let i = 0; i < 7; i++) {
+    const t = (i + 0.5) / 7;
+    const u = 1 - t;
+    const px = u * u * 6 + 2 * u * t * 66 + t * t * 126;
+    const py = u * u * 43 + 2 * u * t * -1 + t * t * 43;
+    const fromCentre = Math.abs(t - 0.5) * 2;
+    const len = 17 - fromCentre * 7;
+    const lean = (t - 0.5) * 26;
+    lashes.push(<path key={i} d={`M${px.toFixed(1)} ${py.toFixed(1)} q${(lean * 0.3).toFixed(1)} ${(-len * 0.6).toFixed(1)} ${lean.toFixed(1)} ${(-len).toFixed(1)}`} />);
+  }
+
+  return (
+    <g className="gate__eyeball" transform={`translate(${x} 0)`}>
+      {/* The eye flattens; the lashes do not. Scaling them with everything
+          else squashed them into a smear at the moment the eye was shut, which
+          is the one moment they should be most visible. They keep their length
+          and ride the lid down instead, on the same timing. */}
+      <g className="gate__shut">
+        <path className="gate__sclera" d={almond} />
+        <circle className="gate__iris" cx="66" cy="43" r="17" />
+        <circle className="gate__pupil" cx="66" cy="43" r="7" />
+        <circle className="gate__glint" cx="60" cy="37" r="3.5" />
+        <path className="gate__rim" d={almond} fill="none" />
+      </g>
+      <g className="gate__lash" fill="none" strokeLinecap="round">{lashes}</g>
+    </g>
+  );
+}
+
+function Lids() {
+  return (
+    <div className="gate__eye" aria-hidden="true">
+      <svg viewBox={`0 0 ${EYE.w * 2 + 40} ${EYE.h}`} aria-hidden="true" focusable="false">
+        <Eye x={0} />
+        <Eye x={EYE.w + 40} />
+      </svg>
+    </div>
+  );
+}
+
 export default function VisionGate() {
   const reduced = useReducedMotion();
   const { t } = useI18n();
 
   const [open, setOpen] = useState(false);
   const [wearing, setWearing] = useState(false);
+  const [blinking, setBlinking] = useState(false);
   const dialogRef = useRef(null);
   const timer = useRef(0);
 
@@ -87,7 +154,12 @@ export default function VisionGate() {
     setWearing(true);
     // The blur clears on the page itself, so the class goes on <html>.
     document.documentElement.classList.add('is-clearing');
-    timer.current = setTimeout(() => setOpen(false), WEAR_MS);
+    // The glasses reach your face, and then you blink twice, the way anyone
+    // does settling into a new pair.
+    timer.current = setTimeout(() => {
+      setBlinking(true);
+      timer.current = setTimeout(() => setOpen(false), BLINK_MS);
+    }, WEAR_MS);
   }, [wearing]);
 
   useEffect(() => {
@@ -103,13 +175,15 @@ export default function VisionGate() {
 
   return (
     <div
-      className={`gate${wearing ? ' is-wearing' : ''}`}
+      className={`gate${wearing ? ' is-wearing' : ''}${blinking ? ' is-blinking' : ''}`}
       role="dialog"
       aria-modal="true"
       aria-labelledby="gate-statement"
       ref={dialogRef}
       tabIndex={-1}
     >
+      {blinking && <Lids />}
+
       <div className="gate__stage">
         {/* A statement, not a question. Nothing here asks for consent: the
             visitor is already inside her eyesight, and the only thing to do is

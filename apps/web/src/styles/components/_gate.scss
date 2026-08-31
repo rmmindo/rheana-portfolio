@@ -135,3 +135,77 @@
   .is-gated #root > *:not(.gate) { filter: none; transform: none; }
   .gate__glasses svg { animation: none; }
 }
+
+// --- The blink ------------------------------------------------------------//
+//
+// Two eyes, blinking twice, after the glasses go on. Decorative, so the whole
+// thing is aria-hidden and it only exists in the DOM while it is running.
+
+.gate__eye {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  background: var(--paper);
+}
+
+.gate__eye svg { width: min(36rem, 76vw); height: auto; overflow: visible; }
+
+.gate__sclera { fill: var(--paper-raised); }
+.gate__rim { stroke: var(--ink-purple); stroke-width: 3; }
+.gate__iris { fill: var(--surface-powder); }
+.gate__pupil { fill: var(--ink-purple); }
+.gate__glint { fill: var(--paper); opacity: 0.9; }
+.gate__lash { stroke: var(--ink-purple); stroke-width: 3.5; }
+
+// Closed is the resting state, so the eyes are already shut behind the glasses
+// and the first thing they do is open.
+.gate__shut {
+  transform: scaleY(0.06);
+  transform-origin: center 43px;
+}
+
+// The lash line rests where a closed lid puts it, on the midline.
+.gate__lash { transform: translateY(21px); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .gate.is-blinking .gate__shut {
+    animation: eye-blink 1400ms v.$ease-out forwards;
+  }
+
+  .gate.is-blinking .gate__lash {
+    animation: lash-blink 1400ms v.$ease-out forwards;
+  }
+
+  // Open, shut, open, shut, open. Two blinks, and it finishes open so the last
+  // thing before the page is an eye looking at you.
+  @keyframes eye-blink {
+    0%   { transform: scaleY(0.06); }
+    16%  { transform: scaleY(1); }
+    38%  { transform: scaleY(0.06); }
+    52%  { transform: scaleY(1); }
+    74%  { transform: scaleY(0.06); }
+    88%  { transform: scaleY(1); }
+    100% { transform: scaleY(1); }
+  }
+
+  // The same timing, but travel rather than squash: down to the midline when
+  // the eye is shut, back to the brow when it is open.
+  @keyframes lash-blink {
+    0%   { transform: translateY(21px); }
+    16%  { transform: translateY(0); }
+    38%  { transform: translateY(21px); }
+    52%  { transform: translateY(0); }
+    74%  { transform: translateY(21px); }
+    88%  { transform: translateY(0); }
+    100% { transform: translateY(0); }
+  }
+
+  .gate.is-blinking { animation: none; opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gate__eye { display: none; }
+}

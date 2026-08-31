@@ -65,11 +65,39 @@ describe('VisionGate', () => {
     expect(screen.getAllByRole('button')).toHaveLength(1);
   });
 
+  // Two slow blinks between the glasses and the page.
+  it('blinks after the glasses go on, and only then', async () => {
+    vi.useFakeTimers();
+    await act(async () => { render(<VisionGate />); });
+    expect(document.querySelector('.gate__eye')).toBeNull();
+
+    await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
+    // Still travelling; the eyes have not arrived yet.
+    expect(document.querySelector('.gate__eye')).toBeNull();
+
+    await act(async () => { vi.advanceTimersByTime(1300); });
+    expect(document.querySelector('.gate__eye')).not.toBeNull();
+    expect(document.querySelectorAll('.gate__eyeball')).toHaveLength(2);
+    expect(document.querySelectorAll('.gate__lash path').length).toBeGreaterThan(6);
+    vi.useRealTimers();
+  });
+
+  // The blink is decoration. It must not become a thing a screen reader reads
+  // out, and it must never be the reason someone is stuck on the gate.
+  it('hides the blink from assistive technology', async () => {
+    vi.useFakeTimers();
+    await act(async () => { render(<VisionGate />); });
+    await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
+    await act(async () => { vi.advanceTimersByTime(1300); });
+    expect(document.querySelector('.gate__eye').getAttribute('aria-hidden')).toBe('true');
+    vi.useRealTimers();
+  });
+
   it('closes when the glasses are taken', async () => {
     vi.useFakeTimers();
     await act(async () => { render(<VisionGate />); });
     await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
-    await act(async () => { vi.advanceTimersByTime(2000); });
+    await act(async () => { vi.advanceTimersByTime(4000); });
     expect(screen.queryByRole('dialog')).toBeNull();
     vi.useRealTimers();
   });
@@ -121,7 +149,7 @@ describe('VisionGate', () => {
     await act(async () => { render(<VisionGate />); });
     expect(document.documentElement.classList.contains('is-gated')).toBe(true);
     await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
-    await act(async () => { vi.advanceTimersByTime(2000); });
+    await act(async () => { vi.advanceTimersByTime(4000); });
     // The blur must not outlive the gate. Leaving this class behind would
     // leave the whole page unreadable, which on this site of all sites is the
     // worst thing that could stick.
