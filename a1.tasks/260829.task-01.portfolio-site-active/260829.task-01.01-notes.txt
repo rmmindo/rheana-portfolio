@@ -106,3 +106,45 @@ M-03  Took the site down for about four minutes by toggling the custom domain
 
 M-04  Built toward the Pinterest moodboard while Rheana kept citing a monochrome
       reference, and did not name the contradiction for several rounds.
+
+B-11  The change widget printed its unit twice.
+      "2% to 5%" rendered as "2 -> 5%  %". The unit was built by deleting every
+      number from the string and tidying what was left, which leaves both
+      percent signs behind. The unit now comes from the position of the second
+      number only.
+
+B-12  The timer wrote state during render.
+      DashboardDemo called setMs inside useMemo. Besides being a render-phase
+      update, the number it showed described the previous keystroke. The memo
+      now returns the widgets and the elapsed time together.
+
+B-13  A negative value erased its bar.
+      Bar height was value divided by the largest value, so a negative number
+      produced a negative CSS height and the bar disappeared instead of showing
+      a dip. barHeights() now measures from a baseline that always includes
+      zero, and reduces rather than spreading, because Math.max(...series) on a
+      long pasted series overflows the call stack.
+
+B-14  The tested layout was not the rendered layout.
+      layout() returned a row for every widget and the component never used it.
+      The rows the tests assert are now written to grid-row.
+
+B-15  The widget count announced itself on every keystroke.
+      aria-live on the timer meant a screen reader read "6 widgets, <1 ms" over
+      the user's own typing. Removed. The count is visible; it does not need to
+      interrupt.
+
+B-16  The unit could be read off the wrong number.
+      indexOf("3") inside "3 out of 30" finds the digit inside 30 and returned
+      "0" as the unit. Parsing now uses matchAll and keeps each match position.
+
+B-17  The dashboard rendered two-thirds empty.
+      First fit left the third column stranded on every row after the first,
+      because a two-column chart cannot follow two one-column stats. The last
+      widget on each row now absorbs the leftover columns. Widening rather than
+      reordering: CSS dense packing would pull a later widget forward, and the
+      order a screen reader follows would stop matching the order on screen.
+
+M-05  Wrote the note under the dashboard as three long sentences, which is the
+      word vomit R-02 exists to prevent. Cut to two.
+

@@ -1,5 +1,5 @@
 import { useCallback, useId, useMemo, useState } from 'react';
-import { parseNotes, layout } from '../../lib/dashboard.js';
+import { parseNotes, layout, barHeights } from '../../lib/dashboard.js';
 import { useI18n } from '../../hooks/useI18n.jsx';
 
 // Paste notes, get a dashboard.
@@ -28,11 +28,11 @@ const SAMPLE = [
 ].join('\n');
 
 function Spark({ series }) {
-  const max = Math.max(...series, 1);
+  const heights = barHeights(series);
   return (
     <span className="dash__spark" aria-hidden="true">
-      {series.map((n, i) => (
-        <span key={i} className="dash__bar" style={{ height: `${(n / max) * 100}%` }} />
+      {heights.map((h, i) => (
+        <span key={i} className="dash__bar" style={{ height: `${h}%` }} />
       ))}
     </span>
   );
@@ -42,14 +42,15 @@ export default function DashboardDemo() {
   const { t } = useI18n();
   const id = useId();
   const [notes, setNotes] = useState(SAMPLE);
-  const [ms, setMs] = useState(null);
 
-  const widgets = useMemo(() => {
+  // Both the widgets and the timing come out of the same memo. Timing it into
+  // state instead would be a setState during render, and it would make the
+  // number describe the previous keystroke rather than this one.
+  const { widgets, ms } = useMemo(() => {
     const started = performance.now();
     const placed = layout(parseNotes(notes), 3);
     // Measured, not asserted. If this ever gets slow the number will say so.
-    setMs(performance.now() - started);
-    return placed;
+    return { widgets: placed, ms: performance.now() - started };
   }, [notes]);
 
   const reset = useCallback(() => setNotes(SAMPLE), []);
@@ -68,9 +69,11 @@ export default function DashboardDemo() {
 
       <div className="dash__bar-row">
         <button type="button" className="demo__preset" onClick={reset}>{t('dash.reset')}</button>
-        <p className="dash__timer" aria-live="polite">
-          {widgets.length} {t('dash.widgets')}
-          {ms !== null && <> &middot; {ms < 1 ? '<1' : ms.toFixed(0)} ms</>}
+        {/* Not a live region. It changes on every keystroke, and a screen
+            reader announcing the widget count over someone's own typing is
+            noise, not information. */}
+        <p className="dash__timer">
+          {widgets.length} {t('dash.widgets')} &middot; {ms < 1 ? '<1' : ms.toFixed(0)} ms
         </p>
       </div>
 
@@ -79,7 +82,9 @@ export default function DashboardDemo() {
           <div
             key={`${w.type}-${i}`}
             className={`dash__w dash__w--${w.type}`}
-            style={{ gridColumn: `span ${w.span}` }}
+            // The row comes from layout(), so what the tests assert about
+            // placement is what the browser actually draws.
+            style={{ gridColumn: `span ${w.span}`, gridRow: w.row }}
           >
             {w.type === 'title' && <h4 className="dash__title">{w.label}</h4>}
 
@@ -95,8 +100,9 @@ export default function DashboardDemo() {
             {w.type === 'delta' && (
               <>
                 <p className="dash__value">
-                  {w.from}<span className="dash__arrow" aria-hidden="true"> &rarr; </span>{w.to}
-                  <span className="dash__unit">{w.unit}</span>
+                  {w.from.toLocaleString('en-US')}
+                  <span className="dash__arrow" aria-hidden="true"> &rarr; </span>
+                  {w.to.toLocaleString('en-US')}<span className="dash__unit">{w.unit}</span>
                 </p>
                 <p className="dash__label">{w.label}</p>
               </>

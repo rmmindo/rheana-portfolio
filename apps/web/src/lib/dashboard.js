@@ -26,7 +26,23 @@
 //   1,2,3   -> three numbers
 const NUM = /-?\d+(?:,\d{3})*(?:\.\d+)?/g;
 
+// A unit is a single short token: "%", "ms", "min". Anything with a space in it
+// is prose, not a unit, so "5 out of 30" gets no unit rather than "5 out".
+const UNIT = /^[%a-zA-Z/]{1,6}$/;
+
 const toNumber = s => Number(String(s).replace(/,/g, ''));
+
+/**
+ * The unit is whatever sits immediately after a given number.
+ *
+ * It reads from the match position rather than searching for the number again:
+ * indexOf("3") inside "3 out of 30" finds the wrong 3 and returns "0" as the
+ * unit.
+ */
+function unitAfter(value, match) {
+  const tail = value.slice(match.index + match[0].length).trim();
+  return UNIT.test(tail) ? tail : '';
+}
 
 /** Widget sizes in grid columns, so layout is a property of the type. */
 const SPAN = { chart: 2, delta: 2, stat: 1, note: 2, title: 3 };
@@ -51,31 +67,36 @@ export function parseNotes(input) {
     if (split) {
       const label = split[1].trim();
       const value = split[2].trim();
-      const numbers = value.match(NUM);
+      // matchAll keeps each match's position, which is what the unit needs. It
+      // also clones the pattern internally, so the shared /g regex carries no
+      // lastIndex between lines.
+      const found = [...value.matchAll(NUM)];
 
-      if (numbers && numbers.length >= 3) {
-        widgets.push({ type: 'chart', label, series: numbers.map(toNumber) });
+      if (found.length >= 3) {
+        widgets.push({ type: 'chart', label, series: found.map(m => toNumber(m[0])) });
         continue;
       }
 
-      // "2% to 5%" or "36 min -> 35 s": two numbers reads as a change.
-      if (numbers && numbers.length === 2 && /\bto\b|->|→|from/i.test(value)) {
+      // "2% to 5%" or "36 min -> 35 s": two numbers and a joining word is a
+      // change. The unit comes from the second number, so a repeated one is
+      // read once - "2% to 5%" is a move to 5%, not to "%  %".
+      if (found.length === 2 && /\bto\b|->|→|from/i.test(value)) {
         widgets.push({
           type: 'delta',
           label,
-          from: toNumber(numbers[0]),
-          to: toNumber(numbers[1]),
-          unit: value.replace(NUM, '').replace(/\b(to|from)\b|->|→/gi, '').trim().slice(0, 4),
+          from: toNumber(found[0][0]),
+          to: toNumber(found[1][0]),
+          unit: unitAfter(value, found[1]),
         });
         continue;
       }
 
-      if (numbers && numbers.length >= 1) {
+      if (found.length >= 1) {
         widgets.push({
           type: 'stat',
           label,
-          value: toNumber(numbers[0]),
-          unit: value.slice(value.indexOf(numbers[0]) + numbers[0].length).trim().slice(0, 6),
+          value: toNumber(found[0][0]),
+          unit: unitAfter(value, found[0]),
         });
         continue;
       }
@@ -100,7 +121,7 @@ export function layout(widgets, columns = 3) {
   let row = 1;
   let used = 0;
 
-  return widgets.map(w => {
+  const placed = widgets.map(w => {
     const span = Math.min(SPAN[w.type] ?? 1, columns);
 
     // A title always starts its own row, and anything that does not fit wraps.
@@ -109,9 +130,45 @@ export function layout(widgets, columns = 3) {
       used = 0;
     }
 
-    const placed = { ...w, span, row };
+    const item = { ...w, span, row };
     used += span;
     if (used >= columns) { row += 1; used = 0; }
-    return placed;
+    return item;
   });
+
+  // First fit leaves a hole whenever the next widget is too wide for what is
+  // left of the row: two stats and then a chart strands a third of the grid,
+  // and the dashboard reads as half-built. The last widget on each row takes
+  // the leftover columns.
+  //
+  // Widening rather than reordering is deliberate. CSS dense packing would
+  // pull a later widget forward to fill the hole, and then the reading order a
+  // screen reader follows would no longer match the order on screen.
+  const wide = new Map();
+  for (const item of placed) wide.set(item.row, (wide.get(item.row) ?? 0) + item.span);
+  const last = new Map();
+  for (const item of placed) last.set(item.row, item);
+  for (const [row_, item] of last) item.span += columns - wide.get(row_);
+
+  return placed;
+}
+
+/**
+ * Bar heights as percentages, measured from a baseline that always includes
+ * zero.
+ *
+ * Dividing by the largest value alone gives a negative height for a negative
+ * value, and CSS drops the bar entirely. Reduce rather than spread, because
+ * Math.max(...series) on a long pasted series overflows the call stack.
+ */
+export function barHeights(series) {
+  if (!series.length) return [];
+  let lo = 0;
+  let hi = 0;
+  for (const n of series) {
+    if (n < lo) lo = n;
+    if (n > hi) hi = n;
+  }
+  const range = hi - lo || 1;
+  return series.map(n => ((n - lo) / range) * 100);
 }

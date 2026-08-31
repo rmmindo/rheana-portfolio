@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { parseNotes, layout } from '../src/lib/dashboard.js';
+import { parseNotes, layout, barHeights } from '../src/lib/dashboard.js';
 
 describe('recognising shapes', () => {
   it('reads a heading as a section title', () => {
@@ -96,5 +96,80 @@ describe('layout', () => {
 
   it('places nothing for no widgets', () => {
     expect(layout([], 3)).toEqual([]);
+  });
+
+  // Two stats and then a chart used to strand the third column on every row
+  // after the first, so the dashboard rendered two-thirds empty.
+  it('fills every row rather than leaving a gap', () => {
+    const placed = layout(parseNotes('- a: 1\n- b: 2\n- c: 4,5,6\n- d: 7% to 9%'), 3);
+    for (const row of rowsOf(placed)) {
+      const total = placed.filter(w => w.row === row).reduce((n, w) => n + w.span, 0);
+      expect(total, `row ${row} does not fill`).toBe(3);
+    }
+  });
+
+  it('keeps widgets in the order they were written', () => {
+    const placed = layout(parseNotes('- a: 1\n- b: 2\n- c: 4,5,6'), 3);
+    expect(placed.map(w => w.label)).toEqual(['a', 'b', 'c']);
+    // Rows never go backwards, so reading order matches screen order.
+    for (let i = 1; i < placed.length; i++) {
+      expect(placed[i].row).toBeGreaterThanOrEqual(placed[i - 1].row);
+    }
+  });
+});
+
+describe('units', () => {
+  // "2% to 5%" carries the same unit twice. Stripping every number out of the
+  // string and tidying what was left read it as "%  %", which then rendered
+  // beside the value on the page.
+  it('reads a repeated unit once', () => {
+    expect(parseNotes('- conversion: 2% to 5%')[0].unit).toBe('%');
+  });
+
+  it('takes the unit from the second number of a change', () => {
+    expect(parseNotes('- build: 36 min -> 35 s')[0].unit).toBe('s');
+  });
+
+  it('takes the unit from the number it belongs to, not a later one', () => {
+    // indexOf('3') inside "3 out of 30" lands on the wrong digit and returns
+    // "0" as the unit.
+    expect(parseNotes('- passed: 3 out of 30')[0]).toMatchObject({ value: 3, unit: '' });
+  });
+
+  it('keeps a short unit that touches the number', () => {
+    expect(parseNotes('- churn: 3.1%')[0].unit).toBe('%');
+    expect(parseNotes('- latency: 820 ms')[0].unit).toBe('ms');
+  });
+
+  it('does not treat trailing prose as a unit', () => {
+    expect(parseNotes('- signups: 1,240 new customers')[0].unit).toBe('');
+  });
+});
+
+describe('bar heights', () => {
+  it('puts the largest value at full height', () => {
+    expect(barHeights([820, 910, 1050, 1180]).at(-1)).toBe(100);
+  });
+
+  it('measures from zero, not from the smallest value', () => {
+    // Otherwise 98 and 100 look like nothing and everything.
+    expect(barHeights([98, 100])[0]).toBeCloseTo(98);
+  });
+
+  // A negative height is invalid CSS, so the bar vanishes rather than showing a
+  // dip.
+  it('never returns a negative height', () => {
+    for (const h of barHeights([-5, 3, 8])) expect(h).toBeGreaterThanOrEqual(0);
+  });
+
+  it('survives a series far longer than the call stack', () => {
+    // Math.max(...series) on this would overflow.
+    const long = Array.from({ length: 200000 }, (_, i) => i);
+    expect(() => barHeights(long)).not.toThrow();
+  });
+
+  it('handles all-equal and empty series', () => {
+    expect(barHeights([5, 5, 5]).every(h => h === 100)).toBe(true);
+    expect(barHeights([])).toEqual([]);
   });
 });

@@ -70,6 +70,10 @@ R-10  ASCII where the character is a LETTER.
       resume -> resume, 61x not 61 multiplication-sign. But "n with tilde" in
       Los Banos stays: removing it misspells a real place name. Punctuation
       (dashes, middots) stays.
+      Reaffirmed 2026-08-31: "dont use e-acute for e". The rule covers what
+      Claude writes in chat as well as what ships on the page. Verified on
+      2026-08-31: no accented letter appears anywhere in the repository, in
+      the built dist, in the captions or in the raysume source.
 
 R-11  Do not link 2weeks.me. Sensitive subject.
       luxelips.com.au may be linked; an outbound link does not harm their SEO.

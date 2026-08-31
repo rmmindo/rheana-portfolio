@@ -130,7 +130,7 @@
     "dash.label": "Paste any notes",
     "dash.reset": "Reset the notes",
     "dash.widgets": "widgets",
-    "dash.note": "Laid out as you type, in under a millisecond. The manual version of this took about thirty-six minutes. No model is involved: deciding that 1,240 is a measurement and 2% to 5% is a change needs rules applied consistently, not a language model."
+    "dash.note": "Laid out as you type, in under a millisecond. The manual version took thirty-six minutes. No model runs here: deciding that 1,240 is a measurement is a rule, not a guess."
   },
   "fil": {
     "lang.name": "Filipino",
@@ -262,6 +262,6 @@
     "dash.label": "I-paste ang kahit anong tala",
     "dash.reset": "Ibalik ang tala",
     "dash.widgets": "widget",
-    "dash.note": "Inaayos habang nagta-type ka, wala pang isang millisecond. Ang manu-manong bersyon nito ay tumatagal ng mga tatlumpu't anim na minuto. Walang modelo: ang pagpapasya na ang 1,240 ay sukat at ang 2% hanggang 5% ay pagbabago ay nangangailangan ng patakaran, hindi ng language model."
+    "dash.note": "Inaayos habang nagta-type ka, wala pang isang millisecond. Ang manu-manong bersyon ay tumagal ng tatlumpu't anim na minuto. Walang modelo rito: ang pagkilala na sukat ang 1,240 ay patakaran, hindi hula."
   }
 }
