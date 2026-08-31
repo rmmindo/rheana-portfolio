@@ -66,8 +66,9 @@ export default function Skills() {
 
           {asked && hits.length > 0 && (
             <span className="tools__hit">
-              {t('tools.yes')} <strong>{hits[0].item}</strong>, {t('tools.in')}{' '}
-              {hits[0].group}.
+              {t('tools.yes')} <strong>{hits[0].item}</strong>
+              {hits[0].within && <span className="tools__within">, {t('tools.partOf')} {hits[0].within}</span>}
+              , {t('tools.in')} {hits[0].group}.
               {hits.length > 1 && (
                 <span className="tools__also">
                   {' '}{t('tools.also')} {hits.slice(1, 5).map(h => h.item).join(', ')}.
@@ -97,7 +98,7 @@ export default function Skills() {
                     {group.items.map(item => (
                       <li
                         key={item}
-                        className={asked && hits.some(h => h.item === item) ? 'is-hit' : undefined}
+                        className={asked && hits.some(h => (h.within ?? h.item) === item) ? 'is-hit' : undefined}
                       >
                         {item}
                       </li>

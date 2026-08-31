@@ -53,10 +53,30 @@ const ALIASES = {
   ts: 'typescript',
   py: 'python',
   golang: 'go',
-  postgres: 'pern',
+  postgres: 'postgresql',
+  node: 'node.js',
+  nodejs: 'node.js',
   k8s: 'kubernetes',
   ci: 'ci/cd',
   hf: 'hugging face',
+};
+
+// An acronym on a CV is one line that means five tools. A reader expands it
+// without noticing; a substring search cannot, so "Express" came back "not on
+// the list" while the E in MERN sat right there - and React and Node with it,
+// on a site built in React.
+//
+// This is not inventing a skill. MERN means these four words; the resume is
+// still the only source, and the CV keeps its compact line.
+const CONTAINS = {
+  'MERN/PERN': ['MongoDB', 'Express', 'React', 'Node.js', 'PostgreSQL'],
+  'Blazor WebAssembly/Razor': ['Blazor', 'WebAssembly', 'Razor'],
+  'JavaScript/TypeScript': ['JavaScript', 'TypeScript'],
+  'PHP/WordPress': ['PHP', 'WordPress'],
+  'C# / .NET 8': ['C#', '.NET'],
+  'GitLab CI/CD': ['GitLab', 'CI/CD'],
+  'Stable Diffusion/Flux': ['Stable Diffusion', 'Flux'],
+  'TikTok Events/Ads API': ['TikTok'],
 };
 
 const norm = s => s.toLowerCase().replace(/\s+/g, ' ').trim();
@@ -76,8 +96,33 @@ export function searchTools(groups, query) {
   const hits = [];
   for (const group of groups) {
     for (const item of group.items) {
-      if (norm(item).includes(term)) hits.push({ item, group: group.label });
+      if (norm(item).includes(term)) {
+        hits.push({ item, group: group.label });
+        continue;
+      }
+
+      // Nothing matched the line itself, so try what the line stands for. The
+      // answer names the tool the visitor asked about AND the line it lives
+      // on, because "Express, part of MERN/PERN" is the honest reply.
+      const inside = (CONTAINS[item] ?? []).find(part => norm(part).includes(term));
+      if (inside) hits.push({ item: inside, group: group.label, within: item });
     }
   }
-  return hits;
+
+  // A tool that is written on the page outranks one that had to be unpacked
+  // from an acronym: MongoDB is its own line as well as the M in MERN, and the
+  // line is the better answer. Stable otherwise, so the order stays the
+  // resume's.
+  const ranked = hits.sort((a, b) => (a.within ? 1 : 0) - (b.within ? 1 : 0));
+
+  // The same tool can be found twice - once as its own line and once inside an
+  // acronym - and answering "Yes, MongoDB. Also MongoDB." is worse than not
+  // expanding at all. The first of a pair is the better one, by the sort above.
+  const seen = new Set();
+  return ranked.filter(hit => {
+    const key = norm(hit.item);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }

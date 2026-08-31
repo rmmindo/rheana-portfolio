@@ -19,19 +19,18 @@ import { useI18n } from '../hooks/useI18n.jsx';
 // on a perspective transform, the way an object does when it arrives at your
 // face, while the page behind them comes into focus.
 //
-// Rules: once per visitor; never mounts under prefers-reduced-motion; always
+// Rules: EVERY visit, not once per visitor - Rheana's call on 2026-08-31. It is
+// the first thing the site says, and a returning client showing the site to a
+// colleague should get to show them this rather than explain it. Always
 // skippable; Escape closes it; the glasses are a real button; injected by
 // JavaScript only, so crawlers get the plain page.
+//
+// Reduced motion still holds. Asking for less motion is an accessibility
+// setting, not a preference to be overridden, and on a site whose whole point
+// is being readable by anyone it would be the worst place to break that. Those
+// visitors get the page directly, which is what they asked for.
 
-const SEEN_KEY = 'rm-seen-gate';
 const WEAR_MS = 1250;
-
-const seen = () => {
-  try { return localStorage.getItem(SEEN_KEY) === '1'; } catch { return false; }
-};
-const remember = () => {
-  try { localStorage.setItem(SEEN_KEY, '1'); } catch { /* private window */ }
-};
 
 export default function VisionGate() {
   const reduced = useReducedMotion();
@@ -43,14 +42,13 @@ export default function VisionGate() {
   const timer = useRef(0);
 
   useEffect(() => {
-    if (seen()) return;
     // Read the query directly: useReducedMotion resolves in its own effect and
     // still reports false on the first pass, which would flash a blurred page
     // at exactly the person who asked for no motion.
     const prefersReduced =
       typeof window !== 'undefined' &&
       window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
-    if (prefersReduced) { remember(); return; }
+    if (prefersReduced) return;
     setOpen(true);
   }, [reduced]);
 
@@ -68,7 +66,6 @@ export default function VisionGate() {
   }, [open]);
 
   const dismiss = useCallback(() => {
-    remember();
     setOpen(false);
     clearTimeout(timer.current);
   }, []);
@@ -76,7 +73,6 @@ export default function VisionGate() {
   const wear = useCallback(() => {
     if (wearing) return;
     setWearing(true);
-    remember();
     // The blur clears on the page itself, so the class goes on <html>.
     document.documentElement.classList.add('is-clearing');
     timer.current = setTimeout(() => setOpen(false), WEAR_MS);

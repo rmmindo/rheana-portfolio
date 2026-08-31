@@ -195,3 +195,25 @@ M-08  Diagnosed the read-more button by theory for several rounds instead of
       measuring. The answer came in one probe once it read the actual
       geometry.
 
+B-22  The toolshed said no to the stack the site is built with.
+      "Express" answered "not on the list" while the E in MERN/PERN sat right
+      there, and React and Node with it - on a React site. An acronym on a CV
+      is one line meaning five tools; a reader expands it without noticing and
+      a substring search cannot. searchTools now knows what the acronyms stand
+      for, names the tool asked about and the line it lives on, ranks a written
+      chip above an unpacked one, and never lists the same tool twice. The
+      resume is still the only source: MERN means those words.
+
+D-01  The video moved from first section to after the work.
+      Rheana: "what is this random video". It was: a stranger who has not seen
+      one piece of work has no reason to give a person three minutes, and
+      "Meet me in 3 minutes" was about her rather than about them. It now sits
+      after Experience and Beyond, before the people who vouch for her, and
+      says "You would be hiring a person".
+
+D-02  The nav indicator on the hero.
+      Could not reproduce a label while the hero is on screen, at 1280 and at
+      390, locally or live: it is blank at every scroll position until the
+      hero has left. What Rheana saw was the video being section 01. It is now
+      section 03, so nothing reads as belonging to the hero.
+

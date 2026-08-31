@@ -16,10 +16,19 @@ describe('VisionGate', () => {
     expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
 
-  it('does not open again once it has been seen', async () => {
+  // Every visit, not once per visitor: Rheana's call on 2026-08-31. It is the
+  // first thing the site says, and someone showing the site to a colleague
+  // should get to show them this rather than describe it.
+  it('opens again on a later visit', async () => {
     localStorage.setItem('rm-seen-gate', '1');
     await act(async () => { render(<VisionGate />); });
-    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  it('remembers nothing about the visitor', async () => {
+    await act(async () => { render(<VisionGate />); });
+    await act(async () => { screen.getByRole('button', { name: /skip/i }).click(); });
+    expect(localStorage.length).toBe(0);
   });
 
   // A blurred page and a floating object is exactly what someone who asked for
@@ -30,10 +39,15 @@ describe('VisionGate', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 
-  it('records that it was shown, so reduced-motion users are not asked twice', async () => {
+  // Showing it every visit must not become showing it every visit to someone
+  // who asked for no motion. That setting is an accessibility need, not a
+  // preference to be overridden by a nice idea.
+  it('still never mounts under reduced motion, however many times it is opened', async () => {
     setReducedMotion(true);
-    await act(async () => { render(<VisionGate />); });
-    expect(localStorage.getItem('rm-seen-gate')).toBe('1');
+    for (let i = 0; i < 3; i++) {
+      await act(async () => { render(<VisionGate />); });
+      expect(screen.queryByRole('dialog')).toBeNull();
+    }
   });
 
   it('offers a skip control', async () => {
@@ -41,11 +55,10 @@ describe('VisionGate', () => {
     expect(screen.getByRole('button', { name: /skip/i })).toBeInTheDocument();
   });
 
-  it('closes when skipped, and remembers', async () => {
+  it('closes when skipped', async () => {
     await act(async () => { render(<VisionGate />); });
     await act(async () => { screen.getByRole('button', { name: /skip/i }).click(); });
     expect(screen.queryByRole('dialog')).toBeNull();
-    expect(localStorage.getItem('rm-seen-gate')).toBe('1');
   });
 
   it('closes on Escape, so it can never trap anyone', async () => {

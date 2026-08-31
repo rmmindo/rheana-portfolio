@@ -23,8 +23,8 @@
     "stat.accuracy": "dead-code detection accuracy, up from 5%",
     "stat.speedup": "faster dashboard builds in production",
     "stat.roles": "paid roles, 3 of them concurrent",
-    "video.heading": "Meet me in 3 minutes",
-    "video.lead": "A dev with a poet's heart. Same person you would get on a call.",
+    "video.heading": "You would be hiring a person",
+    "video.lead": "Three minutes, so you know who turns up to the call. Captioned, or read it instead.",
     "video.play": "Play the video resume",
     "video.transcript.show": "Read the transcript instead",
     "video.transcript.hide": "Hide transcript",
@@ -194,7 +194,8 @@
     "probe.diffCaption": "The words the swap moved most. A dash means the model never suggested that word for that side.",
     "probe.word": "Hidden word",
     "probe.gapCol": "Gap",
-    "probe.note": "This is the probe from my thesis with the group term changed. Mask a word, swap one thing about the person, compare what the model predicts. If the model held no view, nothing would move. I built this method to measure religious bias across BERT, RoBERTa, DistilBERT, GPT-2 and T5-small; it is the same procedure here, on one of those five, running on your machine. Nothing you press is sent anywhere."
+    "probe.note": "This is the probe from my thesis with the group term changed. Mask a word, swap one thing about the person, compare what the model predicts. If the model held no view, nothing would move. I built this method to measure religious bias across BERT, RoBERTa, DistilBERT, GPT-2 and T5-small; it is the same procedure here, on one of those five, running on your machine. Nothing you press is sent anywhere.",
+    "tools.partOf": "part of"
   },
   "fil": {
     "lang.name": "Filipino",
@@ -219,8 +220,8 @@
     "stat.accuracy": "katumpakan sa paghanap ng dead code, mula 5%",
     "stat.speedup": "na mas mabilis na paggawa ng dashboard sa produksyon",
     "stat.roles": "na bayad na trabaho, 3 ang sabay-sabay",
-    "video.heading": "Makilala ako sa 3 minuto",
-    "video.lead": "Isang dev na may pusong makata. Ganito rin ako sa totoong tawag.",
+    "video.heading": "Isang tao ang kukunin mo",
+    "video.lead": "Tatlong minuto, para alam mo kung sino ang darating sa tawag. May caption, o basahin na lang.",
     "video.play": "Panoorin ang video resume",
     "video.transcript.show": "Basahin na lang ang transcript",
     "video.transcript.hide": "Itago ang transcript",
@@ -390,6 +391,7 @@
     "probe.diffCaption": "Ang mga salitang pinakaapektado ng pagpapalit. Ang gitling ay nangangahulugang hindi kailanman iminungkahi ng modelo ang salitang iyon sa panig na iyon.",
     "probe.word": "Nakatagong salita",
     "probe.gapCol": "Agwat",
-    "probe.note": "Ito ang probe mula sa tesis ko na pinalitan ang grupong sinusukat. Itago ang isang salita, palitan ang isang bagay tungkol sa tao, ihambing ang hula ng modelo. Kung walang paninindigan ang modelo, walang magbabago. Ginawa ko ang paraang ito para sukatin ang religious bias sa BERT, RoBERTa, DistilBERT, GPT-2 at T5-small; iisa ang paraan dito, sa isa sa limang iyon, tumatakbo sa makina mo. Walang ipinapadala kahit saan."
+    "probe.note": "Ito ang probe mula sa tesis ko na pinalitan ang grupong sinusukat. Itago ang isang salita, palitan ang isang bagay tungkol sa tao, ihambing ang hula ng modelo. Kung walang paninindigan ang modelo, walang magbabago. Ginawa ko ang paraang ito para sukatin ang religious bias sa BERT, RoBERTa, DistilBERT, GPT-2 at T5-small; iisa ang paraan dito, sa isa sa limang iyon, tumatakbo sa makina mo. Walang ipinapadala kahit saan.",
+    "tools.partOf": "bahagi ng"
   }
 }

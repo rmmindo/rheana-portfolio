@@ -25,10 +25,15 @@ const byId = id => resume.sections.find(s => s.id === id);
 // Nav order is the page order. Keeping the two in sync by hand is how they
 // drift, so this array is the single definition: it drives the links AND the
 // scroll-spy, and the sections below are rendered in the same sequence.
+// Order follows the page. The video used to be first, which is what made it
+// feel like it arrived from nowhere: a stranger who has not seen a single
+// piece of work yet has no reason to give a person three minutes. It now sits
+// after the work and before the people who vouch for her, where a visitor who
+// is interested wants to see who they would be talking to.
 const NAV = [
-  { id: 'video', key: 'nav.video' },
   { id: 'experience', key: 'nav.experience' },
   { id: 'projects', key: 'nav.plot' },
+  { id: 'video', key: 'nav.video' },
   { id: 'proof', key: 'nav.proof' },
   { id: 'skills', key: 'nav.skills' },
 ];
@@ -102,9 +107,9 @@ function Page() {
       <main id="main">
         <Hero profile={resume.profile} />
         <TrustBar />
-        <VideoResume />
         <Work />
         <Plot />
+        <VideoResume />
         <Proof />
         <Skills />
         <HowIWork />

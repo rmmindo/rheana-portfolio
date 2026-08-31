@@ -89,6 +89,13 @@ R-12  Never name Iosys internal repositories. The resume abstracts that work to
 R-13  Commits are single-line, type: description, lowercase, no Co-Authored-By
       and no session trailer. Per a1.standards/pr-review.standards.txt 4.1-4.2.
 
+R-15  The vision gate opens on EVERY visit, not once per visitor.
+      Rheana, 2026-08-31: "just force it to be the first thing in the site".
+      It stores nothing about the visitor. The one exception stays:
+      prefers-reduced-motion is an accessibility setting, so those visitors go
+      straight to the page.
+      Guarded by: apps/web/test/gate.test.jsx
+
 R-14  Motion is an invitation, not decoration. Everything animated must respect
       prefers-reduced-motion, and nothing may hide content permanently.
 
