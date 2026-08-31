@@ -1,0 +1,154 @@
+@use "../abstracts/variables" as v;
+
+.probe { display: grid; gap: v.space(5); }
+
+.probe__controls { display: grid; gap: v.space(4); }
+
+.probe__set { border: 0; padding: 0; margin: 0; }
+
+.probe__opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.space(2);
+  margin-top: v.space(2);
+  padding: 0;
+  list-style: none;
+}
+
+// --- The gate -------------------------------------------------------------//
+.probe__gate { display: grid; gap: v.space(2); justify-items: start; }
+
+.probe__gatenote {
+  font-size: v.$step--1;
+  color: var(--text-muted);
+  max-width: 40ch;
+}
+
+.probe__loading { font-size: v.$step--1; color: var(--text-muted); }
+
+.probe__bar {
+  display: block;
+  height: 4px;
+  margin-top: v.space(2);
+  border-radius: 2px;
+  background: var(--border);
+  overflow: hidden;
+
+  span { display: block; height: 100%; background: var(--ink-purple); }
+}
+
+.probe__failed { font-size: v.$step--1; color: var(--text-muted); }
+
+.probe__err {
+  display: block;
+  margin-top: v.space(2);
+  font-family: v.$font-mono;
+  font-size: 0.8em;
+  overflow-wrap: anywhere;
+}
+
+// --- The measurement ------------------------------------------------------//
+.probe__verdict { font-size: v.$step-1; line-height: 1.4; max-width: 44ch; }
+
+.probe__gap {
+  font-family: v.$font-heading;
+  font-size: 1.6em;
+  color: var(--ink-purple);
+}
+
+// auto-fit rather than a viewport media query: this demo lives inside a card
+// in a grid, so the space it has is nothing to do with the width of the
+// window. Below about 16rem of column the two stack by themselves.
+.probe__cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: v.space(3);
+}
+
+.probe__col {
+  padding: v.space(4);
+  border-radius: v.$radius-md;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  min-width: 0;
+}
+
+.probe__coltitle {
+  font-size: v.$step--1;
+  margin-bottom: v.space(3);
+
+  code {
+    font-family: v.$font-mono;
+    font-size: 0.95em;
+    color: var(--text);
+    overflow-wrap: anywhere;
+  }
+}
+
+.probe__list {
+  display: grid;
+  gap: v.space(2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.probe__list li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px v.space(3);
+  align-items: baseline;
+  font-size: v.$step--1;
+}
+
+// break-word, not anywhere: anywhere splits "journalist" across two lines
+// even when moving the whole word down would have fitted.
+.probe__token { font-family: v.$font-mono; overflow-wrap: break-word; min-width: 0; }
+.probe__p { color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
+.probe__meter {
+  grid-column: 1 / -1;
+  display: block;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--border);
+  overflow: hidden;
+
+  span { display: block; height: 100%; background: var(--surface-purple); }
+}
+
+// --- The difference -------------------------------------------------------//
+.probe__diff {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: v.$step--1;
+  font-variant-numeric: tabular-nums;
+
+  caption {
+    text-align: left;
+    color: var(--text-muted);
+    margin-bottom: v.space(2);
+  }
+
+  th, td {
+    padding: v.space(2) v.space(3);
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+  }
+
+  thead th { color: var(--text-muted); }
+  tbody th { font-family: v.$font-mono; font-weight: v.$weight-regular; }
+}
+
+// Which side the word leans to. The sign in the last column says the same
+// thing, so nothing depends on seeing the colour.
+.probe__diff tr.is-a td:last-child { color: var(--ink-powder); font-weight: v.$weight-bold; }
+.probe__diff tr.is-b td:last-child { color: var(--ink-pink); font-weight: v.$weight-bold; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .probe__bar span,
+  .probe__meter span { transition: width 200ms v.$ease-out; }
+}

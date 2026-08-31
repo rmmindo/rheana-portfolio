@@ -2,6 +2,7 @@ import plot from '../content/plot.json';
 import { useReveal } from '../hooks/useReveal.js';
 import { useI18n } from '../hooks/useI18n.jsx';
 import SectionCta from '../components/SectionCta.jsx';
+import ProbeDemo from '../components/demos/ProbeDemo.jsx';
 import Odometer from '../components/Odometer.jsx';
 
 // Work that was not a job.
@@ -13,6 +14,13 @@ import Odometer from '../components/Odometer.jsx';
 //
 // A grid rather than a timeline, because these did not happen in a sequence
 // that means anything. They are things she did alongside the paid work.
+//
+// A card may own a playground, the same way a role does. The thesis card runs
+// the thesis: describing a bias probe is much weaker than watching one
+// disagree with itself. It sits inside the disclosure, so the heavy thing is
+// two presses away and the grid stays a grid.
+
+const DEMOS = { probe: ProbeDemo };
 
 export default function Plot() {
   const ref = useReveal();
@@ -43,6 +51,10 @@ export default function Plot() {
               <details className="sown__more">
                 <summary>{t('work.how')}</summary>
                 <p>{item.detail}</p>
+                {DEMOS[item.demo] && (() => {
+                  const Demo = DEMOS[item.demo];
+                  return <Demo />;
+                })()}
               </details>
             </li>
           ))}

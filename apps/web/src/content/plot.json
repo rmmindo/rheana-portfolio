@@ -7,8 +7,13 @@
       "hue": "purple",
       "you": "Language models are not neutral about religion.",
       "me": "I measured how much.",
-      "figure": { "value": 5, "unit": "", "caption": "models probed, from BERT to GPT-2" },
-      "detail": "Quantifying Religious Bias in Large Language Models. I built the Rapid Religious Bias Probe and adapted a Religion-Equalizing Loss Function, then evaluated across BERT, RoBERTa, DistilBERT, GPT-2 and T5-small using RBS, causal and embedding metrics, StereoSet and CrowS-Pairs. Python and PyTorch, 2024 to 2025."
+      "figure": {
+        "value": 5,
+        "unit": "",
+        "caption": "models probed, from BERT to GPT-2"
+      },
+      "detail": "Quantifying Religious Bias in Large Language Models. I built the Rapid Religious Bias Probe and adapted a Religion-Equalizing Loss Function, then evaluated across BERT, RoBERTa, DistilBERT, GPT-2 and T5-small using RBS, causal and embedding metrics, StereoSet and CrowS-Pairs. Python and PyTorch, 2024 to 2025.",
+      "demo": "probe"
     },
     {
       "id": "scratch",
@@ -16,7 +21,11 @@
       "hue": "mint",
       "you": "Thirty-two students who had never written a line of code.",
       "me": "Two weeks later they had each shipped a game.",
-      "figure": { "value": 32, "unit": "", "caption": "high school students, taught free" },
+      "figure": {
+        "value": 32,
+        "unit": "",
+        "caption": "high school students, taught free"
+      },
       "detail": "I led a team of five running a free two-week Scratch workshop. We wrote the learning guides, recorded the tutorials and built sample games for students to take apart and rebuild as their own. We pooled our own money for the prizes."
     },
     {
@@ -25,7 +34,11 @@
       "hue": "yellow",
       "you": "Most student organisations are broke by March.",
       "me": "Ours ended the year with more than it started.",
-      "figure": { "value": 756, "unit": "%", "caption": "budget growth, with tickets held at 100 pesos" },
+      "figure": {
+        "value": 756,
+        "unit": "%",
+        "caption": "budget growth, with tickets held at 100 pesos"
+      },
       "detail": "Treasurer of UPLB Kaiban. Ten fundraising events, and reforms that outlasted my term: a clear reimbursement process, a budget guide and a financial tracker, which cut member debt by 63%. Event designs had to be reusable, which reduced both cost and waste. The projector we bought paid for itself as a rental."
     },
     {
@@ -34,7 +47,11 @@
       "hue": "red",
       "you": "Two typhoons in two months.",
       "me": "Seven of us raised forty thousand pesos with a poetry zine.",
-      "figure": { "value": 40000, "unit": "", "caption": "pesos raised for Typhoon Rolly and Ulysses relief" },
+      "figure": {
+        "value": 40000,
+        "unit": "",
+        "caption": "pesos raised for Typhoon Rolly and Ulysses relief"
+      },
       "detail": "Co-founded The STEP Initiative, a donation drive for communities hit by Typhoon Rolly and Ulysses. The thank-you gift for donors was a bilingual zine of thirty Filipino and English poems, which I co-wrote."
     },
     {
@@ -43,7 +60,11 @@
       "hue": "powder",
       "you": "A programming contest is only as good as its judge.",
       "me": "So I built one.",
-      "figure": { "value": 3, "unit": "", "caption": "interfaces: contestant, judge and admin" },
+      "figure": {
+        "value": 3,
+        "unit": "",
+        "caption": "interfaces: contestant, judge and admin"
+      },
       "detail": "Co-head of Code Wars at UPLB. I led development of the contest platform, with live clarifications and Judge0 integration for built-in Python and C compilers with custom input runs. I also wrote the problem-setting guidelines so difficulty and coverage were deliberate rather than accidental, and handled sponsorship and budget."
     },
     {
@@ -52,7 +73,11 @@
       "hue": "pink",
       "you": "Nineteen developers, one semester, one system.",
       "me": "It shipped, and it is still running.",
-      "figure": { "value": 19, "unit": "", "caption": "developers coordinated as project manager" },
+      "figure": {
+        "value": 19,
+        "unit": "",
+        "caption": "developers coordinated as project manager"
+      },
       "detail": "A room reservation system for the UPLB Institute of Computer Science, built on PERN and deployed to Vercel and Render. I set the coding guidelines, ran weekly meetings, defined milestones and interviewed stakeholders for requirements. Thirty-five pages of documentation and a three-stage review before anything merged."
     }
   ]

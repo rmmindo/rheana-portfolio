@@ -51,10 +51,10 @@
 }
 
 // --- The comparison -------------------------------------------------------//
-.ask__cols { display: grid; grid-template-columns: 1fr 1fr; gap: v.space(3); }
-
-@media (max-width: 44rem) {
-  .ask__cols { grid-template-columns: 1fr; }
+.ask__cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: v.space(3);
 }
 
 .ask__col {

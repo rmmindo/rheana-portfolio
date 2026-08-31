@@ -177,3 +177,21 @@ M-06  Reported that the CSS clamp was broken because the box was shorter than
 M-07  Ran a build from the wrong directory, then measured the result and
       reported no change. The build had not run.
 
+B-21  Two calls at once corrupted the model.
+      A transformers.js pipeline holds one inference session. The bias probe
+      naturally wanted both halves together:
+
+        Promise.all([unmask(he), unmask(she)])
+        -> TypeError: Cannot read properties of null (reading '3')
+
+      while the same two calls awaited one after the other are fine. Proved it
+      by running both forms against the library directly, outside our code,
+      after the library alone worked. The SEARCH demo had the same latent
+      fault: a second keystroke fired a second embedding before the first had
+      finished. Both now go through withPipeline(), which queues jobs per
+      pipeline, so no caller has to remember.
+
+M-08  Diagnosed the read-more button by theory for several rounds instead of
+      measuring. The answer came in one probe once it read the actual
+      geometry.
+

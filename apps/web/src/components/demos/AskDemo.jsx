@@ -1,7 +1,7 @@
 import { useCallback, useId, useMemo, useRef, useState } from 'react';
 import handbook from '../../content/handbook.json';
 import { passages, keywordSearch, vectorSearch } from '../../lib/passages.js';
-import { loadPipeline, EMBED_MODEL } from '../../lib/models.js';
+import { withPipeline, EMBED_MODEL } from '../../lib/models.js';
 import { useI18n } from '../../hooks/useI18n.jsx';
 
 // Two search boxes over the same document, so the difference is not a claim.
@@ -59,9 +59,10 @@ export default function AskDemo() {
     setState('loading');
     setError('');
     try {
-      const extractor = await loadPipeline('feature-extraction', EMBED_MODEL, setProgress);
-      const docVectors = await embed(extractor, list);
-      const [qv] = await embed(extractor, [query]);
+      const { docVectors, qv } = await withPipeline('feature-extraction', EMBED_MODEL, async extractor => ({
+        docVectors: await embed(extractor, list),
+        qv: (await embed(extractor, [query]))[0],
+      }), setProgress);
       setVectors(docVectors);
       setQueryVector(qv);
       setState('ready');
@@ -79,8 +80,9 @@ export default function AskDemo() {
     setQuery(next);
     if (state !== 'ready') return;
     try {
-      const extractor = await loadPipeline('feature-extraction', EMBED_MODEL);
-      const [qv] = await embed(extractor, [next]);
+      // Typing fires this on every keystroke. The queue is what stops two
+      // embeddings running at once and corrupting the session.
+      const [qv] = await withPipeline('feature-extraction', EMBED_MODEL, e => embed(e, [next]));
       setQueryVector(qv);
     } catch {
       setState('failed');

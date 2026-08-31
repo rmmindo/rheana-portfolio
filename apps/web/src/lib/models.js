@@ -61,5 +61,33 @@ export function loadPipeline(task, model, onProgress) {
   return pipelines.get(key);
 }
 
+/**
+ * Runs a job against a pipeline, one job at a time.
+ *
+ * A transformers.js pipeline holds a single inference session. Two calls in
+ * flight against the same one corrupt it, and the failure is not obvious:
+ *
+ *   Promise.all([unmask(a), unmask(b)])
+ *   -> TypeError: Cannot read properties of null (reading '3')
+ *
+ * while the same two calls awaited one after the other are fine. That is easy
+ * to write by accident - a fill-mask probe naturally wants both halves at once,
+ * and a search box naturally fires again on the next keystroke - so the queue
+ * lives here rather than in each caller's head.
+ */
+export function withPipeline(task, model, job, onProgress) {
+  const key = `${task}:${model}`;
+  const queued = (queues.get(key) ?? Promise.resolve())
+    // A failed job must not block the next one.
+    .catch(() => {})
+    .then(() => loadPipeline(task, model, onProgress))
+    .then(job);
+
+  queues.set(key, queued.catch(() => {}));
+  return queued;
+}
+
+const queues = new Map();
+
 export const EMBED_MODEL = 'Xenova/all-MiniLM-L6-v2';
 export const MASK_MODEL = 'Xenova/distilbert-base-uncased';

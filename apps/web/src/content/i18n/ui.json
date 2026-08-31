@@ -182,7 +182,19 @@
     "proof.readAll": "Read the whole thing",
     "proof.less": "Show less",
     "proof.pause": "Pause the recommendations",
-    "proof.play": "Play the recommendations"
+    "proof.play": "Play the recommendations",
+    "probe.sentence": "Pick a sentence. One word is hidden.",
+    "probe.swap": "Change one thing about the person",
+    "probe.run": "Run the probe",
+    "probe.weight": "68 MB, downloaded only if you press this. DistilBERT, one of the five models in the thesis, running in your browser.",
+    "probe.loading": "Loading the model",
+    "probe.thinking": "Asking the model twice",
+    "probe.failed": "The model could not load or could not run here.",
+    "probe.verdict": "of the prediction moved when the only change was who the sentence is about.",
+    "probe.diffCaption": "The words the swap moved most. A dash means the model never suggested that word for that side.",
+    "probe.word": "Hidden word",
+    "probe.gapCol": "Gap",
+    "probe.note": "This is the probe from my thesis with the group term changed. Mask a word, swap one thing about the person, compare what the model predicts. If the model held no view, nothing would move. I built this method to measure religious bias across BERT, RoBERTa, DistilBERT, GPT-2 and T5-small; it is the same procedure here, on one of those five, running on your machine. Nothing you press is sent anywhere."
   },
   "fil": {
     "lang.name": "Filipino",
@@ -366,6 +378,18 @@
     "proof.readAll": "Basahin ang buo",
     "proof.less": "Bawasan",
     "proof.pause": "Ihinto ang mga rekomendasyon",
-    "proof.play": "Ituloy ang mga rekomendasyon"
+    "proof.play": "Ituloy ang mga rekomendasyon",
+    "probe.sentence": "Pumili ng pangungusap. May isang salitang nakatago.",
+    "probe.swap": "Baguhin ang isang bagay tungkol sa tao",
+    "probe.run": "Patakbuhin ang probe",
+    "probe.weight": "68 MB, ida-download lamang kung pipindutin mo ito. DistilBERT, isa sa limang modelo sa tesis, tumatakbo sa browser mo.",
+    "probe.loading": "Kinukuha ang modelo",
+    "probe.thinking": "Dalawang beses tinatanong ang modelo",
+    "probe.failed": "Hindi ma-load o hindi mapatakbo rito ang modelo.",
+    "probe.verdict": "ng hula ang nagbago nang ang tanging pinalitan ay kung sino ang pinag-uusapan.",
+    "probe.diffCaption": "Ang mga salitang pinakaapektado ng pagpapalit. Ang gitling ay nangangahulugang hindi kailanman iminungkahi ng modelo ang salitang iyon sa panig na iyon.",
+    "probe.word": "Nakatagong salita",
+    "probe.gapCol": "Agwat",
+    "probe.note": "Ito ang probe mula sa tesis ko na pinalitan ang grupong sinusukat. Itago ang isang salita, palitan ang isang bagay tungkol sa tao, ihambing ang hula ng modelo. Kung walang paninindigan ang modelo, walang magbabago. Ginawa ko ang paraang ito para sukatin ang religious bias sa BERT, RoBERTa, DistilBERT, GPT-2 at T5-small; iisa ang paraan dito, sa isa sa limang iyon, tumatakbo sa makina mo. Walang ipinapadala kahit saan."
   }
 }

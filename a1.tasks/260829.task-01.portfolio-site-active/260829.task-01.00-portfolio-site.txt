@@ -149,16 +149,8 @@ BLOCKED ON RHEANA (4)
         video says 20. The site currently shows 19.
   N-05  "city apps" in the video transcript is still unresolved.
 
-AGREED, NOT BUILT (2)
+AGREED, NOT BUILT (1)
 
-  N-07  Bias probe playground, from the undergraduate thesis. AGREED APPROACH
-        (Rheana, 2026-08-31): run a fill-mask model in the browser over preset
-        sentences, swap the pronoun, and show the top ten completions with
-        their probabilities. That IS the thesis method - the Rapid Religious
-        Bias Probe is masked-token probability - so the demo runs the real
-        technique on real model output rather than quoting numbers.
-        DistilBERT is one of the five models in the thesis and is 68 MB
-        quantised, behind an explicit press like the search model.
   N-08  AI chatbot. Blocked by N-02.
 
 CARRIED, NEEDS A DECISION (2)
@@ -168,7 +160,15 @@ CARRIED, NEEDS A DECISION (2)
   N-18  Restraint plus colour, applied throughout. ONLY the video section is
         left. Skills was converted on 2026-08-31.
 
-COMPLETED SINCE THE LAST AUDIT (9)
+  N-07  Bias probe, built to Rheana's design: a fill-mask model in the
+        browser, preset sentences, swap the pronoun, top ten completions
+        with probabilities and the gap between them. That IS the thesis
+        method, so the demo runs the real technique on real model output
+        rather than quoting a number. DistilBERT, one of the five models
+        the thesis evaluated. Measured live: 21.7% of the prediction
+        moves, "nurse" is 7.1% for she and never suggested for he.  DONE
+
+COMPLETED SINCE THE LAST AUDIT (10)
 
   N-01  Visitor counter live. GoatCounter account rheanamindo, counter
         endpoint public, repo variable set, beacon and read both
