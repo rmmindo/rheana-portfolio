@@ -253,7 +253,7 @@
       "lines": [
         {
           "label": "Languages",
-          "text": "Python, C# / .NET 8, JavaScript/TypeScript, C/C++, Java, SQL, PHP/WordPress"
+          "text": "Python, C# / .NET 8, JavaScript/TypeScript, C/C++, Java, SQL, PHP/WordPress, PowerShell"
         },
         {
           "label": "AI / ML",
@@ -261,7 +261,7 @@
         },
         {
           "label": "Backend &amp; Web",
-          "text": "FastAPI, Flask, Pydantic, REST APIs, Blazor WebAssembly/Razor, MERN/PERN, WordPress, Roslyn, MSBuild, SQLite, DuckDB, MongoDB"
+          "text": "FastAPI, Flask, Pydantic, REST APIs, Blazor WebAssembly/Razor, MERN/PERN, Vite, WordPress, Roslyn, MSBuild, SQLite, DuckDB, MongoDB"
         },
         {
           "label": "DevOps &amp; Tooling",

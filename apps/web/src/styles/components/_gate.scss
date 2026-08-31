@@ -72,7 +72,22 @@
   transform-style: preserve-3d;
 }
 
-.gate__glasses svg { width: clamp(12rem, 36vw, 20rem); height: auto; }
+// Smaller than it was. It is an invitation to press, not the subject of
+// the screen, and the sentence above it is what people are reading.
+.gate__glasses svg { width: clamp(7rem, 20vw, 11rem); height: auto; }
+
+// The dialog takes focus when the gate opens so a screen reader reads it from
+// the top. It is not a control, so it needs no ring of its own.
+.gate:focus { outline: none; }
+
+// If a keyboard user does tab to the glasses, they still get a clear
+// indicator - but a rounded one that follows the button rather than a hard
+// rectangle boxing in the graphic.
+.gate__glasses:focus-visible {
+  outline: 3px solid var(--ink-purple);
+  outline-offset: 6px;
+  border-radius: v.$radius-pill;
+}
 
 .gate__statement {
   font-family: v.$font-heading;

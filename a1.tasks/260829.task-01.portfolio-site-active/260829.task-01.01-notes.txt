@@ -242,3 +242,30 @@ B-23  The toolshed said no to things the resume proves she did.
       Whole-word matching only: without it "excel" matches "excellent" and the
       site starts claiming a skill off the back of an adjective.
 
+D-04  PowerShell and Vite added at the source, not to the site.
+      Both were provably used - this site is built with Vite, rayflow is
+      PowerShell - and neither was anywhere in the resume, so the toolshed
+      answered "not on the list". Added to skill_lines in resume.source.yaml
+      and rebuilt: 98 raysume tests pass and the one-page variant still fits on
+      one page.
+
+B-24  The downloadable CV had been stale for three days.
+      sync-content.mjs copied the JSON and not the PDF, so the site was
+      generated from a resume the visitor could not download. Two artefacts out
+      of one build must move together or they drift. The sync now copies both
+      and fails loudly if the PDF is missing.
+
+B-25  The border around the glasses was a focus ring.
+      The gate focused the glasses button when it opened, so the browser drew a
+      focus rectangle around the graphic - the first thing anyone saw. The
+      dialog now takes focus instead, which is the correct target for a modal
+      anyway: a screen reader reads it from the top rather than starting
+      halfway down at a control. A keyboard user tabbing to the glasses still
+      gets a clear indicator, rounded to follow the button.
+
+D-05  New glasses, smaller.
+      The old pair was two stroked rectangles, which read as two empty boxes -
+      a border, where the thing being drawn is a lens. Now round frames with
+      the lenses filled like glass and one sweep of light across both, at 11rem
+      instead of 20rem.
+

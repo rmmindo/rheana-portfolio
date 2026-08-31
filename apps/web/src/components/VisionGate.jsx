@@ -38,7 +38,7 @@ export default function VisionGate() {
 
   const [open, setOpen] = useState(false);
   const [wearing, setWearing] = useState(false);
-  const buttonRef = useRef(null);
+  const dialogRef = useRef(null);
   const timer = useRef(0);
 
   useEffect(() => {
@@ -57,7 +57,12 @@ export default function VisionGate() {
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     document.documentElement.classList.add('is-gated');
-    buttonRef.current?.focus();
+    // Focus the dialog itself, not the glasses. Focusing the button paints a
+    // focus ring around the graphic the instant the gate opens - a hard
+    // rectangle around a pair of glasses, which is the first thing anyone
+    // sees. The dialog is the correct target anyway: a screen reader reads the
+    // whole thing rather than starting halfway down at a control.
+    dialogRef.current?.focus();
     return () => {
       document.body.style.overflow = prev;
       document.documentElement.classList.remove('is-gated');
@@ -95,6 +100,8 @@ export default function VisionGate() {
       role="dialog"
       aria-modal="true"
       aria-labelledby="gate-statement"
+      ref={dialogRef}
+      tabIndex={-1}
     >
       <button type="button" className="gate__skip" onClick={dismiss}>
         {t('gate.skip')}
@@ -107,14 +114,32 @@ export default function VisionGate() {
             page wants none. */}
         <p id="gate-statement" className="gate__statement">{t('gate.statement')}</p>
 
-        <button ref={buttonRef} type="button" className="gate__glasses" onClick={wear}>
-          <svg viewBox="0 0 200 80" width="200" height="80" aria-hidden="true" focusable="false">
-            <g fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round">
-              <rect x="14" y="20" width="62" height="44" rx="16" />
-              <rect x="124" y="20" width="62" height="44" rx="16" />
-              <path d="M76 40 q24 -10 48 0" />
-              <path d="M14 34 L2 26" />
-              <path d="M186 34 L198 26" />
+        <button type="button" className="gate__glasses" onClick={wear}>
+          {/* Drawn as glass, not as an outline.
+              The old pair was two stroked rectangles, which read as two empty
+              boxes: a border, when the thing being shown is a lens. These are
+              filled shapes with a highlight across them and only the bridge and
+              temples stroked, so the lenses look like something you could see
+              through. */}
+          <svg viewBox="0 0 210 86" width="210" height="86" aria-hidden="true" focusable="false">
+            <g fill="none" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round">
+              {/* The bridge sits low and curves, the way a real one does. */}
+              <path d="M84 40 q21 -11 42 0" />
+              {/* Temples, folding away from the viewer. */}
+              <path d="M24 33 L6 24" />
+              <path d="M186 33 L204 24" />
+            </g>
+
+            <g fill="currentColor" opacity="0.22">
+              <ellipse cx="54" cy="45" rx="32" ry="27" />
+              <ellipse cx="156" cy="45" rx="32" ry="27" />
+            </g>
+
+            {/* A single sweep of light across both lenses. One highlight, at
+                the same angle on each, is what makes glass read as glass. */}
+            <g fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" opacity="0.5">
+              <path d="M36 56 L66 30" />
+              <path d="M138 56 L168 30" />
             </g>
           </svg>
           <span className="visually-hidden">{t('gate.action')}</span>
