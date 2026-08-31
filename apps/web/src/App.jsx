@@ -11,8 +11,8 @@ import { useActiveSection } from './hooks/useActiveSection.js';
 import Hero from './sections/Hero.jsx';
 import TrustBar from './sections/TrustBar.jsx';
 import VideoResume from './sections/VideoResume.jsx';
-import Entries from './sections/Entries.jsx';
 import Work from './sections/Work.jsx';
+import Plot from './sections/Plot.jsx';
 import Proof from './sections/Proof.jsx';
 import Skills from './sections/Skills.jsx';
 import HowIWork from './sections/HowIWork.jsx';
@@ -27,8 +27,7 @@ const byId = id => resume.sections.find(s => s.id === id);
 const NAV = [
   { id: 'video', key: 'nav.video' },
   { id: 'experience', key: 'nav.experience' },
-  { id: 'projects', key: 'nav.projects' },
-  { id: 'volunteering', key: 'nav.volunteering' },
+  { id: 'projects', key: 'nav.plot' },
   { id: 'proof', key: 'nav.proof' },
   { id: 'skills', key: 'nav.skills' },
 ];
@@ -39,9 +38,6 @@ function Page() {
   const active = useActiveSection(NAV_IDS);
   const activeIndex = NAV.findIndex(n => n.id === active);
 
-  const experience = byId('experience');
-  const projects = byId('projects');
-  const volunteering = byId('volunteering');
   const education = byId('education');
   const skills = byId('skills');
 
@@ -103,19 +99,12 @@ function Page() {
         </div>
       </header>
 
-      <main id="main" className="garden">
+      <main id="main">
         <Hero profile={resume.profile} />
-        <TrustBar experience={experience} />
+        <TrustBar />
         <VideoResume />
         <Work />
-        {projects && (
-          <Entries section={projects} id="projects" titleKey="section.projects"
-                   accent={['mint', 'yellow', 'powder']} />
-        )}
-        {volunteering && (
-          <Entries section={volunteering} id="volunteering" titleKey="section.volunteering"
-                   accent={['mint', 'pink', 'yellow']} />
-        )}
+        <Plot />
         <Proof />
         {skills && <Skills section={skills} />}
         <HowIWork />

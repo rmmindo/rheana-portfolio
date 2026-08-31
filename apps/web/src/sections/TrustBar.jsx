@@ -1,36 +1,41 @@
 import { useReveal } from '../hooks/useReveal.js';
-import Stat from '../components/Stat.jsx';
-import { plain } from '../lib/richText.jsx';
 import { useI18n } from '../hooks/useI18n.jsx';
+import Odometer from '../components/Odometer.jsx';
 
-// The orgs come from the resume JSON rather than a hand-written list, so a role
-// added in raysume shows up here with no code change.
-export default function TrustBar({ experience }) {
+// The proof line.
+//
+// This used to be a row of six company names above a four-column stat grid.
+// The company names were the problem: the timeline directly below lists exactly
+// the same six as its tabs, so the bar was a duplicate wearing a different
+// layout. Deleting it lost nothing.
+//
+// What is left is three sentences, each carrying one number, set at reading
+// size rather than boxed into a grid. A stat grid is what a SaaS landing page
+// does; a sentence is what a person does.
+
+export default function TrustBar() {
   const ref = useReveal();
   const { t } = useI18n();
-  const orgs = experience ? experience.entries.map(e => plain(e.org)) : [];
 
   return (
     <section className="trust" aria-labelledby="trust-heading" ref={ref}>
       <div className="section__inner">
-        <h2 id="trust-heading" className="visually-hidden">
-          {t('trust.heading')}
-        </h2>
+        <h2 id="trust-heading" className="visually-hidden">{t('trust.heading')}</h2>
 
-        <p className="trust__lead">{t('trust.lead')}</p>
+        <p className="trust__line">
+          <span className="trust__n"><Odometer value={6} label={t('trust.a')} /></span>
+          {' '}{t('trust.a')}
+        </p>
 
-        <ul className="trust__orgs" role="list">
-          {orgs.map((org, i) => (
-            <li key={org} className="trust__org" style={{ '--i': i }}>{org}</li>
-          ))}
-        </ul>
+        <p className="trust__line">
+          <span className="trust__n"><Odometer value={2320} label={t('trust.b')} /></span>
+          {' '}{t('trust.b')}
+        </p>
 
-        <div className="trust__stats">
-          <Stat value={2320} label={t('stat.prs')} hue="powder" />
-          <Stat value={96.9} decimals={1} suffix="%" label={t('stat.accuracy')} hue="mint" />
-          <Stat value={61} suffix="x" label={t('stat.speedup')} hue="pink" />
-          <Stat value={6} label={t('stat.roles')} hue="purple" />
-        </div>
+        <p className="trust__line trust__line--last">
+          <span className="trust__n"><Odometer value={96.5} suffix="%" label={t('trust.c')} /></span>
+          {' '}{t('trust.c')}
+        </p>
       </div>
     </section>
   );

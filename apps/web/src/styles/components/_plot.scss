@@ -1,0 +1,94 @@
+@use "../abstracts/variables" as v;
+
+.plot { padding-block: v.space(9); }
+
+.plot__heading {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.plot__lead {
+  margin-top: v.space(3);
+  margin-bottom: v.space(8);
+  color: var(--text-muted);
+  max-width: 48ch;
+}
+
+.plot__list {
+  display: grid;
+  gap: v.space(7);
+  padding: 0;
+  margin: 0;
+}
+
+@media (min-width: v.bp(md)) {
+  .plot__list { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: v.bp(lg)) {
+  .plot__list { grid-template-columns: repeat(3, 1fr); gap: v.space(7) v.space(6); }
+}
+
+.sown { border-top: 3px solid var(--sown-accent); padding-top: v.space(4); }
+
+.sown__label {
+  font-size: v.$step--1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sown-ink);
+  margin-bottom: v.space(3);
+}
+
+.sown__you,
+.sown__me {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+  max-width: 26ch;
+  text-wrap: balance;
+}
+
+.sown__me { color: var(--sown-ink); margin-bottom: v.space(5); }
+
+.sown__figure {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(2.25rem, 5vw, 3.25rem);
+  line-height: 1;
+  color: var(--sown-ink);
+}
+
+.sown__caption {
+  margin-top: v.space(2);
+  margin-bottom: v.space(4);
+  font-size: v.$step--1;
+  color: var(--text-muted);
+  max-width: 30ch;
+}
+
+.sown__more summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-size: v.$step--1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sown-ink);
+}
+
+.sown__more p { margin-top: v.space(3); color: var(--text-muted); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .js-reveal .sown {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity v.$dur-reveal v.$ease-out, transform v.$dur-reveal v.$ease-out;
+    transition-delay: calc(var(--i, 0) * 70ms);
+  }
+
+  .js-reveal .is-revealed .sown { opacity: 1; transform: none; }
+}

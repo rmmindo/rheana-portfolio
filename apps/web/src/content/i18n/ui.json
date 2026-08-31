@@ -19,7 +19,7 @@
     "hero.cta.play": "Play with something I made",
     "hero.cta.cv": "Download CV",
     "trust.lead": "Trusted with production systems at",
-    "trust.heading": "Track record and where I have worked",
+    "trust.heading": "Track record",
     "stat.prs": "merged pull requests",
     "stat.accuracy": "dead-code detection accuracy, up from 5%",
     "stat.speedup": "faster dashboard builds in production",
@@ -112,7 +112,13 @@
     "how.s4b": "Tested, documented, and readable by the next person. I would rather hand something over well than be needed forever.",
     "footer.privacy": "Privacy",
     "footer.legal": "Site information",
-    "footer.built": "Built by Rheana Mindo. Every fact here comes from one source, so this page and the CV cannot disagree."
+    "footer.built": "Built by Rheana Mindo. Every fact here comes from one source, so this page and the CV cannot disagree.",
+    "trust.a": "teams have shipped my code.",
+    "trust.b": "of my pull requests are in production.",
+    "trust.c": "of everything I opened got merged.",
+    "plot.heading": "Work that was not a job",
+    "plot.lead": "Research, teaching, a contest platform, and a poetry zine that raised money after two typhoons. Some of the most useful things I have built were unpaid.",
+    "nav.plot": "Beyond"
   },
   "fil": {
     "lang.name": "Filipino",
@@ -133,7 +139,7 @@
     "hero.cta.play": "Subukan ang ginawa ko",
     "hero.cta.cv": "I-download ang CV",
     "trust.lead": "Pinagkatiwalaan ng mga production system sa",
-    "trust.heading": "Karanasan at mga pinagtrabahuhan",
+    "trust.heading": "Talaan ng nagawa",
     "stat.prs": "na na-merge na pull request",
     "stat.accuracy": "katumpakan sa paghanap ng dead code, mula 5%",
     "stat.speedup": "na mas mabilis na paggawa ng dashboard sa produksyon",
@@ -226,6 +232,12 @@
     "how.s4b": "May test, may dokumentasyon, at mababasa ng susunod na tao. Mas gusto kong maayos kong maiabot ito kaysa kailanganin ako habambuhay.",
     "footer.privacy": "Privacy",
     "footer.legal": "Impormasyon ng site",
-    "footer.built": "Ginawa ni Rheana Mindo. Iisa ang pinagmulan ng bawat detalye, kaya hindi maaaring magkaiba ang pahinang ito at ang CV."
+    "footer.built": "Ginawa ni Rheana Mindo. Iisa ang pinagmulan ng bawat detalye, kaya hindi maaaring magkaiba ang pahinang ito at ang CV.",
+    "trust.a": "koponan ang nag-ship ng code ko.",
+    "trust.b": "sa mga pull request ko ay nasa produksyon.",
+    "trust.c": "ng lahat ng binuksan ko ay na-merge.",
+    "plot.heading": "Gawaing hindi trabaho",
+    "plot.lead": "Pananaliksik, pagtuturo, plataporma ng paligsahan, at isang zine ng tula na nakalikom ng pera pagkatapos ng dalawang bagyo. Ilan sa pinakakapaki-pakinabang na ginawa ko ay walang bayad.",
+    "nav.plot": "Higit pa"
   }
 }

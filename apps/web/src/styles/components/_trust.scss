@@ -56,3 +56,28 @@
   color: var(--text-muted);
   max-width: 22ch;
 }
+
+// --- The proof line ------------------------------------------------------- //
+// Three sentences, each with one number, at reading size. Replaces a row of
+// company names (duplicated by the timeline tabs below) and a four-column stat
+// grid.
+.trust__line {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(1.35rem, 3.4vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  max-width: 30ch;
+  margin-bottom: v.space(3);
+  text-wrap: balance;
+}
+
+.trust__line--last { margin-bottom: 0; }
+
+.trust__n { color: var(--ink-purple); font-variant-numeric: tabular-nums; }
+
+:root[data-theme="dark"] .trust__n { color: var(--glow-purple); }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .trust__n { color: var(--glow-purple); }
+}
