@@ -126,7 +126,11 @@
     "cyc.hint": "Toggle a dependency and watch",
     "cyc.caption": "Dependency matrix. Each button makes the row depend on the column.",
     "cyc.clean": "No cycles.",
-    "cyc.note": "Tarjan's algorithm, running here, not precomputed. A regex can see that auth mentions billing. Only a graph walk can see that billing comes back round to auth through two other modules."
+    "cyc.note": "Tarjan's algorithm, running here, not precomputed. A regex can see that auth mentions billing. Only a graph walk can see that billing comes back round to auth through two other modules.",
+    "dash.label": "Paste any notes",
+    "dash.reset": "Reset the notes",
+    "dash.widgets": "widgets",
+    "dash.note": "Laid out as you type, in under a millisecond. The manual version of this took about thirty-six minutes. No model is involved: deciding that 1,240 is a measurement and 2% to 5% is a change needs rules applied consistently, not a language model."
   },
   "fil": {
     "lang.name": "Filipino",
@@ -254,6 +258,10 @@
     "cyc.hint": "Pindutin ang dependency at panoorin",
     "cyc.caption": "Matrix ng dependency. Bawat button ay ginagawang umaasa ang row sa column.",
     "cyc.clean": "Walang ikot.",
-    "cyc.note": "Algorithm ni Tarjan, tumatakbo dito, hindi handa nang maaga. Nakikita ng regex na binanggit ng auth ang billing. Ang paglalakad sa graph lang ang makakakita na bumabalik ang billing sa auth sa pamamagitan ng dalawa pang module."
+    "cyc.note": "Algorithm ni Tarjan, tumatakbo dito, hindi handa nang maaga. Nakikita ng regex na binanggit ng auth ang billing. Ang paglalakad sa graph lang ang makakakita na bumabalik ang billing sa auth sa pamamagitan ng dalawa pang module.",
+    "dash.label": "I-paste ang kahit anong tala",
+    "dash.reset": "Ibalik ang tala",
+    "dash.widgets": "widget",
+    "dash.note": "Inaayos habang nagta-type ka, wala pang isang millisecond. Ang manu-manong bersyon nito ay tumatagal ng mga tatlumpu't anim na minuto. Walang modelo: ang pagpapasya na ang 1,240 ay sukat at ang 2% hanggang 5% ay pagbabago ay nangangailangan ng patakaran, hindi ng language model."
   }
 }

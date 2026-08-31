@@ -1,0 +1,108 @@
+@use "../abstracts/variables" as v;
+
+.dash { display: grid; gap: v.space(4); }
+
+.dash__notes {
+  width: 100%;
+  padding: v.space(3) v.space(4);
+  border-radius: v.$radius-md;
+  border: 2px solid var(--border-strong);
+  background: var(--paper);
+  color: var(--text);
+  font-family: v.$font-mono;
+  font-size: v.$step--1;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.dash__bar-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: v.space(3);
+}
+
+.dash__timer {
+  font-size: v.$step--1;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+// --- The generated dashboard ---------------------------------------------- //
+.dash__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: v.space(3);
+  padding: v.space(4);
+  border-radius: v.$radius-md;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  min-height: 8rem;
+  align-content: start;
+}
+
+.dash__w {
+  padding: v.space(3);
+  border-radius: v.$radius-sm;
+  background: var(--paper-raised);
+  border: 1px solid var(--border);
+  min-width: 0;
+}
+
+.dash__w--title {
+  background: none;
+  border: 0;
+  padding-bottom: 0;
+}
+
+.dash__title {
+  font-size: v.$step-0;
+  color: var(--work-ink, var(--ink-mint));
+}
+
+.dash__value {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(1.4rem, 3.6vw, 2rem);
+  line-height: 1.05;
+  color: var(--work-ink, var(--ink-mint));
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.dash__unit { font-size: 0.6em; margin-left: 0.15em; }
+.dash__arrow { color: var(--text-muted); }
+
+.dash__label {
+  margin-top: v.space(1);
+  font-size: v.$step--1;
+  color: var(--text-muted);
+}
+
+.dash__note { font-size: v.$step--1; color: var(--text-muted); }
+.dash__note strong { color: var(--text); }
+
+// A sparkline drawn from divs: no chart library for five bars.
+.dash__spark {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 3rem;
+}
+
+.dash__bar {
+  flex: 1;
+  min-height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: var(--work-accent, var(--surface-mint));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .dash__w { animation: dash-in 320ms v.$ease-out backwards; }
+  @keyframes dash-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .dash__bar { transition: height v.$dur-base v.$ease-out; }
+}

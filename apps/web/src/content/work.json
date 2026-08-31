@@ -45,7 +45,8 @@
         "unit": "x",
         "caption": "faster than the manual build it replaced, in production"
       },
-      "detail": "A FastAPI and LangChain service that reads markdown from upstream bots and lays out positioned dashboards. 100 of 115 commits, 18,040 lines across 94 files, containerised and deployed to AWS in six weeks at pylint 10/10 with zero SonarQube issues and 379 tests. Also seven production LangGraph subagents on the onboarding AI."
+      "detail": "A FastAPI and LangChain service that reads markdown from upstream bots and lays out positioned dashboards. 100 of 115 commits, 18,040 lines across 94 files, containerised and deployed to AWS in six weeks at pylint 10/10 with zero SonarQube issues and 379 tests. Also seven production LangGraph subagents on the onboarding AI.",
+      "demo": "dashboard"
     },
     {
       "id": "baybayin",
