@@ -164,7 +164,21 @@
     "ledg.state.out": "Outside window",
     "ledg.state.test": "Test mode, never uploaded",
     "ledg.caption": "Sample payments, showing which are reported when contacts are selected by signup date instead of payment date.",
-    "ledg.note": "Sample rows with the shape of the real data, not client data. A returning customer signed up months ago, so selecting by signup date drops the money she paid this month. The fix was a payment-date scanner that became the shared source of truth."
+    "ledg.note": "Sample rows with the shape of the real data, not client data. A returning customer signed up months ago, so selecting by signup date drops the money she paid this month. The fix was a payment-date scanner that became the shared source of truth.",
+    "ask.passages": "passages",
+    "ask.upload": "Use my own file",
+    "ask.useSample": "Back to the sample",
+    "ask.privacy": "Your file is read in this tab and never uploaded. The model is fetched to your browser; your text does not go the other way.",
+    "ask.label": "Ask it something a new person would ask",
+    "ask.keyword": "Keyword search",
+    "ask.meaning": "Meaning search",
+    "ask.nothing": "Nothing found. No passage contains those words.",
+    "ask.run": "Run the model",
+    "ask.weight": "23 MB, downloaded only if you press this. Nothing loads by scrolling past.",
+    "ask.loading": "Loading the model",
+    "ask.failed": "The model could not load. The keyword column still works.",
+    "ask.tooBig": "That file is larger than 200 KB. Try a smaller one.",
+    "ask.note": "The same question, the same document, two ways of looking. Keyword search only finds what it literally contains, so a new hire who says \"time off\" never reaches the paragraph about annual leave, and goes to ask a person instead. That was the workflow the on-premise chatbot at Azeus replaced. The model runs in your browser, which is the same argument that project was built on: the data does not travel."
   },
   "fil": {
     "lang.name": "Filipino",
@@ -330,6 +344,20 @@
     "ledg.state.out": "Labas ng window",
     "ledg.state.test": "Test mode, hindi kailanman na-upload",
     "ledg.caption": "Halimbawang bayad, ipinapakita kung alin ang naiulat kapag ayon sa petsa ng signup imbes na petsa ng bayad ang pagpili.",
-    "ledg.note": "Halimbawang datos na may hugis ng totoong datos, hindi datos ng kliyente. Ang bumabalik na kustomer ay nag-signup ilang buwan na ang nakalipas, kaya nawawala ang binayad niya ngayong buwan. Ang naging solusyon ay isang payment-date scanner na naging iisang pinagmulan ng katotohanan."
+    "ledg.note": "Halimbawang datos na may hugis ng totoong datos, hindi datos ng kliyente. Ang bumabalik na kustomer ay nag-signup ilang buwan na ang nakalipas, kaya nawawala ang binayad niya ngayong buwan. Ang naging solusyon ay isang payment-date scanner na naging iisang pinagmulan ng katotohanan.",
+    "ask.passages": "na talata",
+    "ask.upload": "Gamitin ang sarili kong file",
+    "ask.useSample": "Balik sa halimbawa",
+    "ask.privacy": "Binabasa ang file mo sa tab na ito at hindi kailanman ina-upload. Ang modelo ang pumupunta sa browser mo, hindi ang teksto mo palabas.",
+    "ask.label": "Magtanong ng itatanong ng bagong tao",
+    "ask.keyword": "Paghahanap sa salita",
+    "ask.meaning": "Paghahanap sa kahulugan",
+    "ask.nothing": "Walang nakita. Walang talata na naglalaman ng mga salitang iyon.",
+    "ask.run": "Patakbuhin ang modelo",
+    "ask.weight": "23 MB, ida-download lamang kung pipindutin mo ito. Walang bumababa kapag nag-scroll ka lang.",
+    "ask.loading": "Kinukuha ang modelo",
+    "ask.failed": "Hindi ma-load ang modelo. Gumagana pa rin ang hanay ng salita.",
+    "ask.tooBig": "Mas malaki sa 200 KB ang file na iyon. Subukan ang mas maliit.",
+    "ask.note": "Iisang tanong, iisang dokumento, dalawang paraan ng pagtingin. Ang paghahanap sa salita ay nakakakita lamang ng literal na nasa loob nito, kaya ang bagong empleyado na nagsabing \"time off\" ay hindi makakarating sa talata tungkol sa annual leave. Iyon ang pinalitan ng on-premise chatbot sa Azeus. Tumatakbo ang modelo sa browser mo, na siya ring dahilan ng proyektong iyon: hindi naglalakbay ang datos."
   }
 }

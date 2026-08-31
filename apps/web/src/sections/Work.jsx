@@ -8,6 +8,7 @@ import BaybayinDemo from '../components/demos/BaybayinDemo.jsx';
 import CycleDemo from '../components/demos/CycleDemo.jsx';
 import DashboardDemo from '../components/demos/DashboardDemo.jsx';
 import LedgerDemo from '../components/demos/LedgerDemo.jsx';
+import AskDemo from '../components/demos/AskDemo.jsx';
 
 // Experience, as a timeline you step through rather than a wall you scroll.
 //
@@ -36,6 +37,7 @@ const DEMOS = {
   cycles: CycleDemo,
   dashboard: DashboardDemo,
   ledger: LedgerDemo,
+  ask: AskDemo,
 };
 
 export default function Work() {

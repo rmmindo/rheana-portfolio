@@ -78,7 +78,8 @@
         "unit": "",
         "caption": "chatbot, replacing a manual search through years of posts"
       },
-      "detail": "An on-premise retrieval chatbot over the company's Redmine data, built with SQLite, LangChain, Ollama and ChromaDB. It replaced a workflow of searching old posts by hand and re-posting the answer."
+      "detail": "An on-premise retrieval chatbot over the company's Redmine data, built with SQLite, LangChain, Ollama and ChromaDB. It replaced a workflow of searching old posts by hand and re-posting the answer.",
+      "demo": "ask"
     },
     {
       "id": "twoweeks",

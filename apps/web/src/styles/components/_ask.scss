@@ -1,0 +1,143 @@
+@use "../abstracts/variables" as v;
+
+.ask { display: grid; gap: v.space(5); }
+
+// --- The document ---------------------------------------------------------//
+.ask__doc {
+  display: grid;
+  gap: v.space(3);
+  padding: v.space(4);
+  border-radius: v.$radius-md;
+  border: 1px dashed var(--border-strong);
+  background: var(--paper);
+}
+
+.ask__docname {
+  font-family: v.$font-mono;
+  font-size: v.$step--1;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.ask__docmeta { color: var(--text-muted); }
+
+.ask__docactions { display: flex; flex-wrap: wrap; gap: v.space(2); }
+
+.ask__privacy {
+  font-size: v.$step--1;
+  color: var(--text-muted);
+  max-width: 52ch;
+}
+
+// --- The question ---------------------------------------------------------//
+.ask__input {
+  width: 100%;
+  padding: v.space(3) v.space(4);
+  border-radius: v.$radius-pill;
+  border: 2px solid var(--border-strong);
+  background: var(--paper);
+  color: var(--text);
+  font: inherit;
+  font-size: v.$step-0;
+}
+
+.ask__presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.space(2);
+  margin-top: v.space(3);
+  padding: 0;
+  list-style: none;
+}
+
+// --- The comparison -------------------------------------------------------//
+.ask__cols { display: grid; grid-template-columns: 1fr 1fr; gap: v.space(3); }
+
+@media (max-width: 44rem) {
+  .ask__cols { grid-template-columns: 1fr; }
+}
+
+.ask__col {
+  padding: v.space(4);
+  border-radius: v.$radius-md;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  min-width: 0;
+}
+
+.ask__col--meaning { border-color: var(--ink-red); }
+
+.ask__coltitle {
+  font-size: v.$step--1;
+  font-weight: v.$weight-bold;
+  color: var(--text-muted);
+  margin-bottom: v.space(3);
+}
+
+.ask__col--meaning .ask__coltitle { color: var(--ink-red); }
+
+.ask__hits {
+  display: grid;
+  gap: v.space(3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ask__hits li { display: grid; gap: v.space(1); }
+
+.ask__score {
+  font-family: v.$font-mono;
+  font-size: v.$step--1;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ask__col--meaning .ask__score { color: var(--ink-red); font-weight: v.$weight-bold; }
+
+.ask__text { font-size: v.$step--1; line-height: 1.5; }
+
+.ask__empty {
+  font-size: v.$step--1;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.ask__err {
+  display: block;
+  margin-top: v.space(2);
+  font-family: v.$font-mono;
+  font-size: 0.8em;
+  font-style: normal;
+  overflow-wrap: anywhere;
+}
+
+// --- The gate -------------------------------------------------------------//
+.ask__gate { display: grid; gap: v.space(2); justify-items: start; }
+
+.ask__gatenote {
+  font-size: v.$step--1;
+  color: var(--text-muted);
+  max-width: 34ch;
+}
+
+.ask__loading { font-size: v.$step--1; color: var(--text-muted); }
+
+.ask__bar {
+  display: block;
+  height: 4px;
+  margin-top: v.space(2);
+  border-radius: 2px;
+  background: var(--border);
+  overflow: hidden;
+
+  span {
+    display: block;
+    height: 100%;
+    background: var(--ink-red);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ask__bar span { transition: width 200ms v.$ease-out; }
+}
