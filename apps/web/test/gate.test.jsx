@@ -27,7 +27,7 @@ describe('VisionGate', () => {
 
   it('remembers nothing about the visitor', async () => {
     await act(async () => { render(<VisionGate />); });
-    await act(async () => { screen.getByRole('button', { name: /skip/i }).click(); });
+    await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
     expect(localStorage.length).toBe(0);
   });
 
@@ -50,15 +50,28 @@ describe('VisionGate', () => {
     }
   });
 
-  it('offers a skip control', async () => {
+  // The skip button was removed on 2026-08-31. What must never go is a way
+  // out: a modal that blurs the whole page and cannot be dismissed is a trap,
+  // whatever it looks like. Two remain, and both are tested.
+  it('offers a way through that is a real button', async () => {
     await act(async () => { render(<VisionGate />); });
-    expect(screen.getByRole('button', { name: /skip/i })).toBeInTheDocument();
+    const glasses = screen.getByRole('button', { name: /glasses/i });
+    expect(glasses).toBeInTheDocument();
+    expect(glasses.tagName).toBe('BUTTON');
   });
 
-  it('closes when skipped', async () => {
+  it('has no control that is not the glasses', async () => {
     await act(async () => { render(<VisionGate />); });
-    await act(async () => { screen.getByRole('button', { name: /skip/i }).click(); });
+    expect(screen.getAllByRole('button')).toHaveLength(1);
+  });
+
+  it('closes when the glasses are taken', async () => {
+    vi.useFakeTimers();
+    await act(async () => { render(<VisionGate />); });
+    await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
+    await act(async () => { vi.advanceTimersByTime(2000); });
     expect(screen.queryByRole('dialog')).toBeNull();
+    vi.useRealTimers();
   });
 
   it('closes on Escape, so it can never trap anyone', async () => {
@@ -104,10 +117,16 @@ describe('VisionGate', () => {
   });
 
   it('marks the page as gated so the blur can be applied and removed', async () => {
+    vi.useFakeTimers();
     await act(async () => { render(<VisionGate />); });
     expect(document.documentElement.classList.contains('is-gated')).toBe(true);
-    await act(async () => { screen.getByRole('button', { name: /skip/i }).click(); });
+    await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
+    await act(async () => { vi.advanceTimersByTime(2000); });
+    // The blur must not outlive the gate. Leaving this class behind would
+    // leave the whole page unreadable, which on this site of all sites is the
+    // worst thing that could stick.
     expect(document.documentElement.classList.contains('is-gated')).toBe(false);
+    vi.useRealTimers();
   });
 });
 

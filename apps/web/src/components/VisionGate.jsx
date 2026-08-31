@@ -19,6 +19,13 @@ import { useI18n } from '../hooks/useI18n.jsx';
 // on a perspective transform, the way an object does when it arrives at your
 // face, while the page behind them comes into focus.
 //
+// There is no skip button any more - Rheana's call on 2026-08-31. That leaves
+// two ways out, which is still two: pressing the glasses, which is the point
+// of the screen and is a real focusable button, and Escape. Anyone who asked
+// for reduced motion never sees it at all. A modal with one obvious action and
+// a working Escape is not a trap; a modal with no way out would be, and
+// gate.test.jsx holds that line.
+//
 // Rules: EVERY visit, not once per visitor - Rheana's call on 2026-08-31. It is
 // the first thing the site says, and a returning client showing the site to a
 // colleague should get to show them this rather than explain it. Always
@@ -103,10 +110,6 @@ export default function VisionGate() {
       ref={dialogRef}
       tabIndex={-1}
     >
-      <button type="button" className="gate__skip" onClick={dismiss}>
-        {t('gate.skip')}
-      </button>
-
       <div className="gate__stage">
         {/* A statement, not a question. Nothing here asks for consent: the
             visitor is already inside her eyesight, and the only thing to do is

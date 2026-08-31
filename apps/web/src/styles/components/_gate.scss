@@ -39,20 +39,6 @@
   perspective: 800px;
 }
 
-.gate__skip {
-  position: absolute;
-  top: v.space(5);
-  right: v.space(5);
-  min-height: 44px;
-  padding: v.space(2) v.space(5);
-  border-radius: v.$radius-pill;
-  border: 1px solid var(--border);
-  background: var(--paper-raised);
-  color: var(--text-muted);
-  font-size: v.$step--1;
-  cursor: pointer;
-}
-
 .gate__stage {
   display: grid;
   justify-items: center;
@@ -134,8 +120,7 @@
   }
 
   .gate.is-wearing .gate__hint,
-  .gate.is-wearing .gate__statement,
-  .gate.is-wearing .gate__skip {
+  .gate.is-wearing .gate__statement {
     animation: gate-out 240ms v.$ease-out forwards;
   }
 

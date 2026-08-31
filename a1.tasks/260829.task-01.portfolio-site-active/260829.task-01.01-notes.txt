@@ -269,3 +269,12 @@ D-05  New glasses, smaller.
       the lenses filled like glass and one sweep of light across both, at 11rem
       instead of 20rem.
 
+B-26  A regex tidy-up broke the gate stylesheet.
+      Removing the skip rule with /\.gate__skip \{[^}]*\}/ also matched
+      ".gate__skip {" inside ".gate.is-wearing .gate__skip {", so it deleted
+      that rule's body and left a dangling selector. Sass failed with
+      "expected selector" and seven theme tests skipped because there was no
+      built CSS to read. A pattern written for one rule matched two; the fix
+      was to repair it by hand and stop reaching for a regex to edit
+      structured text.
+
