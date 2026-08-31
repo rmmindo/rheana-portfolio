@@ -10,34 +10,88 @@
 
 .tools__lead {
   margin-top: v.space(3);
-  margin-bottom: v.space(8);
   color: var(--text-muted);
+  max-width: 42ch;
+}
+
+// --- Ask, rather than read -------------------------------------------------//
+.tools__ask { margin-top: v.space(6); max-width: 30rem; }
+
+.tools__ask-label {
+  display: block;
+  font-size: v.$step--1;
+  color: var(--text-muted);
+  margin-bottom: v.space(2);
+}
+
+.tools__input {
+  width: 100%;
+  padding: v.space(3) v.space(4);
+  border-radius: v.$radius-pill;
+  border: 2px solid var(--border-strong);
+  background: var(--paper);
+  color: var(--text);
+  font-family: inherit;
+  font-size: v.$step-0;
+
+  &::placeholder { color: var(--text-faint); }
+}
+
+// The answer holds its height so the page does not jump as it changes.
+.tools__answer {
+  margin-top: v.space(4);
+  min-height: 3.5rem;
+  font-size: v.$step-1;
+  line-height: 1.5;
   max-width: 46ch;
 }
 
-.tools__list { display: grid; gap: v.space(6); margin: 0; }
+.tools__resting { color: var(--text-muted); }
 
-.tools__group {
-  display: grid;
-  gap: v.space(3);
-  padding-bottom: v.space(5);
-  border-bottom: 1px solid var(--border);
+.tools__count {
+  font-family: v.$font-heading;
+  font-size: 1.4em;
+  color: var(--ink-purple);
 }
+
+.tools__hit strong { color: var(--ink-teal, var(--ink-purple)); }
+.tools__also { color: var(--text-muted); font-size: v.$step--1; display: block; }
+.tools__miss { color: var(--text-muted); }
+.tools__ask-link { color: var(--ink-purple); font-weight: v.$weight-bold; }
+
+// --- The whole list, one disclosure away ---------------------------------- //
+.tools__all { margin-top: v.space(7); border-top: 1px solid var(--border); }
+
+.tools__summary {
+  padding-block: v.space(4);
+  cursor: pointer;
+  font-size: v.$step--1;
+  color: var(--text-muted);
+  list-style: none;
+
+  &::-webkit-details-marker { display: none; }
+  &::before { content: "+ "; color: var(--ink-purple); font-weight: v.$weight-bold; }
+
+  .tools__all[open] &::before { content: "- "; }
+}
+
+.tools__list { display: grid; gap: v.space(6); margin: 0 0 v.space(6); }
+
+.tools__group { display: grid; gap: v.space(3); }
 
 @media (min-width: v.bp(md)) {
   .tools__group { grid-template-columns: 12rem 1fr; gap: v.space(6); align-items: start; }
 }
 
-.tools__label {
+.tools__group-label {
   font-family: v.$font-heading;
   font-weight: v.$weight-bold;
-  font-size: v.$step-0;
-  color: var(--ink-purple);
+  font-size: v.$step--1;
+  color: var(--text-muted);
 }
 
 .tools__items { margin: 0; }
 
-// Chips, not a comma string. A reader scanning for one word can find it.
 .tools__items ul {
   display: flex;
   flex-wrap: wrap;
@@ -57,13 +111,14 @@
   white-space: nowrap;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .js-reveal .tools__group {
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity v.$dur-reveal v.$ease-out, transform v.$dur-reveal v.$ease-out;
-    transition-delay: calc(var(--i, 0) * 70ms);
-  }
+// A match stays visible in the open list, so searching also points at it.
+.tools__items li.is-hit {
+  border-color: var(--ink-purple);
+  background: var(--surface-purple);
+  color: var(--ink-purple);
+  font-weight: v.$weight-bold;
+}
 
-  .js-reveal .is-revealed .tools__group { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .tools__items li { transition: background v.$dur-base v.$ease-out, border-color v.$dur-base v.$ease-out; }
 }

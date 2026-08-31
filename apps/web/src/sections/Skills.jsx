@@ -1,37 +1,41 @@
+import { useId, useMemo, useState } from 'react';
 import resume from '../content/resume.json';
-import { plain } from '../lib/richText.jsx';
+import { toolGroups, countTools, searchTools } from '../lib/tools.js';
 import { useReveal } from '../hooks/useReveal.js';
 import { useI18n } from '../hooks/useI18n.jsx';
 
 // The toolshed.
 //
-// This was a definition list of six comma-separated strings, some of them forty
-// items long, which is the least readable shape a skills section can take: no
-// entry point, nothing scannable, and impossible to search with your eyes.
+// This printed about sixty chips in five rows: the last wall of text on the
+// page, and a straight violation of one claim per section. A tool list proves
+// nothing on its own, and nobody reads one. A visitor arrives with a single
+// tool in mind.
 //
-// Now each group is a row of chips. Same facts, same source - still generated
-// from the resume, so adding a tool in raysume adds it here - but a reader can
-// find "Docker" without reading a paragraph to get to it.
+// So the list answers a question instead of being one. Type a tool, get a
+// straight answer. The whole list is still in the HTML, one disclosure away,
+// which keeps every term crawlable while keeping it off the surface.
 //
-// The lead-in matters more than the list. A tool list proves nothing on its
-// own; what it is for is letting someone confirm the one thing they came to
-// check.
-
-const GROUPS = ['skills', 'roots'];
+// A miss is not a dead end. "Not on the list" is followed by the honest version
+// - a list of sixty is not a list of everything - and a way to ask.
+//
+// The result line is a live region. That is the correct use of one: it is the
+// content the visitor came for, and there is no other way to convey it to
+// someone who cannot see the answer appear.
 
 export default function Skills() {
   const ref = useReveal();
   const { t } = useI18n();
+  const id = useId();
+  const [query, setQuery] = useState('');
 
   const section = resume.sections.find(s => s.type === 'skills');
-  if (!section) return null;
+  const groups = useMemo(() => toolGroups(section), [section]);
+  const total = useMemo(() => countTools(groups), [groups]);
+  const hits = useMemo(() => searchTools(groups, query), [groups, query]);
 
-  // Awards, scholarships and competitions live in Roots now, so the toolshed
-  // shows only the lines that are actually tools.
-  const TOOLS = new Set(['Languages', 'AI / ML', 'Backend & Web', 'DevOps & Tooling', 'APIs & Integrations']);
-  const lines = section.lines.filter(l => TOOLS.has(plain(l.label)));
+  if (!groups.length) return null;
 
-  void GROUPS;
+  const asked = query.trim().length > 0;
 
   return (
     <section className="tools" id="skills" aria-labelledby="tools-heading" ref={ref}>
@@ -39,22 +43,71 @@ export default function Skills() {
         <h2 id="tools-heading" className="tools__heading">{t('tools.heading')}</h2>
         <p className="tools__lead">{t('tools.lead')}</p>
 
-        <dl className="tools__list">
-          {lines.map((line, i) => (
-            <div className="tools__group" key={line.label} style={{ '--i': i }}>
-              <dt className="tools__label">{plain(line.label)}</dt>
-              <dd className="tools__items">
-                <ul role="list">
-                  {plain(line.text)
-                    .split(/[,·]/)
-                    .map(s => s.trim())
-                    .filter(Boolean)
-                    .map(item => <li key={item}>{item}</li>)}
-                </ul>
-              </dd>
-            </div>
-          ))}
-        </dl>
+        <div className="tools__ask">
+          <label className="tools__ask-label" htmlFor={`${id}-q`}>{t('tools.label')}</label>
+          <input
+            id={`${id}-q`}
+            className="tools__input"
+            type="search"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder={t('tools.placeholder')}
+            autoComplete="off"
+            spellCheck="false"
+          />
+        </div>
+
+        <p className="tools__answer" aria-live="polite">
+          {!asked && (
+            <span className="tools__resting">
+              <strong className="tools__count">{total}</strong> {t('tools.resting')}
+            </span>
+          )}
+
+          {asked && hits.length > 0 && (
+            <span className="tools__hit">
+              {t('tools.yes')} <strong>{hits[0].item}</strong>, {t('tools.in')}{' '}
+              {hits[0].group}.
+              {hits.length > 1 && (
+                <span className="tools__also">
+                  {' '}{t('tools.also')} {hits.slice(1, 5).map(h => h.item).join(', ')}.
+                </span>
+              )}
+            </span>
+          )}
+
+          {asked && hits.length === 0 && (
+            <span className="tools__miss">
+              {t('tools.no')}{' '}
+              <a className="tools__ask-link" href="#write">{t('tools.askAnyway')} &rarr;</a>
+            </span>
+          )}
+        </p>
+
+        {/* Closed, this is one line. Open, it is every term on the page. Either
+            way it is in the HTML, so search engines see the whole list. */}
+        <details className="tools__all">
+          <summary className="tools__summary">{t('tools.seeAll')}</summary>
+          <dl className="tools__list">
+            {groups.map((group, i) => (
+              <div className="tools__group" key={group.label} style={{ '--i': i }}>
+                <dt className="tools__group-label">{group.label}</dt>
+                <dd className="tools__items">
+                  <ul role="list">
+                    {group.items.map(item => (
+                      <li
+                        key={item}
+                        className={asked && hits.some(h => h.item === item) ? 'is-hit' : undefined}
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </details>
       </div>
     </section>
   );

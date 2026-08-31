@@ -122,7 +122,7 @@
     "write.hook": "Would you like to grow something with me?",
     "write.hookSub": "You do not need a specification. A sentence is enough.",
     "tools.heading": "The toolshed",
-    "tools.lead": "You are probably here to check one thing. It is faster to scan than to read, so here it is as a list rather than a paragraph.",
+    "tools.lead": "You came here to check one thing. Type it.",
     "cyc.hint": "Toggle a dependency and watch",
     "cyc.caption": "Dependency matrix. Each button makes the row depend on the column.",
     "cyc.clean": "No cycles.",
@@ -130,7 +130,16 @@
     "dash.label": "Paste any notes",
     "dash.reset": "Reset the notes",
     "dash.widgets": "widgets",
-    "dash.note": "Laid out as you type, in under a millisecond. The manual version took thirty-six minutes. No model runs here: deciding that 1,240 is a measurement is a rule, not a guess."
+    "dash.note": "Laid out as you type, in under a millisecond. The manual version took thirty-six minutes. No model runs here: deciding that 1,240 is a measurement is a rule, not a guess.",
+    "tools.label": "Do I know your stack?",
+    "tools.placeholder": "FastAPI, Docker, C#",
+    "tools.resting": "tools I have shipped with. Search for yours, or open the list.",
+    "tools.yes": "Yes.",
+    "tools.in": "in",
+    "tools.also": "Also",
+    "tools.no": "Not on the list, which is not the same as never. The list is what I have shipped with, not everything I can pick up.",
+    "tools.askAnyway": "Ask me about it",
+    "tools.seeAll": "See the whole list"
   },
   "fil": {
     "lang.name": "Filipino",
@@ -253,8 +262,8 @@
     "nav.plot": "Higit pa",
     "write.hook": "Gusto mo bang magpatubo tayo ng bago?",
     "write.hookSub": "Hindi mo kailangan ng spec. Sapat na ang isang pangungusap.",
-    "tools.heading": "Ang kamalig",
-    "tools.lead": "Malamang isang bagay lang ang hinahanap mo. Mas mabilis tingnan kaysa basahin, kaya listahan ito at hindi talata.",
+    "tools.heading": "Ang toolshed",
+    "tools.lead": "Isang bagay lang ang hinahanap mo rito. I-type mo.",
     "cyc.hint": "Pindutin ang dependency at panoorin",
     "cyc.caption": "Matrix ng dependency. Bawat button ay ginagawang umaasa ang row sa column.",
     "cyc.clean": "Walang ikot.",
@@ -262,6 +271,15 @@
     "dash.label": "I-paste ang kahit anong tala",
     "dash.reset": "Ibalik ang tala",
     "dash.widgets": "widget",
-    "dash.note": "Inaayos habang nagta-type ka, wala pang isang millisecond. Ang manu-manong bersyon ay tumagal ng tatlumpu't anim na minuto. Walang modelo rito: ang pagkilala na sukat ang 1,240 ay patakaran, hindi hula."
+    "dash.note": "Inaayos habang nagta-type ka, wala pang isang millisecond. Ang manu-manong bersyon ay tumagal ng tatlumpu't anim na minuto. Walang modelo rito: ang pagkilala na sukat ang 1,240 ay patakaran, hindi hula.",
+    "tools.label": "Alam ko ba ang stack ninyo?",
+    "tools.placeholder": "FastAPI, Docker, C#",
+    "tools.resting": "na kasangkapan na ginamit ko na. Hanapin ang sa inyo, o buksan ang listahan.",
+    "tools.yes": "Oo.",
+    "tools.in": "nasa",
+    "tools.also": "Pati",
+    "tools.no": "Wala sa listahan, pero hindi ibig sabihin ay hindi kailanman. Ang listahan ay ang nagamit ko na, hindi lahat ng kaya kong pag-aralan.",
+    "tools.askAnyway": "Itanong mo sa akin",
+    "tools.seeAll": "Tingnan ang buong listahan"
   }
 }
