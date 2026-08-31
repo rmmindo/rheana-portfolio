@@ -54,7 +54,7 @@
   color: var(--ink-purple);
 }
 
-.tools__hit strong { color: var(--ink-teal, var(--ink-purple)); }
+.tools__hit strong { color: var(--ink-teal); }
 .tools__also { color: var(--text-muted); font-size: v.$step--1; display: block; }
 .tools__miss { color: var(--text-muted); }
 .tools__ask-link { color: var(--ink-purple); font-weight: v.$weight-bold; }

@@ -1,6 +1,7 @@
 import plot from '../content/plot.json';
 import { useReveal } from '../hooks/useReveal.js';
 import { useI18n } from '../hooks/useI18n.jsx';
+import SectionCta from '../components/SectionCta.jsx';
 import Odometer from '../components/Odometer.jsx';
 
 // Work that was not a job.
@@ -46,6 +47,7 @@ export default function Plot() {
             </li>
           ))}
         </ul>
+        <SectionCta id="plot" />
       </div>
     </section>
   );

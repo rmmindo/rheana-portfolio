@@ -2,10 +2,12 @@ import { useCallback, useId, useRef, useState } from 'react';
 import work from '../content/work.json';
 import { useReveal } from '../hooks/useReveal.js';
 import { useI18n } from '../hooks/useI18n.jsx';
+import SectionCta from '../components/SectionCta.jsx';
 import Odometer from '../components/Odometer.jsx';
 import BaybayinDemo from '../components/demos/BaybayinDemo.jsx';
 import CycleDemo from '../components/demos/CycleDemo.jsx';
 import DashboardDemo from '../components/demos/DashboardDemo.jsx';
+import LedgerDemo from '../components/demos/LedgerDemo.jsx';
 
 // Experience, as a timeline you step through rather than a wall you scroll.
 //
@@ -33,6 +35,7 @@ const DEMOS = {
   baybayin: BaybayinDemo,
   cycles: CycleDemo,
   dashboard: DashboardDemo,
+  ledger: LedgerDemo,
 };
 
 export default function Work() {
@@ -123,6 +126,7 @@ export default function Work() {
             </details>
           </div>
         ))}
+        <SectionCta id="work" />
       </div>
     </section>
   );

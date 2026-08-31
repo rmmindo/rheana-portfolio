@@ -1,0 +1,37 @@
+@use "../abstracts/variables" as v;
+
+// A line of text and an arrow, not a button. Seven buttons down one page reads
+// as a landing page begging; the point is to be findable, not loud.
+.scta {
+  margin-top: v.space(8);
+  padding-top: v.space(5);
+  border-top: 1px solid var(--border);
+}
+
+.scta__link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: v.space(2);
+  font-family: v.$font-heading;
+  font-size: v.$step-1;
+  font-weight: v.$weight-bold;
+  line-height: 1.3;
+  color: var(--ink-purple);
+  text-decoration: none;
+  text-underline-offset: 0.2em;
+
+  &:hover,
+  &:focus-visible { text-decoration: underline; }
+}
+
+// The arrow leans forward on hover. It is the only motion here, and it only
+// happens when someone is already pointing at the link.
+@media (prefers-reduced-motion: no-preference) {
+  .scta__arrow {
+    display: inline-block;
+    transition: transform v.$dur-base v.$ease-out;
+  }
+
+  .scta__link:hover .scta__arrow,
+  .scta__link:focus-visible .scta__arrow { transform: translateX(0.25em); }
+}

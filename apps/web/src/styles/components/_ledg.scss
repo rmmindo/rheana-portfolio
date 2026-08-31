@@ -1,0 +1,89 @@
+@use "../abstracts/variables" as v;
+
+.ledg { display: grid; gap: v.space(5); }
+
+.ledg__window { display: flex; flex-wrap: wrap; gap: v.space(4); }
+
+.ledg__field {
+  display: grid;
+  gap: v.space(1);
+  font-size: v.$step--1;
+  color: var(--text-muted);
+
+  input {
+    padding: v.space(2) v.space(3);
+    border-radius: v.$radius-sm;
+    border: 2px solid var(--border-strong);
+    background: var(--paper);
+    color: var(--text);
+    font: inherit;
+  }
+}
+
+.ledg__verdict { font-size: v.$step-1; line-height: 1.4; max-width: 40ch; }
+
+.ledg__pct {
+  font-family: v.$font-heading;
+  font-size: 1.6em;
+  color: var(--ink-pink);
+}
+
+.ledg__cols { display: grid; grid-template-columns: 1fr 1fr; gap: v.space(3); }
+
+.ledg__col {
+  padding: v.space(4);
+  border-radius: v.$radius-md;
+  border: 1px solid var(--border);
+  background: var(--paper);
+
+  h4 { font-size: v.$step--1; color: var(--text-muted); font-weight: v.$weight-bold; }
+}
+
+.ledg__col--bug { border-color: var(--ink-pink); }
+.ledg__col--fix { border-color: var(--ink-teal); }
+
+.ledg__num {
+  margin-top: v.space(2);
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.05;
+}
+
+.ledg__col--bug .ledg__num { color: var(--ink-pink); }
+.ledg__col--fix .ledg__num { color: var(--ink-teal); }
+.ledg__sub { font-size: v.$step--1; color: var(--text-muted); }
+
+// The table scrolls inside itself rather than pushing the page sideways.
+.ledg__table {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: v.$step--1;
+  font-variant-numeric: tabular-nums;
+
+  th, td {
+    padding: v.space(2) v.space(3);
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+  }
+
+  thead th { color: var(--text-muted); font-weight: v.$weight-bold; }
+  tbody th { font-weight: v.$weight-regular; }
+}
+
+// Colour carries emphasis; the status column carries the meaning, so the table
+// is still readable without seeing any of it.
+.ledg__table tr.is-missed { background: var(--surface-pink); }
+.ledg__table tr.is-missed th,
+.ledg__table tr.is-missed td { color: var(--ink-pink); }
+.ledg__table tr.is-early td { color: var(--ink-yellow); }
+.ledg__table tr.is-out,
+.ledg__table tr.is-test { color: var(--text-faint); }
+
+@media (max-width: 30rem) {
+  .ledg__cols { grid-template-columns: 1fr; }
+}

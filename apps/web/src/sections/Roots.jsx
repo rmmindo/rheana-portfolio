@@ -1,6 +1,7 @@
 import roots from '../content/roots.json';
 import { useReveal } from '../hooks/useReveal.js';
 import { useI18n } from '../hooks/useI18n.jsx';
+import SectionCta from '../components/SectionCta.jsx';
 import Odometer from '../components/Odometer.jsx';
 
 // Roots.
@@ -54,6 +55,7 @@ export default function Roots() {
             </li>
           ))}
         </ol>
+        <SectionCta id="roots" />
       </div>
     </section>
   );

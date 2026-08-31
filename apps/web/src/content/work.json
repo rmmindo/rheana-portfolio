@@ -30,7 +30,8 @@
         "unit": "%",
         "caption": "of in-window payments were missing from conversion reporting"
       },
-      "detail": "The Google Ads and TikTok uploaders were selecting contacts by signup date instead of payment date, so returning patients who paid inside the window were silently dropped. I wrote the payment-date scanner that became the shared source of truth, then hardened the recovery path: deterministic order IDs, window-invariant revenue keying, UTC-consistent scoping, and guards for test mode and future dates."
+      "detail": "The Google Ads and TikTok uploaders were selecting contacts by signup date instead of payment date, so returning patients who paid inside the window were silently dropped. I wrote the payment-date scanner that became the shared source of truth, then hardened the recovery path: deterministic order IDs, window-invariant revenue keying, UTC-consistent scoping, and guards for test mode and future dates.",
+      "demo": "ledger"
     },
     {
       "id": "offshorly",

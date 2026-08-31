@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import data from '../content/recommendations.json';
 import { useReveal } from '../hooks/useReveal.js';
 import { useI18n } from '../hooks/useI18n.jsx';
+import SectionCta from '../components/SectionCta.jsx';
 
 // Recommendations, as a carousel you can shove.
 //
@@ -136,6 +137,7 @@ export default function Proof() {
           </li>
         ))}
       </ul>
+      <SectionCta id="proof" />
     </section>
   );
 }

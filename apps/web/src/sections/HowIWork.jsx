@@ -1,5 +1,6 @@
 import { useReveal } from '../hooks/useReveal.js';
 import { useI18n } from '../hooks/useI18n.jsx';
+import SectionCta from '../components/SectionCta.jsx';
 
 // What she believes, then what working with her actually looks like.
 //
@@ -35,6 +36,7 @@ export default function HowIWork() {
             </li>
           ))}
         </ol>
+        <SectionCta id="how" />
       </div>
     </section>
   );

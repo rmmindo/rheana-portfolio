@@ -1,0 +1,17 @@
+{
+  "note": "SAMPLE DATA. Invented rows with the shape of the real problem: new customers, returning customers, one payment that lands after its window, and one test-mode row. No Luxe Lips data appears here, and no figure from this file is presented as a result.",
+  "currency": "AUD",
+  "window": { "from": "2026-03-01", "to": "2026-03-31" },
+  "customers": [
+    { "id": "C-1041", "name": "New in March", "signup": "2026-03-04", "payments": [{ "date": "2026-03-06", "amount": 240 }] },
+    { "id": "C-1042", "name": "New in March", "signup": "2026-03-11", "payments": [{ "date": "2026-03-12", "amount": 180 }] },
+    { "id": "C-1043", "name": "New in March", "signup": "2026-03-22", "payments": [{ "date": "2026-03-24", "amount": 320 }] },
+    { "id": "C-0788", "name": "Returning", "signup": "2025-09-14", "payments": [{ "date": "2026-03-03", "amount": 420 }] },
+    { "id": "C-0812", "name": "Returning", "signup": "2025-11-02", "payments": [{ "date": "2026-03-09", "amount": 380 }] },
+    { "id": "C-0640", "name": "Returning", "signup": "2025-06-27", "payments": [{ "date": "2026-03-18", "amount": 510 }] },
+    { "id": "C-0913", "name": "Returning", "signup": "2025-12-19", "payments": [{ "date": "2026-03-26", "amount": 290 }] },
+    { "id": "C-0455", "name": "Returning", "signup": "2025-02-08", "payments": [{ "date": "2026-03-30", "amount": 460 }] },
+    { "id": "C-1044", "name": "Signed up, paid later", "signup": "2026-03-28", "payments": [{ "date": "2026-04-09", "amount": 275 }] },
+    { "id": "C-9999", "name": "Test mode", "signup": "2026-03-15", "test": true, "payments": [{ "date": "2026-03-15", "amount": 999 }] }
+  ]
+}

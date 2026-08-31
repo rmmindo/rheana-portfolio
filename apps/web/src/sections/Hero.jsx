@@ -32,7 +32,7 @@ export default function Hero({ profile }) {
         <p className="hero__aside">{t('hero.aside')}</p>
 
         <div className="hero__actions">
-          <a className="btn btn--primary btn--lg" href={`mailto:${email?.label ?? ''}`}>
+          <a className="btn btn--primary btn--lg" href="#write">
             {t('hero.cta.primary')}
           </a>
           <a className="btn btn--quiet btn--lg" href="/rheana-mindo-cv.pdf" download>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import transcript from '../content/transcript.json';
 import { useReveal } from '../hooks/useReveal.js';
 import { useI18n } from '../hooks/useI18n.jsx';
+import SectionCta from '../components/SectionCta.jsx';
 
 // The video is self-hosted with preload="none" and a poster image, so it costs
 // zero bytes until someone chooses to play it. That protects the Lighthouse
@@ -82,6 +83,7 @@ export default function VideoResume() {
           <h3 className="video__transcript-title">{transcript.title}</h3>
           {transcript.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
         </div>
+        <SectionCta id="video" />
       </div>
     </section>
   );
