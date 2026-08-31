@@ -199,3 +199,36 @@
 @media (min-width: v.bp(lg)) {
   .theme-toggle__text { display: inline; }
 }
+
+// --- Where you are --------------------------------------------------------//
+// Hidden on narrow screens, where the nav row itself is visible and the space
+// is needed. It earns its place on wide screens, where the links sit far left
+// and the centre is otherwise empty.
+.topbar__where { display: none; }
+
+@media (min-width: v.bp(lg)) {
+  .topbar {
+    grid-template-columns: auto 1fr auto auto;
+    grid-template-areas: "brand where nav controls";
+  }
+
+  .topbar__where {
+    grid-area: where;
+    display: inline-flex;
+    align-items: baseline;
+    gap: v.space(2);
+    justify-self: start;
+    padding-left: v.space(5);
+    font-size: v.$step--1;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .topbar__where-n {
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-purple);
+    font-weight: v.$weight-bold;
+  }
+}

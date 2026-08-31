@@ -3,6 +3,7 @@ import work from '../content/work.json';
 import { useReveal } from '../hooks/useReveal.js';
 import { useI18n } from '../hooks/useI18n.jsx';
 import Odometer from '../components/Odometer.jsx';
+import BaybayinDemo from '../components/demos/BaybayinDemo.jsx';
 
 // Experience, as a timeline you step through rather than a wall you scroll.
 //
@@ -22,6 +23,11 @@ import Odometer from '../components/Odometer.jsx';
 // Keyboard: this is the ARIA tabs pattern. Arrow keys move between tabs, Home
 // and End jump to the ends, and only the selected tab is in the tab order, so
 // a keyboard user tabs past the whole strip in one press instead of six.
+
+// A role may own a playground. The demo is the evidence for that role's claim,
+// so it lives in the same panel rather than in a separate section three screens
+// away. Roles without one simply do not render anything here.
+const DEMOS = { baybayin: BaybayinDemo };
 
 export default function Work() {
   const ref = useReveal();
@@ -97,6 +103,11 @@ export default function Work() {
               <Odometer value={r.figure.value} suffix={r.figure.unit} label={r.figure.caption} />
             </p>
             <p className="work__caption">{r.figure.caption}</p>
+
+            {DEMOS[r.demo] && (() => {
+              const Demo = DEMOS[r.demo];
+              return <Demo />;
+            })()}
 
             {/* Still in the HTML when closed, so nothing is hidden from a
                 crawler - only from someone who did not ask for it. */}

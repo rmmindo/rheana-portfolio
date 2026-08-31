@@ -6,11 +6,14 @@
       "org": "Iosys",
       "label": "Static analysis",
       "period": "2025 -> now",
-      "season": "summer",
       "hue": "purple",
       "you": "Your build is broken across eight repositories.",
       "me": "I make that my problem.",
-      "figure": { "value": 4062, "unit": "", "caption": "compile errors cleared in a single pull request" },
+      "figure": {
+        "value": 4062,
+        "unit": "",
+        "caption": "compile errors cleared in a single pull request"
+      },
       "detail": "A .NET 8 Roslyn platform: a solution-wide extraction engine, an architecture-metrics engine with Tarjan cycle detection, a 60-route API, and a 37-component Blazor dashboard written solo. Dead-code detection went from roughly 5% accurate to 96.9%, and the cycle scanner from 88% false positives to none across 457 projects."
     },
     {
@@ -18,11 +21,14 @@
       "org": "Luxe Lips",
       "label": "Attribution",
       "period": "2025 -> now",
-      "season": "summer",
       "hue": "pink",
       "you": "You were paying for ads that looked like they failed.",
       "me": "They had not.",
-      "figure": { "value": 78, "unit": "%", "caption": "of in-window payments were missing from conversion reporting" },
+      "figure": {
+        "value": 78,
+        "unit": "%",
+        "caption": "of in-window payments were missing from conversion reporting"
+      },
       "detail": "The Google Ads and TikTok uploaders were selecting contacts by signup date instead of payment date, so returning patients who paid inside the window were silently dropped. I wrote the payment-date scanner that became the shared source of truth, then hardened the recovery path: deterministic order IDs, window-invariant revenue keying, UTC-consistent scoping, and guards for test mode and future dates."
     },
     {
@@ -30,11 +36,14 @@
       "org": "Offshorly",
       "label": "AI services",
       "period": "2025 - 2026",
-      "season": "spring",
       "hue": "mint",
-      "you": "Thirty-six minutes of clicking to build one dashboard.",
-      "me": "Now thirty-five seconds.",
-      "figure": { "value": 61, "unit": "x", "caption": "faster in production, as the only developer on it" },
+      "you": "Your analysts spend the afternoon assembling what they already know.",
+      "me": "I gave that afternoon back.",
+      "figure": {
+        "value": 61,
+        "unit": "x",
+        "caption": "faster than the manual build it replaced, in production"
+      },
       "detail": "A FastAPI and LangChain service that reads markdown from upstream bots and lays out positioned dashboards. 100 of 115 commits, 18,040 lines across 94 files, containerised and deployed to AWS in six weeks at pylint 10/10 with zero SonarQube issues and 379 tests. Also seven production LangGraph subagents on the onboarding AI."
     },
     {
@@ -42,23 +51,30 @@
       "org": "Baybayin Detector",
       "label": "Computer vision",
       "period": "2024",
-      "season": "autumn",
       "hue": "yellow",
-      "you": "A script older than the alphabet you are reading.",
+      "you": "A script your grandparents could not read either.",
       "me": "I taught a camera to read it.",
-      "figure": { "value": 1, "unit": "", "caption": "webcam, reading handwriting in real time" },
-      "detail": "Handwritten Baybayin recognised live using Python and OpenCV, with Lucas-Kanade optical flow and KLT tracking feeding a GRU recurrent network, wrapped in a Tkinter interface. The playground further down this page is the browser-sized version of the same problem."
+      "figure": {
+        "value": 1,
+        "unit": "",
+        "caption": "webcam, reading handwriting in real time"
+      },
+      "detail": "Handwritten Baybayin recognised live using Python and OpenCV, with Lucas-Kanade optical flow and KLT tracking feeding a GRU recurrent network, wrapped in a Tkinter interface. The version above is the browser-sized half of the same problem: no model, no download, and template matching against glyphs rendered from the page font.",
+      "demo": "baybayin"
     },
     {
       "id": "azeus",
       "org": "Azeus Systems",
-      "label": "Retrieval",
+      "label": "Onboarding",
       "period": "2024",
-      "season": "autumn",
       "hue": "red",
-      "you": "The answer was already written down somewhere.",
-      "me": "Finding it was the hard part.",
-      "figure": { "value": 1, "unit": "", "caption": "chatbot, replacing a manual search through years of posts" },
+      "you": "A new hire cannot find what the company already knows.",
+      "me": "So I made the company answer them.",
+      "figure": {
+        "value": 1,
+        "unit": "",
+        "caption": "chatbot, replacing a manual search through years of posts"
+      },
       "detail": "An on-premise retrieval chatbot over the company's Redmine data, built with SQLite, LangChain, Ollama and ChromaDB. It replaced a workflow of searching old posts by hand and re-posting the answer."
     },
     {
@@ -66,11 +82,14 @@
       "org": "2 Weeks",
       "label": "Client work",
       "period": "2024",
-      "season": "winter",
       "hue": "powder",
       "you": "You need one person who answers for the whole thing.",
       "me": "That was me.",
-      "figure": { "value": 3, "unit": "", "caption": "developers, one point of contact, shipped on time" },
+      "figure": {
+        "value": 3,
+        "unit": "",
+        "caption": "developers, one point of contact, shipped on time"
+      },
       "detail": "Client-facing lead for a three-person team building a story-based interactive game. I handled deployment, coordinated feature assignments, and owned the relationship through delivery."
     }
   ]

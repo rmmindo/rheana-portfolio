@@ -46,3 +46,19 @@
     50%      { box-shadow: 0 0 0 6px color-mix(in srgb, var(--ink-mint) 0%, transparent); }
   }
 }
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.space(5);
+  margin-top: v.space(4);
+}
+
+.footer__links a {
+  color: var(--text-muted);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.footer__links a:hover { color: var(--text); }

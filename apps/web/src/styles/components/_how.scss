@@ -1,0 +1,79 @@
+@use "../abstracts/variables" as v;
+
+.how { padding-block: v.space(9); }
+
+.how__heading {
+  font-size: v.$step--1;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-family: v.$font-body;
+  font-weight: v.$weight-regular;
+  margin-bottom: v.space(6);
+}
+
+// The belief, at the size a belief deserves.
+.how__belief {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(2rem, 5.5vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  max-width: 18ch;
+  margin-bottom: v.space(5);
+  text-wrap: balance;
+}
+
+.how__belief-sub {
+  font-size: v.$step-0;
+  color: var(--text-muted);
+  max-width: 54ch;
+  margin-bottom: v.space(9);
+}
+
+.how__steps {
+  display: grid;
+  gap: v.space(6);
+  padding: 0;
+  margin: 0;
+}
+
+@media (min-width: v.bp(md)) {
+  .how__steps { grid-template-columns: repeat(2, 1fr); gap: v.space(7); }
+}
+
+@media (min-width: v.bp(lg)) {
+  .how__steps { grid-template-columns: repeat(4, 1fr); gap: v.space(5); }
+}
+
+.step { border-top: 3px solid var(--step-ink); padding-top: v.space(4); }
+
+.step__n {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: v.$step-2;
+  line-height: 1;
+  color: var(--step-ink);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: v.space(3);
+}
+
+.step__t {
+  font-size: v.$step-1;
+  line-height: 1.15;
+  margin-bottom: v.space(3);
+  text-wrap: balance;
+}
+
+.step__b { color: var(--text-muted); max-width: 40ch; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .js-reveal .step {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity v.$dur-reveal v.$ease-out, transform v.$dur-reveal v.$ease-out;
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  .js-reveal .is-revealed .step { opacity: 1; transform: none; }
+}

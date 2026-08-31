@@ -58,30 +58,34 @@ describe('honesty', () => {
   });
 });
 
+// A role that owns a playground nests a second tablist inside its panel, which
+// is valid ARIA but means a page-wide getAllByRole('tab') sees both sets. These
+// assertions scope to the role rail rather than counting every tab on screen.
+const roleTabs = () => [...document.querySelectorAll('.work__rail [role="tab"]')];
+const rolePanels = () => [...document.querySelectorAll('.work__panel')];
+
 describe('tabs', () => {
   it('follows the ARIA tabs pattern', async () => {
     await render_();
-    expect(screen.getByRole('tablist')).toBeInTheDocument();
-    expect(screen.getAllByRole('tab')).toHaveLength(work.roles.length);
-    expect(screen.getAllByRole('tabpanel', { hidden: true })).toHaveLength(work.roles.length);
+    expect(document.querySelector('.work__rail[role="tablist"]')).toBeInTheDocument();
+    expect(roleTabs()).toHaveLength(work.roles.length);
+    expect(rolePanels()).toHaveLength(work.roles.length);
   });
 
   it('marks exactly one tab selected', async () => {
     await render_();
-    const selected = screen.getAllByRole('tab').filter(t => t.getAttribute('aria-selected') === 'true');
-    expect(selected).toHaveLength(1);
+    expect(roleTabs().filter(t => t.getAttribute('aria-selected') === 'true')).toHaveLength(1);
   });
 
   // Six tabs would otherwise mean six presses to get past the strip.
   it('keeps only the selected tab in the tab order', async () => {
     await render_();
-    const inOrder = screen.getAllByRole('tab').filter(t => t.tabIndex === 0);
-    expect(inOrder).toHaveLength(1);
+    expect(roleTabs().filter(t => t.tabIndex === 0)).toHaveLength(1);
   });
 
   it('ties each panel to its tab', async () => {
     await render_();
-    for (const tab of screen.getAllByRole('tab')) {
+    for (const tab of roleTabs()) {
       const panel = document.getElementById(tab.getAttribute('aria-controls'));
       expect(panel).not.toBeNull();
       expect(panel.getAttribute('aria-labelledby')).toBe(tab.id);
@@ -90,11 +94,28 @@ describe('tabs', () => {
 
   it('switches the claim when another role is chosen', async () => {
     await render_();
-    const tabs = screen.getAllByRole('tab');
+    const tabs = roleTabs();
     await act(async () => { tabs[2].click(); });
     expect(tabs[2].getAttribute('aria-selected')).toBe('true');
     const visible = [...document.querySelectorAll('.work__panel')].filter(p => !p.hidden);
     expect(visible[0].id).toContain(work.roles[2].id);
+  });
+});
+
+describe('the playground', () => {
+  // The demo is the evidence for its role's claim, so it belongs in that
+  // panel rather than in a section of its own further down the page.
+  it('lives inside the role it proves', async () => {
+    await render_();
+    const i = work.roles.findIndex(r => r.demo === 'baybayin');
+    const panel = rolePanels()[i];
+    expect(panel.querySelector('.demo')).not.toBeNull();
+  });
+
+  it('is not rendered for roles that do not own one', async () => {
+    await render_();
+    const i = work.roles.findIndex(r => !r.demo);
+    expect(rolePanels()[i].querySelector('.demo')).toBeNull();
   });
 });
 

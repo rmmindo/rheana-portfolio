@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import transcript from '../content/transcript.json';
 import { useReveal } from '../hooks/useReveal.js';
-import Stage from '../components/Stage.jsx';
 import { useI18n } from '../hooks/useI18n.jsx';
 
 // The video is self-hosted with preload="none" and a poster image, so it costs
@@ -19,7 +18,6 @@ export default function VideoResume() {
   return (
     <section className="video" id="video" aria-labelledby="video-heading" ref={ref}>
       <div className="section__inner">
-        <Stage n={1} nameKey="stage.seed" season="spring" hue="mint" />
         <h2 id="video-heading" className="section__title">{t('video.heading')}</h2>
 
         <p className="video__lead">

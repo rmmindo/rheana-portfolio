@@ -1,0 +1,114 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/shapes" as s;
+
+// A playground living inside the role it proves.
+.demo {
+  margin: v.space(6) 0;
+  padding: v.space(5);
+  background: var(--paper-raised);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-lg;
+  max-width: 46rem;
+}
+
+.demo__modes {
+  display: inline-flex;
+  gap: v.space(1);
+  padding: 4px;
+  border-radius: v.$radius-pill;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  margin-bottom: v.space(5);
+}
+
+.demo__mode {
+  min-height: 40px;
+  padding: v.space(2) v.space(5);
+  border: 0;
+  border-radius: v.$radius-pill;
+  background: none;
+  color: var(--text-muted);
+  font-size: v.$step--1;
+  cursor: pointer;
+}
+
+.demo__mode.is-active {
+  background: var(--work-ink);
+  color: var(--paper);
+  font-weight: v.$weight-bold;
+}
+
+.demo__label {
+  display: block;
+  font-size: v.$step--1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: v.space(2);
+}
+
+.demo__input {
+  width: 100%;
+  min-height: 52px;
+  padding: v.space(3) v.space(4);
+  border-radius: v.$radius-md;
+  border: 2px solid var(--border-strong);
+  background: var(--paper);
+  color: var(--text);
+  font-size: v.$step-1;
+}
+
+.demo__presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.space(2);
+  padding: 0;
+  margin: v.space(3) 0 v.space(5);
+  list-style: none;
+}
+
+.demo__preset {
+  min-height: 38px;
+  padding: v.space(2) v.space(4);
+  border-radius: v.$radius-pill;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--text-muted);
+  font-size: v.$step--1;
+  cursor: pointer;
+}
+
+.demo__out {
+  display: grid;
+  place-items: center;
+  min-height: 7rem;
+  padding: v.space(4);
+  border-radius: v.$radius-md;
+  background: var(--paper);
+  border: 1px solid var(--border);
+}
+
+.demo__glyphs {
+  font-family: "Noto Sans Tagalog", v.$font-body;
+  font-size: clamp(2.25rem, 7vw, 3.75rem);
+  line-height: 1.5;
+  color: var(--work-ink);
+  text-align: center;
+  word-break: break-word;
+}
+
+.demo__syllables {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.space(2);
+  padding: 0;
+  margin: v.space(4) 0 0;
+  list-style: none;
+}
+
+.demo__note {
+  margin-top: v.space(4);
+  font-size: v.$step--1;
+  color: var(--text-muted);
+  max-width: 56ch;
+}

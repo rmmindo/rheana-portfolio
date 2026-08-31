@@ -1,0 +1,25 @@
+@use "../abstracts/variables" as v;
+
+// A hairline the width of the viewport, pinned above the sticky bar.
+.progress {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  height: 3px;
+  z-index: 60;
+  background: transparent;
+  pointer-events: none;
+}
+
+.progress__bar {
+  height: 100%;
+  width: 100%;
+  transform-origin: left center;
+  background: var(--ink-purple);
+}
+
+:root[data-theme="dark"] .progress__bar { background: var(--glow-purple); }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .progress__bar { background: var(--glow-purple); }
+}
