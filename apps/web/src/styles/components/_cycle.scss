@@ -1,0 +1,97 @@
+@use "../abstracts/variables" as v;
+
+.cyc { display: grid; gap: v.space(4); }
+
+.cyc__hint {
+  font-size: v.$step--1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.cyc__stage {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: v.$radius-md;
+  padding: v.space(3);
+}
+
+.cyc__svg { width: 100%; max-width: 22rem; margin-inline: auto; display: block; }
+
+.cyc__edge {
+  stroke: var(--border-strong);
+  stroke-width: 0.8;
+  marker-end: none;
+}
+
+// Colour is never the only signal: an edge inside a cycle also thickens.
+.cyc__edge.is-hot { stroke: var(--ink-red); stroke-width: 2; }
+
+.cyc__node { fill: var(--paper-raised); stroke: var(--border-strong); stroke-width: 1; }
+.cyc__node.is-hot { fill: var(--surface-red); stroke: var(--ink-red); stroke-width: 1.6; }
+
+.cyc__label {
+  font-size: 4.2px;
+  text-anchor: middle;
+  fill: var(--text);
+  font-family: v.$font-body;
+}
+
+// --- The control ---------------------------------------------------------- //
+.cyc__grid {
+  border-collapse: collapse;
+  font-size: v.$step--1;
+}
+
+.cyc__grid th {
+  font-weight: v.$weight-regular;
+  color: var(--text-muted);
+  padding: v.space(1) v.space(2);
+  text-align: center;
+}
+
+.cyc__grid th[scope="row"] { text-align: right; }
+.cyc__self { color: var(--text-muted); text-align: center; opacity: 0.4; }
+
+.cyc__cell {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: v.$radius-sm;
+  background: var(--paper);
+  color: var(--ink-purple);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.cyc__cell.is-on { background: var(--surface-purple); border-color: var(--ink-purple); }
+
+.cyc__verdict {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: v.$step-1;
+  color: var(--ink-mint);
+}
+
+.cyc__verdict.is-bad { color: var(--ink-red); }
+
+.cyc__note { font-size: v.$step--1; color: var(--text-muted); max-width: 56ch; }
+
+:root[data-theme="dark"] {
+  .cyc__verdict { color: var(--glow-mint); }
+  .cyc__verdict.is-bad { color: var(--glow-red); }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    .cyc__verdict { color: var(--glow-mint); }
+    .cyc__verdict.is-bad { color: var(--glow-red); }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cyc__edge, .cyc__node { transition: stroke v.$dur-fast v.$ease-out, fill v.$dur-fast v.$ease-out, stroke-width v.$dur-fast v.$ease-out; }
+}

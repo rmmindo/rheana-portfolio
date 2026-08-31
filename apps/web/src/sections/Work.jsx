@@ -4,6 +4,7 @@ import { useReveal } from '../hooks/useReveal.js';
 import { useI18n } from '../hooks/useI18n.jsx';
 import Odometer from '../components/Odometer.jsx';
 import BaybayinDemo from '../components/demos/BaybayinDemo.jsx';
+import CycleDemo from '../components/demos/CycleDemo.jsx';
 
 // Experience, as a timeline you step through rather than a wall you scroll.
 //
@@ -27,7 +28,7 @@ import BaybayinDemo from '../components/demos/BaybayinDemo.jsx';
 // A role may own a playground. The demo is the evidence for that role's claim,
 // so it lives in the same panel rather than in a separate section three screens
 // away. Roles without one simply do not render anything here.
-const DEMOS = { baybayin: BaybayinDemo };
+const DEMOS = { baybayin: BaybayinDemo, cycles: CycleDemo };
 
 export default function Work() {
   const ref = useReveal();

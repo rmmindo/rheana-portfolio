@@ -122,7 +122,11 @@
     "write.hook": "Would you like to grow something with me?",
     "write.hookSub": "You do not need a specification. A sentence is enough.",
     "tools.heading": "The toolshed",
-    "tools.lead": "You are probably here to check one thing. It is faster to scan than to read, so here it is as a list rather than a paragraph."
+    "tools.lead": "You are probably here to check one thing. It is faster to scan than to read, so here it is as a list rather than a paragraph.",
+    "cyc.hint": "Toggle a dependency and watch",
+    "cyc.caption": "Dependency matrix. Each button makes the row depend on the column.",
+    "cyc.clean": "No cycles.",
+    "cyc.note": "Tarjan's algorithm, running here, not precomputed. A regex can see that auth mentions billing. Only a graph walk can see that billing comes back round to auth through two other modules."
   },
   "fil": {
     "lang.name": "Filipino",
@@ -246,6 +250,10 @@
     "write.hook": "Gusto mo bang magpatubo tayo ng bago?",
     "write.hookSub": "Hindi mo kailangan ng spec. Sapat na ang isang pangungusap.",
     "tools.heading": "Ang kamalig",
-    "tools.lead": "Malamang isang bagay lang ang hinahanap mo. Mas mabilis tingnan kaysa basahin, kaya listahan ito at hindi talata."
+    "tools.lead": "Malamang isang bagay lang ang hinahanap mo. Mas mabilis tingnan kaysa basahin, kaya listahan ito at hindi talata.",
+    "cyc.hint": "Pindutin ang dependency at panoorin",
+    "cyc.caption": "Matrix ng dependency. Bawat button ay ginagawang umaasa ang row sa column.",
+    "cyc.clean": "Walang ikot.",
+    "cyc.note": "Algorithm ni Tarjan, tumatakbo dito, hindi handa nang maaga. Nakikita ng regex na binanggit ng auth ang billing. Ang paglalakad sa graph lang ang makakakita na bumabalik ang billing sa auth sa pamamagitan ng dalawa pang module."
   }
 }

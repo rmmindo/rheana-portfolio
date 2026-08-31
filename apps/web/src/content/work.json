@@ -14,7 +14,8 @@
         "unit": "",
         "caption": "compile errors cleared in a single pull request"
       },
-      "detail": "A .NET 8 Roslyn platform: a solution-wide extraction engine, an architecture-metrics engine with Tarjan cycle detection, a 60-route API, and a 37-component Blazor dashboard written solo. Dead-code detection went from roughly 5% accurate to 96.9%, and the cycle scanner from 88% false positives to none across 457 projects."
+      "detail": "A .NET 8 Roslyn platform: a solution-wide extraction engine, an architecture-metrics engine with Tarjan cycle detection, a 60-route API, and a 37-component Blazor dashboard written solo. Dead-code detection went from roughly 5% accurate to 96.9%, and the cycle scanner from 88% false positives to none across 457 projects.",
+      "demo": "cycles"
     },
     {
       "id": "luxelips",
