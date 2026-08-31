@@ -61,18 +61,7 @@
 // Three sentences, each with one number, at reading size. Replaces a row of
 // company names (duplicated by the timeline tabs below) and a four-column stat
 // grid.
-.trust__line {
-  font-family: v.$font-heading;
-  font-weight: v.$weight-bold;
-  font-size: clamp(1.35rem, 3.4vw, 2.5rem);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  max-width: 30ch;
-  margin-bottom: v.space(3);
-  text-wrap: balance;
-}
 
-.trust__line--last { margin-bottom: 0; }
 
 .trust__n { color: var(--ink-purple); font-variant-numeric: tabular-nums; }
 
@@ -80,4 +69,55 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .trust__n { color: var(--glow-purple); }
+}
+
+// Four numbers across, not three sentences down. A row reads as a summary you
+// take in at a glance; a stack reads as a list you have to work through, and
+// this sits directly under the hero where nobody is working yet.
+.trust__row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: v.space(5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// Two by two before it gets cramped, one column only on the narrowest phones.
+@media (max-width: 52rem) { .trust__row { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 22rem) { .trust__row { grid-template-columns: 1fr; } }
+
+.trust__item {
+  display: grid;
+  gap: v.space(2);
+  align-content: start;
+  padding-top: v.space(4);
+  border-top: 2px solid var(--border-strong);
+}
+
+.trust__n {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(2rem, 5.5vw, 3.25rem);
+  line-height: 1;
+  color: var(--ink-purple);
+  font-variant-numeric: tabular-nums;
+}
+
+.trust__label {
+  font-size: v.$step--1;
+  line-height: 1.4;
+  color: var(--text-muted);
+  max-width: 18ch;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js-reveal .trust__item {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity v.$dur-reveal v.$ease-out, transform v.$dur-reveal v.$ease-out;
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+
+  .js-reveal .is-revealed .trust__item { opacity: 1; transform: none; }
 }

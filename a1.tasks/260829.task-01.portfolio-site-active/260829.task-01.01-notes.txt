@@ -148,3 +148,32 @@ B-17  The dashboard rendered two-thirds empty.
 M-05  Wrote the note under the dashboard as three long sentences, which is the
       word vomit R-02 exists to prevent. Cut to two.
 
+B-18  The carousel moved out from under the pointer.
+      The dwell timer was rendered only while the carousel was running, so
+      hovering a card unmounted it, removed its 22px of height, and shifted the
+      whole track upwards. The mousedown and the mouseup then landed on
+      different elements and the click never fired: the read-more button simply
+      did nothing to a real mouse, while a scripted click worked fine. The
+      element is now always rendered and only faded, so the space it occupies
+      never changes.
+
+B-19  The tokeniser kept the sentence's punctuation.
+      "merge." did not match a search for "merge", because the pattern allowed
+      a trailing dot so that "node.js" and "ci/cd" survive. Trailing punctuation
+      is now stripped and internal punctuation kept. Caught by a test, not by
+      looking.
+
+B-20  One card per view was not one card per view.
+      The track was full-bleed with the first card aligned to the content
+      column, which is what made the next card peek in. Constraining the track
+      to the column and forcing the card to its full width fixed it. The card
+      also needed an explicit width, not only a flex-basis, because the
+      figure's own max-width was otherwise deciding how wide the card was.
+
+M-06  Reported that the CSS clamp was broken because the box was shorter than
+      its content. That IS the clamp working. The real fault was B-18, which
+      stopped the button ever being pressed.
+
+M-07  Ran a build from the wrong directory, then measured the result and
+      reported no change. The build had not run.
+

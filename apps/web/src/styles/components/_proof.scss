@@ -59,12 +59,13 @@
   gap: v.space(5);
   list-style: none;
   margin: 0;
-  // Full-bleed, with the first card aligned to the content column. The next
-  // card peeks in at the right so the row reads as continuing.
-  padding-inline: max(v.space(5), calc((100vw - 68rem) / 2));
+  // One card per view. The peeking neighbour was asking a reader to weigh up
+  // two testimonies before choosing to read either, which is the overwhelm
+  // this section exists to remove.
+  padding-inline: 0;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline-start: max(v.space(5), calc((100vw - 68rem) / 2));
+  scroll-padding-inline-start: 0;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
@@ -72,7 +73,14 @@
 .proof__track::-webkit-scrollbar { display: none; }
 
 .rec {
-  flex: 0 0 min(30rem, 82vw);
+  // Exactly the width of the content column, so one card fills the view and
+  // no neighbour peeks in. The peeking card was the overwhelm in miniature:
+  // it asks a reader to weigh two testimonies before starting either.
+  // width as well as basis: the card must be exactly the track, whatever the
+  // content inside it would prefer to be.
+  flex: 0 0 100%;
+  width: 100%;
+  max-width: 100%;
   scroll-snap-align: start;
   padding: v.space(6) v.space(5) v.space(5);
   background: var(--paper-raised);
@@ -83,10 +91,17 @@
   // shape instead of sitting behind it.
 }
 
-.rec__figure { margin: 0; display: grid; height: 100%; }
+.rec__figure {
+  margin: 0;
+  display: grid;
+  height: 100%;
+}
 
 .rec__quote {
   margin: 0 0 v.space(5);
+  // The card is as wide as the column; the words are not. A line of 68rem is
+  // unreadable however nice the card looks.
+  max-width: 62ch;
   font-size: v.$step-0;
 }
 
@@ -130,8 +145,85 @@
   .proof__track { scroll-behavior: auto; }
 }
 
-// No clamp, no inner scroll, no ellipsis. Every recommendation is shown whole,
-// so a card is exactly as tall as the words require. A long recommendation
-// making a tall card is the correct outcome; hiding half of what someone wrote
-// about you is not.
 .rec__quote p + p { margin-top: v.space(3); }
+
+// VERBATIM, and this is how the clamp keeps that true.
+//
+// The shortening is done by CSS on the rendered box. Not one character is
+// removed from the string, so the whole recommendation is in the DOM, in the
+// prerendered HTML, and read out in full by a screen reader whichever state the
+// button is in. Cutting the text in JavaScript would edit somebody's words.
+//
+// line-clamp needs the old -webkit- prefixed box model; it is the only way to
+// clamp by line count, and every current browser implements it.
+.rec:not(.is-open) .rec__words {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+  overflow: hidden;
+}
+
+// Fades into the card rather than stopping mid-letter, so the cut looks
+// deliberate and the More button looks like the way to finish it.
+.rec:not(.is-open) .rec__words {
+  mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+}
+
+.rec__more {
+  justify-self: start;
+  margin-bottom: v.space(5);
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: v.$step--1;
+  color: var(--rec-ink);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+// --- The dwell timer ------------------------------------------------------//
+// A line that empties while the card holds, so the change is expected rather
+// than sudden. Purely decorative: the count beside the arrows says the same
+// thing in text.
+.proof__timer {
+  display: block;
+  height: 2px;
+  margin-bottom: v.space(5);
+  background: var(--rec-accent, var(--border-strong));
+  transform-origin: left;
+  opacity: 0.55;
+}
+
+.proof__pause {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  background: var(--paper-raised);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+// Held rather than removed: the space it occupies must not change, or the
+// layout moves under the pointer.
+.proof__timer.is-held { opacity: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .proof__timer { animation: proof-dwell 8s linear forwards; }
+  .proof__timer.is-held { animation-play-state: paused; }
+
+  @keyframes proof-dwell {
+    from { transform: scaleX(1); }
+    to   { transform: scaleX(0); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  // No animation, but it keeps its space so nothing shifts.
+  .proof__timer { opacity: 0; }
+}

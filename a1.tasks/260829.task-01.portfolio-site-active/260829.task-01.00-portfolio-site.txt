@@ -27,7 +27,12 @@ here overrides any general preference.
 R-01  Recommendations are VERBATIM.
       Other people's words about her are never edited, corrected, shortened,
       reordered or tidied. Not spelling, not grammar, not pronouns. They are
-      also shown WHOLE - never clamped, scrolled or truncated.
+      Refined 2026-08-31 on Rheana's instruction: one recommendation per view,
+      shortened to a few lines with a button that opens the rest, because
+      sixteen at once is overwhelming. The SHORTENING IS CSS ON THE RENDERED
+      BOX. The string is never cut, so every word stays in the DOM, in the
+      prerendered HTML, and is read in full by a screen reader whichever state
+      the button is in. Cutting the text itself would edit testimony.
       Guarded by: apps/web/test/proof.test.jsx
       VIOLATED ONCE on 2026-08-30 (grammar "fixed", text split into pull-quote
       plus remainder). Restored the same day.
@@ -131,13 +136,12 @@ Sections
   D-23  Visitor counter and analytics via GoatCounter. No cookies, no card.
 
 ================================================================================
-4. NOT DONE                                   (re-audited 2026-08-31, verified
-                                               against the code, not from memory)
+4. NOT DONE                                   (re-audited 2026-08-31, late,
+                                               verified against the code)
 ================================================================================
 
-BLOCKED ON RHEANA (5)
+BLOCKED ON RHEANA (4)
 
-  N-01  GoatCounter account name. Everything is wired; one repo variable to set.
   N-02  An LLM key for the chatbot. Gemini or Groq free tier; no card needed.
   N-03  Google Search Console: verify the domain, submit the sitemap, request
         indexing. The domain is days old, which is why it does not rank.
@@ -145,60 +149,48 @@ BLOCKED ON RHEANA (5)
         video says 20. The site currently shows 19.
   N-05  "city apps" in the video transcript is still unresolved.
 
-AGREED, NOT BUILT (6)
+AGREED, NOT BUILT (2)
 
-  N-06  Mini playground for the remaining roles. Two of four remain:
-          Baybayin   DONE, inside its own role panel
-          Iosys      DONE 2026-08-31, dependency-cycle finder, real Tarjan
-          Offshorly  DONE 2026-08-31, notes laid out as a dashboard
-          Luxelips   a date-window demo showing the attribution bug
-          Azeus      keyword search versus meaning search over the resume
-  N-07  Bias probe playground, from the undergraduate thesis. The thesis is
-        described in plot.json; nothing is interactive.
+  N-07  Bias probe playground, from the undergraduate thesis. AGREED APPROACH
+        (Rheana, 2026-08-31): run a fill-mask model in the browser over preset
+        sentences, swap the pronoun, and show the top ten completions with
+        their probabilities. That IS the thesis method - the Rapid Religious
+        Bias Probe is masked-token probability - so the demo runs the real
+        technique on real model output rather than quoting numbers.
+        DistilBERT is one of the five models in the thesis and is 68 MB
+        quantised, behind an explicit press like the search model.
   N-08  AI chatbot. Blocked by N-02.
-  N-14  Skills is the last section still on the old layout: about seventy pill
-        chips in five rows, which is the wall of text R-02 exists to prevent.
-  N-19  NEW. No playground is AI-related yet, which is what was asked for on
-        2026-08-30 ("I want another playground that's more AI related").
-        Baybayin is template matching, Iosys is graph theory, and Offshorly
-        argues on purpose that no model is needed. Azeus (meaning search), the
-        bias probe and the chatbot would each answer this; none is built.
-  N-20  NEW. A call to action in every section, asked for on 2026-08-30. Only
-        NextStep links to the form. Work, Plot, Proof, Roots, Skills, HowIWork
-        and the video section end without one.
 
-CARRIED, NEEDS A DECISION (3)
+CARRIED, NEEDS A DECISION (2)
 
-  N-15  Seasonal weather on hover in the timeline. MOOT AS WRITTEN: the season
-        system was removed on 2026-08-31. It needs a new reason to exist or it
-        should be dropped.
-  N-18  Restraint plus colour, applied throughout. PARTIAL: applied to the
-        hero, the timeline, the trust line, the Plot, Roots and How I Work.
-        Skills and the video section have not been converted.
-  N-21  NEW. The hero's primary button opens a mail client, while the page
-        carries a form written for exactly that job. Sending it to the form
-        instead is a one-line change, but it is a decision about whether the
-        first ask should leave the site.
+  N-15  Seasonal weather on hover in the timeline. MOOT: the season system was
+        removed on 2026-08-31. Recommend dropping it.
+  N-18  Restraint plus colour, applied throughout. ONLY the video section is
+        left. Skills was converted on 2026-08-31.
 
-COMPLETED SINCE THE LAST AUDIT (5)
+COMPLETED SINCE THE LAST AUDIT (9)
 
-  N-09  The Plot. Six claim cards replacing two bullet lists.        DONE
-  N-10  "Would you like to grow something with me?" as the closing
-        hook. Shipped in WriteToMe, above the form.                  DONE
-  N-11  "The next step" long-form pitch. Shipped as NextStep, a
-        details element so it costs nothing closed and stays in the
-        HTML for search.                                             DONE
-  N-12  How I work, with the belief that opens it.                   DONE
-  N-13  Footer, privacy policy and site information.                 DONE
-  N-16  Nav section indicator and reading progress bar.              DONE
-  N-17  Offshorly and Azeus restated around ramp-up.                 DONE
-
-SUPERSEDED, DELIBERATELY NOT BUILT (2)
-
-  --    "Simulate watching Rheana grow as a seed" (2026-08-30). Superseded by
-        the instruction on 2026-08-31 to remove the seed, harvest and season
-        language entirely.
-  --    Garden vine and stage badges. Removed the same day, same reason.
+  N-01  Visitor counter live. GoatCounter account rheanamindo, counter
+        endpoint public, repo variable set, beacon and read both
+        confirmed firing on the live site.                          DONE
+  N-06  Mini playground for every role that needed one:
+          Baybayin   type to transliterate, draw to recognise
+          Iosys      dependency-cycle finder, real Tarjan
+          Offshorly  notes laid out as a dashboard
+          Luxelips   drag the window, watch the money vanish
+          Azeus      keyword search against meaning search        DONE
+  N-14  Skills rebuilt. Seventy chips became one question with a
+        straight answer, the list one disclosure away.              DONE
+  N-19  An AI playground. Azeus runs a real embedding model in the
+        visitor's browser: their own file, never uploaded.          DONE
+  N-20  A way out of every section, pointing at the form.           DONE
+  N-21  The hero's first ask now goes to the form, not a mail
+        client.                                                     DONE
+  --    Trust bar rebuilt horizontal, four figures: companies,
+        recommendations, pull requests, merge rate.                 DONE
+  --    Recommendations: one per view, advancing on their own,
+        wrapping at the end, with a read-more button.               DONE
+  --    Skills, CTAs, ledger and meaning search all shipped.        DONE
 
 ================================================================================
 5. OPEN QUESTIONS
