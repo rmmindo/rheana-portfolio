@@ -138,74 +138,107 @@
 
 // --- The blink ------------------------------------------------------------//
 //
-// Two eyes, blinking twice, after the glasses go on. Decorative, so the whole
-// thing is aria-hidden and it only exists in the DOM while it is running.
+// Seen from behind the eyes, not looking at a pair of them. Dark, then the page
+// arriving as the lids lift, twice.
+//
+// Every edge here is blurred hard. Your own eyelid is a couple of centimetres
+// from your retina and is never in focus; a crisp edge reads as a camera
+// shutter, which is a different thing entirely.
 
-.gate__eye {
+$lid-dark: #07060c;
+
+.gate__blink {
   position: fixed;
   inset: 0;
-  z-index: 1;
-  display: grid;
-  place-items: center;
+  z-index: 2;
   pointer-events: none;
-  background: var(--paper);
+  // The lids are blurred, so they are drawn larger than the screen and the
+  // overflow is cut here. Without this the blur haloes at the edges.
+  overflow: hidden;
 }
 
-.gate__eye svg { width: min(36rem, 76vw); height: auto; overflow: visible; }
-
-.gate__sclera { fill: var(--paper-raised); }
-.gate__rim { stroke: var(--ink-purple); stroke-width: 3; }
-.gate__iris { fill: var(--surface-powder); }
-.gate__pupil { fill: var(--ink-purple); }
-.gate__glint { fill: var(--paper); opacity: 0.9; }
-.gate__lash { stroke: var(--ink-purple); stroke-width: 3.5; }
-
-// Closed is the resting state, so the eyes are already shut behind the glasses
-// and the first thing they do is open.
-.gate__shut {
-  transform: scaleY(0.06);
-  transform-origin: center 43px;
+.gate__lid {
+  position: absolute;
+  left: -10%;
+  width: 120%;
+  // Each covers more than half, so shut is properly shut even with the feather.
+  height: 66%;
+  will-change: transform;
 }
 
-// The lash line rests where a closed lid puts it, on the midline.
-.gate__lash { transform: translateY(21px); }
+.gate__lid--top {
+  top: 0;
+  background: linear-gradient(to bottom, #{$lid-dark} 0%, #{$lid-dark} 74%, rgba(7, 6, 12, 0) 100%);
+  filter: blur(14px);
+}
+
+// The lower lid moves less far in a real blink and is softer still.
+.gate__lid--bottom {
+  bottom: 0;
+  background: linear-gradient(to top, #{$lid-dark} 0%, #{$lid-dark} 70%, rgba(7, 6, 12, 0) 100%);
+  filter: blur(20px);
+}
+
+// Lashes, as they actually appear to their owner: not shapes, just a dark
+// broken blur across the top of everything.
+.gate__fringe {
+  position: absolute;
+  top: -10px;
+  left: -5%;
+  width: 110%;
+  height: 120px;
+  background:
+    repeating-linear-gradient(
+      96deg,
+      rgba(7, 6, 12, 0.5) 0 5px,
+      rgba(7, 6, 12, 0) 5px 19px
+    ),
+    linear-gradient(to bottom, rgba(7, 6, 12, 0.62), rgba(7, 6, 12, 0));
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+  filter: blur(9px);
+}
 
 @media (prefers-reduced-motion: no-preference) {
-  .gate.is-blinking .gate__shut {
-    animation: eye-blink 1400ms v.$ease-out forwards;
+  .gate.is-blinking .gate__lid--top { animation: lid-top 1900ms ease-in-out forwards; }
+  .gate.is-blinking .gate__lid--bottom { animation: lid-bottom 1900ms ease-in-out forwards; }
+  .gate.is-blinking .gate__fringe { animation: fringe 1900ms ease-in-out forwards; }
+
+  // Shut, hold, open slowly, shut, open slowly, gone. The opening is longer
+  // than the closing, because that is the way a blink actually goes: the lid
+  // drops fast and lifts slowly.
+  @keyframes lid-top {
+    0%, 12%  { transform: translateY(0); }
+    38%      { transform: translateY(-100%); }
+    50%      { transform: translateY(0); }
+    82%      { transform: translateY(-100%); }
+    100%     { transform: translateY(-100%); }
   }
 
-  .gate.is-blinking .gate__lash {
-    animation: lash-blink 1400ms v.$ease-out forwards;
+  @keyframes lid-bottom {
+    0%, 12%  { transform: translateY(0); }
+    38%      { transform: translateY(100%); }
+    50%      { transform: translateY(0); }
+    82%      { transform: translateY(100%); }
+    100%     { transform: translateY(100%); }
   }
 
-  // Open, shut, open, shut, open. Two blinks, and it finishes open so the last
-  // thing before the page is an eye looking at you.
-  @keyframes eye-blink {
-    0%   { transform: scaleY(0.06); }
-    16%  { transform: scaleY(1); }
-    38%  { transform: scaleY(0.06); }
-    52%  { transform: scaleY(1); }
-    74%  { transform: scaleY(0.06); }
-    88%  { transform: scaleY(1); }
-    100% { transform: scaleY(1); }
+  // The fringe outlives the lids by a moment, then clears. Lashes hang in your
+  // vision after the lid has gone.
+  @keyframes fringe {
+    0%, 50% { opacity: 1; transform: translateY(0); }
+    82%     { opacity: 0.55; transform: translateY(-14px); }
+    100%    { opacity: 0; transform: translateY(-30px); }
   }
 
-  // The same timing, but travel rather than squash: down to the midline when
-  // the eye is shut, back to the brow when it is open.
-  @keyframes lash-blink {
-    0%   { transform: translateY(21px); }
-    16%  { transform: translateY(0); }
-    38%  { transform: translateY(21px); }
-    52%  { transform: translateY(0); }
-    74%  { transform: translateY(21px); }
-    88%  { transform: translateY(0); }
-    100% { transform: translateY(0); }
+  // The gate must not tint the page while the lids are open: what shows through
+  // has to be the real thing, or the reveal reveals a wash.
+  .gate.is-blinking {
+    animation: none;
+    opacity: 1;
+    background: none;
   }
-
-  .gate.is-blinking { animation: none; opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gate__eye { display: none; }
+  .gate__blink { display: none; }
 }

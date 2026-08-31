@@ -41,66 +41,31 @@ const WEAR_MS = 1250;
 
 // Two slow blinks after the glasses go on, then the page. Settling into a new
 // pair is not instant, and the eyes are the thing this whole screen is about.
-const BLINK_MS = 1500;
+const BLINK_MS = 1900;
 
-// Two eyes, blinking twice, once the glasses are on.
+// Two blinks, seen from behind the eyes.
 //
-// The first three attempts drew one enormous eyelid across the whole viewport.
-// It never read as an eye. A lid stretched to the width of a screen has almost
-// no curvature left, and stretching the drawing to fit meant the lashes
-// stretched with it, so what arrived on screen was a row of hatch marks. Three
-// rounds of adjusting the numbers did not fix that, because the shape was
-// wrong rather than the values.
+// The mistake in every earlier version was drawing an eye. There is nobody to
+// look at: the visitor has just put the glasses on, so they ARE the eye, and
+// what they should see is what you see when you blink - dark, then the world
+// arriving as your lids lift, twice.
 //
-// So: two eyes at a readable size, side by side, the way the two lenses just
-// were. Nothing is stretched - one viewBox, its own proportions kept - and the
-// blink is a single scaleY about each eye's own midline, which is what a lid
-// closing actually does to the shape of an eye.
+// So there is no illustration here at all. Two soft-edged dark masses, one from
+// the top and one from the bottom, meeting to make black and parting to let the
+// page through. The edges are heavily blurred because your own eyelids are
+// centimetres from your retina and never in focus, and a hard line would read
+// as a shutter rather than an eye.
+//
+// The fringe along the top stays a moment longer than the rest: lashes hang in
+// the top of your vision after the lid has lifted, out of focus and darkening
+// the very top of everything you see.
 
-const EYE = { w: 132, h: 86 };
-
-function Eye({ x }) {
-  // The almond, drawn as two arcs meeting at the corners.
-  const almond = `M6 43 Q66 -1 126 43 Q66 87 6 43 Z`;
-
-  // Lashes along the upper arc, longest in the middle, fanning outwards.
-  const lashes = [];
-  for (let i = 0; i < 7; i++) {
-    const t = (i + 0.5) / 7;
-    const u = 1 - t;
-    const px = u * u * 6 + 2 * u * t * 66 + t * t * 126;
-    const py = u * u * 43 + 2 * u * t * -1 + t * t * 43;
-    const fromCentre = Math.abs(t - 0.5) * 2;
-    const len = 17 - fromCentre * 7;
-    const lean = (t - 0.5) * 26;
-    lashes.push(<path key={i} d={`M${px.toFixed(1)} ${py.toFixed(1)} q${(lean * 0.3).toFixed(1)} ${(-len * 0.6).toFixed(1)} ${lean.toFixed(1)} ${(-len).toFixed(1)}`} />);
-  }
-
+function Blink() {
   return (
-    <g className="gate__eyeball" transform={`translate(${x} 0)`}>
-      {/* The eye flattens; the lashes do not. Scaling them with everything
-          else squashed them into a smear at the moment the eye was shut, which
-          is the one moment they should be most visible. They keep their length
-          and ride the lid down instead, on the same timing. */}
-      <g className="gate__shut">
-        <path className="gate__sclera" d={almond} />
-        <circle className="gate__iris" cx="66" cy="43" r="17" />
-        <circle className="gate__pupil" cx="66" cy="43" r="7" />
-        <circle className="gate__glint" cx="60" cy="37" r="3.5" />
-        <path className="gate__rim" d={almond} fill="none" />
-      </g>
-      <g className="gate__lash" fill="none" strokeLinecap="round">{lashes}</g>
-    </g>
-  );
-}
-
-function Lids() {
-  return (
-    <div className="gate__eye" aria-hidden="true">
-      <svg viewBox={`0 0 ${EYE.w * 2 + 40} ${EYE.h}`} aria-hidden="true" focusable="false">
-        <Eye x={0} />
-        <Eye x={EYE.w + 40} />
-      </svg>
+    <div className="gate__blink" aria-hidden="true">
+      <div className="gate__lid gate__lid--top" />
+      <div className="gate__lid gate__lid--bottom" />
+      <div className="gate__fringe" />
     </div>
   );
 }
@@ -182,7 +147,7 @@ export default function VisionGate() {
       ref={dialogRef}
       tabIndex={-1}
     >
-      {blinking && <Lids />}
+      {blinking && <Blink />}
 
       <div className="gate__stage">
         {/* A statement, not a question. Nothing here asks for consent: the

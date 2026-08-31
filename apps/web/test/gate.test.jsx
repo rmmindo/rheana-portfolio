@@ -65,20 +65,34 @@ describe('VisionGate', () => {
     expect(screen.getAllByRole('button')).toHaveLength(1);
   });
 
-  // Two slow blinks between the glasses and the page.
+  // Two slow blinks between the glasses and the page, seen from behind the
+  // eyes rather than looking at a pair of them.
   it('blinks after the glasses go on, and only then', async () => {
     vi.useFakeTimers();
     await act(async () => { render(<VisionGate />); });
-    expect(document.querySelector('.gate__eye')).toBeNull();
+    expect(document.querySelector('.gate__blink')).toBeNull();
 
     await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
-    // Still travelling; the eyes have not arrived yet.
-    expect(document.querySelector('.gate__eye')).toBeNull();
+    // Still travelling; the lids have not come down yet.
+    expect(document.querySelector('.gate__blink')).toBeNull();
 
     await act(async () => { vi.advanceTimersByTime(1300); });
-    expect(document.querySelector('.gate__eye')).not.toBeNull();
-    expect(document.querySelectorAll('.gate__eyeball')).toHaveLength(2);
-    expect(document.querySelectorAll('.gate__lash path').length).toBeGreaterThan(6);
+    expect(document.querySelector('.gate__blink')).not.toBeNull();
+    // An upper lid, a lower lid, and the lash fringe across the top.
+    expect(document.querySelectorAll('.gate__lid')).toHaveLength(2);
+    expect(document.querySelector('.gate__fringe')).not.toBeNull();
+    vi.useRealTimers();
+  });
+
+  // It draws nothing: the visitor is the eye, so there is no illustration of
+  // one. Earlier versions drew eyelids and then two whole eyes, and both were
+  // wrong for the same reason.
+  it('shows no picture of an eye', async () => {
+    vi.useFakeTimers();
+    await act(async () => { render(<VisionGate />); });
+    await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
+    await act(async () => { vi.advanceTimersByTime(1300); });
+    expect(document.querySelector('.gate__blink svg')).toBeNull();
     vi.useRealTimers();
   });
 
@@ -89,7 +103,7 @@ describe('VisionGate', () => {
     await act(async () => { render(<VisionGate />); });
     await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
     await act(async () => { vi.advanceTimersByTime(1300); });
-    expect(document.querySelector('.gate__eye').getAttribute('aria-hidden')).toBe('true');
+    expect(document.querySelector('.gate__blink').getAttribute('aria-hidden')).toBe('true');
     vi.useRealTimers();
   });
 
@@ -97,7 +111,7 @@ describe('VisionGate', () => {
     vi.useFakeTimers();
     await act(async () => { render(<VisionGate />); });
     await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
-    await act(async () => { vi.advanceTimersByTime(4000); });
+    await act(async () => { vi.advanceTimersByTime(5000); });
     expect(screen.queryByRole('dialog')).toBeNull();
     vi.useRealTimers();
   });
@@ -149,7 +163,7 @@ describe('VisionGate', () => {
     await act(async () => { render(<VisionGate />); });
     expect(document.documentElement.classList.contains('is-gated')).toBe(true);
     await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
-    await act(async () => { vi.advanceTimersByTime(4000); });
+    await act(async () => { vi.advanceTimersByTime(5000); });
     // The blur must not outlive the gate. Leaving this class behind would
     // leave the whole page unreadable, which on this site of all sites is the
     // worst thing that could stick.
