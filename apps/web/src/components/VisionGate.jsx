@@ -43,6 +43,10 @@ const WEAR_MS = 1250;
 // pair is not instant, and the eyes are the thing this whole screen is about.
 const BLINK_MS = 1900;
 
+// What it takes instead, for anyone who asked for no motion: long enough for
+// the blur to lift rather than snap, short enough that nothing travels.
+const CALM_MS = 320;
+
 // Two blinks, seen from behind the eyes.
 //
 // The mistake in every earlier version was drawing an eye. There is nobody to
@@ -80,16 +84,18 @@ export default function VisionGate() {
   const dialogRef = useRef(null);
   const timer = useRef(0);
 
+  // Everyone sees the gate. It used to be skipped entirely for anyone who
+  // asked for reduced motion, which meant a friend on a phone with Reduce
+  // Motion on - or a laptop in battery saver, which switches it on without
+  // telling you - simply never saw the first thing the site says.
+  //
+  // The setting is about MOVEMENT, not about content. So the statement and the
+  // glasses are there for everyone, and what those visitors do not get is the
+  // travel and the blinking: they press, and the page is simply clear. A fade
+  // is not the kind of motion the setting exists to prevent.
   useEffect(() => {
-    // Read the query directly: useReducedMotion resolves in its own effect and
-    // still reports false on the first pass, which would flash a blurred page
-    // at exactly the person who asked for no motion.
-    const prefersReduced =
-      typeof window !== 'undefined' &&
-      window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
-    if (prefersReduced) return;
     setOpen(true);
-  }, [reduced]);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -119,6 +125,18 @@ export default function VisionGate() {
     setWearing(true);
     // The blur clears on the page itself, so the class goes on <html>.
     document.documentElement.classList.add('is-clearing');
+    // Read the query at the moment of the press rather than trusting the hook,
+    // which resolves in its own effect and can still be reporting false.
+    const prefersReduced =
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+
+    if (prefersReduced) {
+      // No travel, no blink. Just gone, and the page is clear.
+      timer.current = setTimeout(() => setOpen(false), CALM_MS);
+      return;
+    }
+
     // The glasses reach your face, and then you blink twice, the way anyone
     // does settling into a new pair.
     timer.current = setTimeout(() => {

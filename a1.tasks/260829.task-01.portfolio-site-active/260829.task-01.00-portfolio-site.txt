@@ -94,6 +94,13 @@ R-15  The vision gate opens on EVERY visit, and has no skip button.
       It stores nothing about the visitor. The one exception stays:
       prefers-reduced-motion is an accessibility setting, so those visitors go
       straight to the page.
+      Shown to EVERYONE from 2026-08-31, including anyone who asked for reduced
+      motion. It used to be skipped for them entirely, so a visitor with Reduce
+      Motion on - or a laptop in battery saver, which switches it on without
+      saying so - never saw the first thing the site says. The setting is about
+      MOVEMENT, not content: they get the statement and the glasses, and what
+      they do not get is the travel and the blinking. Press, and the page is
+      clear in a third of a second.
       Skip removed 2026-08-31. What must never go is A way out: a modal that
       blurs the whole page and cannot be dismissed is a trap. Two remain -
       pressing the glasses, and Escape - and both are tested.

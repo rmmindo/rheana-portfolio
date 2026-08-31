@@ -132,8 +132,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-gated #root > *:not(.gate) { filter: none; transform: none; }
+  // The gate is shown to everyone; what these visitors do not get is movement.
+  // The page still blurs - that is the point being made, and a blur is not
+  // motion - but nothing floats, travels or blinks, and it clears with a fade.
   .gate__glasses svg { animation: none; }
+  .gate.is-wearing .gate__glasses svg { animation: none; transform: none; }
+  .gate.is-wearing { animation: gate-fade-calm 260ms linear forwards; }
+
+  @keyframes gate-fade-calm { to { opacity: 0; } }
+
+  .is-gated.is-clearing #root > *:not(.gate) { transition: filter 260ms linear; }
 }
 
 // --- The blink ------------------------------------------------------------//

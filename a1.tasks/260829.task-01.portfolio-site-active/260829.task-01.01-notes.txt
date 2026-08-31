@@ -300,3 +300,20 @@ M-09  Spent four rounds designing an eye before asking what the visitor is
       start; a first-person effect was never going to come out of drawing a
       face. Cheaper to establish the point of view than to keep adjusting the
       drawing.
+
+B-27  The gate was invisible to a whole class of visitor.
+      Rheana's friend never saw it. Not a fault: the gate refused to mount for
+      anyone with prefers-reduced-motion, which is more people than it sounds -
+      Reduce Motion on iOS, Remove animations on Android, Animation effects off
+      in Windows accessibility, and Windows battery saver, which turns it on
+      without telling anyone.
+      Ruled out the other explanations first rather than guessing: the live
+      bundle carries no trace of the old once-per-visitor check, and the HTML
+      is only cached for ten minutes, so neither stale code nor a stale page
+      could explain it. Reproduced it directly with the media query forced.
+      The fix is not to override the setting. It is to notice the setting is
+      about MOVEMENT: the statement, the glasses and the blur are content, and
+      only the travel and the blink are motion. Everyone gets the gate; those
+      visitors get it still.
+      Measured after: 3249ms to the page normally, 406ms with reduced motion.
+

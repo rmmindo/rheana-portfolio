@@ -31,23 +31,47 @@ describe('VisionGate', () => {
     expect(localStorage.length).toBe(0);
   });
 
-  // A blurred page and a floating object is exactly what someone who asked for
-  // reduced motion does not want. It should never mount for them at all.
-  it('never mounts under prefers-reduced-motion', async () => {
+  // It used to be skipped entirely for these visitors, which meant anyone with
+  // Reduce Motion on - or a laptop in battery saver, which turns it on without
+  // saying so - never saw the first thing the site says. The setting is about
+  // MOVEMENT, not about content: they get the gate, without the travel or the
+  // blink.
+  it('still opens for someone who asked for reduced motion', async () => {
     setReducedMotion(true);
     await act(async () => { render(<VisionGate />); });
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  it('gives them no blink and no travel', async () => {
+    setReducedMotion(true);
+    vi.useFakeTimers();
+    await act(async () => { render(<VisionGate />); });
+    await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
+    await act(async () => { vi.advanceTimersByTime(1500); });
+    expect(document.querySelector('.gate__blink')).toBeNull();
+    vi.useRealTimers();
+  });
+
+  it('gets them to the page quickly rather than holding them for three seconds', async () => {
+    setReducedMotion(true);
+    vi.useFakeTimers();
+    await act(async () => { render(<VisionGate />); });
+    await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
+    await act(async () => { vi.advanceTimersByTime(400); });
     expect(screen.queryByRole('dialog')).toBeNull();
+    vi.useRealTimers();
   });
 
   // Showing it every visit must not become showing it every visit to someone
   // who asked for no motion. That setting is an accessibility need, not a
   // preference to be overridden by a nice idea.
-  it('still never mounts under reduced motion, however many times it is opened', async () => {
+  it('opens every time for them too, and still stores nothing', async () => {
     setReducedMotion(true);
     for (let i = 0; i < 3; i++) {
       await act(async () => { render(<VisionGate />); });
-      expect(screen.queryByRole('dialog')).toBeNull();
+      expect(screen.getAllByRole('dialog').length).toBeGreaterThan(0);
     }
+    expect(localStorage.length).toBe(0);
   });
 
   // The skip button was removed on 2026-08-31. What must never go is a way
