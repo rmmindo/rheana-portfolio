@@ -1,0 +1,69 @@
+@use "../abstracts/variables" as v;
+
+.tools { padding-block: v.space(9); }
+
+.tools__heading {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.tools__lead {
+  margin-top: v.space(3);
+  margin-bottom: v.space(8);
+  color: var(--text-muted);
+  max-width: 46ch;
+}
+
+.tools__list { display: grid; gap: v.space(6); margin: 0; }
+
+.tools__group {
+  display: grid;
+  gap: v.space(3);
+  padding-bottom: v.space(5);
+  border-bottom: 1px solid var(--border);
+}
+
+@media (min-width: v.bp(md)) {
+  .tools__group { grid-template-columns: 12rem 1fr; gap: v.space(6); align-items: start; }
+}
+
+.tools__label {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: v.$step-0;
+  color: var(--ink-purple);
+}
+
+.tools__items { margin: 0; }
+
+// Chips, not a comma string. A reader scanning for one word can find it.
+.tools__items ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.space(2);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.tools__items li {
+  padding: v.space(1) v.space(3);
+  border-radius: v.$radius-pill;
+  border: 1px solid var(--border);
+  background: var(--paper-raised);
+  font-size: v.$step--1;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .js-reveal .tools__group {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity v.$dur-reveal v.$ease-out, transform v.$dur-reveal v.$ease-out;
+    transition-delay: calc(var(--i, 0) * 70ms);
+  }
+
+  .js-reveal .is-revealed .tools__group { opacity: 1; transform: none; }
+}

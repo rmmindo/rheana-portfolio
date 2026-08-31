@@ -18,6 +18,7 @@ import Skills from './sections/Skills.jsx';
 import HowIWork from './sections/HowIWork.jsx';
 import Roots from './sections/Roots.jsx';
 import WriteToMe from './sections/WriteToMe.jsx';
+import NextStep from './sections/NextStep.jsx';
 
 const byId = id => resume.sections.find(s => s.id === id);
 
@@ -39,7 +40,6 @@ function Page() {
   const activeIndex = NAV.findIndex(n => n.id === active);
 
   const education = byId('education');
-  const skills = byId('skills');
 
   return (
     <>
@@ -106,10 +106,11 @@ function Page() {
         <Work />
         <Plot />
         <Proof />
-        {skills && <Skills section={skills} />}
+        <Skills />
         <HowIWork />
         <Roots />
         <WriteToMe email={resume.profile.contact.find(c => c.label.includes('@'))?.label ?? ''} />
+        <NextStep />
       </main>
 
       <footer className="footer">

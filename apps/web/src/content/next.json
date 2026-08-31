@@ -1,0 +1,13 @@
+{
+  "note": "The long-form pitch, revealed on click at the end of the page. Written for the site: it names the reader's situation before it names anything Rheana does, and it ends by handing them back to the form. Original copy, not adapted from anywhere.",
+  "eyebrow": "The next step",
+  "heading": "The first version is the cheap one.",
+  "paragraphs": [
+    "Most teams I talk to are not short of ideas. They are short of a way to find out whether an idea is any good before it costs a quarter to discover otherwise. So the idea waits, and waiting is the only option with a guaranteed price.",
+    "AI has made that worse rather than better. Everything is suddenly possible, which means nothing is obviously next. The demos all work. The question of what would actually change a Tuesday afternoon in your business is left to you.",
+    "That question is where I start. Not with a specification and not with a stack, but with the smallest thing that would visibly help somebody on your team, built well enough to react to. You will know in weeks whether it was the right thing, and changing your mind will still be cheap.",
+    "From there it grows the way software should: short loops, real use, tested and documented as it goes, handed over so the next person can read it. I would rather leave you something you own than something that needs me.",
+    "You do not need to arrive with the answer. Bringing the problem is enough."
+  ],
+  "close": "Tell me what you are trying to build"
+}

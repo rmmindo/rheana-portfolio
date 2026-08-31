@@ -96,6 +96,12 @@ export default function WriteToMe({ email }) {
   return (
     <section className="write" id="write" aria-labelledby="write-heading" ref={ref}>
       <div className="section__inner">
+        {/* The hook asks the question; the letter beneath it is how you answer.
+            Putting a question above a half-written sentence is what turns a
+            form into a reply. */}
+        <p className="write__hook">{t('write.hook')}</p>
+        <p className="write__hook-sub">{t('write.hookSub')}</p>
+
         <form className="write__form" onSubmit={submit}>
           <h2 id="write-heading" className="write__greeting">{t('write.greeting')}</h2>
 

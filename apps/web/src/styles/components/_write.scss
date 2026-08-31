@@ -140,3 +140,22 @@
     50%      { opacity: 0.55; }
   }
 }
+
+// --- The hook ------------------------------------------------------------- //
+.write__hook {
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  max-width: 16ch;
+  margin-bottom: v.space(4);
+  text-wrap: balance;
+}
+
+.write__hook-sub {
+  font-size: v.$step-0;
+  color: var(--text-muted);
+  max-width: 44ch;
+  margin-bottom: v.space(8);
+}
