@@ -131,7 +131,8 @@ Sections
   D-23  Visitor counter and analytics via GoatCounter. No cookies, no card.
 
 ================================================================================
-4. NOT DONE                                        (audited 2026-08-31, evening)
+4. NOT DONE                                   (re-audited 2026-08-31, verified
+                                               against the code, not from memory)
 ================================================================================
 
 BLOCKED ON RHEANA (5)
@@ -139,49 +140,65 @@ BLOCKED ON RHEANA (5)
   N-01  GoatCounter account name. Everything is wired; one repo variable to set.
   N-02  An LLM key for the chatbot. Gemini or Groq free tier; no card needed.
   N-03  Google Search Console: verify the domain, submit the sitemap, request
-        indexing. The domain is three days old, which is why it does not rank.
+        indexing. The domain is days old, which is why it does not rank.
   N-04  19 or 20 developers on the ICS platform? The resume says 19 and the
         video says 20. The site currently shows 19.
   N-05  "city apps" in the video transcript is still unresolved.
 
 AGREED, NOT BUILT (6)
 
-  N-06  Mini playground for the remaining roles. PARTIAL: Baybayin is built and
-        now lives inside its own role panel. Still to do, and none of these
-        needs an API key:
-          Iosys      a dependency-cycle finder (Tarjan, the real algorithm)
-          Offshorly  paste notes, watch a dashboard lay itself out
+  N-06  Mini playground for the remaining roles. Two of four remain:
+          Baybayin   DONE, inside its own role panel
+          Iosys      DONE 2026-08-31, dependency-cycle finder, real Tarjan
+          Offshorly  DONE 2026-08-31, notes laid out as a dashboard
           Luxelips   a date-window demo showing the attribution bug
           Azeus      keyword search versus meaning search over the resume
-  N-07  Bias probe playground, from the undergraduate thesis.
+  N-07  Bias probe playground, from the undergraduate thesis. The thesis is
+        described in plot.json; nothing is interactive.
   N-08  AI chatbot. Blocked by N-02.
-  N-10  "Would you like to grow with me?" as the closing hook.
-  N-11  "The next step" long-form pitch, revealed on click.
-  N-14  Skills is the last section still using the old bullet layout.
-        DONE: Projects and Volunteering, both replaced by the Plot cards.
+  N-14  Skills is the last section still on the old layout: about seventy pill
+        chips in five rows, which is the wall of text R-02 exists to prevent.
+  N-19  NEW. No playground is AI-related yet, which is what was asked for on
+        2026-08-30 ("I want another playground that's more AI related").
+        Baybayin is template matching, Iosys is graph theory, and Offshorly
+        argues on purpose that no model is needed. Azeus (meaning search), the
+        bias probe and the chatbot would each answer this; none is built.
+  N-20  NEW. A call to action in every section, asked for on 2026-08-30. Only
+        NextStep links to the form. Work, Plot, Proof, Roots, Skills, HowIWork
+        and the video section end without one.
 
-CARRIED, NEEDS A DECISION (2)
+CARRIED, NEEDS A DECISION (3)
 
   N-15  Seasonal weather on hover in the timeline. MOOT AS WRITTEN: the season
-        system was removed on 2026-08-31. Ambient per-role motion is still
-        possible, but it would no longer mean anything, so it needs a new
-        reason to exist or it should be dropped.
+        system was removed on 2026-08-31. It needs a new reason to exist or it
+        should be dropped.
   N-18  Restraint plus colour, applied throughout. PARTIAL: applied to the
         hero, the timeline, the trust line, the Plot, Roots and How I Work.
         Skills and the video section have not been converted.
+  N-21  NEW. The hero's primary button opens a mail client, while the page
+        carries a form written for exactly that job. Sending it to the form
+        instead is a one-line change, but it is a decision about whether the
+        first ask should leave the site.
 
-COMPLETED SINCE THE FIRST AUDIT (6)
+COMPLETED SINCE THE LAST AUDIT (5)
 
   N-09  The Plot. Six claim cards replacing two bullet lists.        DONE
+  N-10  "Would you like to grow something with me?" as the closing
+        hook. Shipped in WriteToMe, above the form.                  DONE
+  N-11  "The next step" long-form pitch. Shipped as NextStep, a
+        details element so it costs nothing closed and stays in the
+        HTML for search.                                             DONE
   N-12  How I work, with the belief that opens it.                   DONE
-  N-13  Footer, privacy policy and site information, written for the
-        Philippine Data Privacy Act rather than adapted from German
-        statutes.                                                    DONE
+  N-13  Footer, privacy policy and site information.                 DONE
   N-16  Nav section indicator and reading progress bar.              DONE
   N-17  Offshorly and Azeus restated around ramp-up.                 DONE
-  --    Garden stage badges and season labels removed entirely.      DONE
-  --    Trust bar rebuilt as three sentences, one number each.       DONE
-  --    Baybayin folded into the role it proves.                     DONE
+
+SUPERSEDED, DELIBERATELY NOT BUILT (2)
+
+  --    "Simulate watching Rheana grow as a seed" (2026-08-30). Superseded by
+        the instruction on 2026-08-31 to remove the seed, harvest and season
+        language entirely.
+  --    Garden vine and stage badges. Removed the same day, same reason.
 
 ================================================================================
 5. OPEN QUESTIONS
