@@ -127,35 +127,57 @@ Sections
   D-23  Visitor counter and analytics via GoatCounter. No cookies, no card.
 
 ================================================================================
-4. NOT DONE
+4. NOT DONE                                        (audited 2026-08-31, evening)
 ================================================================================
 
-Blocked on Rheana
-  N-01  GoatCounter account name. Everything is wired; one repo variable to set.
-  N-02  Qwen or Gemini or Groq key for the chatbot.
-  N-03  Google Search Console: verify the domain, submit the sitemap, request
-        indexing. The domain is days old, which is why it does not rank yet.
-  N-04  Confirm 19 or 20 developers on the ICS platform. The resume says 19, the
-        video says 20.
-  N-05  "city apps" in the video transcript is unresolved.
+BLOCKED ON RHEANA (5)
 
-Agreed, not yet built
-  N-06  A mini playground per role, so each claim is demonstrated rather than
-        asserted. Baybayin exists and belongs inside the Baybayin role.
+  N-01  GoatCounter account name. Everything is wired; one repo variable to set.
+  N-02  An LLM key for the chatbot. Gemini or Groq free tier; no card needed.
+  N-03  Google Search Console: verify the domain, submit the sitemap, request
+        indexing. The domain is three days old, which is why it does not rank.
+  N-04  19 or 20 developers on the ICS platform? The resume says 19 and the
+        video says 20. The site currently shows 19.
+  N-05  "city apps" in the video transcript is still unresolved.
+
+AGREED, NOT BUILT (6)
+
+  N-06  Mini playground for the remaining roles. PARTIAL: Baybayin is built and
+        now lives inside its own role panel. Still to do, and none of these
+        needs an API key:
+          Iosys      a dependency-cycle finder (Tarjan, the real algorithm)
+          Offshorly  paste notes, watch a dashboard lay itself out
+          Luxelips   a date-window demo showing the attribution bug
+          Azeus      keyword search versus meaning search over the resume
   N-07  Bias probe playground, from the undergraduate thesis.
-  N-08  AI chatbot.
-  N-09  The Plot: volunteering, competitions and awards as cards.
+  N-08  AI chatbot. Blocked by N-02.
   N-10  "Would you like to grow with me?" as the closing hook.
   N-11  "The next step" long-form pitch, revealed on click.
-  N-12  How I work: the steps of working with her.
-  N-13  Philosophy: technology that is fun, a portfolio that makes you smile.
-  N-14  Footer, privacy policy and legal notice pages. Philippine Data Privacy
-        Act, not the German statutes the reference site cites.
-  N-15  Projects, Community and Skills still use the old bullet layout.
-  N-16  Seasonal weather on hover in the timeline: rain, falling leaves, snow.
-  N-17  Section indicator in the centre of the nav, and a scroll progress bar.
-  N-18  Restate the Offshorly problem. "36 minutes of clicking" is too specific;
-        the real client pain is closer to ramp-up time.
+  N-14  Skills is the last section still using the old bullet layout.
+        DONE: Projects and Volunteering, both replaced by the Plot cards.
+
+CARRIED, NEEDS A DECISION (2)
+
+  N-15  Seasonal weather on hover in the timeline. MOOT AS WRITTEN: the season
+        system was removed on 2026-08-31. Ambient per-role motion is still
+        possible, but it would no longer mean anything, so it needs a new
+        reason to exist or it should be dropped.
+  N-18  Restraint plus colour, applied throughout. PARTIAL: applied to the
+        hero, the timeline, the trust line, the Plot, Roots and How I Work.
+        Skills and the video section have not been converted.
+
+COMPLETED SINCE THE FIRST AUDIT (6)
+
+  N-09  The Plot. Six claim cards replacing two bullet lists.        DONE
+  N-12  How I work, with the belief that opens it.                   DONE
+  N-13  Footer, privacy policy and site information, written for the
+        Philippine Data Privacy Act rather than adapted from German
+        statutes.                                                    DONE
+  N-16  Nav section indicator and reading progress bar.              DONE
+  N-17  Offshorly and Azeus restated around ramp-up.                 DONE
+  --    Garden stage badges and season labels removed entirely.      DONE
+  --    Trust bar rebuilt as three sentences, one number each.       DONE
+  --    Baybayin folded into the role it proves.                     DONE
 
 ================================================================================
 5. OPEN QUESTIONS
