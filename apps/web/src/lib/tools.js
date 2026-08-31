@@ -59,6 +59,13 @@ const ALIASES = {
   k8s: 'kubernetes',
   ci: 'ci/cd',
   hf: 'hugging face',
+  huggingface: 'hugging face',
+  'hugging-face': 'hugging face',
+  sklearn: 'scikit-learn',
+  'scikit learn': 'scikit-learn',
+  ts: 'typescript',
+  gha: 'github actions',
+  'github action': 'github actions',
 };
 
 // An acronym on a CV is one line that means five tools. A reader expands it
@@ -125,4 +132,66 @@ export function searchTools(groups, query) {
     seen.add(key);
     return true;
   });
+}
+
+// --- What the tool list leaves out --------------------------------------- //
+//
+// The five lines of chips are the CV's compact summary, and a summary drops
+// things. BERT is not in them, on a resume whose research section is about
+// BERT. Neither is Redmine, which the Azeus chatbot was built over, nor
+// Elementor, nor the OpenAPI registry at Offshorly.
+//
+// Adding them all to the chips would turn the CV back into the wall this
+// section exists to replace. So the search falls through to the resume's own
+// prose instead: same single source, nothing added to it, and the answer can
+// say WHERE she used the thing rather than only that she did.
+//
+// A "no" that should have been a "yes" is the worst thing this box can do.
+
+const strip = t => String(t ?? '')
+  .replace(/<[^>]+>/g, '')
+  .replace(/&amp;/g, '&')
+  .replace(/&#x27;/g, "'")
+  .replace(/&quot;/g, '"');
+
+/** Every sentence of the resume, tagged with the work it belongs to. */
+export function mentionIndex(resume) {
+  const out = [];
+
+  for (const section of resume?.sections ?? []) {
+    for (const entry of section.entries ?? []) {
+      const where = strip(entry.org ?? section.title ?? '');
+      const texts = [strip(entry.context), ...(entry.bullets ?? []).map(b => strip(b.text))];
+      for (const text of texts) if (text) out.push({ where, text });
+    }
+  }
+
+  return out;
+}
+
+const escape = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/**
+ * Looks for a tool in the resume's prose.
+ *
+ * Whole words only: without that, "excel" matches "excellent" and the box
+ * starts claiming skills off the back of an adjective. Short queries are
+ * refused for the same reason - two letters inside a sentence prove nothing.
+ */
+export function searchMentions(index, query, limit = 3) {
+  const q = norm(query);
+  if (q.length < 3) return [];
+  const term = ALIASES[q] ?? q;
+  const pattern = new RegExp(`(^|[^a-z0-9])${escape(term)}([^a-z0-9]|$)`, 'i');
+
+  const found = [];
+  const seen = new Set();
+  for (const row of index) {
+    if (!pattern.test(row.text)) continue;
+    if (seen.has(row.where)) continue;
+    seen.add(row.where);
+    found.push(row);
+    if (found.length >= limit) break;
+  }
+  return found;
 }

@@ -18,7 +18,6 @@
     "hero.cta.primary": "Let's build something",
     "hero.cta.play": "Play with something I made",
     "hero.cta.cv": "Download CV",
-    "trust.heading": "Track record",
     "stat.prs": "merged pull requests",
     "stat.accuracy": "dead-code detection accuracy, up from 5%",
     "stat.speedup": "faster dashboard builds in production",
@@ -175,10 +174,6 @@
     "ask.failed": "The model could not load. The keyword column still works.",
     "ask.tooBig": "That file is larger than 200 KB. Try a smaller one.",
     "ask.note": "The same question, the same document, two ways of looking. Keyword search only finds what it literally contains, so a new hire who says \"time off\" never reaches the paragraph about annual leave, and goes to ask a person instead. That was the workflow the on-premise chatbot at Azeus replaced. The model runs in your browser, which is the same argument that project was built on: the data does not travel.",
-    "trust.companies": "companies have shipped my code",
-    "trust.recos": "recommendations, not one of them edited",
-    "trust.prs": "pull requests merged",
-    "trust.merged": "of everything I opened was accepted",
     "proof.readAll": "Read the whole thing",
     "proof.less": "Show less",
     "proof.pause": "Pause the recommendations",
@@ -195,7 +190,9 @@
     "probe.word": "Hidden word",
     "probe.gapCol": "Gap",
     "probe.note": "This is the probe from my thesis with the group term changed. Mask a word, swap one thing about the person, compare what the model predicts. If the model held no view, nothing would move. I built this method to measure religious bias across BERT, RoBERTa, DistilBERT, GPT-2 and T5-small; it is the same procedure here, on one of those five, running on your machine. Nothing you press is sent anywhere.",
-    "tools.partOf": "part of"
+    "tools.partOf": "part of",
+    "tools.usedOn": "I used it on",
+    "tools.notInList": "It is not in the tool list above, which is a summary rather than everything."
   },
   "fil": {
     "lang.name": "Filipino",
@@ -215,7 +212,6 @@
     "hero.cta.primary": "Gumawa tayo ng bago",
     "hero.cta.play": "Subukan ang ginawa ko",
     "hero.cta.cv": "I-download ang CV",
-    "trust.heading": "Talaan ng nagawa",
     "stat.prs": "na na-merge na pull request",
     "stat.accuracy": "katumpakan sa paghanap ng dead code, mula 5%",
     "stat.speedup": "na mas mabilis na paggawa ng dashboard sa produksyon",
@@ -372,10 +368,6 @@
     "ask.failed": "Hindi ma-load ang modelo. Gumagana pa rin ang hanay ng salita.",
     "ask.tooBig": "Mas malaki sa 200 KB ang file na iyon. Subukan ang mas maliit.",
     "ask.note": "Iisang tanong, iisang dokumento, dalawang paraan ng pagtingin. Ang paghahanap sa salita ay nakakakita lamang ng literal na nasa loob nito, kaya ang bagong empleyado na nagsabing \"time off\" ay hindi makakarating sa talata tungkol sa annual leave. Iyon ang pinalitan ng on-premise chatbot sa Azeus. Tumatakbo ang modelo sa browser mo, na siya ring dahilan ng proyektong iyon: hindi naglalakbay ang datos.",
-    "trust.companies": "kompanya ang naglunsad ng code ko",
-    "trust.recos": "rekomendasyon, walang isang binago",
-    "trust.prs": "pull request na na-merge",
-    "trust.merged": "ng lahat ng binuksan ko ay tinanggap",
     "proof.readAll": "Basahin ang buo",
     "proof.less": "Bawasan",
     "proof.pause": "Ihinto ang mga rekomendasyon",
@@ -392,6 +384,8 @@
     "probe.word": "Nakatagong salita",
     "probe.gapCol": "Agwat",
     "probe.note": "Ito ang probe mula sa tesis ko na pinalitan ang grupong sinusukat. Itago ang isang salita, palitan ang isang bagay tungkol sa tao, ihambing ang hula ng modelo. Kung walang paninindigan ang modelo, walang magbabago. Ginawa ko ang paraang ito para sukatin ang religious bias sa BERT, RoBERTa, DistilBERT, GPT-2 at T5-small; iisa ang paraan dito, sa isa sa limang iyon, tumatakbo sa makina mo. Walang ipinapadala kahit saan.",
-    "tools.partOf": "bahagi ng"
+    "tools.partOf": "bahagi ng",
+    "tools.usedOn": "Ginamit ko ito sa",
+    "tools.notInList": "Wala ito sa listahan sa itaas, na buod lamang at hindi lahat."
   }
 }

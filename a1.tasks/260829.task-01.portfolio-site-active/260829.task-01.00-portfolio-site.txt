@@ -130,7 +130,6 @@ Sections
         past, page comes into focus. Once per visitor, never under reduced
         motion, Escape closes, not in the prerendered HTML.
   D-15  Hero: "You bring the vision. / I'll bring it to life."
-  D-16  Trust bar with odometer digits that roll into place.
   D-17  Work: horizontal timeline of roles, one claim and one figure each,
         ARIA tabs pattern, detail behind a disclosure.
   D-18  Recommendations carousel, CSS scroll-snap, whole text per card.

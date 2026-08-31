@@ -10,7 +10,6 @@
   // --- Scroll reveal ------------------------------------------------------ //
   // Scoped to .js-reveal: see main.jsx. If JavaScript never runs, nothing is
   // hidden and the prerendered page reads normally.
-  .js-reveal .trust,
   .js-reveal .entry,
   .js-reveal .rec,
   .js-reveal .video__frame,
@@ -25,9 +24,9 @@
 
   // SPECIFICITY, not decoration.
   //
-  // The hidden rules above are `.js-reveal .trust` and friends: 0-2-0. A bare
+  // The hidden rules above are `.js-reveal .plot` and friends: 0-2-0. A bare
   // `.is-revealed` is 0-1-0, so it LOST, and any element that is itself the
-  // reveal target stayed at opacity 0 forever. That is what made the trust bar
+  // reveal target stayed at opacity 0 forever. That is what once made a whole
   // render as 380px of blank page. Elements like .entry were fine only because
   // `.is-revealed .entry` happens to also be 0-2-0.
   //
@@ -75,10 +74,6 @@
   }
 
   // --- Trust bar orgs ----------------------------------------------------- //
-  .is-revealed .trust__org {
-    animation: org-in 480ms v.$ease-out backwards;
-    animation-delay: calc(var(--i) * 60ms);
-  }
 
   @keyframes org-in {
     from { opacity: 0; transform: translateY(10px); }

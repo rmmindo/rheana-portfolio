@@ -1,6 +1,6 @@
 import { useId, useMemo, useState } from 'react';
 import resume from '../content/resume.json';
-import { toolGroups, countTools, searchTools } from '../lib/tools.js';
+import { toolGroups, countTools, searchTools, mentionIndex, searchMentions } from '../lib/tools.js';
 import { useReveal } from '../hooks/useReveal.js';
 import { useI18n } from '../hooks/useI18n.jsx';
 
@@ -32,6 +32,15 @@ export default function Skills() {
   const groups = useMemo(() => toolGroups(section), [section]);
   const total = useMemo(() => countTools(groups), [groups]);
   const hits = useMemo(() => searchTools(groups, query), [groups, query]);
+
+  // The chips are the CV's summary, and a summary drops things: BERT is not
+  // among them on a resume whose research is about BERT. When the chips have
+  // no answer, the resume's own prose gets asked before anyone is told no.
+  const index = useMemo(() => mentionIndex(resume), []);
+  const mentions = useMemo(
+    () => (hits.length ? [] : searchMentions(index, query)),
+    [hits.length, index, query]
+  );
 
   if (!groups.length) return null;
 
@@ -77,7 +86,15 @@ export default function Skills() {
             </span>
           )}
 
-          {asked && hits.length === 0 && (
+          {asked && hits.length === 0 && mentions.length > 0 && (
+            <span className="tools__hit">
+              {t('tools.yes')} {t('tools.usedOn')}{' '}
+              <strong>{mentions.map(m => m.where).join(', ')}</strong>.
+              <span className="tools__also">{t('tools.notInList')}</span>
+            </span>
+          )}
+
+          {asked && hits.length === 0 && mentions.length === 0 && (
             <span className="tools__miss">
               {t('tools.no')}{' '}
               <a className="tools__ask-link" href="#write">{t('tools.askAnyway')} &rarr;</a>

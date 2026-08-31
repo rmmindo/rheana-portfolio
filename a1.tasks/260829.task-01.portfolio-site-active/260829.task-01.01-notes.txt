@@ -217,3 +217,28 @@ D-02  The nav indicator on the hero.
       hero has left. What Rheana saw was the video being section 01. It is now
       section 03, so nothing reads as belonging to the hero.
 
+D-03  The trust bar was removed, not rebuilt a fourth time.
+      Rheana asked whether it was needed. It was not. The page already carries
+      twelve figures, each attached to a story - 4,062 compile errors, 78% of
+      payments missing, 61x faster, 756% budget growth - and the bar added four
+      more with none. It also contradicted the thing Rheana liked about the
+      reference site: not saying many many figures at once. And its own numbers
+      were the weak kind: 2,320 pull requests is volume rather than outcome,
+      96.5% needs domain knowledge to read, and 4 companies looks small beside
+      a timeline that names them. Three rebuilds in three days was the signal
+      that the element was wrong rather than badly executed. The hero now runs
+      straight into the work.
+
+B-23  The toolshed said no to things the resume proves she did.
+      Audited every technology named in the resume prose against what the
+      search could find. Missing: BERT, RoBERTa, DistilBERT and GPT-2, on a
+      resume whose research section is about them; Redmine, which the Azeus
+      chatbot was built over; Elementor; OpenAPI; Tkinter; NanoGPT. Also
+      "huggingface" typed without the space.
+      Two fixes. Spellings joined the alias list. And the search now falls
+      through to the resume's own prose when the chips have no answer, so it
+      replies "I used it on Azeus Systems" instead of "not on the list" - same
+      single source, nothing added to the CV, and the answer names the work.
+      Whole-word matching only: without it "excel" matches "excellent" and the
+      site starts claiming a skill off the back of an adjective.
+

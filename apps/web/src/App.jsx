@@ -9,7 +9,6 @@ import { SpeechProvider } from './components/SpeechProvider.jsx';
 import { I18nProvider, useI18n } from './hooks/useI18n.jsx';
 import { useActiveSection } from './hooks/useActiveSection.js';
 import Hero from './sections/Hero.jsx';
-import TrustBar from './sections/TrustBar.jsx';
 import VideoResume from './sections/VideoResume.jsx';
 import Work from './sections/Work.jsx';
 import Plot from './sections/Plot.jsx';
@@ -106,7 +105,6 @@ function Page() {
 
       <main id="main">
         <Hero profile={resume.profile} />
-        <TrustBar />
         <Work />
         <Plot />
         <VideoResume />
