@@ -34,7 +34,7 @@
   font-family: inherit;
   font-size: v.$step-0;
 
-  &::placeholder { color: var(--text-faint); }
+  &::placeholder { color: var(--text-muted); }
 }
 
 // The answer holds its height so the page does not jump as it changes.
@@ -54,7 +54,7 @@
   color: var(--ink-purple);
 }
 
-.tools__hit strong { color: var(--ink-teal); }
+.tools__hit strong { color: var(--ink-mint); }
 .tools__also { color: var(--text-muted); font-size: v.$step--1; display: block; }
 .tools__miss { color: var(--text-muted); }
 .tools__ask-link { color: var(--ink-purple); font-weight: v.$weight-bold; }

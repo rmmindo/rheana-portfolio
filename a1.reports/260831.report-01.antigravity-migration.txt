@@ -1,0 +1,468 @@
+Report ID: 260831.report-01
+Title:     Migration handover for Antigravity
+Date:      2026-08-31
+Repo:      https://github.com/rmmindo/rheana-portfolio (public)
+Live:      https://rheanamindo.me
+Task:      a1.tasks/260829.task-01.portfolio-site-active/
+
+================================================================================
+0. READ THIS FIRST
+================================================================================
+
+This document exists so a new tool or a new person can pick up rheanamindo.me
+without re-deriving the decisions already made. It is written to be read top to
+bottom once.
+
+Three things will cause damage if you get them wrong. They are, in order:
+
+  1. The recommendations are other people's words. Never edit them. Section 2,
+     rule R-01.
+  2. resume.json is GENERATED. Editing it by hand puts the site and the CV out
+     of step and the change is lost on the next sync. Section 4.
+  3. The site is not the CV. Adding detail to a section is usually the wrong
+     instinct here. Section 2, rule R-02.
+
+Everything else is recoverable.
+
+================================================================================
+1. WHAT THIS IS AND WHO IT IS FOR
+================================================================================
+
+A single-page portfolio whose job is to turn a stranger into a client for
+remote, asynchronous work. Not a nightshift job, not a role with time-tracking
+surveillance.
+
+Rheana Mindo is a full-stack AI developer. She is legally blind (850 myopia),
+which is why accessibility here is part of the work rather than a score to
+chase, and why the site opens by blurring itself.
+
+The visitor it is written for is a stranger with a problem, deciding in about
+ten seconds whether to keep reading. Every section answers "what is in this for
+me" before it answers "who is she".
+
+================================================================================
+2. STANDING RULES
+================================================================================
+
+These come from Rheana. They override any general preference, including a
+reasonable-sounding one. The full text with history is in
+a1.tasks/260829.task-01.portfolio-site-active/260829.task-01.00-portfolio-site.txt
+
+  R-01  Recommendations are VERBATIM.
+        Sixteen people wrote about her. Their words are never edited,
+        corrected, shortened, reordered or tidied. Not spelling, not grammar,
+        not pronouns. The cards shorten what is VISIBLE with a CSS clamp and a
+        button that opens the rest; the string itself is never cut, so every
+        word stays in the DOM and in the prerendered HTML.
+        This rule was broken once, on 2026-08-30, by "fixing" grammar. It was
+        restored the same day and five tests now guard it.
+        Guarded by: apps/web/test/proof.test.jsx
+
+  R-02  The website is not the CV.
+        One claim per section, one figure per claim. Everything else goes
+        behind a disclosure, which keeps it in the HTML for crawlers and off
+        the surface for readers. If you are adding a third sentence, stop.
+        Guarded by: apps/web/test/work.test.jsx
+
+  R-03  Speak to the client, not about herself.
+        Second person first, first person second. "You were paying for ads that
+        looked like they failed." then "They had not."
+
+  R-04  Every figure on the site must exist in the resume.
+        work.json chooses which claim leads. resume.json is the source of every
+        number. No figure is invented for the website.
+        Guarded by: apps/web/test/work.test.jsx
+
+  R-05  No decorative images. Shapes and colour only, drawn in SVG or CSS. The
+        only images on the site are the video, its poster, and the RM monogram.
+
+  R-06  No gingham, plaid or pattern grounds. Flat colour washes only.
+
+  R-07  English only for now. The i18n layer stays wired and the Filipino
+        strings stay maintained, but the language switcher is not shown.
+
+  R-08  Keep light, dark and auto themes. Keep text to speech.
+
+  R-09  Text-to-speech prefers a female Filipino voice, then female in the page
+        language, then any female. Intelligibility outranks the preference.
+        Guarded by: apps/web/test/pickVoice.test.js
+
+  R-10  ASCII where the character is a LETTER. "resume", not the accented
+        spelling. This covers what an assistant writes in chat as well as what
+        ships. Punctuation - dashes, middots, arrows - stays. The tilde in a
+        real place name stays, because removing it misspells the place.
+
+  R-11  Do not link 2weeks.me. Sensitive subject. luxelips.com.au may be
+        linked.
+
+  R-12  Never name Iosys internal repositories. The resume abstracts that work
+        to "a C# ML platform" and the site keeps that abstraction.
+
+  R-13  Commits are single-line, "type: description", lowercase, no
+        Co-Authored-By and no session trailer.
+
+  R-14  Motion is an invitation, not decoration. Everything animated respects
+        prefers-reduced-motion, and nothing hides content permanently.
+
+  R-15  The vision gate opens on EVERY visit and has no skip button. It stores
+        nothing about the visitor. It is shown to everyone INCLUDING people who
+        asked for reduced motion - that setting is about movement, not content,
+        so those visitors get the gate without the travel or the blink.
+        Guarded by: apps/web/test/gate.test.jsx
+
+================================================================================
+3. WHERE THINGS LIVE
+================================================================================
+
+rheana-portfolio/
+  a1.reports/          this file
+  a1.standards/        five standards files, copied from ray-of-productivity
+  a1.tasks/            the live task: rules, done list, not-done list, bug log
+  tools/
+    sync-content.mjs   raysume output -> the site. Refuses to sync a leak.
+    check-contrast.mjs 50 colour assertions. Gates the deploy.
+    shots.mjs          Playwright screenshots at three widths.
+    prepare-media.mjs  video poster and derivatives
+    make-captions.mjs  WebVTT from the transcript
+  apps/api/            Express reference implementation for the visitor
+                       counter. NOT DEPLOYED. Kept because it is tested and
+                       deployable if self-hosting is ever worth it.
+  apps/web/
+    index.html         carries the JSON-LD and the analytics snippet
+    scripts/prerender.mjs
+    public/            fonts, media, the CV pdf, robots.txt, sitemap.xml
+    src/
+      content/         ALL COPY AND DATA. See section 4.
+      sections/        one file per band of the page
+      components/      shared pieces
+      components/demos/ the six playgrounds
+      lib/             the logic the playgrounds run on, all unit tested
+      hooks/           useTheme, useI18n, useReveal, useSpeech, useActiveSection,
+                       useReducedMotion, useCountUp
+      styles/          abstracts, base, themes, components, main.scss
+
+The page order, top to bottom, is set in apps/web/src/App.jsx:
+
+  Hero -> Work (experience) -> Plot (beyond) -> VideoResume -> Proof
+  (recommendations) -> Skills -> HowIWork -> Roots -> WriteToMe -> NextStep
+
+There is no trust bar. It was removed on 2026-08-31 after three rebuilds: the
+page already carries twelve figures attached to stories, and a row of four more
+with no story contradicted R-02.
+
+================================================================================
+4. THE CONTENT PIPELINE - THE THING MOST LIKELY TO BE BROKEN
+================================================================================
+
+apps/web/src/content/resume.json IS GENERATED. Do not edit it.
+
+The chain:
+
+  ray-of-productivity/scripts/raysume/source/resume.source.yaml
+    |  python raysume.py build all
+    v
+  raysume/output/rheana-mindo-resume-web.json   (and Rheana_Mindo_CV.pdf)
+    |  node tools/sync-content.mjs
+    v
+  apps/web/src/content/resume.json  +  apps/web/public/rheana-mindo-cv.pdf
+
+To change a skill, a bullet, or a figure: edit the YAML, run the raysume build,
+run the sync, commit the result. The site and the downloadable CV then say the
+same thing, which is the entire point of doing it this way.
+
+sync-content.mjs refuses to run if the phone number or the city-level address
+appears in the output. That check exists because the cost of a leak on a public
+page is permanent.
+
+It also copies the CV pdf. It did not until 2026-08-31, and the downloadable CV
+had drifted three days behind the site as a result.
+
+The OTHER content files are hand written and are the site's own voice. They are
+the right place to change wording:
+
+  work.json            six roles: one claim, one figure, detail behind a
+                       disclosure, and which playground the role owns
+  plot.json            six cards for work that was not a job
+  roots.json           education, certifications, competitions, scholarships
+  recommendations.json sixteen recommendations. SEE R-01.
+  next.json            the long-form pitch behind the closing disclosure
+  transcript.json      the video transcript, with a list of unverified items
+  handbook.json        sample document for the Azeus playground (invented)
+  ledger.json          sample rows for the Luxe Lips playground (invented)
+  i18n/ui.json         every interface string, English and Filipino
+
+Rule of thumb: if it is a FACT it comes from resume.json. If it is a SENTENCE
+about that fact, it lives in one of the files above.
+
+================================================================================
+5. COMMANDS
+================================================================================
+
+From the repo root. Node v20.11.1, npm 10.2.4, npm workspaces.
+
+  npm install
+  npm run dev                  vite dev server
+  npm run build                build + SSR build + prerender
+  npm run preview              serve the built site (run from apps/web)
+  npm test                     vitest across the workspaces
+  npm run test:contrast        the 50 colour assertions
+
+  npx vitest run --root apps/web            all web tests
+  npx vitest run --root apps/web <pattern>  one file
+
+  node tools/sync-content.mjs               after any raysume change
+  node tools/shots.mjs <url> <outdir>       screenshots
+
+In ray-of-productivity/scripts/raysume:
+
+  python raysume.py build all
+  powershell -ExecutionPolicy Bypass -File tests/test-raysume.ps1
+
+Current state: 281 web tests, 98 raysume tests, 50 contrast assertions. All
+green as of 2026-08-31.
+
+IMPORTANT: run npm commands from the REPO ROOT. Running the build from
+apps/web/src silently does nothing and it is easy to then measure the old
+output and conclude the change did not work.
+
+================================================================================
+6. BUILD, DEPLOY AND THE GATES
+================================================================================
+
+The build is three steps, in apps/web/package.json:
+
+  vite build                                 the client bundle
+  vite build --ssr src/entry-server.jsx      a server bundle
+  node scripts/prerender.mjs                 renderToString into index.html
+
+The prerender is why Performance and SEO hold up. The largest text is delivered
+in the HTML rather than waiting on JavaScript, and a crawler sees the whole page
+including every panel that is visually hidden behind a tab or a disclosure.
+
+Consequence worth internalising: progressive disclosure on this site hides
+things from people in a hurry, NOT from search engines. Hidden panels stay in
+the markup. Do not "help" SEO by unhiding content.
+
+Deploy: .github/workflows/deploy-web.yml, on push to main, to GitHub Pages.
+The workflow runs, in order:
+
+  node tools/check-contrast.mjs      <- fails the deploy on a contrast
+                                        regression
+  npm run test --workspaces
+  npm run build --workspace apps/web
+
+VITE_GOATCOUNTER is a repository variable, currently "rheanamindo". It is
+substituted at build time, so changing it requires a rebuild, not just a save.
+
+Domain: rheanamindo.me, apex plus www, HTTPS enforced, CNAME committed.
+rmmindo.github.io redirects to it with noindex and a canonical.
+
+================================================================================
+7. DESIGN SYSTEM
+================================================================================
+
+The palette is TWO TIER and this is not a stylistic choice.
+
+Every one of the six brand pastels fails WCAG as text on white - measured
+between 1.21 and 3.35 against a requirement of 4.5. All six pass as surfaces
+with dark ink on them.
+
+  PASTELS ARE SURFACES AND DECORATION. NEVER TEXT.
+  TEXT USES THE DERIVED INK OF THE SAME HUE.
+
+Tokens are declared once in styles/abstracts/_variables.scss as SCSS maps and
+emitted as CSS custom properties: --surface-<hue> and --ink-<hue>, for powder,
+purple, pink, mint, red and yellow. Rebranding means editing the map.
+
+Themes resolve in this order, so a manual toggle wins in both directions:
+  :root light defaults
+  @media (prefers-color-scheme: dark) guarded as :root:not([data-theme="light"])
+  :root[data-theme="dark"]
+
+Type: Quicksand for headings, Atkinson Hyperlegible for body. Atkinson was drawn
+by the Braille Institute for low vision, which is the honest choice on this site
+and is said out loud in the footer. Both self-hosted, 63 kB total, no
+render-blocking font request.
+
+check-contrast.mjs asserts all of this. If you add a colour pairing, add an
+assertion.
+
+================================================================================
+8. WHAT IS BUILT
+================================================================================
+
+Vision gate. The page loads blurred. A pair of glasses arrives, and taking them
+clears it. Every visit, no skip, stores nothing. Reduced-motion visitors get the
+gate without the travel or the blink. After the glasses go on there are two
+slow blinks, seen FROM BEHIND THE EYES - the screen goes dark and the page
+arrives as the lids lift, twice, with a blurred lash fringe across the top.
+There is no drawing of an eye anywhere; four attempts at drawing one all failed
+for the same reason, which is that the visitor IS the eye.
+
+Sections. Hero, Experience (a tabbed timeline of six roles), Beyond (six cards),
+Video, Recommendations (one per view, advancing on their own, wrapping, with a
+read-more), Skills, How I Work, Roots, Write To Me, and the closing long read.
+Every section ends with one quiet line pointing at the form.
+
+Six playgrounds, each living inside the role it proves rather than in a
+separate section:
+
+  Baybayin   type to transliterate, or draw and have it recognised. 59
+             templates, no model.        lib/baybayin.js, lib/recognize.js
+  Iosys      a dependency-cycle finder running real Tarjan, iterative so a
+             deep graph cannot blow the stack.              lib/tarjan.js
+  Offshorly  paste notes, watch a dashboard lay itself out. Deterministic on
+             purpose, and the copy says why.                lib/dashboard.js
+  Luxe Lips  drag a reporting window and watch real payments vanish from the
+             report. The attribution bug, playable.         lib/attribution.js
+  Azeus      keyword search against meaning search over a document the visitor
+             can supply. Runs a real embedding model in the browser; the file
+             never leaves the tab.               lib/passages.js, lib/models.js
+  Thesis     the bias probe from the undergraduate research: mask a word, swap
+             the pronoun, compare what the model predicts. Same method as the
+             thesis, real model output.          lib/probe.js, lib/models.js
+
+The two model-backed playgrounds load from a CDN ONLY when a visitor presses a
+button - 23 MB for the embedding model, 68 MB for the fill-mask model. Someone
+scrolling past pays nothing. Both go through withPipeline() in lib/models.js;
+see the trap in section 10.
+
+Visitor counting: GoatCounter, account "rheanamindo". No cookies, no personal
+data, no card. The count renders in the footer only when it is above zero, and
+that public endpoint is cached up to four hours. The live dashboard is at
+https://rheanamindo.goatcounter.com
+
+================================================================================
+9. WHAT IS NOT DONE
+================================================================================
+
+Blocked on Rheana:
+
+  N-02  An LLM key for the chatbot, as repo secret LLM_API_KEY, plus which
+        provider. Gemini or Groq free tier; no card needed.
+  N-03  Google Search Console: verify the domain, submit the sitemap, request
+        indexing. The domain is days old, which is why it does not rank. The
+        on-page SEO measures 100.
+  N-04  Nineteen or twenty developers on the ICS platform? The resume says 19,
+        the video says 20, the site shows 19.
+  N-05  "city apps" in the video transcript is unresolved.
+
+Agreed, not built:
+
+  N-08  The AI chatbot. Blocked by N-02. apps/api is the reference
+        implementation; a Cloudflare Worker was the plan.
+
+Needs a decision:
+
+  N-15  Seasonal weather on hover in the timeline. Moot: the season system was
+        removed. Recommend dropping it.
+  N-18  Restraint plus colour is applied everywhere except the video section.
+
+One number worth watching: the gate now takes about 3.1 seconds before the page
+appears, on every visit. Nobody has complained yet. Reduced-motion visitors take
+0.4 seconds.
+
+================================================================================
+10. TRAPS THAT HAVE ALREADY COST TIME
+================================================================================
+
+The full log is in the task notes as B-01 to B-27. These are the ones likely to
+bite again.
+
+Two calls at once corrupt a transformers.js pipeline.
+  A pipeline holds one inference session. Promise.all([unmask(a), unmask(b)])
+  fails with "Cannot read properties of null (reading '3')" while the same two
+  calls awaited in sequence are fine. Everything must go through withPipeline()
+  in lib/models.js, which queues per pipeline.
+
+IntersectionObserver thresholds are a fraction of the OBSERVED element.
+  A threshold of 0.15 on a section several screens tall on a phone can never
+  fire. Reveal animations use threshold 0 plus a three second failsafe.
+
+Reveal specificity.
+  ".js-reveal .thing" is 0-2-0 and beats ".is-revealed" at 0-1-0. Getting this
+  wrong leaves a whole section at opacity 0 forever, which is how the trust bar
+  once became 380px of blank page.
+
+Do not remove an element on hover.
+  The recommendation carousel unmounted its dwell timer when it paused, which
+  removed 22px of height and shifted the card upward, so the mousedown and the
+  mouseup landed on different elements and the read-more button did nothing.
+  Toggle visibility; never change the space something occupies under a pointer.
+
+A grid item cannot be a -webkit-box.
+  display is blockified for grid and flex items, so -webkit-line-clamp is
+  silently ignored. The clamp needs its own non-item wrapper.
+
+A var() with no fallback and no definition fails in silence.
+  Three rules pointed at --ink-teal, a hue that has never existed in this
+  palette, and two more at --text-faint. Neither failed: an undefined custom
+  property makes the whole declaration invalid at computed-value time, so the
+  colour quietly inherits and the page looks nearly right. Both were introduced
+  by a search and replace that turned var(--ink-teal, var(--ink-purple)) into
+  var(--ink-teal) - it read the first argument and threw away the fallback that
+  was doing the work. apps/web/test/custom-properties.test.js now fails the
+  build if any var() names a property nothing defines.
+
+Regexes and structured text.
+  A pattern written to delete ".gate__skip { }" also matched ".gate.is-wearing
+  .gate__skip {" and destroyed a second rule, leaving Sass to fail with
+  "expected selector". Edit CSS and JSX by hand or with exact strings.
+
+Comma parsing.
+  A comma is a thousands separator only when three digits follow it, or
+  "1,2,3" parses as 123 and a series is read as a single measurement.
+
+Match whole words when searching prose.
+  "excel" matches "excellent". The toolshed would start claiming skills off the
+  back of adjectives.
+
+Trailing punctuation in a tokeniser.
+  "merge." does not match "merge" if the pattern allows a trailing dot so that
+  "node.js" survives. Strip trailing punctuation, keep internal.
+
+Build from the repo root.
+  npm run build from a subdirectory does nothing and the next measurement will
+  describe the previous build.
+
+Heredocs mangle backslashes.
+  Writing JS or JSX through a shell heredoc has corrupted \\n escapes and regex
+  character classes more than once in this project. Use a file-writing tool.
+
+================================================================================
+11. BEFORE YOU SHIP
+================================================================================
+
+  1. npm test                                 281 tests, all green
+  2. npm run test:contrast                    50/50
+  3. npm run build                            prerender step must print
+  4. Look at it. Screenshot the section you changed at 1280 and at 390 and
+     open the image. Three separate design problems in this project survived
+     several rounds of reasoning and died the moment somebody looked at a
+     picture.
+  5. If you touched anything animated, check it with reduced motion forced.
+  6. If you touched the resume, rebuild raysume, run the sync, and confirm the
+     CV pdf changed too.
+  7. Commit as one line: "type: description", lowercase, no trailers.
+  8. Push. The workflow gates on contrast and tests before it deploys.
+
+================================================================================
+12. CONVENTIONS
+================================================================================
+
+Documentation, tasks, reports and standards are .txt. Never .md. README.txt in
+the repo root, no README.md. There is one CLAUDE.md and it lives at
+C:\\Users\\Ray\\CLAUDE.md, not inside any repo.
+
+If Antigravity requires a file at a fixed path or with a fixed extension in
+order to read project instructions, that is a deviation from the file-format
+standard and Rheana should approve it before it is added. This document is the
+content it would need.
+
+Task folders are yymmdd.task-NN.description-status with status one of
+-pending, -active, -done. Each holds a .00 requirements file, a .01 notes file
+and a .log.
+
+Writing style, from a1.standards/language.standards.txt: specific and concrete,
+every pronoun with a clear antecedent, no abstract qualifiers, files and
+functions referred to by their exact names.

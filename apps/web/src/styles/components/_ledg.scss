@@ -40,7 +40,7 @@
 }
 
 .ledg__col--bug { border-color: var(--ink-pink); }
-.ledg__col--fix { border-color: var(--ink-teal); }
+.ledg__col--fix { border-color: var(--ink-mint); }
 
 .ledg__num {
   margin-top: v.space(2);
@@ -52,7 +52,7 @@
 }
 
 .ledg__col--bug .ledg__num { color: var(--ink-pink); }
-.ledg__col--fix .ledg__num { color: var(--ink-teal); }
+.ledg__col--fix .ledg__num { color: var(--ink-mint); }
 .ledg__sub { font-size: v.$step--1; color: var(--text-muted); }
 
 // The table scrolls inside itself rather than pushing the page sideways.
@@ -82,7 +82,7 @@
 .ledg__table tr.is-missed td { color: var(--ink-pink); }
 .ledg__table tr.is-early td { color: var(--ink-yellow); }
 .ledg__table tr.is-out,
-.ledg__table tr.is-test { color: var(--text-faint); }
+.ledg__table tr.is-test { color: var(--text-muted); }
 
 @media (max-width: 30rem) {
   .ledg__cols { grid-template-columns: 1fr; }

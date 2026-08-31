@@ -317,3 +317,25 @@ B-27  The gate was invisible to a whole class of visitor.
       visitors get it still.
       Measured after: 3249ms to the page normally, 406ms with reduced motion.
 
+B-28  Five rules pointed at colours that do not exist.
+      Found while fact-checking the migration document, not by looking at the
+      site: --ink-teal in three places and --text-faint in two. Neither name
+      has ever been defined in this palette. Nothing failed, because an
+      undefined custom property invalidates the declaration at computed-value
+      time and the colour simply inherits - the page looked nearly right.
+      Both came from the same mistake. The rules originally read
+      var(--ink-teal, var(--ink-purple)), which worked, and a search and
+      replace rewrote them to var(--ink-teal), reading the first argument and
+      discarding the fallback that was carrying them.
+      Fixed to --ink-mint, which is the teal in this palette, and to
+      --text-muted, which is defined and clears contrast where --text-faint
+      would not have. A faint placeholder is an accessibility fault rather than
+      a style choice, so the muted token is also the better answer.
+      apps/web/test/custom-properties.test.js now fails if any var() names a
+      property nothing defines, with the seven properties PetalBurst.jsx sets
+      at runtime listed explicitly rather than the check loosened.
+
+M-10  The contrast suite passed throughout. It asserts the pairings it is told
+      about; it cannot know about a colour that was never defined. Fifty green
+      assertions are not the same as a page whose colours all resolve.
+
