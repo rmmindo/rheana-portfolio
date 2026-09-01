@@ -7,10 +7,45 @@
   position: relative;
   overflow: hidden;
   padding-block: v.space(8) v.space(9);
-  background:
-    radial-gradient(60rem 30rem at 12% -10%, var(--surface-powder) 0%, transparent 60%),
-    radial-gradient(46rem 26rem at 92% 6%, var(--surface-pink) 0%, transparent 62%),
-    radial-gradient(38rem 24rem at 60% 40%, var(--surface-mint) 0%, transparent 70%);
+  background: transparent;
+}
+
+.hero__ambient {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero__aurora {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  animation: aurora-drift 15s infinite ease-in-out alternate;
+}
+
+.hero__aurora--1 {
+  width: 60rem;
+  height: 60rem;
+  background: rgba(160, 207, 236, 0.3); // Powder Blue
+  top: -10%;
+  left: 10%;
+}
+
+.hero__aurora--2 {
+  width: 50rem;
+  height: 50rem;
+  background: rgba(255, 160, 226, 0.3); // Pink
+  bottom: -20%;
+  right: 5%;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes aurora-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(5%, 5%) scale(1.05); }
+  100% { transform: translate(-5%, -5%) scale(0.95); }
 }
 
 .hero__inner {
@@ -91,3 +126,88 @@
       radial-gradient(30rem 18rem at 52% 96%, color-mix(in srgb, var(--glow-mint) 12%, transparent) 0%, transparent 70%);
   }
 }
+
+.hero__sub {
+  font-size: v.$step-1;
+  color: var(--text-muted);
+  max-width: 45ch;
+  margin-block: v.space(5) v.space(6);
+  line-height: 1.5;
+}
+
+.hero__wobble {
+  display: inline-block;
+  animation: wobble 400ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes wobble {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-4px); }
+  30% { transform: translateX(3px); }
+  45% { transform: translateX(-3px); }
+  60% { transform: translateX(2px); }
+  75% { transform: translateX(-1px); }
+}
+
+.hero__typing {
+  display: inline-block;
+  padding: 0 4px;
+  border-radius: 4px;
+  transition: background-color 300ms ease-out;
+}
+.hero__typing.is-highlighted {
+  background-color: rgba(200, 241, 243, 0.4); // Mint green soft highlight
+  color: var(--text);
+  font-weight: v.$weight-bold;
+}
+.hero__cursor {
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.hero__prompt {
+  display: flex;
+  align-items: center;
+  background: var(--paper-raised);
+  border-radius: v.$radius-pill;
+  padding: v.space(2) v.space(2) v.space(2) v.space(4);
+  box-shadow: 0 4px 15px rgba(172, 138, 234, 0.15); // soft dopamine drop-shadow
+  border: 2px solid transparent;
+  transition: all 300ms ease-out;
+  margin-bottom: v.space(4);
+}
+.hero__prompt:focus-within {
+  border-color: var(--brand-purple, #AC8AEA);
+  box-shadow: 0 6px 20px rgba(172, 138, 234, 0.25);
+}
+.hero__prompt-input {
+  border: none;
+  background: transparent;
+  font-size: v.$step-0;
+  color: var(--text);
+  outline: none;
+  width: 280px;
+}
+.hero__prompt-input::placeholder {
+  color: var(--text-muted);
+}
+.hero__prompt-submit {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--brand-powder, #A0CFEC);
+  color: var(--ink-strong);
+  border: none;
+  cursor: pointer;
+  transition: transform 200ms ease;
+}
+.hero__prompt-submit:hover,
+.hero__prompt-submit:focus-visible {
+  transform: scale(1.05);
+}
+

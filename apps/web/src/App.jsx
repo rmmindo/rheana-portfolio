@@ -5,7 +5,8 @@ import ReadingProgress from './components/ReadingProgress.jsx';
 import VisionGate from './components/VisionGate.jsx';
 import VisitorCount from './components/VisitorCount.jsx';
 import Petal from './components/Petal.jsx';
-import { SpeechProvider } from './components/SpeechProvider.jsx';
+import { SpeechProvider, SpeakButton } from './components/SpeechProvider.jsx';
+import LangToggle from './components/LangToggle.jsx';
 import { I18nProvider, useI18n } from './hooks/useI18n.jsx';
 import { useActiveSection } from './hooks/useActiveSection.js';
 import Hero from './sections/Hero.jsx';
@@ -54,18 +55,10 @@ function Page() {
 
       <header className="topbar">
         <a className="topbar__brand" href="#main">
-          <Petal size={26} />
-          {/* The real monogram, not the letters R and M set in a body font.
-              alt is empty because the adjacent visually-hidden text already
-              names the link, and a screen reader should hear it once. */}
-          <img className="topbar__logo" src="/img/rheana-mindo-rm-monogram-96.webp"
-               alt="" width="36" height="36" />
-          <span className="visually-hidden">{t('home')}</span>
+          <Petal size={26} className="topbar__petal" />
+          <span className="topbar__brand-name">Rheana Mindo</span>
         </a>
 
-        {/* The centre of the bar names where you are, the way a chapter header
-            does. It replaces nothing: the links are still here, and on a narrow
-            screen the indicator is what survives when they scroll away. */}
         <p className="topbar__where" aria-hidden="true">
           {activeIndex >= 0 && (
             <>
@@ -84,8 +77,6 @@ function Page() {
                 <a
                   href={`#${item.id}`}
                   className={`topbar__link${active === item.id ? ' is-current' : ''}`}
-                  // aria-current tells a screen reader which section is in view,
-                  // so the highlight is not purely visual.
                   aria-current={active === item.id ? 'true' : undefined}
                 >
                   {t(item.key)}
@@ -95,10 +86,16 @@ function Page() {
           </ul>
         </nav>
 
-        {/* A separate group with its own divider. Display controls are a
-            different kind of thing from navigation, and sitting them flush
-            against the links made them read as more nav items. */}
         <div className="topbar__controls" role="group" aria-label={t('nav.controls')}>
+          <LangToggle />
+          <a className="topbar__cv-btn" href="/rheana-mindo-cv.pdf" download>
+            Download CV
+          </a>
+          <SpeakButton 
+            targetRef={{ get current() { return document.getElementById(active || 'main'); } }} 
+            id={active || 'main'} 
+            label="this section" 
+          />
           <ThemeToggle />
         </div>
       </header>

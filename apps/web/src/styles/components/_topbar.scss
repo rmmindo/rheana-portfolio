@@ -232,3 +232,35 @@
     font-weight: v.$weight-bold;
   }
 }
+
+.topbar__brand-name {
+  color: var(--text);
+  font-size: 1.125rem;
+}
+
+.topbar__petal {
+  transition: transform 300ms ease-out;
+}
+
+.topbar__brand:hover .topbar__petal {
+  transform: rotate(15deg) scale(1.1);
+}
+
+.topbar__cv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: v.space(2) v.space(4);
+  border-radius: v.$radius-pill;
+  border: 2px solid var(--brand-powder);
+  background: transparent;
+  color: var(--text);
+  text-decoration: none;
+  font-size: v.$step--1;
+  font-weight: v.$weight-bold;
+  transition: background-color 300ms ease-out;
+}
+.topbar__cv-btn:hover {
+  background: color-mix(in srgb, var(--brand-powder) 20%, transparent);
+}
+

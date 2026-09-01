@@ -1,24 +1,72 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { SpeakButton } from '../components/SpeechProvider.jsx';
 import { useI18n } from '../hooks/useI18n.jsx';
+import { useReducedMotion } from '../hooks/useReducedMotion.js';
 
-// The hero.
-//
-// One idea, at size. The resume summary used to live here - six lines of
-// metrics nobody reads standing up - and it has gone. Those numbers are in the
-// trust bar directly below, where a number belongs, and in the CV for anyone
-// who wants all of them.
-//
-// The headline is the payoff of the gate: you put the glasses on, the page
-// comes into focus, and this is what it says.
+function TypingEffect() {
+  const [text, setText] = useState('');
+  const [highlight, setHighlight] = useState(false);
+  const reduced = useReducedMotion();
+
+  useEffect(() => {
+    if (reduced) {
+      setText('self-learning');
+      setHighlight(true);
+      return;
+    }
+
+    let isCancelled = false;
+    
+    async function animate() {
+      const wait = ms => new Promise(r => setTimeout(r, ms));
+      const type = async (str, speed = 60) => {
+        for (let i = 1; i <= str.length; i++) {
+          if (isCancelled) return;
+          setText(str.slice(0, i));
+          await wait(speed);
+        }
+      };
+      
+      await wait(800);
+      await type('static');
+      await wait(400);
+      
+      let current = 'static';
+      for (let i = current.length; i >= 0; i--) {
+        if (isCancelled) return;
+        setText(current.slice(0, i));
+        await wait(30);
+      }
+      
+      await wait(100);
+      await type('self-learning');
+      if (isCancelled) return;
+      setHighlight(true);
+    }
+    
+    animate();
+    return () => { isCancelled = true; };
+  }, [reduced]);
+
+  return (
+    <span className={`hero__typing ${highlight ? 'is-highlighted' : ''}`}>
+      {text}
+      <span className="hero__cursor" aria-hidden="true">|</span>
+    </span>
+  );
+}
 
 export default function Hero({ profile }) {
   const introRef = useRef(null);
   const { t } = useI18n();
-  const email = profile.contact.find(c => c.label.includes('@'));
 
   return (
     <section className="hero" aria-labelledby="hero-heading">
+      <div className="hero__ambient" aria-hidden="true">
+        <div className="hero__aurora hero__aurora--1" />
+        <div className="hero__aurora hero__aurora--2" />
+      </div>
+      
       <div className="hero__inner" ref={introRef}>
         <p className="hero__role">{t('hero.role')}</p>
 
@@ -27,18 +75,28 @@ export default function Hero({ profile }) {
           <span className="hero__line-b">{t('hero.line2')}</span>
         </h1>
 
-        {/* Said once, afterwards. Explaining the blur before it happens would
-            turn a thing you feel into a caption you skim. */}
-        <p className="hero__aside">{t('hero.aside')}</p>
+        <p className="hero__sub">
+          Bring the concept and I'll write the clean, <span className="hero__wobble">robust</span>, and <TypingEffect /> code that brings it to life.
+        </p>
 
         <div className="hero__actions">
-          <a className="btn btn--primary btn--lg" href="#write">
-            {t('hero.cta.primary')}
-          </a>
-          <a className="btn btn--quiet btn--lg" href="/rheana-mindo-cv.pdf" download>
-            {t('hero.cta.cv')}
-          </a>
-          <SpeakButton targetRef={introRef} id="hero" label={t('speak.intro')} />
+          <form className="hero__prompt" onSubmit={e => e.preventDefault()}>
+            <input 
+              type="text" 
+              className="hero__prompt-input" 
+              placeholder="Hallo Rheana..." 
+              aria-label="Ask the AI assistant a question"
+            />
+            <button type="submit" className="hero__prompt-submit" aria-label="Submit">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </form>
+          {/* We keep the secondary CTA if desired, or just replace the primary.
+              The prompt says "Replace the primary CTA button with an interactive AI text input field."
+              So we removed the primary CTA, but can keep the SpeakButton here. */}
         </div>
       </div>
     </section>
