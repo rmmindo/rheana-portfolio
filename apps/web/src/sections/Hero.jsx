@@ -27,7 +27,7 @@ function TypingEffect() {
         }
       };
       
-      await wait(800);
+      await wait(2800);
       await type('static');
       await wait(400);
       
@@ -68,11 +68,9 @@ export default function Hero({ profile }) {
       </div>
       
       <div className="hero__inner" ref={introRef}>
-        <p className="hero__role">{t('hero.role')}</p>
-
         <h1 id="hero-heading" className="hero__line">
-          <span className="hero__line-a">{t('hero.line')}</span>
-          <span className="hero__line-b">{t('hero.line2')}</span>
+          Your product vision,<br />
+          <span style={{ whiteSpace: 'nowrap' }}>engineered with precision.</span>
         </h1>
 
         <p className="hero__sub">

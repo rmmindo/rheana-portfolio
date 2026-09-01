@@ -163,42 +163,7 @@
   .topbar__controls { padding-left: v.space(5); margin-left: v.space(2); }
 }
 
-.theme-toggle,
-.lang-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: v.space(2);
-  min-height: 44px;
-  padding: v.space(2) v.space(3);
-  border-radius: v.$radius-pill;
-  border: 2px solid var(--border-strong);
-  background: var(--paper-raised);
-  color: var(--text);
-  font-size: v.$step--1;
-  cursor: pointer;
-  transition: transform v.$dur-fast v.$ease-spring;
-}
 
-.theme-toggle { gap: v.space(2); }
-.lang-toggle { min-width: 48px; }
-
-.theme-toggle:hover,
-.lang-toggle:hover { transform: translateY(-2px); }
-
-.lang-toggle__code {
-  font-family: v.$font-heading;
-  font-weight: v.$weight-bold;
-  letter-spacing: 0.06em;
-  color: var(--ink-purple);
-}
-
-// The word next to the theme glyph costs width a phone does not have.
-.theme-toggle__text { display: none; }
-
-@media (min-width: v.bp(lg)) {
-  .theme-toggle__text { display: inline; }
-}
 
 // --- Where you are --------------------------------------------------------//
 // Hidden on narrow screens, where the nav row itself is visible and the space
@@ -262,5 +227,33 @@
 }
 .topbar__cv-btn:hover {
   background: color-mix(in srgb, var(--brand-powder) 20%, transparent);
+}
+
+
+.topbar__tools {
+  display: flex;
+  align-items: center;
+  gap: v.space(2);
+}
+
+.topbar-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color 300ms ease-out, transform 300ms ease-out;
+}
+
+.topbar-icon-btn:hover,
+.topbar-icon-btn:focus-visible {
+  background-color: var(--brand-powder, #A0CFEC);
+  color: var(--ink-strong);
+  transform: scale(1.05);
 }
 

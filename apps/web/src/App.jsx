@@ -87,16 +87,18 @@ function Page() {
         </nav>
 
         <div className="topbar__controls" role="group" aria-label={t('nav.controls')}>
-          <LangToggle />
           <a className="topbar__cv-btn" href="/rheana-mindo-cv.pdf" download>
             Download CV
           </a>
-          <SpeakButton 
-            targetRef={{ get current() { return document.getElementById(active || 'main'); } }} 
-            id={active || 'main'} 
-            label="this section" 
-          />
-          <ThemeToggle />
+          <div className="topbar__tools">
+            <LangToggle />
+            <SpeakButton 
+              targetRef={{ get current() { return document.getElementById(active || 'main'); } }} 
+              id={active || 'main'} 
+              label="this section" 
+            />
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
