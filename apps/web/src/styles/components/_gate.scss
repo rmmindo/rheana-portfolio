@@ -158,8 +158,8 @@
   }
 
   @keyframes gate-float {
-    from { translate: 0 -5px; }
-    to   { translate: 0 5px; }
+    from { transform: translateY(-8px); }
+    to   { transform: translateY(8px); }
   }
 
   .gate__glasses:hover img,
@@ -209,8 +209,8 @@
 .gate__glasses-hint {
   position: absolute;
   bottom: -32px;
-  background: var(--brand-yellow, #FFD788);
-  color: #111;
+  background: var(--brand-powder, #A0CFEC);
+  color: #FFFFFF;
   padding: 4px 12px;
   border-radius: 99px;
   font-family: v.$font-heading;
@@ -220,11 +220,11 @@
   transform: translateY(10px);
   pointer-events: none;
   transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(160, 207, 236, 0.4);
   white-space: nowrap;
 }
 
-.gate__glasses-hint::after {
+.gate__glasses-hint::before {
   content: "";
   position: absolute;
   top: -6px;
@@ -232,7 +232,7 @@
   transform: translateX(-50%);
   border-width: 0 6px 6px 6px;
   border-style: solid;
-  border-color: transparent transparent var(--brand-yellow, #FFD788) transparent;
+  border-color: transparent transparent var(--brand-powder, #A0CFEC) transparent;
 }
 
 .gate__glasses:hover .gate__glasses-hint,
