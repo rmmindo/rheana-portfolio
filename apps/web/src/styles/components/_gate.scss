@@ -208,8 +208,8 @@
 
 .gate__glasses-hint {
   position: absolute;
-  bottom: -24px;
-  background: var(--brand-powder, #A0CFEC);
+  bottom: -32px;
+  background: var(--brand-yellow, #FFD788);
   color: #111;
   padding: 4px 12px;
   border-radius: 99px;
@@ -219,14 +219,31 @@
   opacity: 0;
   transform: translateY(10px);
   pointer-events: none;
-  transition: all 0.3s ease-out;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   white-space: nowrap;
+}
+
+.gate__glasses-hint::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 6px 6px 6px;
+  border-style: solid;
+  border-color: transparent transparent var(--brand-yellow, #FFD788) transparent;
 }
 
 .gate__glasses:hover .gate__glasses-hint,
 .gate__glasses:focus-visible .gate__glasses-hint {
   opacity: 1;
   transform: translateY(0);
+}
+
+.gate.is-wearing .gate__glasses span {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: none !important;
 }
 

@@ -28,7 +28,7 @@
 .hero__aurora--1 {
   width: 60rem;
   height: 60rem;
-  background: rgba(160, 207, 236, 0.3); // Powder Blue
+  background: rgba(255, 160, 226, 0.3); // Pink
   top: -10%;
   left: 10%;
 }
@@ -36,7 +36,7 @@
 .hero__aurora--2 {
   width: 50rem;
   height: 50rem;
-  background: rgba(255, 160, 226, 0.3); // Pink
+  background: rgba(160, 207, 236, 0.3); // Powder Blue
   bottom: -20%;
   right: 5%;
   animation-direction: alternate-reverse;
@@ -74,10 +74,13 @@
   line-height: 1.02;
   letter-spacing: -0.035em;
   margin-bottom: v.space(5);
-  display: grid;
+  display: block; // Change from grid to block for standard text wrapping
   text-wrap: balance;
   text-align: center;
-  justify-items: center;
+  background: linear-gradient(to right, #A0CFEC, #AC8AEA);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 // The second line is the answer to the first, so it is set apart rather than
@@ -201,10 +204,11 @@
   color: var(--ink-strong);
   border: none;
   cursor: pointer;
-  transition: transform 200ms ease;
+  transition: transform 200ms ease, background-color 200ms ease;
 }
 .hero__prompt-submit:hover,
 .hero__prompt-submit:focus-visible {
   transform: scale(1.05);
+  background-color: var(--brand-purple, #AC8AEA);
 }
 

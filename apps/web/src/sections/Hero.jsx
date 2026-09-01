@@ -82,7 +82,7 @@ export default function Hero({ profile }) {
             <input 
               type="text" 
               className="hero__prompt-input" 
-              placeholder="Hallo Rheana..." 
+              placeholder="Hallo Rheana, build me a..." 
               aria-label="Ask the AI assistant a question"
             />
             <button type="submit" className="hero__prompt-submit" aria-label="Submit">
