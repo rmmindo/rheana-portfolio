@@ -10,13 +10,19 @@
 .is-gated body { overflow: hidden; }
 
 .is-gated #root > *:not(.gate) {
-  filter: blur(20px) saturate(1.1);
+  filter: blur(2.5px) 
+          drop-shadow(4px 4px 3px rgba(255, 255, 255, 0.6))
+          drop-shadow(8px 8px 6px rgba(255, 255, 255, 0.3))
+          drop-shadow(-3px -3px 2px rgba(0, 0, 0, 0.4));
   transform: scale(1.04);
   transform-origin: center;
 }
 
 .is-gated.is-clearing #root > *:not(.gate) {
-  filter: blur(0px) saturate(1);
+  filter: blur(0px) 
+          drop-shadow(0 0 0 transparent)
+          drop-shadow(0 0 0 transparent)
+          drop-shadow(0 0 0 transparent);
   transform: none;
 }
 
@@ -28,12 +34,15 @@
 
 .gate {
   position: fixed;
-  inset: 0;
-  z-index: 999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
   display: grid;
   place-items: center;
   padding: v.space(5);
-  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  background: none;
+  width: 100%;
   // A perspective on the container is what lets the glasses travel toward the
   // viewer rather than merely getting bigger.
   perspective: 800px;
@@ -67,8 +76,8 @@
   background: linear-gradient(
     105deg,
     transparent 20%,
-    rgba(255, 255, 255, 0.8) 45%,
-    rgba(255, 255, 255, 0.8) 55%,
+    rgba(160, 207, 236, 0.6) 45%,
+    rgba(255, 160, 226, 0.6) 55%,
     transparent 80%
   );
   background-repeat: no-repeat;
@@ -117,25 +126,16 @@
   text-align: center;
   max-width: 22ch;
   text-wrap: balance;
-
-  // Astigmatism blur effect
-  filter: blur(1.5px);
-  text-shadow: 
-    3px 3px 2px rgba(255, 255, 255, 0.6),
-    6px 6px 4px rgba(255, 255, 255, 0.3),
-    -2px -2px 1px rgba(0, 0, 0, 0.4);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  // Synchronized unblurring of the astigmatism effect
+  // Hook text immediately fades out
   .gate.is-wearing .gate__statement {
-    filter: blur(0px);
-    text-shadow: 
-      0 0 0 transparent,
-      0 0 0 transparent,
-      0 0 0 transparent;
-    transition: filter 2500ms cubic-bezier(0.4, 0, 0.2, 1), 
-                text-shadow 2500ms cubic-bezier(0.4, 0, 0.2, 1);
+    animation: statement-fade-out 250ms ease-out forwards;
+  }
+
+  @keyframes statement-fade-out {
+    to { opacity: 0; }
   }
 
   // The Float
