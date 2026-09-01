@@ -71,9 +71,10 @@
 
 .hero__line {
   font-size: clamp(2.75rem, 8.5vw, 7rem);
-  line-height: 1.02;
+  line-height: 1.2;
   letter-spacing: -0.035em;
   margin-bottom: v.space(5);
+  padding-bottom: 0.15em; // Fix clipping on descenders
   display: block; // Change from grid to block for standard text wrapping
   text-wrap: balance;
   text-align: center;
@@ -140,7 +141,7 @@
 
 .hero__wobble {
   display: inline-block;
-  animation: earthquake 400ms cubic-bezier(0.36, 0.07, 0.19, 0.97) 2.8s both;
+  animation: earthquake 400ms cubic-bezier(0.36, 0.07, 0.19, 0.97) 15s both;
 }
 
 @keyframes earthquake {

@@ -27,7 +27,7 @@ function TypingEffect() {
         }
       };
       
-      await wait(2800);
+      await wait(15000);
       await type('static');
       await wait(400);
       

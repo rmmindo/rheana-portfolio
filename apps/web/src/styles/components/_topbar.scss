@@ -23,7 +23,7 @@
 
 @media (min-width: v.bp(lg)) {
   .topbar {
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 1fr auto 1fr;
     grid-template-areas: "brand nav controls";
     gap: v.space(5);
     padding: v.space(3) v.space(6);
@@ -32,6 +32,7 @@
 
 .topbar__brand {
   grid-area: brand;
+  justify-self: start;
   display: inline-flex;
   align-items: center;
   gap: v.space(2);
@@ -50,14 +51,21 @@
   object-fit: contain;
 }
 
+.topbar__brand-name {
+  color: var(--text);
+  line-height: 1;
+}
+
 // --- Navigation ------------------------------------------------------------//
 .topbar__nav {
   grid-area: nav;
-  min-width: 0;
+  justify-self: center;
+  min-width: 0; // Let the row compress so it can scroll
 }
 
 .topbar__links {
   display: flex;
+  align-items: center;
   gap: v.space(1);
   margin: 0;
   padding: 0 0 v.space(1);
@@ -82,14 +90,20 @@
   min-height: 40px;
   padding: v.space(2) v.space(3);
   border-radius: v.$radius-pill;
-  color: var(--text);
+  color: var(--text-muted);
   text-decoration: none;
-  font-size: v.$step--1;
+  font-size: 0.75rem;
+  font-weight: v.$weight-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   border: 1px solid transparent;
-  transition: background-color v.$dur-fast v.$ease-out, color v.$dur-fast v.$ease-out;
+  transition: color v.$dur-fast v.$ease-out;
 }
 
-.topbar__link:hover { background: var(--paper-raised); }
+.topbar__link:hover,
+.topbar__link.is-current {
+  color: var(--ink-strong);
+}
 
 // The section currently in view.
 //
@@ -103,7 +117,6 @@
 // contrast mode, so the highlight never depends on hue alone.
 .topbar__link {
   position: relative;
-  font-weight: v.$weight-regular;
 }
 
 .topbar__link::after {
@@ -255,5 +268,36 @@
   background-color: var(--brand-powder, #A0CFEC);
   color: var(--ink-strong);
   transform: scale(1.05);
+}
+
+
+.topbar__cv-btn {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid var(--brand-pink, #FFA0E2);
+  border-radius: 99px;
+  padding: 8px 16px;
+  color: var(--text);
+  text-decoration: none;
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: 0.875rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cv-btn__text {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  transition: max-width 0.4s ease;
+  white-space: nowrap;
+}
+
+.topbar__cv-btn:hover .cv-btn__text,
+.topbar__cv-btn:focus-visible .cv-btn__text {
+  max-width: 80px;
 }
 
