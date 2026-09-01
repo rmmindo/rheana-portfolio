@@ -10,17 +10,19 @@
 .is-gated body { overflow: hidden; }
 
 .is-gated #root > *:not(.gate) {
+  filter: blur(20px) saturate(1.1);
   transform: scale(1.04);
   transform-origin: center;
 }
 
 .is-gated.is-clearing #root > *:not(.gate) {
+  filter: blur(0px) saturate(1);
   transform: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .is-gated #root > *:not(.gate) {
-    transition: transform 1200ms v.$ease-out;
+    transition: filter 2500ms cubic-bezier(0.4, 0, 0.2, 1), transform 2500ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
@@ -31,27 +33,12 @@
   display: grid;
   place-items: center;
   padding: v.space(5);
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
   // A perspective on the container is what lets the glasses travel toward the
   // viewer rather than merely getting bigger.
   perspective: 800px;
 }
 
-@property --hole-size {
-  syntax: "<percentage>";
-  initial-value: 0%;
-  inherits: false;
-}
-
-.gate__blur {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: color-mix(in srgb, var(--paper) 70%, transparent);
-  backdrop-filter: blur(20px) saturate(1.1);
-  mask-image: radial-gradient(circle at center, transparent var(--hole-size), black calc(var(--hole-size) + 1px));
-  // Provide a fallback for browsers that don't support @property yet, although most modern ones do
-  -webkit-mask-image: radial-gradient(circle at center, transparent var(--hole-size), black calc(var(--hole-size) + 1px));
-}
 
 .gate__stage {
   display: grid;
@@ -108,11 +95,59 @@
   text-wrap: balance;
 }
 
-.gate__hint {
-  font-size: v.$step--1;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-muted);
+
+// Bokeh background for depth behind the blurred text
+.gate__bokeh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.gate__bokeh-dot {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(12px);
+  opacity: 0.5;
+  animation: bokeh-drift 20s infinite alternate ease-in-out;
+}
+
+.gate__bokeh-dot--1 {
+  width: 250px; height: 250px;
+  background: var(--glow-powder);
+  top: 10%; left: 15%;
+  animation-duration: 25s;
+}
+
+.gate__bokeh-dot--2 {
+  width: 300px; height: 300px;
+  background: var(--glow-pink);
+  bottom: 20%; right: 10%;
+  animation-duration: 30s;
+  animation-delay: -5s;
+}
+
+.gate__bokeh-dot--3 {
+  width: 200px; height: 200px;
+  background: var(--glow-purple);
+  top: 50%; left: 70%;
+  animation-duration: 22s;
+  animation-delay: -10s;
+}
+
+.gate__bokeh-dot--4 {
+  width: 350px; height: 350px;
+  background: var(--glow-mint);
+  bottom: -5%; left: 30%;
+  animation-duration: 28s;
+  animation-delay: -15s;
+}
+
+@keyframes bokeh-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-40px, 20px) scale(0.9); }
+  100% { transform: translate(20px, 40px) scale(1.05); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -127,39 +162,19 @@
   .gate__glasses:focus-visible img { animation-play-state: paused; }
 
   // Putting them on.
-  //
-  // translateZ carries the glasses toward the camera and past it, which is what
-  // an object does when it arrives at your face. The slight downward drift and
-  // the scale are what stop it reading as a plain zoom: they arrive at eye
-  // level, tilt, and pass.
   .gate.is-wearing .gate__glasses img {
-    animation: gate-wear 900ms cubic-bezier(0.5, 0, 0.75, 0) forwards;
+    animation: gate-wear 2500ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
   @keyframes gate-wear {
-    0%   { transform: translate3d(0, 0, 0) rotateX(0deg); opacity: 1; }
-    35%  { transform: translate3d(0, 6px, 120px) rotateX(6deg); opacity: 1; }
-    100% { transform: translate3d(0, 34px, 620px) rotateX(16deg); opacity: 0; }
+    0%   { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
+    30%  { transform: translate3d(0, 5vh, 0) scale(3); opacity: 1; }
+    100% { transform: translate3d(0, 15vh, 0) scale(40); opacity: 0; }
   }
 
-  .gate.is-wearing .gate__hint,
-  .gate.is-wearing .gate__statement {
-    animation: gate-out 240ms v.$ease-out forwards;
-  }
+  .gate.is-wearing { animation: gate-fade 2500ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 
-  @keyframes gate-out { to { opacity: 0; } }
-
-  .gate.is-wearing .gate__blur {
-    animation: gate-unblur 1000ms v.$ease-out 200ms forwards;
-  }
-
-  @keyframes gate-unblur {
-    to { --hole-size: 150%; }
-  }
-
-  .gate.is-wearing { animation: gate-fade 500ms v.$ease-out 1200ms forwards; }
-
-  @keyframes gate-fade { to { opacity: 0; } }
+  @keyframes gate-fade { to { opacity: 0; visibility: hidden; } }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -175,109 +190,3 @@
   .is-gated.is-clearing #root > *:not(.gate) { transition: filter 260ms linear; }
 }
 
-// --- The blink ------------------------------------------------------------//
-//
-// Seen from behind the eyes, not looking at a pair of them. Dark, then the page
-// arriving as the lids lift, twice.
-//
-// Every edge here is blurred hard. Your own eyelid is a couple of centimetres
-// from your retina and is never in focus; a crisp edge reads as a camera
-// shutter, which is a different thing entirely.
-
-$lid-dark: #07060c;
-
-.gate__blink {
-  position: fixed;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  // The lids are blurred, so they are drawn larger than the screen and the
-  // overflow is cut here. Without this the blur haloes at the edges.
-  overflow: hidden;
-}
-
-.gate__lid {
-  position: absolute;
-  left: -10%;
-  width: 120%;
-  // Each covers more than half, so shut is properly shut even with the feather.
-  height: 66%;
-  will-change: transform;
-}
-
-.gate__lid--top {
-  top: 0;
-  background: linear-gradient(to bottom, #{$lid-dark} 0%, #{$lid-dark} 74%, rgba(7, 6, 12, 0) 100%);
-  filter: blur(14px);
-}
-
-// The lower lid moves less far in a real blink and is softer still.
-.gate__lid--bottom {
-  bottom: 0;
-  background: linear-gradient(to top, #{$lid-dark} 0%, #{$lid-dark} 70%, rgba(7, 6, 12, 0) 100%);
-  filter: blur(20px);
-}
-
-// Lashes, as they actually appear to their owner: not shapes, just a dark
-// broken blur across the top of everything.
-.gate__fringe {
-  position: absolute;
-  top: -10px;
-  left: -5%;
-  width: 110%;
-  height: 120px;
-  background:
-    repeating-linear-gradient(
-      96deg,
-      rgba(7, 6, 12, 0.5) 0 5px,
-      rgba(7, 6, 12, 0) 5px 19px
-    ),
-    linear-gradient(to bottom, rgba(7, 6, 12, 0.62), rgba(7, 6, 12, 0));
-  mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
-  filter: blur(9px);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .gate.is-blinking .gate__lid--top { animation: lid-top 1900ms ease-in-out forwards; }
-  .gate.is-blinking .gate__lid--bottom { animation: lid-bottom 1900ms ease-in-out forwards; }
-  .gate.is-blinking .gate__fringe { animation: fringe 1900ms ease-in-out forwards; }
-
-  // Shut, hold, open slowly, shut, open slowly, gone. The opening is longer
-  // than the closing, because that is the way a blink actually goes: the lid
-  // drops fast and lifts slowly.
-  @keyframes lid-top {
-    0%, 12%  { transform: translateY(0); }
-    38%      { transform: translateY(-100%); }
-    50%      { transform: translateY(0); }
-    82%      { transform: translateY(-100%); }
-    100%     { transform: translateY(-100%); }
-  }
-
-  @keyframes lid-bottom {
-    0%, 12%  { transform: translateY(0); }
-    38%      { transform: translateY(100%); }
-    50%      { transform: translateY(0); }
-    82%      { transform: translateY(100%); }
-    100%     { transform: translateY(100%); }
-  }
-
-  // The fringe outlives the lids by a moment, then clears. Lashes hang in your
-  // vision after the lid has gone.
-  @keyframes fringe {
-    0%, 50% { opacity: 1; transform: translateY(0); }
-    82%     { opacity: 0.55; transform: translateY(-14px); }
-    100%    { opacity: 0; transform: translateY(-30px); }
-  }
-
-  // The gate must not tint the page while the lids are open: what shows through
-  // has to be the real thing, or the reveal reveals a wash.
-  .gate.is-blinking {
-    animation: none;
-    opacity: 1;
-    background: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .gate__blink { display: none; }
-}

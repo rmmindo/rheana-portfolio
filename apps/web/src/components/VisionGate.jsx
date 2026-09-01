@@ -47,32 +47,6 @@ const BLINK_MS = 1900;
 // the blur to lift rather than snap, short enough that nothing travels.
 const CALM_MS = 320;
 
-// Two blinks, seen from behind the eyes.
-//
-// The mistake in every earlier version was drawing an eye. There is nobody to
-// look at: the visitor has just put the glasses on, so they ARE the eye, and
-// what they should see is what you see when you blink - dark, then the world
-// arriving as your lids lift, twice.
-//
-// So there is no illustration here at all. Two soft-edged dark masses, one from
-// the top and one from the bottom, meeting to make black and parting to let the
-// page through. The edges are heavily blurred because your own eyelids are
-// centimetres from your retina and never in focus, and a hard line would read
-// as a shutter rather than an eye.
-//
-// The fringe along the top stays a moment longer than the rest: lashes hang in
-// the top of your vision after the lid has lifted, out of focus and darkening
-// the very top of everything you see.
-
-function Blink() {
-  return (
-    <div className="gate__blink" aria-hidden="true">
-      <div className="gate__lid gate__lid--top" />
-      <div className="gate__lid gate__lid--bottom" />
-      <div className="gate__fringe" />
-    </div>
-  );
-}
 
 export default function VisionGate() {
   const reduced = useReducedMotion();
@@ -80,7 +54,6 @@ export default function VisionGate() {
 
   const [open, setOpen] = useState(false);
   const [wearing, setWearing] = useState(false);
-  const [blinking, setBlinking] = useState(false);
   const dialogRef = useRef(null);
   const timer = useRef(0);
 
@@ -102,11 +75,6 @@ export default function VisionGate() {
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     document.documentElement.classList.add('is-gated');
-    // Focus the dialog itself, not the glasses. Focusing the button paints a
-    // focus ring around the graphic the instant the gate opens - a hard
-    // rectangle around a pair of glasses, which is the first thing anyone
-    // sees. The dialog is the correct target anyway: a screen reader reads the
-    // whole thing rather than starting halfway down at a control.
     dialogRef.current?.focus();
     return () => {
       document.body.style.overflow = prev;
@@ -123,26 +91,20 @@ export default function VisionGate() {
   const wear = useCallback(() => {
     if (wearing) return;
     setWearing(true);
-    // The blur clears on the page itself, so the class goes on <html>.
     document.documentElement.classList.add('is-clearing');
-    // Read the query at the moment of the press rather than trusting the hook,
-    // which resolves in its own effect and can still be reporting false.
+    
     const prefersReduced =
       typeof window !== 'undefined' &&
       window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
 
     if (prefersReduced) {
-      // No travel, no blink. Just gone, and the page is clear.
+      // No travel. Just gone, and the page is clear.
       timer.current = setTimeout(() => setOpen(false), CALM_MS);
       return;
     }
 
-    // The glasses reach your face, and then you blink twice, the way anyone
-    // does settling into a new pair.
-    timer.current = setTimeout(() => {
-      setBlinking(true);
-      timer.current = setTimeout(() => setOpen(false), BLINK_MS);
-    }, WEAR_MS);
+    // The glasses reach your face and unblur over ~2.5s
+    timer.current = setTimeout(() => setOpen(false), 2500);
   }, [wearing]);
 
   useEffect(() => {
@@ -158,21 +120,24 @@ export default function VisionGate() {
 
   return (
     <div
-      className={`gate${wearing ? ' is-wearing' : ''}${blinking ? ' is-blinking' : ''}`}
+      className={`gate${wearing ? ' is-wearing' : ''}`}
       role="dialog"
       aria-modal="true"
       aria-labelledby="gate-statement"
       ref={dialogRef}
       tabIndex={-1}
     >
-      <div className="gate__blur" aria-hidden="true" />
-      {blinking && <Blink />}
+
+      
+      {/* Floating bokeh dots for depth */}
+      <div className="gate__bokeh" aria-hidden="true">
+        <div className="gate__bokeh-dot gate__bokeh-dot--1" />
+        <div className="gate__bokeh-dot gate__bokeh-dot--2" />
+        <div className="gate__bokeh-dot gate__bokeh-dot--3" />
+        <div className="gate__bokeh-dot gate__bokeh-dot--4" />
+      </div>
 
       <div className="gate__stage">
-        {/* A statement, not a question. Nothing here asks for consent: the
-            visitor is already inside her eyesight, and the only thing to do is
-            take the glasses. A yes/no would add a decision exactly where the
-            page wants none. */}
         <p id="gate-statement" className="gate__statement">{t('gate.statement')}</p>
 
         <button 
@@ -183,8 +148,6 @@ export default function VisionGate() {
         >
           <img src="/glasses.png" alt="" aria-hidden="true" />
         </button>
-
-        <p className="gate__hint" aria-hidden="true">{t('gate.prompt')} &rarr;</p>
       </div>
     </div>
   );

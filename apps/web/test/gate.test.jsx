@@ -42,15 +42,6 @@ describe('VisionGate', () => {
     expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
 
-  it('gives them no blink and no travel', async () => {
-    setReducedMotion(true);
-    vi.useFakeTimers();
-    await act(async () => { render(<VisionGate />); });
-    await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
-    await act(async () => { vi.advanceTimersByTime(1500); });
-    expect(document.querySelector('.gate__blink')).toBeNull();
-    vi.useRealTimers();
-  });
 
   it('gets them to the page quickly rather than holding them for three seconds', async () => {
     setReducedMotion(true);
@@ -89,47 +80,6 @@ describe('VisionGate', () => {
     expect(screen.getAllByRole('button')).toHaveLength(1);
   });
 
-  // Two slow blinks between the glasses and the page, seen from behind the
-  // eyes rather than looking at a pair of them.
-  it('blinks after the glasses go on, and only then', async () => {
-    vi.useFakeTimers();
-    await act(async () => { render(<VisionGate />); });
-    expect(document.querySelector('.gate__blink')).toBeNull();
-
-    await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
-    // Still travelling; the lids have not come down yet.
-    expect(document.querySelector('.gate__blink')).toBeNull();
-
-    await act(async () => { vi.advanceTimersByTime(1300); });
-    expect(document.querySelector('.gate__blink')).not.toBeNull();
-    // An upper lid, a lower lid, and the lash fringe across the top.
-    expect(document.querySelectorAll('.gate__lid')).toHaveLength(2);
-    expect(document.querySelector('.gate__fringe')).not.toBeNull();
-    vi.useRealTimers();
-  });
-
-  // It draws nothing: the visitor is the eye, so there is no illustration of
-  // one. Earlier versions drew eyelids and then two whole eyes, and both were
-  // wrong for the same reason.
-  it('shows no picture of an eye', async () => {
-    vi.useFakeTimers();
-    await act(async () => { render(<VisionGate />); });
-    await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
-    await act(async () => { vi.advanceTimersByTime(1300); });
-    expect(document.querySelector('.gate__blink svg')).toBeNull();
-    vi.useRealTimers();
-  });
-
-  // The blink is decoration. It must not become a thing a screen reader reads
-  // out, and it must never be the reason someone is stuck on the gate.
-  it('hides the blink from assistive technology', async () => {
-    vi.useFakeTimers();
-    await act(async () => { render(<VisionGate />); });
-    await act(async () => { screen.getByRole('button', { name: /glasses/i }).click(); });
-    await act(async () => { vi.advanceTimersByTime(1300); });
-    expect(document.querySelector('.gate__blink').getAttribute('aria-hidden')).toBe('true');
-    vi.useRealTimers();
-  });
 
   it('closes when the glasses are taken', async () => {
     vi.useFakeTimers();
