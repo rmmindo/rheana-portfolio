@@ -16,6 +16,10 @@
 .hero__inner {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .hero__text { min-width: 0; }
@@ -37,13 +41,14 @@
   margin-bottom: v.space(5);
   display: grid;
   text-wrap: balance;
+  text-align: center;
+  justify-items: center;
 }
 
 // The second line is the answer to the first, so it is set apart rather than
 // running on: indented, and in the brand ink.
 .hero__line-b {
   color: var(--ink-purple);
-  padding-left: 0.08em;
 }
 
 .hero__aside {

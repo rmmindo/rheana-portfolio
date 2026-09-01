@@ -165,6 +165,7 @@ export default function VisionGate() {
       ref={dialogRef}
       tabIndex={-1}
     >
+      <div className="gate__blur" aria-hidden="true" />
       {blinking && <Blink />}
 
       <div className="gate__stage">
@@ -174,35 +175,13 @@ export default function VisionGate() {
             page wants none. */}
         <p id="gate-statement" className="gate__statement">{t('gate.statement')}</p>
 
-        <button type="button" className="gate__glasses" onClick={wear}>
-          {/* Drawn as glass, not as an outline.
-              The old pair was two stroked rectangles, which read as two empty
-              boxes: a border, when the thing being shown is a lens. These are
-              filled shapes with a highlight across them and only the bridge and
-              temples stroked, so the lenses look like something you could see
-              through. */}
-          <svg viewBox="0 0 210 86" width="210" height="86" aria-hidden="true" focusable="false">
-            <g fill="none" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round">
-              {/* The bridge sits low and curves, the way a real one does. */}
-              <path d="M84 40 q21 -11 42 0" />
-              {/* Temples, folding away from the viewer. */}
-              <path d="M24 33 L6 24" />
-              <path d="M186 33 L204 24" />
-            </g>
-
-            <g fill="currentColor" opacity="0.22">
-              <ellipse cx="54" cy="45" rx="32" ry="27" />
-              <ellipse cx="156" cy="45" rx="32" ry="27" />
-            </g>
-
-            {/* A single sweep of light across both lenses. One highlight, at
-                the same angle on each, is what makes glass read as glass. */}
-            <g fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" opacity="0.5">
-              <path d="M36 56 L66 30" />
-              <path d="M138 56 L168 30" />
-            </g>
-          </svg>
-          <span className="visually-hidden">{t('gate.action')}</span>
+        <button 
+          type="button" 
+          className="gate__glasses" 
+          onClick={wear}
+          aria-label="A pair of glasses. Click to clear the blurry screen and reveal Rheana's portfolio."
+        >
+          <img src="/glasses.png" alt="" aria-hidden="true" />
         </button>
 
         <p className="gate__hint" aria-hidden="true">{t('gate.prompt')} &rarr;</p>

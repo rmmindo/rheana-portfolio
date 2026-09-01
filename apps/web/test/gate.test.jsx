@@ -170,7 +170,7 @@ describe('VisionGate', () => {
   // the hero names it afterwards.
   it('states rather than explains, and never mentions myopia', async () => {
     await act(async () => { render(<VisionGate />); });
-    expect(screen.getByText(/already seeing it my way/i)).toBeInTheDocument();
+    expect(screen.getByText(/next big idea into focus/i)).toBeInTheDocument();
     expect(screen.queryByText(/myopia/i)).toBeNull();
   });
 
