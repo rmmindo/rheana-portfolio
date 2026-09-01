@@ -150,6 +150,7 @@ export default function VisionGate() {
           aria-label="A pair of glasses. Click to clear the blurry screen and reveal Rheana's portfolio."
         >
           <img src="/glasses.png" alt="" aria-hidden="true" />
+          <span className="gate__glasses-hint">Put them on</span>
         </button>
       </div>
     </div>

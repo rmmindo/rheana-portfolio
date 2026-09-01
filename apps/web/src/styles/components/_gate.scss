@@ -152,15 +152,21 @@
   }
 
   // The Float
-  .gate__glasses img { animation: gate-float 4s ease-in-out infinite alternate; }
+  .gate__glasses img { 
+    animation: gate-float 4s ease-in-out infinite alternate; 
+    transition: transform 0.3s ease-out;
+  }
 
   @keyframes gate-float {
-    from { transform: translateY(-5px); }
-    to   { transform: translateY(5px); }
+    from { translate: 0 -5px; }
+    to   { translate: 0 5px; }
   }
 
   .gate__glasses:hover img,
-  .gate__glasses:focus-visible img { animation-play-state: paused; }
+  .gate__glasses:focus-visible img { 
+    animation-play-state: paused; 
+    transform: scale(1.1) rotate(-3deg);
+  }
 
   // Putting them on.
   .gate.is-wearing .gate__glasses img {
@@ -197,5 +203,30 @@
   @keyframes gate-fade-calm { to { opacity: 0; } }
 
   .is-gated.is-clearing #root > *:not(.gate) { transition: filter 260ms linear; }
+}
+
+
+.gate__glasses-hint {
+  position: absolute;
+  bottom: -24px;
+  background: var(--brand-powder, #A0CFEC);
+  color: #111;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: 0.875rem;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: all 0.3s ease-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+}
+
+.gate__glasses:hover .gate__glasses-hint,
+.gate__glasses:focus-visible .gate__glasses-hint {
+  opacity: 1;
+  transform: translateY(0);
 }
 
