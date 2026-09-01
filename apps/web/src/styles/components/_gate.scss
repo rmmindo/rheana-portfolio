@@ -56,16 +56,40 @@
   background: none;
   cursor: pointer;
   transform-style: preserve-3d;
-  animation: dopamine-glow 8s infinite alternate ease-in-out;
+  position: relative;
 }
 
-@keyframes dopamine-glow {
-  0% { filter: drop-shadow(0 0 15px #A0CFEC); }
-  20% { filter: drop-shadow(0 0 15px #AC8AEA); }
-  40% { filter: drop-shadow(0 0 15px #FFA0E2); }
-  60% { filter: drop-shadow(0 0 15px #C8F1F3); }
-  80% { filter: drop-shadow(0 0 15px #FF998F); }
-  100% { filter: drop-shadow(0 0 15px #FFD788); }
+.gate__glasses::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.8) 45%,
+    rgba(255, 255, 255, 0.8) 55%,
+    transparent 80%
+  );
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+  animation: glare-sweep 4.5s infinite;
+  
+  // Mask the glare so it only appears on the glasses
+  -webkit-mask-image: url('/glasses.png');
+  -webkit-mask-size: clamp(7rem, 20vw, 11rem) auto;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: url('/glasses.png');
+  mask-size: clamp(7rem, 20vw, 11rem) auto;
+  mask-position: center;
+  mask-repeat: no-repeat;
+}
+
+@keyframes glare-sweep {
+  0% { background-position: 150% 0; }
+  25% { background-position: -50% 0; }
+  100% { background-position: -50% 0; }
 }
 
 // Smaller than it was. It is an invitation to press, not the subject of
@@ -93,69 +117,33 @@
   text-align: center;
   max-width: 22ch;
   text-wrap: balance;
-}
 
-
-// Bokeh background for depth behind the blurred text
-.gate__bokeh {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  z-index: -1;
-}
-
-.gate__bokeh-dot {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(12px);
-  opacity: 0.5;
-  animation: bokeh-drift 20s infinite alternate ease-in-out;
-}
-
-.gate__bokeh-dot--1 {
-  width: 250px; height: 250px;
-  background: var(--glow-powder);
-  top: 10%; left: 15%;
-  animation-duration: 25s;
-}
-
-.gate__bokeh-dot--2 {
-  width: 300px; height: 300px;
-  background: var(--glow-pink);
-  bottom: 20%; right: 10%;
-  animation-duration: 30s;
-  animation-delay: -5s;
-}
-
-.gate__bokeh-dot--3 {
-  width: 200px; height: 200px;
-  background: var(--glow-purple);
-  top: 50%; left: 70%;
-  animation-duration: 22s;
-  animation-delay: -10s;
-}
-
-.gate__bokeh-dot--4 {
-  width: 350px; height: 350px;
-  background: var(--glow-mint);
-  bottom: -5%; left: 30%;
-  animation-duration: 28s;
-  animation-delay: -15s;
-}
-
-@keyframes bokeh-drift {
-  0% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -50px) scale(1.1); }
-  66% { transform: translate(-40px, 20px) scale(0.9); }
-  100% { transform: translate(20px, 40px) scale(1.05); }
+  // Astigmatism blur effect
+  filter: blur(1.5px);
+  text-shadow: 
+    3px 3px 2px rgba(255, 255, 255, 0.6),
+    6px 6px 4px rgba(255, 255, 255, 0.3),
+    -2px -2px 1px rgba(0, 0, 0, 0.4);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .gate__glasses img { animation: gate-float 3.4s ease-in-out infinite alternate; }
+  // Synchronized unblurring of the astigmatism effect
+  .gate.is-wearing .gate__statement {
+    filter: blur(0px);
+    text-shadow: 
+      0 0 0 transparent,
+      0 0 0 transparent,
+      0 0 0 transparent;
+    transition: filter 2500ms cubic-bezier(0.4, 0, 0.2, 1), 
+                text-shadow 2500ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // The Float
+  .gate__glasses img { animation: gate-float 4s ease-in-out infinite alternate; }
 
   @keyframes gate-float {
-    from { transform: translateY(-5px) rotate(-2deg); }
-    to   { transform: translateY(5px) rotate(2deg); }
+    from { transform: translateY(-5px); }
+    to   { transform: translateY(5px); }
   }
 
   .gate__glasses:hover img,
@@ -172,7 +160,8 @@
     100% { transform: translate3d(0, 15vh, 0) scale(40); opacity: 0; }
   }
 
-  .gate.is-wearing { animation: gate-fade 2500ms cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+  // Delay the gate fade until the transition finishes, then crossfade
+  .gate.is-wearing { animation: gate-fade 500ms 2500ms forwards; }
 
   @keyframes gate-fade { to { opacity: 0; visibility: hidden; } }
 }
