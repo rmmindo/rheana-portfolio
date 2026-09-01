@@ -11,19 +11,31 @@
   white-space: nowrap;
 }
 
-// Skip link: hidden until focused, then unmissable.
+// Skip link: strictly hidden (screen-reader only) until focused, then unmissable.
 .skip-link {
-  position: absolute; top: 0; left: 0;
-  z-index: 999;
-  padding: v.space(3) v.space(5);
-  background: var(--paper-raised);
-  color: var(--text);
-  border: 2px solid var(--focus);
-  border-radius: 0 0 v.$radius-sm 0;
-  transform: translateY(-110%);
-  transition: transform v.$dur-fast v.$ease-out;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 
-  &:focus { transform: translateY(0); }
+  &:focus {
+    clip: auto;
+    clip-path: none;
+    height: auto;
+    width: auto;
+    overflow: visible;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    padding: v.space(3) v.space(5);
+    background: var(--paper-raised);
+    color: var(--text);
+    border: 2px solid var(--focus);
+    border-radius: 0 0 v.$radius-sm 0;
+  }
 }
 
 // One focus style everywhere. The halo guarantees 3:1 against BOTH the

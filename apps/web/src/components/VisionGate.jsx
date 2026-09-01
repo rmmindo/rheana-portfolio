@@ -76,10 +76,23 @@ export default function VisionGate() {
     document.body.style.overflow = 'hidden';
     document.documentElement.classList.add('is-gated');
     dialogRef.current?.focus();
+
+    // Block interaction on the background layer
+    const root = document.getElementById('root');
+    const siblings = root ? Array.from(root.children).filter(child => !child.classList.contains('gate')) : [];
+    siblings.forEach(s => {
+      s.setAttribute('aria-hidden', 'true');
+      s.setAttribute('inert', 'true'); // Native block for focus and screen readers
+    });
+
     return () => {
       document.body.style.overflow = prev;
       document.documentElement.classList.remove('is-gated');
       document.documentElement.classList.remove('is-clearing');
+      siblings.forEach(s => {
+        s.removeAttribute('aria-hidden');
+        s.removeAttribute('inert');
+      });
     };
   }, [open]);
 
@@ -127,16 +140,6 @@ export default function VisionGate() {
       ref={dialogRef}
       tabIndex={-1}
     >
-
-      
-      {/* Floating bokeh dots for depth */}
-      <div className="gate__bokeh" aria-hidden="true">
-        <div className="gate__bokeh-dot gate__bokeh-dot--1" />
-        <div className="gate__bokeh-dot gate__bokeh-dot--2" />
-        <div className="gate__bokeh-dot gate__bokeh-dot--3" />
-        <div className="gate__bokeh-dot gate__bokeh-dot--4" />
-      </div>
-
       <div className="gate__stage">
         <p id="gate-statement" className="gate__statement">{t('gate.statement')}</p>
 
