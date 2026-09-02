@@ -12,24 +12,33 @@
   z-index: -10;
   background-size: cover;
   background-position: center;
-  background-image: url('/house-day-1.jpg');
 }
 
-/* 
- * The animation triggers precisely when the glasses are clicked (or skipped).
- * With a 2s delay, and a 2s step-end animation, the first 50% keyframe (the image swap)
- * hits EXACTLY 3 seconds after the interaction. 
- */
-html.has-unlocked .site-bg {
-  animation: site-bg-swap 2s infinite step-end;
+.scene-house { background-image: url('/house-day-1.jpg'); }
+.scene-balloon { background-image: url('/hot-air-balloon-day-1.jpg'); }
+
+html.has-unlocked .scene-house {
+  animation: site-bg-swap-house 2s infinite step-end;
   animation-delay: 2s;
   animation-fill-mode: both;
 }
 
-@keyframes site-bg-swap {
+html.has-unlocked .scene-balloon {
+  animation: site-bg-swap-balloon 2s infinite step-end;
+  animation-delay: 2s;
+  animation-fill-mode: both;
+}
+
+@keyframes site-bg-swap-house {
   0% { background-image: url('/house-day-1.jpg'); }
   50% { background-image: url('/house-day-2.jpg'); }
   100% { background-image: url('/house-day-1.jpg'); }
+}
+
+@keyframes site-bg-swap-balloon {
+  0% { background-image: url('/hot-air-balloon-day-1.jpg'); }
+  50% { background-image: url('/hot-air-balloon-day-2.jpg'); }
+  100% { background-image: url('/hot-air-balloon-day-1.jpg'); }
 }
 
 .site-mask {
@@ -44,4 +53,37 @@ html.has-unlocked .site-bg {
     #1A0B2E 352px,
     #1A0B2E 100%
   );
+}
+
+.scene-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+.scene-nav:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+.scene-nav--prev {
+  left: calc(50vw - 420px);
+}
+.scene-nav--next {
+  right: calc(50vw - 420px);
+}
+@media (max-width: 900px) {
+  .scene-nav--prev { left: 1rem; }
+  .scene-nav--next { right: 1rem; }
 }
