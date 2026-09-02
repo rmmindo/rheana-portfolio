@@ -53,6 +53,7 @@ function Page() {
 
   return (
     <>
+      <div className="site-bg"></div>
       <div className={`page-transition ${transitioning ? 'is-active' : ''}`}></div>
       
       <a className="skip-link" href="#main">{t('skip')}</a>

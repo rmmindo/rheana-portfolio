@@ -1,5 +1,21 @@
 @use "../abstracts/variables" as v;
 
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  background-size: cover;
+  background-position: center;
+  background-image: url('/house-day-1.jpg');
+  animation: site-bg-swap 4s infinite step-end;
+}
+
+@keyframes site-bg-swap {
+  0% { background-image: url('/house-day-1.jpg'); }
+  50% { background-image: url('/house-day-2.jpg'); }
+  100% { background-image: url('/house-day-1.jpg'); }
+}
+
 .section__inner, .hero__inner {
   width: min(100% - 2 * #{v.space(5)}, 68rem);
   margin-inline: auto;
