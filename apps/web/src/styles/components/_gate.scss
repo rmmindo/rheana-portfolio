@@ -1,12 +1,5 @@
 @use "../abstracts/variables" as v;
 
-// The vision gate.
-//
-// The blur sits on the PAGE, not on a stand-in, so what comes into focus is the
-// real hero. Both the blur and its removal are driven by classes on <html>,
-// because the element being blurred is the gate's sibling and CSS cannot reach
-// upward from a component.
-
 .is-gated body { overflow: hidden; }
 
 .is-gated #root > *:not(.gate) {
@@ -34,7 +27,6 @@
   }
 }
 
-// Layer 2 (Overlay Container): Strictly absolutely centered and 100% unblurred
 .gate {
   position: fixed;
   top: 50%;
@@ -44,7 +36,6 @@
   display: grid;
   place-items: center;
   padding: v.space(5);
-  // Strip rogue styling explicitly
   background: transparent;
   border: none;
   outline: none;
@@ -58,7 +49,6 @@
   justify-items: center;
   gap: calc(#{v.space(4)} * 0.67);
   transform-style: preserve-3d;
-  // Strip rogue styling explicitly
   background: transparent;
   border: none;
   outline: none;
@@ -75,37 +65,8 @@
   cursor: pointer;
   transform-style: preserve-3d;
   position: relative;
-}
-
-// Holographic "dopamine" iridescent glare sweep
-.gate__glasses::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    105deg,
-    transparent 10%,
-    rgba(200, 241, 243, 0.7) 35%, /* Mint Green */
-    rgba(255, 215, 136, 0.9) 45%, /* Yellow */
-    rgba(255, 255, 255, 1) 50%,   /* Pure white core */
-    rgba(255, 160, 226, 0.9) 55%, /* Pink */
-    rgba(172, 138, 234, 0.7) 65%, /* Purple */
-    transparent 90%
-  );
-  background-repeat: no-repeat;
-  background-size: 200% 100%;
-  animation: glare-sweep 4.5s infinite;
-  
-  // Mask the glare so it only appears strictly on the glasses
-  -webkit-mask-image: url('/glasses.png');
-  -webkit-mask-size: clamp(7rem, 20vw, 11rem) auto;
-  -webkit-mask-position: center;
-  -webkit-mask-repeat: no-repeat;
-  mask-image: url('/glasses.png');
-  mask-size: clamp(7rem, 20vw, 11rem) auto;
-  mask-position: center;
-  mask-repeat: no-repeat;
+  /* Ensure this idle float is ONLY on the button wrapper itself, not the lens */
+  animation: gate-float 4s ease-in-out infinite alternate;
 }
 
 @keyframes glare-sweep {
@@ -114,17 +75,10 @@
   100% { background-position: -50% 0; }
 }
 
-// Smaller than it was. It is an invitation to press, not the subject of
-// the screen, and the sentence above it is what people are reading.
 .gate__glasses img { width: clamp(7rem, 20vw, 11rem); height: auto; }
 
-// The dialog takes focus when the gate opens so a screen reader reads it from
-// the top. It is not a control, so it needs no ring of its own.
 .gate:focus { outline: none; }
 
-// If a keyboard user does tab to the glasses, they still get a clear
-// indicator - but a rounded one that follows the button rather than a hard
-// rectangle boxing in the graphic.
 .gate__glasses:focus-visible {
   outline: 3px solid var(--ink-purple);
   outline-offset: 6px;
@@ -142,7 +96,6 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  // Hook text immediately fades out
   .gate.is-wearing .gate__statement {
     animation: statement-fade-out 250ms ease-out forwards;
   }
@@ -151,30 +104,16 @@
     to { opacity: 0; }
   }
 
-  // The Float
-  .gate__glasses img { 
-    animation: gate-float 4s ease-in-out infinite alternate; 
-    transition: transform 0.3s ease-out;
-  }
-
   @keyframes gate-float {
     from { transform: translateY(-8px); }
     to   { transform: translateY(8px); }
   }
 
-  .gate__glasses:hover img,
-  .gate__glasses:focus-visible img { 
-    animation-play-state: paused; 
-    transform: scale(1.1) rotate(-3deg);
-  }
-
-  // Putting them on.
   .gate.is-wearing .gate__glasses img {
     animation: gate-wear 2500ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
-  // Hide the glare immediately so it doesn't detach
-  .gate.is-wearing .gate__glasses::after {
+  .gate.is-wearing .gate__lens::after {
     opacity: 0;
     animation: none;
     display: none;
@@ -186,17 +125,13 @@
     100% { transform: translate3d(0, 15vh, 0) scale(40); opacity: 0; }
   }
 
-  // Delay the gate fade until the transition finishes, then crossfade
   .gate.is-wearing { animation: gate-fade 500ms 2500ms forwards; }
 
   @keyframes gate-fade { to { opacity: 0; visibility: hidden; } }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  // The gate is shown to everyone; what these visitors do not get is movement.
-  // The page still blurs - that is the point being made, and a blur is not
-  // motion - but nothing floats, travels or blinks, and it clears with a fade.
-  .gate__glasses img { animation: none; }
+  .gate__glasses { animation: none; }
   .gate.is-wearing .gate__glasses img { animation: none; transform: none; }
   .gate.is-wearing { animation: gate-fade-calm 260ms linear forwards; }
 
@@ -205,26 +140,65 @@
   .is-gated.is-clearing #root > *:not(.gate) { transition: filter 260ms linear; }
 }
 
+.gate__lens {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
 
-.gate__glasses-hint {
+/* The Grab Effect */
+.gate__glasses:hover .gate__lens,
+.gate__glasses:focus-visible .gate__lens {
+  transform: scale(1.15) rotate(-5deg);
+}
+
+/* The Glare (Now locked to the lens) */
+.gate__lens::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 10%, rgba(200, 241, 243, 0.7) 35%, rgba(255, 215, 136, 0.9) 45%, rgba(255, 255, 255, 1) 50%, rgba(255, 160, 226, 0.9) 55%, rgba(172, 138, 234, 0.7) 65%, transparent 90%);
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+  animation: glare-sweep 4.5s infinite;
+  
+  /* Mask ensures glare stays on the frames */
+  -webkit-mask-image: url('/glasses.png');
+  -webkit-mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: url('/glasses.png');
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+}
+
+/* Speed up glare on hover */
+.gate__glasses:hover .gate__lens::after {
+  animation-duration: 1.5s;
+}
+
+.gate__tooltip {
+  /* Powder Blue Background */
+  background-color: #A0CFEC;
+  color: #FFFFFF;
+  opacity: 0;
+  transform: translateY(15px) scale(0.8);
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   position: absolute;
   bottom: -32px;
-  background: var(--brand-powder, #A0CFEC);
-  color: #FFFFFF;
   padding: 4px 12px;
   border-radius: 99px;
   font-family: v.$font-heading;
   font-weight: v.$weight-bold;
   font-size: 0.875rem;
-  opacity: 0;
-  transform: translateY(10px);
-  pointer-events: none;
-  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   box-shadow: 0 4px 12px rgba(160, 207, 236, 0.4);
   white-space: nowrap;
 }
 
-.gate__glasses-hint::before {
+.gate__tooltip::before {
   content: "";
   position: absolute;
   top: -6px;
@@ -232,16 +206,17 @@
   transform: translateX(-50%);
   border-width: 0 6px 6px 6px;
   border-style: solid;
-  border-color: transparent transparent var(--brand-powder, #A0CFEC) transparent;
+  border-color: transparent transparent #A0CFEC transparent;
 }
 
-.gate__glasses:hover .gate__glasses-hint,
-.gate__glasses:focus-visible .gate__glasses-hint {
+/* The Tooltip Pop-in */
+.gate__glasses:hover .gate__tooltip,
+.gate__glasses:focus-visible .gate__tooltip {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
-.gate.is-wearing .gate__glasses span {
+.gate.is-wearing .gate__tooltip {
   opacity: 0 !important;
   visibility: hidden !important;
   transition: none !important;
