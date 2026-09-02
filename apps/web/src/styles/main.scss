@@ -13,7 +13,17 @@
   background-size: cover;
   background-position: center;
   background-image: url('/house-day-1.jpg');
+}
+
+/* 
+ * The animation triggers precisely when the glasses are clicked (or skipped).
+ * With a 2s delay, and a 2s step-end animation, the first 50% keyframe (the image swap)
+ * hits EXACTLY 3 seconds after the interaction. 
+ */
+html.has-unlocked .site-bg {
   animation: site-bg-swap 2s infinite step-end;
+  animation-delay: 2s;
+  animation-fill-mode: both;
 }
 
 @keyframes site-bg-swap {
