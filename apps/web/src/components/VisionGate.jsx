@@ -133,8 +133,8 @@ export default function VisionGate() {
 
   return (
     <div className="hero-container">
-      {/* Layer 1: The Environment */}
-      <div className={`bg-environment ${wearing ? 'is-revealing' : ''}`}></div>
+      {/* Layer 1: The Environment (Temporarily Removed) */}
+      {/* <div className={`bg-environment ${wearing ? 'is-revealing' : ''}`}></div> */}
 
       {/* Layer 2: The Ink Purple Mask (Temporarily Removed) */}
       {/* <div className={`bg-mask ${wearing ? 'is-revealing' : ''}`}></div> */}
