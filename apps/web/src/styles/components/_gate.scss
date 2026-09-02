@@ -47,7 +47,7 @@
 .gate__stage {
   display: grid;
   justify-items: center;
-  gap: calc(#{v.space(4)} * 0.45); /* Reduced by 33% again */
+  gap: calc(#{v.space(4)} * 0.30); /* Reduced by 33% AGAIN */
   transform-style: preserve-3d;
   background: transparent;
   border: none;
@@ -58,7 +58,7 @@
 .gate__glasses {
   display: grid;
   place-items: center;
-  padding: v.space(2) v.space(6); /* Reduced top/bottom padding to pull glasses closer to text */
+  padding: 0 v.space(6); /* Removed top/bottom padding entirely */
   min-height: 96px;
   border: 0;
   background: none;
