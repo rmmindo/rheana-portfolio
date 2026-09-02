@@ -21,16 +21,18 @@
 .hud {
   position: fixed;
   inset: 0;
-  pointer-events: none;
-  z-index: 50;
+  pointer-events: none !important;
+  z-index: 9000;
 }
 
 /* Make HUD interactive elements clickable again */
 .hud__top-left,
 .hud__top-right,
 .hud__bottom-left,
-.hud__bottom-right {
-  pointer-events: auto;
+.hud__bottom-right,
+.hud a,
+.hud button {
+  pointer-events: auto !important;
 }
 
 .hud__top-left {
@@ -165,7 +167,7 @@
   position: fixed;
   z-index: 9999;
   inset: 0;
-  pointer-events: none;
+  pointer-events: none !important;
   background-color: var(--brand-purple, #AC8AEA);
   clip-path: inset(100% 0 0 0);
   transition: clip-path 0.5s cubic-bezier(0.7, 0, 0.3, 1);
