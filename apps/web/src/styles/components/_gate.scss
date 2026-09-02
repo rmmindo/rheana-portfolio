@@ -200,7 +200,7 @@
   pointer-events: none;
   transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   position: absolute;
-  bottom: -37px; /* Increased from -32px to add 5px margin */
+  bottom: -42px; /* Increased from -37px to add another 5px margin */
   padding: 4px 12px;
   border-radius: 99px;
   font-family: v.$font-heading;
