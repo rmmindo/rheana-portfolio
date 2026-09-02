@@ -51,6 +51,19 @@
   transition: opacity 1s ease 1s;
 }
 
+/* Elevate the Hero Container Stacking Context */
+.hero-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999 !important; /* Force it above <main> and .hud */
+  pointer-events: none; /* Let empty space click through */
+}
+
+/* Ensure the interactive gate inside the container still works */
+.hero-container .gate {
+  pointer-events: auto;
+}
+
 /* Layer 3: Protect the Foreground */
 .gate {
   position: fixed;
@@ -285,5 +298,18 @@
   opacity: 0 !important;
   visibility: hidden !important;
   transition: none !important;
+}
+
+
+/* Isolate main Until the Reveal */
+#main {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-container:has(.gate:not(.is-wearing)) ~ #main,
+body:has(.gate:not(.is-wearing)) #main {
+  pointer-events: none !important;
+  visibility: hidden;
 }
 

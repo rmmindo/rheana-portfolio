@@ -54,7 +54,6 @@ function Page() {
   return (
     <>
       <div className={`page-transition ${transitioning ? 'is-active' : ''}`}></div>
-      <div className="autorefractor-bg"></div>
       
       <a className="skip-link" href="#main">{t('skip')}</a>
       <ReadingProgress />
