@@ -2,33 +2,61 @@
 
 .is-gated body { 
   overflow: hidden; 
-  background-color: #000;
 }
 
-.is-gated #root > *:not(.gate) {
-  clip-path: circle(15% at 50% 50%);
+/* Layer 1: The permanent black background */
+.bg-void {
+  position: fixed;
+  inset: 0;
+  background-color: #000000;
+  z-index: -2;
+}
+
+/* Layer 2: The Hot Air Balloon Peephole */
+.bg-autorefractor {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url('/bg-autorefractor.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* The initial blurry peephole state */
   filter: blur(12px);
+  clip-path: circle(20% at 50% 50%);
+  
+  /* Smooth transition for the unblur and expansion */
+  transition: filter 0.5s ease-out, clip-path 1.5s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
+}
+
+/* Layer 2 State Change: When glasses are clicked */
+.bg-autorefractor.is-revealing {
+  filter: blur(0px); /* Instantly unblurs */
+  clip-path: circle(150% at 50% 50%); /* Expands to fill the screen, covering the black */
+}
+
+/* Hide portfolio content while gated, then fade it in */
+.is-gated #root > *:not(.hero-container) {
+  opacity: 0;
   pointer-events: none;
   user-select: none;
+  visibility: hidden;
 }
 
-.is-gated.is-clearing #root > *:not(.gate) {
-  clip-path: circle(150% at 50% 50%);
-  filter: blur(0px);
-  transform: none;
-  transition: filter 0.5s ease, clip-path 1.5s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
+.is-gated.is-clearing #root > *:not(.hero-container) {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1s ease 1s;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  // Use the transition defined above
-}
-
+/* Layer 3: Protect the Foreground */
 .gate {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 999;
+  z-index: 50;
   display: grid;
   place-items: center;
   padding: v.space(5);

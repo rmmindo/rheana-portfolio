@@ -132,28 +132,37 @@ export default function VisionGate() {
   if (!open) return null;
 
   return (
-    <div
-      className={`gate${wearing ? ' is-wearing' : ''}`}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="gate-statement"
-      ref={dialogRef}
-      tabIndex={-1}
-    >
-      <div className="gate__stage">
-        <p id="gate-statement" className="gate__statement">{t('gate.statement')}</p>
+    <div className="hero-container">
+      {/* Layer 1: The Pitch Black Background */}
+      <div className="bg-void"></div>
 
-        <button 
-          type="button" 
-          className="gate__glasses" 
-          onClick={wear}
-          aria-label="A pair of glasses. Click to clear the blurry screen and reveal Rheana's portfolio."
-        >
-          <span className="gate__lens">
-            <img src="/glasses.png" alt="" aria-hidden="true" />
-          </span>
-          <span className="gate__tooltip">Put them on</span>
-        </button>
+      {/* Layer 2: The Blurred Image Peephole */}
+      <div className={`bg-autorefractor ${wearing ? 'is-revealing' : ''}`}></div>
+
+      {/* Layer 3: The Foreground Overlay (Keep all existing glasses/text logic here) */}
+      <div
+        className={`gate${wearing ? ' is-wearing' : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="gate-statement"
+        ref={dialogRef}
+        tabIndex={-1}
+      >
+        <div className="gate__stage">
+          <p id="gate-statement" className="gate__statement">{t('gate.statement')}</p>
+
+          <button 
+            type="button" 
+            className="gate__glasses" 
+            onClick={wear}
+            aria-label="A pair of glasses. Click to clear the blurry screen and reveal Rheana's portfolio."
+          >
+            <span className="gate__lens">
+              <img src="/glasses.png" alt="" aria-hidden="true" />
+            </span>
+            <span className="gate__tooltip">Put them on</span>
+          </button>
+        </div>
       </div>
     </div>
   );
