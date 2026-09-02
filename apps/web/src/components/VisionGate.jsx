@@ -142,7 +142,7 @@ export default function VisionGate() {
   if (!open) return null;
 
   return (
-    <div className="hero-container">
+    <div className="hero-container" style={{ pointerEvents: 'none' }}>
       {/* Layer 1: The Pitch Black Background */}
       <div className="bg-void"></div>
 
@@ -158,17 +158,37 @@ export default function VisionGate() {
         ref={dialogRef}
         tabIndex={-1}
       >
-        <div className="gate__stage">
+        <div 
+          className="gate__stage" 
+          style={{ pointerEvents: 'auto', position: 'relative', zIndex: 99998 }}
+        >
           <p id="gate-statement" className="gate__statement">{t('gate.statement')}</p>
 
-          <button 
-            type="button" 
-            className="gate__glasses" 
+          <button
+            type="button"
+            className="gate__glasses"
             onClick={wear}
             aria-label="A pair of glasses. Click to clear the blurry screen and reveal Rheana's portfolio."
+            style={{
+              position: 'relative',
+              display: 'flex',
+              minWidth: '150px',
+              minHeight: '80px',
+              zIndex: 99999,
+              pointerEvents: 'auto',
+              cursor: 'pointer',
+              background: 'transparent',
+              border: 'none',
+              isolation: 'isolate'
+            }}
           >
-            <span className="gate__lens">
-              <img src="/glasses.png" alt="" aria-hidden="true" />
+            <span className="gate__lens" style={{ pointerEvents: 'auto', display: 'block', width: '100%' }}>
+              <img 
+                src="/glasses.png" 
+                alt="" 
+                aria-hidden="true" 
+                style={{ pointerEvents: 'auto', width: '100%', display: 'block' }} 
+              />
             </span>
             <span className="gate__tooltip">Put them on</span>
           </button>
