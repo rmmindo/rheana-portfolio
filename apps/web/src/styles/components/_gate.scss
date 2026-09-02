@@ -47,7 +47,7 @@
 .gate__stage {
   display: grid;
   justify-items: center;
-  gap: calc(#{v.space(4)} * 0.67);
+  gap: calc(#{v.space(4)} * 0.45); /* Reduced by 33% again */
   transform-style: preserve-3d;
   background: transparent;
   border: none;
@@ -58,7 +58,7 @@
 .gate__glasses {
   display: grid;
   place-items: center;
-  padding: v.space(5) v.space(6);
+  padding: v.space(2) v.space(6); /* Reduced top/bottom padding to pull glasses closer to text */
   min-height: 96px;
   border: 0;
   background: none;
@@ -75,7 +75,7 @@
   100% { background-position: -50% 0; }
 }
 
-.gate__glasses img { width: clamp(7rem, 20vw, 11rem); height: auto; }
+.gate__glasses img { width: clamp(8.75rem, 25vw, 13.75rem); height: auto; } /* Increased by 25% */
 
 .gate:focus { outline: none; }
 
