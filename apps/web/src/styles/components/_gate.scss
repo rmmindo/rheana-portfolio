@@ -1,57 +1,32 @@
 @use "../abstracts/variables" as v;
 
-.is-gated body { 
-  overflow: hidden; 
-}
+.is-gated body { overflow: hidden; }
 
-/* Layer 1: The Environment */
-.bg-environment {
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  background-image: url('/bg-autorefractor.jpg');
-  background-size: cover;
-  background-position: center;
-  filter: blur(12px);
-  transition: filter 0.5s ease-out;
-}
-.bg-environment.is-revealing {
-  filter: blur(0px);
-}
-
-/* Layer 2: The Ink Purple Mask */
-.bg-mask {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-color: #1A0B2E; 
-  pointer-events: none; /* Crucial: lets clicks pass through to Layer 1 if needed later */
-  
-  /* The 27% peephole (Solid outside, transparent inside) */
-  clip-path: path("M 0 0 L 100vw 0 L 100vw 100vh L 0 100vh L 0 0 Z M 50vw 50vh m -27vmin 0 a 27vmin 27vmin 0 1 0 54vmin 0 a 27vmin 27vmin 0 1 0 -54vmin 0 Z");
-  
-  transition: clip-path 1.5s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
-}
-
-/* Expands the hole to reveal the environment */
-.bg-mask.is-revealing {
-  clip-path: path("M 0 0 L 100vw 0 L 100vw 100vh L 0 100vh L 0 0 Z M 50vw 50vh m -150vmin 0 a 150vmin 150vmin 0 1 0 300vmin 0 a 150vmin 150vmin 0 1 0 -300vmin 0 Z");
-}
-
-/* Hide portfolio content while gated, then fade it in */
-.is-gated #root > *:not(.hero-container) {
-  opacity: 0;
+.is-gated #root > *:not(.gate) {
+  filter: blur(25px) 
+          drop-shadow(4px 4px 3px rgba(255, 255, 255, 0.6))
+          drop-shadow(8px 8px 6px rgba(255, 255, 255, 0.3))
+          drop-shadow(-3px -3px 2px rgba(0, 0, 0, 0.4));
+  transform: scale(1.04);
+  transform-origin: center;
+  pointer-events: none;
   user-select: none;
-  visibility: hidden;
 }
 
-.is-gated.is-clearing #root > *:not(.hero-container) {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 1s ease 1s;
+.is-gated.is-clearing #root > *:not(.gate) {
+  filter: blur(0px) 
+          drop-shadow(0 0 0 transparent)
+          drop-shadow(0 0 0 transparent)
+          drop-shadow(0 0 0 transparent);
+  transform: none;
 }
 
-/* Layer 3: Protect the Foreground */
+@media (prefers-reduced-motion: no-preference) {
+  .is-gated #root > *:not(.gate) {
+    transition: filter 2500ms cubic-bezier(0.4, 0, 0.2, 1), transform 2500ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
 .gate {
   position: fixed;
   top: 50%;
@@ -65,6 +40,7 @@
   border: none;
   outline: none;
   box-shadow: none;
+  width: 100%;
   perspective: 800px;
 }
 

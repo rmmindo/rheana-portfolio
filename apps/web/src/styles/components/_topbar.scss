@@ -1,22 +1,5 @@
 @use "../abstracts/variables" as v;
 
-/* --- The Autorefractor Background --- */
-.autorefractor-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image: url('/bg-autorefractor.jpg');
-  background-size: cover;
-  background-position: center;
-  animation: slow-zoom 20s linear infinite alternate;
-  opacity: 0.8;
-}
-
-@keyframes slow-zoom {
-  from { transform: scale(1); }
-  to { transform: scale(1.15); }
-}
-
 /* --- HUD Layout --- */
 .hud {
   position: fixed;
