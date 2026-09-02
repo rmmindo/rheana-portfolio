@@ -120,6 +120,12 @@ export default function VisionGate() {
     timer.current = setTimeout(() => setOpen(false), 2500);
   }, [wearing]);
 
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   useEffect(() => {
     if (!open) return;
     const onKey = e => { if (e.key === 'Escape') dismiss(); };
@@ -128,6 +134,10 @@ export default function VisionGate() {
   }, [open, dismiss]);
 
   useEffect(() => () => clearTimeout(timer.current), []);
+
+  if (!isMounted) {
+    return <div className="hero-container-placeholder" />; // Prevent hydration crash
+  }
 
   if (!open) return null;
 

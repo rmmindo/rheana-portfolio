@@ -97,32 +97,35 @@
 }
 
 .gate__glasses {
-  /* Fix DOM Size Trap */
-  display: inline-flex !important;
+  position: relative;
+  display: flex !important; /* Force layout */
   align-items: center;
   justify-content: center;
-  min-width: 160px; 
-  min-height: 80px;
-  padding: 1rem;
-  isolation: isolate; 
-  
-  border: 0;
-  background: none;
-  transform-style: preserve-3d;
-  /* Ensure this idle float is ONLY on the button wrapper itself, not the lens */
-  animation: gate-float 4s ease-in-out infinite alternate;
-  
-  /* Critical Click Fixes */
-  position: relative;
-  z-index: 999 !important; 
+  min-width: 150px !important;
+  min-height: 80px !important;
+  z-index: 9999 !important; 
   cursor: pointer !important;
-  pointer-events: auto !important;
+  pointer-events: auto !important; 
+  background: transparent;
+  border: none;
+  isolation: isolate; 
+  transform-style: preserve-3d;
+  animation: gate-float 4s ease-in-out infinite alternate;
 }
 
 @keyframes glare-sweep {
   0% { background-position: 150% 0; }
   25% { background-position: -50% 0; }
   100% { background-position: -50% 0; }
+}
+
+.gate__lens, 
+.gate__lens img {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: auto !important; /* Force the image itself to catch the mouse */
+  user-select: none;
 }
 
 .gate__glasses img { width: clamp(7rem, 20vw, 11rem); height: auto; }
