@@ -54,13 +54,12 @@
 /* Layer 3: Protect the Foreground */
 .gate {
   position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
   display: grid;
   place-items: center;
-  z-index: 10; /* Cleanly above the mask */
-  pointer-events: none; /* Let clicks pass through empty space in the gate */
   padding: v.space(5);
   background: transparent;
   border: none;
@@ -70,17 +69,14 @@
 }
 
 .gate__stage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
+  display: grid;
+  justify-items: center;
+  gap: calc(#{v.space(4)} * 0.67);
   transform-style: preserve-3d;
   background: transparent;
   border: none;
   outline: none;
   box-shadow: none;
-  pointer-events: auto;
 }
 
 .gate__glasses {
@@ -90,15 +86,11 @@
   min-height: 96px;
   border: 0;
   background: none;
+  cursor: pointer;
   transform-style: preserve-3d;
+  position: relative;
   /* Ensure this idle float is ONLY on the button wrapper itself, not the lens */
   animation: gate-float 4s ease-in-out infinite alternate;
-  
-  /* Critical Click Fixes */
-  position: relative;
-  z-index: 999 !important; 
-  cursor: pointer !important;
-  pointer-events: auto !important;
 }
 
 @keyframes glare-sweep {
