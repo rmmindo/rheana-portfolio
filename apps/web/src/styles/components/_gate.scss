@@ -109,7 +109,7 @@
     to   { transform: translateY(8px); }
   }
 
-  .gate.is-wearing .gate__glasses img {
+  .gate.is-wearing .gate__lens {
     animation: gate-wear 2500ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
@@ -120,9 +120,21 @@
   }
 
   @keyframes gate-wear {
-    0%   { transform: translate3d(0, 0, 0) scale(1); opacity: 1; }
-    30%  { transform: translate3d(0, 5vh, 0) scale(3); opacity: 1; }
-    100% { transform: translate3d(0, 15vh, 0) scale(40); opacity: 0; }
+    /* 0% matches the exact hover state so there is no visual jump */
+    0% { 
+      transform: translate3d(0, 0, 0) scale(1.15) rotate(-5deg); 
+      opacity: 1; 
+    }
+    /* 30% zooms in slightly and UNTILTS to 0deg */
+    30% { 
+      transform: translate3d(0, 5vh, 0) scale(3) rotate(0deg); 
+      opacity: 1; 
+    }
+    /* 100% massive zoom out of frame (Unchanged) */
+    100% { 
+      transform: translate3d(0, 15vh, 0) scale(40) rotate(0deg); 
+      opacity: 0; 
+    }
   }
 
   .gate.is-wearing { animation: gate-fade 500ms 2500ms forwards; }
@@ -132,7 +144,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .gate__glasses { animation: none; }
-  .gate.is-wearing .gate__glasses img { animation: none; transform: none; }
+  .gate.is-wearing .gate__lens { animation: none; transform: none; }
   .gate.is-wearing { animation: gate-fade-calm 260ms linear forwards; }
 
   @keyframes gate-fade-calm { to { opacity: 0; } }
