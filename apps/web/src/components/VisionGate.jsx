@@ -136,8 +136,8 @@ export default function VisionGate() {
       {/* Layer 1: The Environment */}
       <div className={`bg-environment ${wearing ? 'is-revealing' : ''}`}></div>
 
-      {/* Layer 2: The Ink Purple Mask */}
-      <div className={`bg-mask ${wearing ? 'is-revealing' : ''}`}></div>
+      {/* Layer 2: The Ink Purple Mask (Temporarily Removed) */}
+      {/* <div className={`bg-mask ${wearing ? 'is-revealing' : ''}`}></div> */}
 
       {/* Layer 3: The Untouched Foreground */}
       <div
