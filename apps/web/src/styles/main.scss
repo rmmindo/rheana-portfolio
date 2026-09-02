@@ -1,4 +1,11 @@
+@use 'abstracts/variables';
+@use 'abstracts/shapes';
+@use 'themes/tokens';
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/a11y';
 @use 'components/gate';
+
 .site-bg {
   position: fixed;
   inset: 0;
