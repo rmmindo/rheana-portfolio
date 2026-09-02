@@ -1,38 +1,15 @@
-// main.scss — the @use manifest. Import order is the cascade order.
-@use "abstracts/variables";
-@use "abstracts/shapes";
-@use "themes/tokens";
-@use "base/reset";
-@use "base/typography";
-@use "base/a11y";
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  background-size: cover;
+  background-position: center;
+  background-image: url('/house-day-1.jpg');
+  animation: site-bg-swap 2s infinite step-end;
+}
 
-@use "components/layout";
-@use "components/topbar";
-@use "components/progress";
-@use "components/button";
-@use "components/hero";
-@use "components/work";
-@use "components/plot";
-@use "components/demo";
-@use "components/cycle";
-@use "components/dash";
-@use "components/scta";
-@use "components/ledg";
-@use "components/ask";
-@use "components/probe";
-@use "components/how";
-@use "components/tools";
-@use "components/roots";
-@use "components/write";
-@use "components/next";
-@use "components/video";
-@use "components/proof";
-@use "components/baybayin";
-@use "components/blocking";
-@use "components/scallop";
-@use "components/odometer";
-@use "components/gate";
-@use "components/footer";
-
-// Motion last: it overrides resting states set by the component styles above.
-@use "components/motion";
+@keyframes site-bg-swap {
+  0% { background-image: url('/house-day-1.jpg'); }
+  50% { background-image: url('/house-day-2.jpg'); }
+  100% { background-image: url('/house-day-1.jpg'); }
+}
