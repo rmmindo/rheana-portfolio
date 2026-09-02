@@ -4,43 +4,43 @@
   overflow: hidden; 
 }
 
-/* Layer 1: The permanent black background */
-.bg-void {
+/* Layer 1: The Environment */
+.bg-environment {
   position: fixed;
   inset: 0;
-  background-color: #1A0B2E;
   z-index: -2;
-}
-
-/* Layer 2: The Hot Air Balloon Peephole */
-.bg-autorefractor {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
   background-image: url('/bg-autorefractor.jpg');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  
-  /* The initial blurry peephole state */
   filter: blur(12px);
-  clip-path: circle(27% at 50% 50%);
-  
-  /* Smooth transition for the unblur and expansion */
-  transition: filter 0.5s ease-out, clip-path 1.5s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
+  transition: filter 0.5s ease-out;
+}
+.bg-environment.is-revealing {
+  filter: blur(0px);
 }
 
-/* Layer 2 State Change: When glasses are clicked */
-.bg-autorefractor.is-revealing {
-  filter: blur(0px); /* Instantly unblurs */
-  clip-path: circle(150% at 50% 50%); /* Expands to fill the screen, covering the black */
+/* Layer 2: The Ink Purple Mask */
+.bg-mask {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: #1A0B2E; 
+  pointer-events: none; /* Crucial: lets clicks pass through to Layer 1 if needed later */
+  
+  /* The 27% peephole (Solid outside, transparent inside) */
+  clip-path: path("M 0 0 L 100vw 0 L 100vw 100vh L 0 100vh L 0 0 Z M 50vw 50vh m -27vmin 0 a 27vmin 27vmin 0 1 0 54vmin 0 a 27vmin 27vmin 0 1 0 -54vmin 0 Z");
+  
+  transition: clip-path 1.5s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
+}
+
+/* Expands the hole to reveal the environment */
+.bg-mask.is-revealing {
+  clip-path: path("M 0 0 L 100vw 0 L 100vw 100vh L 0 100vh L 0 0 Z M 50vw 50vh m -150vmin 0 a 150vmin 150vmin 0 1 0 300vmin 0 a 150vmin 150vmin 0 1 0 -300vmin 0 Z");
 }
 
 /* Hide portfolio content while gated, then fade it in */
 .is-gated #root > *:not(.hero-container) {
   opacity: 0;
-  pointer-events: none;
   user-select: none;
   visibility: hidden;
 }
@@ -51,19 +51,6 @@
   transition: opacity 1s ease 1s;
 }
 
-/* Elevate the Hero Container Stacking Context */
-.hero-container {
-  position: fixed;
-  inset: 0;
-  z-index: 9999 !important; /* Force it above <main> and .hud */
-  pointer-events: none; /* Let empty space click through */
-}
-
-/* Ensure the interactive gate inside the container still works */
-.hero-container .gate {
-  pointer-events: auto;
-}
-
 /* Layer 3: Protect the Foreground */
 .gate {
   position: fixed;
@@ -72,7 +59,7 @@
   height: 100vh;
   display: grid;
   place-items: center;
-  z-index: 5000 !important; /* Must be higher than the background layers */
+  z-index: 10; /* Cleanly above the mask */
   pointer-events: none; /* Let clicks pass through empty space in the gate */
   padding: v.space(5);
   background: transparent;
@@ -97,35 +84,27 @@
 }
 
 .gate__glasses {
-  position: relative;
-  display: flex !important; /* Force layout */
-  align-items: center;
-  justify-content: center;
-  min-width: 150px !important;
-  min-height: 80px !important;
-  z-index: 9999 !important; 
-  cursor: pointer !important;
-  pointer-events: auto !important; 
-  background: transparent;
-  border: none;
-  isolation: isolate; 
+  display: grid;
+  place-items: center;
+  padding: v.space(5) v.space(6);
+  min-height: 96px;
+  border: 0;
+  background: none;
   transform-style: preserve-3d;
+  /* Ensure this idle float is ONLY on the button wrapper itself, not the lens */
   animation: gate-float 4s ease-in-out infinite alternate;
+  
+  /* Critical Click Fixes */
+  position: relative;
+  z-index: 999 !important; 
+  cursor: pointer !important;
+  pointer-events: auto !important;
 }
 
 @keyframes glare-sweep {
   0% { background-position: 150% 0; }
   25% { background-position: -50% 0; }
   100% { background-position: -50% 0; }
-}
-
-.gate__lens, 
-.gate__lens img {
-  display: block;
-  width: 100%;
-  height: auto;
-  pointer-events: auto !important; /* Force the image itself to catch the mouse */
-  user-select: none;
 }
 
 .gate__glasses img { width: clamp(7rem, 20vw, 11rem); height: auto; }
@@ -146,23 +125,7 @@
   text-align: center;
   max-width: 22ch;
   text-wrap: balance;
-  line-height: 1.2 !important;
-  margin-bottom: 1rem !important;
-  pointer-events: none !important;
 }
-
-.gate__stage h1, 
-.gate__stage h2,
-.gate__stage p {
-  line-height: 1.2 !important;
-  margin-bottom: 1rem !important;
-  pointer-events: none !important; /* Force the text to ignore clicks so it can't block the glasses */
-}
-
-/* Add this temporarily to see the invisible boxes */
-.gate__stage { outline: 2px dashed rgba(255, 255, 255, 0.2); }
-.gate__stage > * { outline: 2px solid rgba(255, 0, 0, 0.5); }
-.gate__glasses { outline: 2px solid rgba(0, 255, 0, 0.8) !important; }
 
 @media (prefers-reduced-motion: no-preference) {
   .gate.is-wearing .gate__statement {
@@ -301,18 +264,5 @@
   opacity: 0 !important;
   visibility: hidden !important;
   transition: none !important;
-}
-
-
-/* Isolate main Until the Reveal */
-#main {
-  position: relative;
-  z-index: 1;
-}
-
-.hero-container:has(.gate:not(.is-wearing)) ~ #main,
-body:has(.gate:not(.is-wearing)) #main {
-  pointer-events: none !important;
-  visibility: hidden;
 }
 

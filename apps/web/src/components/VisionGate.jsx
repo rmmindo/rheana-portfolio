@@ -120,12 +120,6 @@ export default function VisionGate() {
     timer.current = setTimeout(() => setOpen(false), 2500);
   }, [wearing]);
 
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   useEffect(() => {
     if (!open) return;
     const onKey = e => { if (e.key === 'Escape') dismiss(); };
@@ -135,21 +129,17 @@ export default function VisionGate() {
 
   useEffect(() => () => clearTimeout(timer.current), []);
 
-  if (!isMounted) {
-    return <div className="hero-container-placeholder" />; // Prevent hydration crash
-  }
-
   if (!open) return null;
 
   return (
-    <div className="hero-container" style={{ pointerEvents: 'none' }}>
-      {/* Layer 1: The Pitch Black Background */}
-      <div className="bg-void"></div>
+    <div className="hero-container">
+      {/* Layer 1: The Environment */}
+      <div className={`bg-environment ${wearing ? 'is-revealing' : ''}`}></div>
 
-      {/* Layer 2: The Blurred Image Peephole */}
-      <div className={`bg-autorefractor ${wearing ? 'is-revealing' : ''}`}></div>
+      {/* Layer 2: The Ink Purple Mask */}
+      <div className={`bg-mask ${wearing ? 'is-revealing' : ''}`}></div>
 
-      {/* Layer 3: The Foreground Overlay (Keep all existing glasses/text logic here) */}
+      {/* Layer 3: The Untouched Foreground */}
       <div
         className={`gate${wearing ? ' is-wearing' : ''}`}
         role="dialog"
@@ -158,37 +148,17 @@ export default function VisionGate() {
         ref={dialogRef}
         tabIndex={-1}
       >
-        <div 
-          className="gate__stage" 
-          style={{ pointerEvents: 'auto', position: 'relative', zIndex: 99998 }}
-        >
+        <div className="gate__stage">
           <p id="gate-statement" className="gate__statement">{t('gate.statement')}</p>
 
-          <button
-            type="button"
-            className="gate__glasses"
+          <button 
+            type="button" 
+            className="gate__glasses" 
             onClick={wear}
             aria-label="A pair of glasses. Click to clear the blurry screen and reveal Rheana's portfolio."
-            style={{
-              position: 'relative',
-              display: 'flex',
-              minWidth: '150px',
-              minHeight: '80px',
-              zIndex: 99999,
-              pointerEvents: 'auto',
-              cursor: 'pointer',
-              background: 'transparent',
-              border: 'none',
-              isolation: 'isolate'
-            }}
           >
-            <span className="gate__lens" style={{ pointerEvents: 'auto', display: 'block', width: '100%' }}>
-              <img 
-                src="/glasses.png" 
-                alt="" 
-                aria-hidden="true" 
-                style={{ pointerEvents: 'auto', width: '100%', display: 'block' }} 
-              />
+            <span className="gate__lens">
+              <img src="/glasses.png" alt="" aria-hidden="true" />
             </span>
             <span className="gate__tooltip">Put them on</span>
           </button>
