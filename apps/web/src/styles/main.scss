@@ -14,3 +14,17 @@
   50% { background-image: url('/house-day-2.jpg'); }
   100% { background-image: url('/house-day-1.jpg'); }
 }
+
+.site-mask {
+  position: fixed;
+  inset: 0;
+  z-index: -9;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    transparent 160px,
+    #1A0B2E 162px,
+    #1A0B2E 100%
+  );
+}

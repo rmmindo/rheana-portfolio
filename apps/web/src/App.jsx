@@ -6,6 +6,7 @@ export default function App() {
   return (
     <I18nProvider>
       <div className="site-bg"></div>
+      <div className="site-mask"></div>
       <VisionGate />
     </I18nProvider>
   );
