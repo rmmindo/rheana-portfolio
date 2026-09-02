@@ -10,44 +10,6 @@
   background: transparent;
 }
 
-.hero__ambient {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.hero__aurora {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  animation: aurora-drift 15s infinite ease-in-out alternate;
-}
-
-.hero__aurora--1 {
-  width: 60rem;
-  height: 60rem;
-  background: rgba(255, 160, 226, 0.3); // Pink
-  top: -10%;
-  left: 10%;
-}
-
-.hero__aurora--2 {
-  width: 50rem;
-  height: 50rem;
-  background: rgba(160, 207, 236, 0.3); // Powder Blue
-  bottom: -20%;
-  right: 5%;
-  animation-direction: alternate-reverse;
-}
-
-@keyframes aurora-drift {
-  0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(5%, 5%) scale(1.05); }
-  100% { transform: translate(-5%, -5%) scale(0.95); }
-}
-
 .hero__inner {
   position: relative;
   z-index: 1;

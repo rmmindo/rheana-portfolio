@@ -62,11 +62,6 @@ export default function Hero({ profile }) {
 
   return (
     <section className="hero" aria-labelledby="hero-heading">
-      <div className="hero__ambient" aria-hidden="true">
-        <div className="hero__aurora hero__aurora--1" />
-        <div className="hero__aurora hero__aurora--2" />
-      </div>
-      
       <div className="hero__inner" ref={introRef}>
         <h1 id="hero-heading" className="hero__line">
           Your product vision,<br />
