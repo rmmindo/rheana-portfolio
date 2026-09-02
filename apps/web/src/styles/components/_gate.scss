@@ -3,7 +3,7 @@
 .is-gated body { overflow: hidden; }
 
 .is-gated #root > *:not(.gate) {
-  filter: blur(12px) /* Reduced from 16px to 12px */
+  filter: blur(10px) /* Reduced to 10px */
           drop-shadow(4px 4px 3px rgba(255, 255, 255, 0.6))
           drop-shadow(8px 8px 6px rgba(255, 255, 255, 0.3))
           drop-shadow(-3px -3px 2px rgba(0, 0, 0, 0.4));
