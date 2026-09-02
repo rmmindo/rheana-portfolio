@@ -53,7 +53,7 @@ function Page() {
 
   return (
     <>
-      <div className={`page-transition ${transitioning ? 'is-active' : ''}`}></div>
+      {/* Temporarily removed .page-transition to debug click interception */}
       
       <a className="skip-link" href="#main">{t('skip')}</a>
       <ReadingProgress />
