@@ -22,12 +22,16 @@ export default function App() {
         display: 'flex',
         alignItems: 'center',
         gap: '12px',
-        mixBlendMode: 'difference',
-        color: '#FFFFFF',
         textDecoration: 'none'
       }}>
         <img src="/petal.png" alt="Hydrangea Logo" className="brand-logo" style={{ width: '32px', height: '32px' }} />
-        <span className="brand-name" style={{ fontWeight: 'bold', fontSize: '1.25rem', letterSpacing: '0.05em' }}>Rheana Mindo</span>
+        <span className="brand-name" style={{ 
+          fontWeight: 'bold', 
+          fontSize: '1.25rem', 
+          letterSpacing: '0.05em',
+          mixBlendMode: 'difference',
+          color: '#FFFFFF'
+        }}>Rheana Mindo</span>
       </a>
       <ThemeCord />
 
