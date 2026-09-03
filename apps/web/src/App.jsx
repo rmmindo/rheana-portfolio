@@ -16,7 +16,7 @@ export default function App() {
         gap: '12px',
         textDecoration: 'none'
       }}>
-        <img src="/petal.png" alt="Hydrangea Logo" className="brand-logo" style={{ width: '32px', height: '32px' }} />
+        <img src="/petal.png" alt="Hydrangea Logo" className="brand-logo" />
         <span className="brand-name" style={{ 
           fontWeight: 'bold', 
           fontSize: '1.25rem', 
