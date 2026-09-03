@@ -32,6 +32,7 @@ export default function ThemeCord() {
   const [dragY, setDragY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isWiping, setIsWiping] = useState(false);
   const [isSnapping, setIsSnapping] = useState(false);
   const startY = useRef(0);
 
@@ -62,14 +63,23 @@ export default function ThemeCord() {
     e.currentTarget.releasePointerCapture(e.pointerId);
 
     if (dragY > 100 && !isTransitioning) {
-      setIsTransitioning(true);
-      setTimeout(() => cycleTheme(), 600); 
-      setTimeout(() => setIsTransitioning(false), 1200); 
+      setIsTransitioning(true); // Lock the interaction
+      
+      setTimeout(() => {
+        setIsWiping(true); // Mount the wipe DOM element
+        
+        setTimeout(() => cycleTheme(), 600); // Switch theme exactly when the wipe covers the screen
+        
+        setTimeout(() => {
+          setIsWiping(false);
+          setIsTransitioning(false); // Unlock the interaction
+        }, 1200); // Wait for the 1.2s animation to finish
+        
+      }, 1500); // 1.5s delay before the wipe starts
     }
     
     if (dragY > 0) {
       setIsSnapping(true);
-      // Wait for the wobble animation to complete (1s)
       setTimeout(() => setIsSnapping(false), 1000);
     }
     
@@ -80,16 +90,13 @@ export default function ThemeCord() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  // Calculate scaling for the line stretch
   const scale = (40 + dragY) / 40;
 
-  // Extremely elastic bounce for the vertical snap back
   const springTransition = isSnapping ? 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none';
 
   return (
     <>
       <div className="theme-cord-wrapper" style={{ position: 'fixed', top: 0, right: '4rem', zIndex: 9000 }}>
-        {/* The assembly holds both the line and handle so they rotate as ONE solid object */}
         <div className={`theme-cord-assembly ${isSnapping ? 'is-snapping' : ''}`}>
           <div 
             className="theme-cord-line" 
@@ -117,7 +124,7 @@ export default function ThemeCord() {
         </div>
       </div>
 
-      {isTransitioning && <div className="theme-wipe"></div>}
+      {isWiping && <div className="theme-wipe"></div>}
     </>
   );
 }
