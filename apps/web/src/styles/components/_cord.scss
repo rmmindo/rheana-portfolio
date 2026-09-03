@@ -31,12 +31,11 @@
   border-radius: 40% 40% 50% 50% / 10% 10% 40% 40% !important;
   cursor: grab;
   
-  /* Flexbox to push the icon to the bottom */
+  /* Flexbox to center the icon */
   display: flex !important;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end; /* Pushes content down */
-  padding-bottom: 6px; /* Spacing from the bottom edge */
+  justify-content: center; /* Centers content */
   
   /* Retain previous glassmorphism */
   background: rgba(255, 255, 255, 0.1) !important;
@@ -51,8 +50,8 @@
 }
 
 .theme-cord-handle svg {
-  width: 14px;
-  height: 14px;
+  width: 21px;
+  height: 21px;
   flex-shrink: 0;
 }
 
