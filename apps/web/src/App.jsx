@@ -1,6 +1,7 @@
 import './styles/main.scss';
 import VisionGate from './components/VisionGate.jsx';
 import ThemeCord from './components/ThemeCord.jsx';
+import Hero from './components/Hero.jsx';
 import { I18nProvider } from './hooks/useI18n.jsx';
 
 export default function App() {
@@ -30,6 +31,7 @@ export default function App() {
       <div className="site-bg scene-balloon"></div>
       <div className="site-mask"></div>
 
+      <Hero />
       <VisionGate />
     </I18nProvider>
   );
