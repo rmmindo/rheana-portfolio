@@ -122,7 +122,7 @@ export default function ThemeCord() {
             border: 'none',
             padding: 0,
             touchAction: 'none',
-            transform: !isSnapping ? `translateY(${dragY}px)` : undefined,
+            ...( !isSnapping ? { transform: `translateY(${dragY}px)` } : {} )
           }}
         >
           {theme === 'light' && <SunIcon />}

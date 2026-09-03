@@ -16,6 +16,7 @@
   border-radius: 50%;
   cursor: grab;
   will-change: transform;
+  transform-origin: top center;
 }
 
 /* The Organic Snap Animations */
@@ -29,8 +30,8 @@
 
 @keyframes handle-wobble {
   0%   { transform: translateY(var(--release-y)) rotate(0deg); }
-  40%  { transform: translateY(-5px) rotate(-10deg); } /* Overshoots up and swings */
-  70%  { transform: translateY(2px) rotate(5deg); }
+  40%  { transform: translateY(-12px) rotate(-25deg); } /* Aggressive pendulum swing */
+  70%  { transform: translateY(6px) rotate(12deg); }
   100% { transform: translateY(0) rotate(0deg); }
 }
 
