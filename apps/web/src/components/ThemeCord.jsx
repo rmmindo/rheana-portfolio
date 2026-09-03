@@ -75,7 +75,7 @@ export default function ThemeCord() {
           setIsTransitioning(false); // Unlock the interaction
         }, 1200); // Wait for the 1.2s animation to finish
         
-      }, 2500); // 2.5s delay before the wipe starts
+      }, 2200); // 2.2s delay before the wipe starts
     }
     
     if (dragY > 0) {
