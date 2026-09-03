@@ -14,7 +14,21 @@ export default function App() {
 
   return (
     <I18nProvider>
-      <a href="#" className="branding-anchor">Rheana Mindo</a>
+      <a href="/" className="brand-anchor" style={{
+        position: 'fixed',
+        top: '2rem',
+        left: '2rem',
+        zIndex: 9000,
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        mixBlendMode: 'difference',
+        color: '#FFFFFF',
+        textDecoration: 'none'
+      }}>
+        <img src="/petal.svg" alt="Hydrangea Logo" className="brand-logo" style={{ width: '32px', height: '32px' }} />
+        <span className="brand-name" style={{ fontWeight: 'bold', fontSize: '1.25rem', letterSpacing: '0.05em' }}>Rheana Mindo</span>
+      </a>
       <ThemeCord />
 
       <div className={`site-bg scene-${SCENES[sceneIndex]}`}></div>
