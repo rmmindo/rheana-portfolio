@@ -69,9 +69,9 @@
 }
 
 @keyframes glare-sweep {
-  0% { background-position: 0% 0; }
-  25% { background-position: 100% 0; }
-  100% { background-position: 100% 0; }
+  0% { background-position: 100% 0; } /* Starts offscreen left */
+  25% { background-position: 0% 0; } /* Sweeps to offscreen right */
+  100% { background-position: 0% 0; } /* Stays offscreen right */
 }
 
 .gate__glasses img { width: clamp(8.75rem, 25vw, 13.75rem); height: auto; }
