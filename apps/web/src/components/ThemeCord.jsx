@@ -33,7 +33,6 @@ export default function ThemeCord() {
   const [isDragging, setIsDragging] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isSnapping, setIsSnapping] = useState(false);
-  const [releaseY, setReleaseY] = useState(0);
   const startY = useRef(0);
 
   const cycleTheme = () => {
@@ -69,9 +68,9 @@ export default function ThemeCord() {
     }
     
     if (dragY > 0) {
-      setReleaseY(dragY);
       setIsSnapping(true);
-      setTimeout(() => setIsSnapping(false), 600);
+      // Wait for the wobble animation to complete (1s)
+      setTimeout(() => setIsSnapping(false), 1000);
     }
     
     setDragY(0);
@@ -81,54 +80,41 @@ export default function ThemeCord() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
+  // Calculate scaling for the line stretch
   const scale = (40 + dragY) / 40;
+
+  // Extremely elastic bounce for the vertical snap back
+  const springTransition = isSnapping ? 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none';
 
   return (
     <>
-      <div 
-        className={`theme-cord-wrapper ${isSnapping ? 'is-snapping' : ''}`} 
-        style={{ 
-          position: 'fixed', 
-          top: 0, 
-          right: '4rem', 
-          zIndex: 9000, 
-          display: 'flex', 
-          flexDirection: 'column', 
-          alignItems: 'center',
-          '--release-y': `${releaseY}px`
-        }}
-      >
-        <div 
-          className="theme-cord-line" 
-          style={{ 
-            mixBlendMode: 'difference',
-            transform: `scaleY(${scale})`
-          }} 
-        />
-        
-        <button 
-          className="theme-cord-handle"
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          style={{
-            cursor: isDragging ? 'grabbing' : 'grab',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'white',
-            mixBlendMode: 'difference',
-            color: 'black',
-            border: 'none',
-            padding: 0,
-            touchAction: 'none',
-            ...( !isSnapping ? { transform: `translateY(${dragY}px)` } : {} )
-          }}
-        >
-          {theme === 'light' && <SunIcon />}
-          {theme === 'dark' && <MoonIcon />}
-          {theme === 'auto' && <AutoGearIcon />}
-        </button>
+      <div className="theme-cord-wrapper" style={{ position: 'fixed', top: 0, right: '4rem', zIndex: 9000 }}>
+        {/* The assembly holds both the line and handle so they rotate as ONE solid object */}
+        <div className={`theme-cord-assembly ${isSnapping ? 'is-snapping' : ''}`}>
+          <div 
+            className="theme-cord-line" 
+            style={{ 
+              transform: `scaleY(${scale})`,
+              transition: springTransition
+            }} 
+          />
+          
+          <button 
+            className="theme-cord-handle"
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            style={{
+              cursor: isDragging ? 'grabbing' : 'grab',
+              transform: `translateY(${dragY}px)`,
+              transition: springTransition
+            }}
+          >
+            {theme === 'light' && <SunIcon />}
+            {theme === 'dark' && <MoonIcon />}
+            {theme === 'auto' && <AutoGearIcon />}
+          </button>
+        </div>
       </div>
 
       {isTransitioning && <div className="theme-wipe"></div>}
