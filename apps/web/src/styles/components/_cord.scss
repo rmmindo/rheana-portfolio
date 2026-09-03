@@ -64,6 +64,11 @@
   filter: none !important; /* Remove the old glow */
 }
 
+/* Because the gear is scaled to 1.15x, a 1.75px stroke visually renders as ~2.0px */
+.theme-cord-handle .icon-gear {
+  stroke-width: 1.75px !important;
+}
+
 @keyframes cord-wobble {
   0%   { transform: rotate(0deg); }
   20%  { transform: rotate(15deg); }
