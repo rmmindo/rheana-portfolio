@@ -25,20 +25,35 @@
 
 /* The Handle */
 .theme-cord-handle {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  will-change: transform;
+  width: 22px !important;
+  height: 48px !important;
+  /* Asymmetrical Radius: Flat/narrow top, round/bulbous bottom */
+  border-radius: 40% 40% 50% 50% / 10% 10% 40% 40% !important;
+  cursor: grab;
   
-  display: flex;
+  /* Flexbox to push the icon to the bottom */
+  display: flex !important;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: white;
-  mix-blend-mode: difference;
-  color: black;
-  border: none;
-  padding: 0;
+  justify-content: flex-end; /* Pushes content down */
+  padding-bottom: 6px; /* Spacing from the bottom edge */
+  
+  /* Retain previous glassmorphism */
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  color: white; 
+  z-index: 2;
+  will-change: transform;
   touch-action: none;
+}
+
+.theme-cord-handle svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
 }
 
 @keyframes cord-wobble {

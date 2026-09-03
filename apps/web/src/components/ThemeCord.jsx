@@ -80,6 +80,7 @@ export default function ThemeCord() {
     
     if (dragY > 0) {
       setIsSnapping(true);
+      // Wait for the wobble animation to complete (1s)
       setTimeout(() => setIsSnapping(false), 1000);
     }
     
@@ -90,13 +91,16 @@ export default function ThemeCord() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
+  // Calculate scaling for the line stretch
   const scale = (80 + dragY) / 80;
 
+  // Extremely elastic bounce for the vertical snap back
   const springTransition = isSnapping ? 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none';
 
   return (
     <>
       <div className="theme-cord-wrapper" style={{ position: 'fixed', top: 0, right: '4rem', zIndex: 9000 }}>
+        {/* The assembly holds both the line and handle so they rotate as ONE solid object */}
         <div className={`theme-cord-assembly ${isSnapping ? 'is-snapping' : ''}`}>
           <div 
             className="theme-cord-line" 
