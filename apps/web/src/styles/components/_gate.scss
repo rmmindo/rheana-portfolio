@@ -235,3 +235,9 @@
   opacity: 1;
   transform: translateY(0) scale(1);
 }
+
+/* Hide tooltip immediately when clicked */
+.gate.is-wearing .gate__tooltip {
+  opacity: 0 !important;
+  transition: opacity 0.2s ease-out !important;
+}
