@@ -1,56 +1,40 @@
 @use "../abstracts/variables" as v;
 
-.branding-anchor {
-  position: fixed;
-  top: 2rem;
-  left: 2rem;
-  z-index: 9000;
-  mix-blend-mode: difference;
-  color: #FFFFFF;
-  pointer-events: auto;
-  font-family: v.$font-heading;
-  font-weight: v.$weight-bold;
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
-  text-decoration: none;
-  letter-spacing: -0.02em;
-}
-
-.theme-cord {
-  position: fixed;
-  top: 0;
-  right: 4rem;
-  z-index: 9000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: grab;
-  touch-action: none;
-
-  &--snap {
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  &:active {
-    cursor: grabbing;
-  }
-}
-
-.theme-cord__line {
+/* The Line */
+.theme-cord-line {
   width: 2px;
-  height: 80px;
-  background-color: #FFFFFF;
-  mix-blend-mode: difference;
+  height: 40px;
+  background-color: white;
+  transform-origin: top center !important; /* Glues it to the ceiling */
+  will-change: transform;
 }
 
-.theme-cord__handle {
-  width: 16px;
-  height: 16px;
+/* The Handle */
+.theme-cord-handle {
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background-color: #FFFFFF;
-  mix-blend-mode: difference;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: grab;
+  will-change: transform;
 }
 
+/* The Organic Snap Animations */
+.theme-cord-wrapper.is-snapping .theme-cord-line {
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-cord-wrapper.is-snapping .theme-cord-handle {
+  animation: handle-wobble 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes handle-wobble {
+  0%   { transform: translateY(var(--release-y)) rotate(0deg); }
+  40%  { transform: translateY(-5px) rotate(-10deg); } /* Overshoots up and swings */
+  70%  { transform: translateY(2px) rotate(5deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* The Wipe Animation (Preserved) */
 .theme-wipe {
   position: fixed;
   inset: 0;

@@ -32,6 +32,8 @@ export default function ThemeCord() {
   const [dragY, setDragY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isSnapping, setIsSnapping] = useState(false);
+  const [releaseY, setReleaseY] = useState(0);
   const startY = useRef(0);
 
   const cycleTheme = () => {
@@ -44,6 +46,7 @@ export default function ThemeCord() {
 
   const handlePointerDown = (e) => {
     setIsDragging(true);
+    setIsSnapping(false);
     startY.current = e.clientY - dragY;
     e.currentTarget.setPointerCapture(e.pointerId);
   };
@@ -64,6 +67,13 @@ export default function ThemeCord() {
       setTimeout(() => cycleTheme(), 600); 
       setTimeout(() => setIsTransitioning(false), 1200); 
     }
+    
+    if (dragY > 0) {
+      setReleaseY(dragY);
+      setIsSnapping(true);
+      setTimeout(() => setIsSnapping(false), 600);
+    }
+    
     setDragY(0);
   };
 
@@ -71,17 +81,28 @@ export default function ThemeCord() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
+  const scale = (40 + dragY) / 40;
+
   return (
     <>
-      <div className="theme-cord-wrapper" style={{ position: 'fixed', top: 0, right: '4rem', zIndex: 9000, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div 
+        className={`theme-cord-wrapper ${isSnapping ? 'is-snapping' : ''}`} 
+        style={{ 
+          position: 'fixed', 
+          top: 0, 
+          right: '4rem', 
+          zIndex: 9000, 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'center',
+          '--release-y': `${releaseY}px`
+        }}
+      >
         <div 
           className="theme-cord-line" 
           style={{ 
-            width: '2px', 
-            height: `calc(40px + ${dragY}px)`, 
-            backgroundColor: 'white',
             mixBlendMode: 'difference',
-            transition: dragY === 0 ? 'height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)' : 'none' 
+            transform: `scaleY(${scale})`
           }} 
         />
         
@@ -91,9 +112,6 @@ export default function ThemeCord() {
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           style={{
-            width: '32px',
-            height: '32px',
-            borderRadius: '50%',
             cursor: isDragging ? 'grabbing' : 'grab',
             display: 'flex',
             alignItems: 'center',
@@ -103,8 +121,8 @@ export default function ThemeCord() {
             color: 'black',
             border: 'none',
             padding: 0,
-            transition: dragY === 0 ? 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)' : 'none',
-            touchAction: 'none'
+            touchAction: 'none',
+            transform: !isSnapping ? `translateY(${dragY}px)` : undefined,
           }}
         >
           {theme === 'light' && <SunIcon />}
