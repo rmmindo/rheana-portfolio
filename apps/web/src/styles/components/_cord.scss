@@ -1,0 +1,73 @@
+@use "../abstracts/variables" as v;
+
+.branding-anchor {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 9000;
+  mix-blend-mode: difference;
+  color: #FFFFFF;
+  pointer-events: auto;
+  font-family: v.$font-heading;
+  font-weight: v.$weight-bold;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.theme-cord {
+  position: fixed;
+  top: 0;
+  right: 4rem;
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: grab;
+  touch-action: none;
+
+  &--snap {
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.theme-cord__line {
+  width: 2px;
+  height: 80px;
+  background-color: #FFFFFF;
+  mix-blend-mode: difference;
+}
+
+.theme-cord__handle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  mix-blend-mode: difference;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.theme-wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background-color: #1A0B2E; /* Ink Purple */
+  pointer-events: none;
+  animation: solid-wipe 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+@keyframes solid-wipe {
+  0% {
+    clip-path: inset(0 0 100% 0);
+  }
+  40%, 60% {
+    clip-path: inset(0 0 0 0);
+  }
+  100% {
+    clip-path: inset(100% 0 0 0);
+  }
+}

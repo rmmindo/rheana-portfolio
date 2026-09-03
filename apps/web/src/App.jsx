@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './styles/main.scss';
 import VisionGate from './components/VisionGate.jsx';
+import ThemeCord from './components/ThemeCord.jsx';
 import { I18nProvider } from './hooks/useI18n.jsx';
 
 const SCENES = ['house', 'balloon'];
@@ -13,6 +14,9 @@ export default function App() {
 
   return (
     <I18nProvider>
+      <a href="#" className="branding-anchor">Rheana Mindo</a>
+      <ThemeCord />
+
       <div className={`site-bg scene-${SCENES[sceneIndex]}`}></div>
       <div className="site-mask"></div>
       
