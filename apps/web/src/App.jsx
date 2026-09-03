@@ -26,7 +26,7 @@ export default function App() {
         color: '#FFFFFF',
         textDecoration: 'none'
       }}>
-        <img src="/petal.svg" alt="Hydrangea Logo" className="brand-logo" style={{ width: '32px', height: '32px' }} />
+        <img src="/petal.png" alt="Hydrangea Logo" className="brand-logo" style={{ width: '32px', height: '32px' }} />
         <span className="brand-name" style={{ fontWeight: 'bold', fontSize: '1.25rem', letterSpacing: '0.05em' }}>Rheana Mindo</span>
       </a>
       <ThemeCord />
