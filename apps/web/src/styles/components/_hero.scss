@@ -1,86 +1,43 @@
 @use "../abstracts/variables" as v;
 
-.hero-text-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Locks it dead center permanently */
-  text-align: center;
-  width: 100%;
-  z-index: 10;
-  pointer-events: none; /* Let clicks pass through to the circle */
-  font-family: v.$font-heading;
-}
-
-.line-vision, .line-precision {
-  color: #FFFFFF !important;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
-  font-size: 1.8rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-}
-
-.line-vision {
-  display: block;
-  /* The Optical Snap */
-  filter: blur(12px);
-  opacity: 0;
-  will-change: filter, opacity;
-}
-
-/* When active class is applied via React state */
-.is-active .line-vision {
-  filter: blur(0px);
-  opacity: 1;
-  transition: opacity 1.2s ease-out, filter 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.line-precision-wrapper {
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
-  margin-top: 4px;
-  padding: 0 4px; /* Give the grid room to breathe */
-}
-
-.line-precision {
-  display: block;
-  transform: translateY(100%);
-  will-change: transform;
-}
-
-.is-active .line-precision {
-  transform: translateY(0);
-  /* 0.6s delay, 0.4s snap */
-  transition: transform 0.4s cubic-bezier(0.1, 0.9, 0.2, 1) 0.6s;
-}
-
-/* The Grid Flash */
-.blueprint-grid {
+/* Wrapper acts as a full-screen flex container to absolutely center the text 
+   without using transform, so that #root > * transform: scale(1.04) doesn't override it. */
+.hero-wrapper {
   position: absolute;
   inset: 0;
-  border: 1px solid #7DF9FF; /* Electric Cyan/Powder Blue for high visibility */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.hero-vision {
+  color: #FFFFFF;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  font-family: v.$font-heading;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: v.$weight-bold;
+  letter-spacing: 0.03em;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  
+  /* Starts hidden. It will automatically inherit the 10px blur from the #root > *:not(.gate) rule in _gate.scss */
   opacity: 0;
+  
+  /* Matches the blur/scale transition speed of the rest of the site */
+  transition: opacity 2500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.blueprint-grid::before {
-  content: '';
-  position: absolute;
-  width: 1px;
-  height: 140%;
-  top: -20%;
-  left: 50%;
-  background: #7DF9FF;
+/* When the glasses are clicked, the whole site starts clearing and unlocking */
+html.is-clearing .hero-vision,
+html.has-unlocked .hero-vision {
+  opacity: 1; /* Fades in while the site unblurs */
 }
 
-@keyframes blueprint-flash {
-  0% { opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-/* Triggers exactly when the text hits the top (0.6 delay + 0.4 travel = 1.0s) */
-.is-active .blueprint-grid {
-  animation: blueprint-flash 0.15s linear 1.0s forwards;
+@media (prefers-reduced-motion: reduce) {
+  .hero-vision {
+    transition: opacity 260ms linear;
+  }
 }
