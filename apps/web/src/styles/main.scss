@@ -16,20 +16,12 @@
   background-position: center;
 }
 
-
 .scene-balloon { background-image: url('/hot-air-balloon-day-1.webp'); }
-
-html.has-unlocked 
 
 html.has-unlocked .scene-balloon {
   animation: site-bg-swap-balloon 2s infinite step-end;
   animation-delay: 2s;
   animation-fill-mode: both;
-}
-
-
-  50% { background-image: url('/house-day-2.webp'); }
-  100% { background-image: url('/house-day-1.webp'); }
 }
 
 @keyframes site-bg-swap-balloon {
@@ -52,12 +44,6 @@ html.has-unlocked .scene-balloon {
   );
 }
 
-
-
-
-
-
-
 /* Brand Logo Bloom Effect */
 .brand-logo {
   width: 22px; /* 33% smaller than original 32px */
@@ -70,6 +56,3 @@ html.has-unlocked .scene-balloon {
   /* Grows back to 32px (1.45x) and tilts left */
   transform: scale(1.45) rotate(-20deg);
 }
-
-
-
