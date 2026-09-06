@@ -186,11 +186,11 @@
   animation: glare-sweep 4.5s infinite;
   
   /* Mask ensures glare stays on the frames */
-  -webkit-mask-image: url('/glasses.png');
+  -webkit-mask-image: url('/glasses.webp');
   -webkit-mask-size: contain;
   -webkit-mask-position: center;
   -webkit-mask-repeat: no-repeat;
-  mask-image: url('/glasses.png');
+  mask-image: url('/glasses.webp');
   mask-size: contain;
   mask-position: center;
   mask-repeat: no-repeat;
@@ -241,3 +241,4 @@
   opacity: 0 !important;
   transition: opacity 0.2s ease-out !important;
 }
+

@@ -14,7 +14,7 @@
 @use "sass:map";
 
 // --- Brand ---------------------------------------------------------------- //
-// Sampled from the source artwork: hydrangea-petal.png and rm.png.
+// Sampled from the source artwork: hydrangea-petal.webp and rm.webp.
 // $brand-blue is the outline colour of both marks. At 3.35:1 on white it is
 // legal for borders, icons and large display text, and illegal for body copy.
 $brand-powder:  #a0cfeb;  // 1.66:1 on white  - surface only
@@ -110,3 +110,4 @@ $stagger: 70ms;
 
 $bp: (sm: 30rem, md: 48rem, lg: 64rem, xl: 80rem);
 @function bp($k) { @return map.get($bp, $k); }
+

@@ -17,7 +17,7 @@ export default function App() {
         gap: '12px',
         textDecoration: 'none'
       }}>
-        <img src="/petal.png" alt="Hydrangea Logo" className="brand-logo" />
+        <img src="/petal.webp" alt="Hydrangea Logo" className="brand-logo" />
         <span className="brand-name" style={{ 
           fontWeight: 'bold', 
           fontSize: '1.25rem', 
@@ -36,3 +36,4 @@ export default function App() {
     </I18nProvider>
   );
 }
+

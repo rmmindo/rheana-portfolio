@@ -152,7 +152,7 @@ export default function VisionGate() {
           aria-label="A pair of glasses. Click to clear the blurry screen and reveal Rheana's portfolio."
         >
           <span className="gate__lens">
-            <img src="/glasses.png" alt="" aria-hidden="true" />
+            <img src="/glasses.webp" alt="" aria-hidden="true" />
           </span>
           <span className="gate__tooltip">Put them on</span>
         </button>
@@ -160,3 +160,4 @@ export default function VisionGate() {
     </div>
   );
 }
+
