@@ -12,22 +12,53 @@
   position: fixed;
   inset: 0;
   z-index: -10;
-  background-size: cover;
-  background-position: center;
+  background-color: #1A0B2E; /* Prevents white flashes even if images delay */
 }
 
-.scene-balloon { background-image: url('/hot-air-balloon-day-1.webp'); }
+/* 
+  Use pseudo-elements for the background images.
+  This forces the browser to download BOTH images on page load,
+  and allows us to animate opacity (hardware accelerated) instead
+  of background-image URLs (which causes layout/paint flashes).
+*/
+.scene-balloon::before,
+.scene-balloon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  will-change: opacity;
+}
 
-html.has-unlocked .scene-balloon {
-  animation: site-bg-swap-balloon 2s infinite step-end;
-  animation-delay: 2s;
+/* Frame 1 */
+.scene-balloon::before {
+  background-image: url('/hot-air-balloon-day-1.webp');
+  z-index: 1;
+}
+
+/* Frame 2 */
+.scene-balloon::after {
+  background-image: url('/hot-air-balloon-day-2.webp');
+  z-index: 2;
+  opacity: 0; /* Hidden by default */
+}
+
+/* 
+  When the gate unlocks, start cycling the opacity of Frame 2.
+  Using step-end creates the exact same 2-frame flipbook effect 
+  as before, but seamlessly.
+*/
+html.has-unlocked .scene-balloon::after {
+  animation: site-bg-swap-balloon-opacity 2s infinite step-end;
+  animation-delay: 2s; /* Waits 2s after unlock before cycling starts */
   animation-fill-mode: both;
 }
 
-@keyframes site-bg-swap-balloon {
-  0% { background-image: url('/hot-air-balloon-day-1.webp'); }
-  50% { background-image: url('/hot-air-balloon-day-2.webp'); }
-  100% { background-image: url('/hot-air-balloon-day-1.webp'); }
+@keyframes site-bg-swap-balloon-opacity {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 .site-mask {
