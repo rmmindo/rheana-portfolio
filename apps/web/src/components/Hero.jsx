@@ -27,11 +27,11 @@ export default function Hero() {
       document.body.classList.add('is-locked');
       document.body.classList.remove('is-unlocked');
     } else if (phase === 3) {
-      // Wait for the 0.8s circle snap animation before unlocking native scroll
+      // Wait for the 1.4s circle snap animation before unlocking native scroll
       const unlockTimer = setTimeout(() => {
         document.body.classList.remove('is-locked');
         document.body.classList.add('is-unlocked');
-      }, 800);
+      }, 1400);
       return () => {
         clearTimeout(unlockTimer);
         document.body.classList.remove('is-locked', 'is-unlocked');

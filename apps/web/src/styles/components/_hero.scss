@@ -161,7 +161,7 @@ body.is-unlocked {
 /* Phase 3: The Horizon Snap */
 .phase-3 .circle-mask-layer {
   clip-path: circle(150% at 50% 50%);
-  transition: clip-path 0.8s cubic-bezier(0.8, 0, 0.2, 1);
+  transition: clip-path 1.4s cubic-bezier(0.65, 0, 0.2, 1);
 }
 
 .hero-text-container {
@@ -169,15 +169,17 @@ body.is-unlocked {
 }
 
 .has-moved .line-vision {
-  transform: translateX(120vw);
+  transform: translateX(20vw);
   opacity: 0;
-  transition: all 1.2s cubic-bezier(0.5, 0, 0.2, 1);
+  filter: blur(10px);
+  transition: all 1.8s cubic-bezier(0.25, 1, 0.2, 1);
 }
 
 .has-moved .line-precision-container {
-  transform: translateX(-120vw);
+  transform: translateX(-20vw);
   opacity: 0;
-  transition: all 0.8s cubic-bezier(0.8, 0, 0.2, 1);
+  filter: blur(10px);
+  transition: all 1.4s cubic-bezier(0.25, 1, 0.2, 1);
 }
 
 .nav-menu {
