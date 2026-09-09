@@ -221,3 +221,68 @@ body.phase-3 {
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+/* Scroll Tooltip */
+.scroll-tooltip {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--text);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.scroll-tooltip.is-active {
+  opacity: 0.6;
+}
+
+/* Kinetic Node (Scroll Indicator) */
+.kinetic-node {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 32px;
+  border: 1px solid var(--text);
+  border-radius: 12px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.kinetic-node.is-active {
+  animation: kinetic-fade-in 1s forwards 4.5s; /* Waits for ghost copy to finish */
+}
+
+@keyframes kinetic-fade-in {
+  to { opacity: 0.8; }
+}
+
+/* Traveling Dot */
+.kinetic-node::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 6px;
+  background: var(--laser-color, #7DF9FF);
+  border-radius: 2px;
+  animation: kinetic-drop 1.5s infinite cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@keyframes kinetic-drop {
+  0% { transform: translate(-50%, 0); opacity: 0; }
+  30% { opacity: 1; }
+  70% { transform: translate(-50%, 14px); opacity: 0; }
+  100% { transform: translate(-50%, 14px); opacity: 0; }
+}

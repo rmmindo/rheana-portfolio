@@ -10,8 +10,6 @@ export default function Hero() {
   const [phase, setPhase] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
   const [hasMoved, setHasMoved] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStartX, setDragStartX] = useState(0);
 
   useEffect(() => {
     // Start phase 1 immediately on mount
@@ -28,12 +26,47 @@ export default function Hero() {
     if (phase < 3) {
       document.body.classList.add('is-locked');
       document.body.classList.remove('is-unlocked');
-    } else {
-      document.body.classList.remove('is-locked');
-      document.body.classList.add('is-unlocked');
+    } else if (phase === 3) {
+      // Wait for the 0.8s circle snap animation before unlocking native scroll
+      const unlockTimer = setTimeout(() => {
+        document.body.classList.remove('is-locked');
+        document.body.classList.add('is-unlocked');
+      }, 800);
+      return () => {
+        clearTimeout(unlockTimer);
+        document.body.classList.remove('is-locked', 'is-unlocked');
+      };
     }
     return () => {
       document.body.classList.remove('is-locked', 'is-unlocked');
+    };
+  }, [phase]);
+
+  useEffect(() => {
+    const handleWheel = (e) => {
+      if (phase === 2 && e.deltaY > 0) {
+        setPhase(3);
+      }
+    };
+    
+    window.addEventListener('wheel', handleWheel);
+    // Also support touch swipe up for mobile
+    let touchStartY = 0;
+    const handleTouchStart = (e) => { touchStartY = e.touches[0].clientY; };
+    const handleTouchMove = (e) => {
+      if (phase === 2) {
+        const touchEndY = e.touches[0].clientY;
+        if (touchStartY - touchEndY > 20) setPhase(3);
+      }
+    };
+    
+    window.addEventListener('touchstart', handleTouchStart);
+    window.addEventListener('touchmove', handleTouchMove);
+    
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
     };
   }, [phase]);
 
@@ -44,27 +77,7 @@ export default function Hero() {
       const xPercent = (e.clientX / window.innerWidth) * 100;
       const yPercent = (e.clientY / window.innerHeight) * 100;
       setMousePos({ x: xPercent, y: yPercent });
-
-      if (isDragging && phase === 2) {
-        // Drag to expand mechanic
-        const dragDist = Math.abs(e.clientX - dragStartX);
-        if (dragDist > 150) {
-          setPhase(3);
-          setIsDragging(false);
-        }
-      }
     }
-  };
-
-  const handleMouseDown = (e) => {
-    if (phase === 2) {
-      setIsDragging(true);
-      setDragStartX(e.clientX);
-    }
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
   };
 
   // --- LASER TIMELINE ALGORITHM ---
@@ -114,10 +127,7 @@ export default function Hero() {
     <>
       <div 
         className="circle-mask-layer scene-balloon" 
-        onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
         style={{
           '--x': `${mousePos.x}%`,
           '--y': `${mousePos.y}%`,
@@ -138,6 +148,12 @@ export default function Hero() {
         <div className={`ghost-copy ${phase === 3 ? 'is-active' : ''}`}>
           Welcome to the bigger picture. I'm Rheana.
         </div>
+        
+        <div className={`scroll-tooltip ${phase === 2 ? 'is-active' : ''}`}>
+          [ SCROLL TO EXPLORE ]
+        </div>
+
+        <div className={`kinetic-node ${phase === 3 ? 'is-active' : ''}`}></div>
 
         <div className="hero-content hero-text-container">
         
