@@ -118,11 +118,11 @@ html.has-unlocked .engraved-fill {
 @keyframes laser-pop {
   0% { 
     opacity: 1;
-    filter: drop-shadow(0 0 20px var(--text));
+    text-shadow: 0 0 20px var(--text);
   }
   100% { 
     opacity: 1;
-    filter: drop-shadow(0 4px 8px var(--laser-shadow, rgba(0, 0, 0, 0.6)));
+    text-shadow: 0 4px 8px var(--laser-shadow, rgba(0, 0, 0, 0.6));
   }
 }
 
@@ -135,5 +135,6 @@ html.has-unlocked .engraved-fill {
     animation-delay: 0s !important;
   }
 }
+
 
 

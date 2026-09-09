@@ -24,7 +24,7 @@ export default function Hero() {
     }
     
     // Calculate when this specific word finishes tracing
-    const lastCharStartTime = wordCharDelays[wordLength - 1];
+    const cleanWord = word.replace(/[.,!?]+$/, ''); const effectiveLength = cleanWord.length; const lastCharStartTime = wordCharDelays[effectiveLength - 1] || wordCharDelays[0];
     const wordTraceEndTime = lastCharStartTime + traceDuration;
     const wordPopTime = wordTraceEndTime + pauseBeforePop;
     
@@ -115,3 +115,4 @@ export default function Hero() {
     </div>
   );
 }
+

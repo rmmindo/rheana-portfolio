@@ -69,9 +69,6 @@
 }
 
 @keyframes glare-sweep {
-  0% { background-position: 100% 0; } /* Starts offscreen left */
-  25% { background-position: 0% 0; } /* Sweeps to offscreen right */
-  100% { background-position: 0% 0; } /* Stays offscreen right */
 }
 
 .gate__glasses img { width: clamp(8.75rem, 25vw, 13.75rem); height: auto; }
@@ -127,10 +124,7 @@
       transform: translate3d(0, 5vh, 0) scale(3) rotate(0deg); 
       opacity: 1; 
     }
-    100% { 
-      transform: translate3d(0, 15vh, 0) scale(40) rotate(0deg); 
-      opacity: 0; 
-    }
+    100% { transform: translate3d(0, 15vh, 0) scale(40) rotate(0deg); opacity: 0; filter: blur(15px); }
   }
 
   .gate.is-wearing { animation: gate-fade 500ms 2500ms forwards; }
@@ -241,4 +235,6 @@
   opacity: 0 !important;
   transition: opacity 0.2s ease-out !important;
 }
+
+
 
