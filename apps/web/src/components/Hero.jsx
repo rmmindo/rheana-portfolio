@@ -103,14 +103,21 @@ export default function Hero() {
     setTimeout(() => {
       setHasMoved(true); // Triggers the text exit animation (3.0s slide, 1.7s fade)
       
-      // Wait 1.7s for text to fully disappear + 1.0s pure pause = 2700ms total
+      // 1. At 1.5s (halfway through the slide), start slowly moving the circle
       setTimeout(() => {
         setIsSnapping(true); // Engages the slow glide
-        setPhase(2); // Unlocks the circle mask to follow pointer
-        
-        // After slow 1.5s glide finishes, revert to fast mouse follow
-        setTimeout(() => setIsSnapping(false), 1500);
-      }, 2700);
+      }, 1500);
+
+      // 2. At 1.8s, the text's 1.7s opacity fade is fully complete, so we safely unmount it
+      setTimeout(() => {
+        setPhase(2); 
+      }, 1800);
+
+      // 3. At 3.0s (1.5s after the glide started), revert to fast mouse follow
+      setTimeout(() => {
+        setIsSnapping(false);
+      }, 3000);
+
     }, 1000);
   };
 
@@ -163,8 +170,8 @@ export default function Hero() {
         className={`circle-mask-layer scene-balloon phase-${phase} ${isSnapping ? 'is-snapping-to-pointer' : ''}`} 
         onMouseMove={handleMouseMove}
         style={{
-          '--x': phase >= 2 ? `${mousePos.x}%` : '50%',
-          '--y': phase >= 2 ? `${mousePos.y}%` : '50%',
+          '--x': (isSnapping || phase >= 2) ? `${mousePos.x}%` : '50%',
+          '--y': (isSnapping || phase >= 2) ? `${mousePos.y}%` : '50%',
           zIndex: 1
         }}
       ></div>
@@ -173,8 +180,8 @@ export default function Hero() {
         className={`hero-wrapper phase-${phase} ${hasMoved ? 'has-moved' : ''}`}
         onMouseMove={handleMouseMove}
         style={{
-          '--x': phase >= 2 ? `${mousePos.x}%` : '50%',
-          '--y': phase >= 2 ? `${mousePos.y}%` : '50%',
+          '--x': (isSnapping || phase >= 2) ? `${mousePos.x}%` : '50%',
+          '--y': (isSnapping || phase >= 2) ? `${mousePos.y}%` : '50%',
           zIndex: 2,
           pointerEvents: phase === 2 ? 'none' : 'auto'
         }}
