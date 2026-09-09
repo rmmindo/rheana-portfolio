@@ -54,7 +54,7 @@
 
 /* Light Mode: The Handle Icon */
 [data-theme="light"] .theme-cord-handle {
-  background: #FFFFFF !important;
+  background: var(--brand-yellow) !important;
   color: #1A0B2E !important; 
 }
 
