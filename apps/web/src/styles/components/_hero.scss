@@ -271,7 +271,7 @@ html.has-unlocked .horizon-btn.is-active {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
-  transition-delay: 8s; /* 6s for text trace/pop to finish + 2s wait */
+  transition-delay: 9s; /* 6s for text trace/pop to finish + 3s wait */
 }
 
 .horizon-btn:hover {
