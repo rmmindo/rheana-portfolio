@@ -111,18 +111,35 @@ export default function Hero() {
   }
 
   return (
-    <div 
-      className={`hero-wrapper phase-${phase} ${hasMoved ? 'has-moved' : ''}`}
-      onMouseMove={handleMouseMove}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
-      style={{
-        '--x': `${mousePos.x}%`,
-        '--y': `${mousePos.y}%`
-      }}
-    >
-      <div className="hero-content hero-text-container">
+    <>
+      <div 
+        className="circle-mask-layer scene-balloon" 
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        style={{
+          '--x': `${mousePos.x}%`,
+          '--y': `${mousePos.y}%`,
+          zIndex: 1
+        }}
+      ></div>
+
+      <div 
+        className={`hero-wrapper phase-${phase} ${hasMoved ? 'has-moved' : ''}`}
+        onMouseMove={handleMouseMove}
+        style={{
+          '--x': `${mousePos.x}%`,
+          '--y': `${mousePos.y}%`,
+          zIndex: 2,
+          pointerEvents: phase === 2 ? 'none' : 'auto'
+        }}
+      >
+        <div className={`ghost-copy ${phase === 3 ? 'is-active' : ''}`}>
+          Welcome to the bigger picture. I'm Rheana.
+        </div>
+
+        <div className="hero-content hero-text-container">
         
         {/* VISION LINE */}
         <h1 className="hero-vision line-vision">
@@ -185,7 +202,8 @@ export default function Hero() {
         </div>
         
       </div>
-    </div>
+      </div>
+    </>
   );
 }
 

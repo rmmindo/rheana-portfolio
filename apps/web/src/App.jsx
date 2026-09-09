@@ -30,8 +30,7 @@ export default function App() {
 
       <ThemeCord />
 
-      <div className="site-bg scene-balloon"></div>
-      <div className="site-mask"></div>
+      <div className="site-bg"></div>
 
       <Hero />
       <VisionGate />
