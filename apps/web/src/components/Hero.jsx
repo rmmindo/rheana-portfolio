@@ -97,35 +97,40 @@ export default function Hero() {
               &#8592;
             </button>
             
-            <div 
-              className="hero-precision-container" 
-              style={{ 
-                fontFamily: precisionFontFamily,
-                fontWeight: pWeight,
-                fontStyle: pStyle,
-                fontSize: `clamp(${2 * pSize}rem, ${5 * pSize}vw, ${4 * pSize}rem)`
-              }}
-            >
-              {/* Layer 1: The stationary wireframe/blueprint outline */}
-              <div className="precision-outline" aria-hidden="true" style={{ fontFamily: precisionFontFamily }}>
-                {precisionText}
-              </div>
-              
-              {/* Layer 2: The solid letters that magnetically snap in. */}
-              <div className="precision-solid" key={precisionFontIdx}>
-                {precisionText.split('').map((char, index) => (
-                  <span 
-                    key={index} 
-                    className="precision-char"
+            <div className="hero-precision-container">
+              {/* LASER ENGRAVER SVG LAYER */}
+              <div 
+                className="line-precision-engraver" 
+                key={precisionFontIdx}
+                style={{ width: '100%', height: '1.5em', display: 'flex', justifyContent: 'center' }}
+              >
+                <svg width="100%" height="100%" style={{ overflow: 'visible' }}>
+                  <text 
+                    x="50%" 
+                    y="75%" 
+                    textAnchor="middle" 
+                    className="engraved-string"
                     style={{ 
-                      '--char-index': index, 
-                      '--base-delay': `${baseDelay}s`,
-                      fontFamily: precisionFontFamily 
+                      fontFamily: precisionFontFamily,
+                      fontWeight: pWeight,
+                      fontStyle: pStyle,
+                      fontSize: `clamp(${2 * pSize}rem, ${5 * pSize}vw, ${4 * pSize}rem)`
                     }}
                   >
-                    {char === ' ' ? '\u00A0' : char}
-                  </span>
-                ))}
+                    {precisionText.split('').map((char, index) => (
+                      <tspan 
+                        key={index} 
+                        className="engraved-char"
+                        style={{ 
+                          '--char-index': index, 
+                          '--base-delay': `${baseDelay}s`
+                        }}
+                      >
+                        {char === ' ' ? '\u00A0' : char}
+                      </tspan>
+                    ))}
+                  </text>
+                </svg>
               </div>
             </div>
 

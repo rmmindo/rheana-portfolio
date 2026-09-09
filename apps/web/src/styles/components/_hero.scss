@@ -15,6 +15,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.25rem;
+  width: 100%;
 }
 
 /* FONT CYCLING LAYOUT */
@@ -23,6 +24,7 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  width: 100%;
 }
 
 .font-nav-btn {
@@ -40,6 +42,7 @@
   transition: all 0.2s;
   
   opacity: 0; /* Hidden initially */
+  flex-shrink: 0;
 }
 
 .font-nav-btn:hover {
@@ -92,8 +95,8 @@ html.is-clearing .typography-overlay-panel {
   letter-spacing: 0.05em;
   opacity: 0;
   transition: opacity 2000ms cubic-bezier(0.4, 0, 0.2, 1);
-  /* Starts fading in at 1.5s so it's fully visible by 3.5s */
   transition-delay: 1500ms; 
+  width: 100%;
 }
 
 /* Base Reveal Trigger */
@@ -104,46 +107,51 @@ html.has-unlocked .hero-precision-container {
   opacity: 1;
 }
 
-/* Layer 1: The Hollow Blueprint Outline */
-.precision-outline {
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
-  text-shadow: none; 
+/* ------------------ LASER ENGRAVER EFFECT ------------------ */
+
+.line-precision-engraver {
+  position: relative;
+  width: 100%;
 }
 
-/* Layer 2: The Solid Overlay */
-.precision-solid {
-  position: absolute;
-  inset: 0;
-  display: flex;
-}
-
-.precision-char {
-  display: inline-block;
-  color: #FFFFFF;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); 
+.engraved-char {
+  fill: transparent;
+  stroke: #7DF9FF; /* Electric Cyan Laser */
+  stroke-width: 1.5px;
   
-  opacity: 0;
-  transform: translateY(12px) scale(0.95);
-  filter: blur(4px);
+  /* Prepare the path for drawing */
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  
+  opacity: 0; 
 }
 
-html.has-unlocked .precision-char {
-  animation: magnetic-snap 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25) forwards;
-  /* Uses the --base-delay passed from React (3s initially, 0s after cycling) */
-  animation-delay: calc(var(--base-delay, 3s) + (var(--char-index) * 0.04s));
+/* The Laser Tracing Sequence */
+html.has-unlocked .engraved-char {
+  animation: 
+    laser-fade-in 0.01s calc(var(--base-delay, 3s) + (var(--char-index) * 0.05s)) forwards,
+    laser-trace 0.4s calc(var(--base-delay, 3s) + (var(--char-index) * 0.05s)) forwards,
+    laser-pop-fill 0.2s calc(var(--base-delay, 3s) + 0.3s + (var(--char-index) * 0.05s)) forwards;
 }
 
-@keyframes magnetic-snap {
-  0% {
-    opacity: 0;
-    transform: translateY(12px) scale(0.95);
-    filter: blur(4px);
+@keyframes laser-fade-in {
+  to { opacity: 1; }
+}
+
+@keyframes laser-trace {
+  0% { stroke-dashoffset: 400; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes laser-pop-fill {
+  0% { 
+    fill: transparent; 
+    stroke: #7DF9FF; 
   }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
+  100% { 
+    fill: #FFFFFF; 
+    stroke: transparent; 
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
   }
 }
 
@@ -151,12 +159,14 @@ html.has-unlocked .precision-char {
   .hero-vision, .hero-precision-container {
     transition: opacity 260ms linear;
   }
-  .precision-char {
+  .engraved-char {
     animation-duration: 0.1s !important;
     animation-delay: 0s !important;
   }
 }
-/* ADD TO THE BOTTOM OF _hero.scss */
+
+/* ------------------ TYPOGRAPHY OVERLAY PANEL ------------------ */
+
 .typography-overlay-panel {
   position: fixed;
   bottom: 2rem;
@@ -173,7 +183,8 @@ html.has-unlocked .precision-char {
   z-index: 10000;
   pointer-events: auto; /* Ensure clickable */
   font-family: monospace;
-  font-size: 0.85rem; opacity: 0;
+  font-size: 0.85rem;
+  opacity: 0;
 }
 
 .panel-section {
@@ -205,4 +216,3 @@ html.has-unlocked .precision-char {
     }
   }
 }
-
