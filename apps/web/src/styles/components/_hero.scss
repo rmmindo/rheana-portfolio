@@ -121,8 +121,8 @@ html.has-unlocked .hero-precision-container {
   stroke-width: 0.015em; 
   
   /* Prepare the path for drawing */
-  stroke-dasharray: 400;
-  stroke-dashoffset: 400;
+  stroke-dasharray: 150;
+  stroke-dashoffset: 150;
   
   opacity: 0; 
 }
@@ -140,7 +140,7 @@ html.has-unlocked .engraved-char {
   0% { 
     opacity: 1;
     stroke: #7DF9FF;
-    stroke-dashoffset: 400; 
+    stroke-dashoffset: 150; 
     fill: transparent;
   }
   100% { 
@@ -232,3 +232,4 @@ html.has-unlocked .engraved-char {
     }
   }
 }
+
