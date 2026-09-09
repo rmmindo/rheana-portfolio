@@ -60,7 +60,7 @@
   font-family: v.$font-heading;
   font-weight: v.$weight-bold;
   font-size: clamp(1.5rem, 4vw, 2.75rem);
-  color: #000;
+  color: var(--text);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -201,3 +201,4 @@
   25% { background-position: 0% 0; }
   100% { background-position: 0% 0; }
 }
+
