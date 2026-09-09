@@ -208,8 +208,8 @@
 }
 
 .gate__tooltip {
-  background-color: #A0CFEC;
-  color: #FFFFFF;
+  background-color: #eaddcd;
+  color: #1A0B2E;
   opacity: 0;
   transform: translateY(15px) scale(0.8);
   pointer-events: none;
@@ -221,7 +221,7 @@
   font-family: v.$font-heading;
   font-weight: v.$weight-bold;
   font-size: 0.875rem;
-  box-shadow: 0 4px 12px rgba(160, 207, 236, 0.4);
+  box-shadow: 0 4px 12px rgba(26, 11, 46, 0.25);
   white-space: nowrap;
 }
 
@@ -233,7 +233,7 @@
   transform: translateX(-50%);
   border-width: 0 6px 6px 6px;
   border-style: solid;
-  border-color: transparent transparent #A0CFEC transparent;
+  border-color: transparent transparent #eaddcd transparent;
 }
 
 .gate__glasses:hover .gate__tooltip,
