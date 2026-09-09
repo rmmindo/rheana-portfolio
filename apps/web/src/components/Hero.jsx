@@ -1,6 +1,15 @@
 import { useState, useEffect } from 'react';
 import '../styles/components/_hero.scss';
 
+const TelescopeIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+    <path d="M12.39 6.22L6.16 12.45c-.32.32-.82.32-1.14 0l-1.9-1.9c-.32-.32-.32-.82 0-1.14l6.23-6.23c.32-.32.82-.32 1.14 0l1.9 1.9c.32.32.32.82 0 1.14z"/>
+    <path d="M14.44 8.27l1.9-1.9c.32-.32.82-.32 1.14 0l3.8 3.8c.32.32.32.82 0 1.14l-1.9 1.9c-.32.32-.82.32-1.14 0l-3.8-3.8c-.32-.32-.32-.82 0-1.14z"/>
+    <path d="M8.27 14.44l-4.5 4.5"/>
+    <path d="M16.5 16.5l-4-4"/>
+  </svg>
+);
+
 export default function Hero() {
   const precisionText = "engineered with precision";
   const baseDelay = 3;
@@ -14,12 +23,6 @@ export default function Hero() {
   useEffect(() => {
     // Start phase 1 immediately on mount
     setPhase(1);
-    
-    // Automatically transition to phase 2 (flashlight) after 2500ms
-    const timer = setTimeout(() => {
-      setPhase(2);
-    }, 2500);
-    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -145,6 +148,15 @@ export default function Hero() {
           pointerEvents: phase === 2 ? 'none' : 'auto'
         }}
       >
+        <button 
+          className={`horizon-btn ${phase === 1 ? 'is-active' : ''}`} 
+          onClick={() => setPhase(2)}
+          aria-label="Snap flashlight to cursor"
+        >
+          <TelescopeIcon />
+          <span>See what's beyond the horizon</span>
+        </button>
+
         <div className={`ghost-copy ${phase === 3 ? 'is-active' : ''}`}>
           Welcome to the bigger picture. I'm Rheana.
         </div>

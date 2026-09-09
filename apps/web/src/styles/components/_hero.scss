@@ -288,3 +288,42 @@ body.phase-3 {
   70% { transform: translate(-50%, 14px); opacity: 0; }
   100% { transform: translate(-50%, 14px); opacity: 0; }
 }
+/* Horizon Button */
+.horizon-btn {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  padding: 12px 24px;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 20;
+}
+
+[data-theme="light"] .horizon-btn {
+  border-color: rgba(26, 11, 46, 0.2);
+}
+
+.horizon-btn.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition-delay: 3.5s; /* Wait for initial text pop to finish before showing button */
+}
+
+.horizon-btn:hover {
+  background: var(--text);
+  color: var(--site-bg);
+}
