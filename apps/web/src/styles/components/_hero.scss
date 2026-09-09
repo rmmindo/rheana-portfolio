@@ -86,7 +86,7 @@ html.has-unlocked .hero-precision-container {
 }
 
 [data-theme="light"] .engraved-fill {
-  --precision-glow: rgba(255, 255, 255, 0.9); /* Tight white in Light Mode */
+  --precision-glow: #ffffff; /* Pure white for max neon outline pop in Light Mode */
 }
 
 /* The Laser Tracing Sequence */
@@ -123,11 +123,11 @@ html.has-unlocked .engraved-fill {
 @keyframes laser-pop {
   0% { 
     opacity: 1;
-    filter: drop-shadow(0 0 10px var(--precision-glow));
+    filter: drop-shadow(0 0 10px var(--precision-glow)) drop-shadow(0 0 20px var(--precision-glow)) drop-shadow(0 0 30px var(--precision-glow));
   }
   100% { 
     opacity: 1;
-    filter: drop-shadow(0 0 4px var(--precision-glow));
+    filter: drop-shadow(0 0 3px var(--precision-glow)) drop-shadow(0 0 6px var(--precision-glow)) drop-shadow(0 0 10px var(--precision-glow));
   }
 }
 
@@ -299,7 +299,7 @@ body.phase-3 {
 
 [data-theme="light"] .horizon-btn {
   border-color: rgba(26, 11, 46, 0.2);
-  --telescope-color: var(--brand-powder);
+  --telescope-color: #00d2ff; /* neon powder blue */
 }
 
 .horizon-btn.is-active {
@@ -373,11 +373,31 @@ body.phase-3 {
 /* Telescope Icon Animated */
 .telescope-icon-animated {
   color: var(--telescope-color) !important;
-  filter: drop-shadow(0 0 6px var(--telescope-color));
+  filter: drop-shadow(0 0 6px var(--telescope-color)) drop-shadow(0 0 12px var(--telescope-color));
   animation: telescope-blink 2s infinite ease-in-out;
 }
 
 @keyframes telescope-blink {
-  0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 8px var(--telescope-color)); }
-  50% { opacity: 0.4; transform: scale(0.95); filter: drop-shadow(0 0 2px var(--telescope-color)); }
+  0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 8px var(--telescope-color)) drop-shadow(0 0 16px var(--telescope-color)); }
+  50% { opacity: 0.4; transform: scale(0.95); filter: drop-shadow(0 0 2px var(--telescope-color)) drop-shadow(0 0 4px var(--telescope-color)); }
+}
+
+
+/* Visitor Count */
+.visitor-count {
+  position: fixed;
+  bottom: clamp(20px, 5vw, 40px);
+  left: clamp(20px, 5vw, 40px);
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.7rem, 2vw, 0.875rem);
+  letter-spacing: 0.05em;
+  color: var(--text);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+  transition: opacity 0.8s ease;
+}
+
+body.is-unlocked .visitor-count.is-active {
+  opacity: 0.8;
 }
