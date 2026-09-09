@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
-  pointer-events: none;
+  pointer-events: none; /* Let clicks pass through default layout */
 }
 
 .hero-content {
@@ -16,6 +16,56 @@
   align-items: center;
   gap: 0.25rem;
 }
+
+/* FONT CYCLING LAYOUT */
+.font-cycler-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.font-nav-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto; /* Enable clicks */
+  transition: all 0.2s;
+  
+  opacity: 0; /* Hidden initially */
+}
+
+.font-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.font-debugger {
+  margin-top: 2rem;
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  opacity: 0;
+}
+
+/* Reveal buttons and debugger on unlock */
+html.has-unlocked .font-nav-btn,
+html.is-clearing .font-nav-btn,
+html.has-unlocked .font-debugger,
+html.is-clearing .font-debugger {
+  opacity: 1;
+  transition: opacity 2500ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 2s; /* Wait for text to fully appear before showing UI */
+}
+
+/* ------------------ TEXT LAYERS ------------------ */
 
 .hero-vision {
   color: #FFFFFF;
@@ -40,7 +90,6 @@
   letter-spacing: 0.05em;
   opacity: 0;
   transition: opacity 2500ms cubic-bezier(0.4, 0, 0.2, 1);
-  /* slight delay so vision text leads */
   transition-delay: 200ms; 
 }
 
@@ -56,7 +105,6 @@ html.has-unlocked .hero-precision-container {
 .precision-outline {
   color: transparent;
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
-  /* Fallback */
   text-shadow: none; 
 }
 
@@ -70,26 +118,15 @@ html.has-unlocked .hero-precision-container {
 .precision-char {
   display: inline-block;
   color: #FFFFFF;
-  /* Heavy shadow to blend the stroke into the solid color perfectly */
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); 
   
-  /* Start hidden, blurred, and dropped down */
   opacity: 0;
   transform: translateY(12px) scale(0.95);
   filter: blur(4px);
 }
 
-/* The Magnetic Lock Trigger */
 html.has-unlocked .precision-char {
-  /* 
-    The cubic-bezier overshoot (0.32, 1.25) creates the "magnetic snap" collision feel.
-  */
   animation: magnetic-snap 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25) forwards;
-  
-  /* 
-    Waits 1.6s so you can admire the wireframe fading in first, 
-    then fires sequentially across the 26 characters (0.04s per char).
-  */
   animation-delay: calc(1.6s + (var(--char-index) * 0.04s));
 }
 
