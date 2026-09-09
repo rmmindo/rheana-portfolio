@@ -15,7 +15,7 @@
 
 @mixin light-tokens {
   --paper: #{v.$paper};
-  --site-bg: #{v.surface('yellow')};
+  --site-bg: #eaddcd; /* Soft warm oat/sand to reduce glare */
   --paper-raised: #{v.$paper-raised};
   --text: #{v.$ink-strong};
   --text-muted: #{v.$ink-muted};
@@ -94,6 +94,7 @@
 
 :root[data-theme="dark"] { @include dark-tokens; }
 :root[data-theme="light"] { @include light-tokens; }
+
 
 
 
