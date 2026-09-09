@@ -14,7 +14,8 @@
 
 .theme-cord-line {
   width: 2px !important;
-  height: 80px;
+  height: 350px;
+  margin-top: -270px; /* guarantees it never shows a cut top */
   background: repeating-linear-gradient(
     to bottom,
     #FFFFFF,
