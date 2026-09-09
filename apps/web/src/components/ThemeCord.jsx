@@ -38,8 +38,8 @@ export default function ThemeCord() {
 
   useEffect(() => {
     const triggerDrop = () => {
-      // Cord and Button show up exactly 9s after unlock
-      setTimeout(() => setShowCord(true), 9000);
+      // Cord shows up 1s earlier than the horizon button (8s)
+      setTimeout(() => setShowCord(true), 8000);
     };
 
     if (document.documentElement.classList.contains('has-unlocked')) {

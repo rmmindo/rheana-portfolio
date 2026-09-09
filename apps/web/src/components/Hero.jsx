@@ -101,16 +101,16 @@ export default function Hero() {
     
     // Wait 1000ms for button to fade out before starting text disappearance
     setTimeout(() => {
-      setHasMoved(true); // Triggers the text exit animation (2.0s)
+      setHasMoved(true); // Triggers the text exit animation (3.0s slide, 1.7s fade)
       
-      // Wait 2200ms (2.0s fade + 0.2s buffer) so text slides completely out of sight
+      // Wait 1.7s for text to fully disappear + 1.0s pure pause = 2700ms total
       setTimeout(() => {
-        setIsSnapping(true); // Engages the smooth 0.8s glide CSS
+        setIsSnapping(true); // Engages the slow glide
         setPhase(2); // Unlocks the circle mask to follow pointer
         
-        // After glide finishes, revert to fast mouse follow
-        setTimeout(() => setIsSnapping(false), 800);
-      }, 2200);
+        // After slow 1.5s glide finishes, revert to fast mouse follow
+        setTimeout(() => setIsSnapping(false), 1500);
+      }, 2700);
     }, 1000);
   };
 
