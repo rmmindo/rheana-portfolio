@@ -53,14 +53,13 @@ export default function Hero() {
   const baseDelay = hasCycledPrecision ? 0 : 3;
 
   // --- LASER TIMELINE ALGORITHM ---
-  const traceDuration = 0.8;      // How long each character takes to trace
-  const charStagger = 0.15;       // How fast the laser moves to the next letter
-  const pauseBeforePop = 0.4;     // How long the fully drawn word sits before flashing
-  const pauseBeforeNextWord = 0.2; // How long to wait after popping before tracing next word
+  const traceDuration = 0.8;      
+  const charStagger = 0.15;       
+  const pauseBeforePop = 0.1;     // Near-instant pop after word finishes
 
   const charMetadata = [];
   const words = precisionText.split(' ');
-  let currentTime = 0;
+  let currentTime = 0; // Continuous counter for unbroken tracing
   
   for (let w = 0; w < words.length; w++) {
     const word = words[w];
@@ -72,11 +71,9 @@ export default function Hero() {
       currentTime += charStagger;
     }
     
-    // The laser finishes tracing the last character at:
+    // Calculate when this specific word finishes tracing
     const lastCharStartTime = wordCharDelays[wordLength - 1];
     const wordTraceEndTime = lastCharStartTime + traceDuration;
-    
-    // The word flashes and fills at:
     const wordPopTime = wordTraceEndTime + pauseBeforePop;
     
     for (let i = 0; i < wordLength; i++) {
@@ -87,17 +84,15 @@ export default function Hero() {
       });
     }
     
-    // Add space (invisible, so timing doesn't strictly matter)
+    // Treat space as just another character for continuous continuous laser tracing
     if (w < words.length - 1) {
       charMetadata.push({
         char: '\u00A0',
-        traceDelay: wordPopTime, 
+        traceDelay: currentTime, 
         popDelay: wordPopTime
       });
+      currentTime += charStagger;
     }
-    
-    // Crucial: Do not start the next word until THIS word has popped!
-    currentTime = wordPopTime + pauseBeforeNextWord;
   }
 
   return (
