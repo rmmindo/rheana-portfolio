@@ -82,6 +82,11 @@ html.has-unlocked .hero-precision-container {
 .engraved-fill {
   fill: var(--text);
   opacity: 0;
+  --precision-glow: #41fdfe; /* Cyan by default (Dark Mode) */
+}
+
+[data-theme="light"] .engraved-fill {
+  --precision-glow: rgba(255, 255, 255, 0.9); /* Tight white in Light Mode */
 }
 
 /* The Laser Tracing Sequence */
@@ -118,11 +123,11 @@ html.has-unlocked .engraved-fill {
 @keyframes laser-pop {
   0% { 
     opacity: 1;
-    text-shadow: 0 0 20px var(--text);
+    filter: drop-shadow(0 0 10px var(--precision-glow));
   }
   100% { 
     opacity: 1;
-    text-shadow: 0 4px 8px var(--laser-shadow, rgba(0, 0, 0, 0.6));
+    filter: drop-shadow(0 0 4px var(--precision-glow));
   }
 }
 
@@ -186,8 +191,8 @@ body.is-unlocked {
 
 .has-moved .engraved-laser,
 .has-moved .engraved-fill {
-  text-shadow: none !important;
-  transition: text-shadow 0.4s ease;
+  text-shadow: none !important; filter: none !important;
+  transition: text-shadow 0.4s ease, filter 0.4s ease;
 }
 
 .nav-menu {
