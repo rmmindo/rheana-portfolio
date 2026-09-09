@@ -43,7 +43,7 @@
   --education-ink: #{v.$ink-strong};
   --focus: #{v.ink("purple")};
   --focus-halo: #{v.$paper};
-  --laser-color: #{v.glow('pink')};
+  --laser-color: var(--glow-pink);
   --hero-shadow: none;
   --laser-shadow: none;
 }
@@ -92,4 +92,5 @@
 
 :root[data-theme="dark"] { @include dark-tokens; }
 :root[data-theme="light"] { @include light-tokens; }
+
 
