@@ -67,7 +67,7 @@
     "hero.line2": "engineered with precision.",
     "hero.aside": "That blur was 850 myopia. Mine — and why this site is built to be read by anyone.",
     "hero.role": "Rheana Mindo, Full-Stack AI Developer",
-    "gate.statement": "Let’s get your next big idea into focus.",
+    "gate.statement": "Let’s get your next big idea into focus",
     "work.heading": "Someone has had your problem before",
     "work.rail": "Roles, in order",
     "work.how": "How",
@@ -387,3 +387,5 @@
     "tools.notInList": "Wala ito sa listahan sa itaas, na buod lamang at hindi lahat."
   }
 }
+
+

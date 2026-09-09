@@ -1,7 +1,7 @@
 import '../styles/components/_hero.scss';
 
 export default function Hero() {
-  const precisionText = "engineered with precision.";
+  const precisionText = "engineered with precision";
   const baseDelay = 3;
 
   // --- LASER TIMELINE ALGORITHM ---
@@ -115,4 +115,5 @@ export default function Hero() {
     </div>
   );
 }
+
 
