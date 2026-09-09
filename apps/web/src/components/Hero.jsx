@@ -174,11 +174,7 @@ export default function Hero() {
           <div className="ghost-sub">I'm Rheana, a fullstack AI Developer.</div>
         </div>
         
-        <div className={`scroll-tooltip ${phase === 2 ? 'is-active' : ''}`}>
-          [ SCROLL TO EXPLORE ]
-        </div>
-
-        <div className={`kinetic-node ${phase === 3 ? 'is-active' : ''}`}></div>
+        <div className={`kinetic-node ${phase >= 2 ? 'is-active' : ''}`}></div>
 
         {phase < 2 && (
           <div className="hero-content hero-text-container">
