@@ -24,6 +24,7 @@ export default function Hero() {
   const [isPreparingFlashlight, setIsPreparingFlashlight] = useState(false);
   const [isSnapping, setIsSnapping] = useState(false);
   const [showButton, setShowButton] = useState(false);
+  const [hasUnlockedMask, setHasUnlockedMask] = useState(false);
 
   useEffect(() => {
     // Start phase 1 immediately on mount
@@ -103,16 +104,21 @@ export default function Hero() {
     setTimeout(() => {
       setHasMoved(true); // Triggers the text exit animation (3.0s slide, 3.0s fade)
       
-      // 1. At 0.75s (a quarter through the 3s slide), start moving the circle
+      // 1. At 0.75s, unlock the mask to follow the mouse and apply the 1.5s sluggish glide
       setTimeout(() => {
-        setIsSnapping(true); // Engages the 2.25s glide
+        setHasUnlockedMask(true);
+        setIsSnapping(true); 
       }, 750);
 
-      // 2. At 3.0s, the text hits 0 opacity and the 2.25s glide finishes.
-      // They conclude at the exact same millisecond.
+      // 2. At 2.25s (1.5s later), the circle arrives at the mouse. 
+      // We turn off isSnapping so it instantly sticks tightly to the pointer.
+      setTimeout(() => {
+        setIsSnapping(false);
+      }, 2250);
+
+      // 3. At 3.0s, the text fade is completely 0. We safely unmount it.
       setTimeout(() => {
         setPhase(2); 
-        setIsSnapping(false);
       }, 3000);
 
     }, 400);
@@ -167,8 +173,8 @@ export default function Hero() {
         className={`circle-mask-layer scene-balloon phase-${phase} ${isSnapping ? 'is-snapping-to-pointer' : ''}`} 
         onMouseMove={handleMouseMove}
         style={{
-          '--x': (isSnapping || phase >= 2) ? `${mousePos.x}%` : '50%',
-          '--y': (isSnapping || phase >= 2) ? `${mousePos.y}%` : '50%',
+          '--x': (hasUnlockedMask || phase >= 2) ? `${mousePos.x}%` : '50%',
+          '--y': (hasUnlockedMask || phase >= 2) ? `${mousePos.y}%` : '50%',
           zIndex: 1
         }}
       ></div>
@@ -177,8 +183,8 @@ export default function Hero() {
         className={`hero-wrapper phase-${phase} ${hasMoved ? 'has-moved' : ''}`}
         onMouseMove={handleMouseMove}
         style={{
-          '--x': (isSnapping || phase >= 2) ? `${mousePos.x}%` : '50%',
-          '--y': (isSnapping || phase >= 2) ? `${mousePos.y}%` : '50%',
+          '--x': (hasUnlockedMask || phase >= 2) ? `${mousePos.x}%` : '50%',
+          '--y': (hasUnlockedMask || phase >= 2) ? `${mousePos.y}%` : '50%',
           zIndex: 2,
           pointerEvents: phase === 2 ? 'none' : 'auto'
         }}
