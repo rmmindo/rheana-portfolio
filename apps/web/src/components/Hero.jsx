@@ -17,12 +17,10 @@ const precisionFonts = [
 export default function Hero() {
   const precisionText = "engineered with precision.";
 
-  // Core font cycling states
   const [visionFontIdx, setVisionFontIdx] = useState(-1);
   const [precisionFontIdx, setPrecisionFontIdx] = useState(-1);
   const [hasCycledPrecision, setHasCycledPrecision] = useState(false);
 
-  // Temporary Typography Debugger States
   const [vWeight, setVWeight] = useState(700);
   const [vStyle, setVStyle] = useState('normal');
   const [vSize, setVSize] = useState(1.0);
@@ -54,25 +52,52 @@ export default function Hero() {
   const precisionFontFamily = precisionFontIdx === -1 ? undefined : `"${precisionFonts[precisionFontIdx]}"`;
   const baseDelay = hasCycledPrecision ? 0 : 3;
 
-  // Pre-calculate word boundaries for the word-by-word pop fill animation
+  // --- LASER TIMELINE ALGORITHM ---
+  const traceDuration = 0.8;      // How long each character takes to trace
+  const charStagger = 0.15;       // How fast the laser moves to the next letter
+  const pauseBeforePop = 0.4;     // How long the fully drawn word sits before flashing
+  const pauseBeforeNextWord = 0.2; // How long to wait after popping before tracing next word
+
   const charMetadata = [];
-  let charIndex = 0;
   const words = precisionText.split(' ');
+  let currentTime = 0;
   
   for (let w = 0; w < words.length; w++) {
     const word = words[w];
-    const wordEndIndex = charIndex + word.length - 1;
+    const wordLength = word.length;
     
-    for (let i = 0; i < word.length; i++) {
-      charMetadata.push({ char: word[i], wordEndIndex });
-      charIndex++;
+    const wordCharDelays = [];
+    for (let i = 0; i < wordLength; i++) {
+      wordCharDelays.push(currentTime);
+      currentTime += charStagger;
     }
     
-    // Add space if it's not the last word
+    // The laser finishes tracing the last character at:
+    const lastCharStartTime = wordCharDelays[wordLength - 1];
+    const wordTraceEndTime = lastCharStartTime + traceDuration;
+    
+    // The word flashes and fills at:
+    const wordPopTime = wordTraceEndTime + pauseBeforePop;
+    
+    for (let i = 0; i < wordLength; i++) {
+      charMetadata.push({
+        char: word[i],
+        traceDelay: wordCharDelays[i],
+        popDelay: wordPopTime
+      });
+    }
+    
+    // Add space (invisible, so timing doesn't strictly matter)
     if (w < words.length - 1) {
-      charMetadata.push({ char: '\u00A0', wordEndIndex }); // Space pops with the word it follows
-      charIndex++;
+      charMetadata.push({
+        char: '\u00A0',
+        traceDelay: wordPopTime, 
+        popDelay: wordPopTime
+      });
     }
+    
+    // Crucial: Do not start the next word until THIS word has popped!
+    currentTime = wordPopTime + pauseBeforeNextWord;
   }
 
   return (
@@ -82,13 +107,7 @@ export default function Hero() {
           
           {/* VISION LINE */}
           <div className="font-cycler-row">
-            <button 
-              className="font-nav-btn" 
-              onClick={() => cycleVisionFont(-1)}
-            >
-              &#8592;
-            </button>
-            
+            <button className="font-nav-btn" onClick={() => cycleVisionFont(-1)}>&#8592;</button>
             <h1 
               className="hero-vision" 
               style={{ 
@@ -100,26 +119,14 @@ export default function Hero() {
             >
               Your product vision
             </h1>
-
-            <button 
-              className="font-nav-btn" 
-              onClick={() => cycleVisionFont(1)}
-            >
-              &#8594;
-            </button>
+            <button className="font-nav-btn" onClick={() => cycleVisionFont(1)}>&#8594;</button>
           </div>
           
           {/* PRECISION LINE */}
           <div className="font-cycler-row" style={{ marginTop: '0.5rem' }}>
-            <button 
-              className="font-nav-btn" 
-              onClick={() => cyclePrecisionFont(-1)}
-            >
-              &#8592;
-            </button>
+            <button className="font-nav-btn" onClick={() => cyclePrecisionFont(-1)}>&#8592;</button>
             
             <div className="hero-precision-container">
-              {/* LASER ENGRAVER SVG LAYER */}
               <div 
                 className="line-precision-engraver" 
                 key={precisionFontIdx}
@@ -143,8 +150,8 @@ export default function Hero() {
                         key={index} 
                         className="engraved-char"
                         style={{ 
-                          '--char-index': index, 
-                          '--word-end-index': meta.wordEndIndex,
+                          '--trace-delay': meta.traceDelay, 
+                          '--pop-delay': meta.popDelay,
                           '--base-delay': `${baseDelay}s`
                         }}
                       >
@@ -156,15 +163,9 @@ export default function Hero() {
               </div>
             </div>
 
-            <button 
-              className="font-nav-btn" 
-              onClick={() => cyclePrecisionFont(1)}
-            >
-              &#8594;
-            </button>
+            <button className="font-nav-btn" onClick={() => cyclePrecisionFont(1)}>&#8594;</button>
           </div>
 
-          {/* Display Current Fonts */}
           <div className="font-debugger">
             Vision Font: {visionFontIdx === -1 ? 'Default' : visionFonts[visionFontIdx]} <br/>
             Precision Font: {precisionFontIdx === -1 ? 'Default' : precisionFonts[precisionFontIdx]}
@@ -173,7 +174,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* TEMPORARY TYPOGRAPHY DEBUGGER PANEL */}
       <div className="typography-overlay-panel">
         <div className="panel-section">
           <strong>Vision</strong>
