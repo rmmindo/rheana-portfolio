@@ -138,3 +138,57 @@ html.has-unlocked .engraved-fill {
 
 
 
+/* ------------------ ACT III: FLASHLIGHT & EXIT ANIMATIONS ------------------ */
+
+body.is-locked {
+  overflow: hidden;
+  height: 100vh;
+}
+
+body.is-unlocked {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.circle-mask-layer {
+  position: absolute;
+  inset: 0;
+  /* Phase 1 & 2: Flashlight */
+  clip-path: circle(27% at var(--x, 50%) var(--y, 50%));
+  transition: clip-path 0.1s ease-out; /* Slight spring delay */
+}
+
+/* Phase 3: The Horizon Snap */
+.phase-3 .circle-mask-layer {
+  clip-path: circle(150% at 50% 50%);
+  transition: clip-path 0.8s cubic-bezier(0.8, 0, 0.2, 1);
+}
+
+.hero-text-container {
+  overflow: hidden; 
+}
+
+.has-moved .line-vision {
+  transform: translateX(120vw);
+  opacity: 0;
+  transition: all 1.2s cubic-bezier(0.5, 0, 0.2, 1);
+}
+
+.has-moved .line-precision-container {
+  transform: translateX(-120vw);
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.8, 0, 0.2, 1);
+}
+
+.nav-menu {
+  position: fixed;
+  bottom: -100px;
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+.phase-3 .nav-menu {
+  bottom: 40px; /* Slides up into the bottom corners */
+  opacity: 1;
+  transition-delay: 0.4s; /* Waits for the circle to snap open */
+}
