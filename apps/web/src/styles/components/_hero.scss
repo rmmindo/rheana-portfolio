@@ -24,7 +24,7 @@
   color: var(--text);
   text-shadow: 0 4px 8px var(--laser-shadow, rgba(0, 0, 0, 0.6));
   font-family: v.$font-heading; /* Default font */
-  font-size: clamp(1.9rem, 4.75vw, 3.8rem); /* 95% size */
+  font-size: clamp(1.5rem, 6vw, 3.8rem); /* 95% size */
   font-weight: 700;
   letter-spacing: 0.03em;
   text-align: center;
@@ -38,7 +38,7 @@
 .hero-precision-container {
   position: relative;
   font-family: v.$font-heading;
-  font-size: clamp(2rem, 5vw, 4rem); /* 100% size */
+  font-size: clamp(1.2rem, 6vw, 4rem); /* 100% size */
   font-weight: 500;
   letter-spacing: 0.05em;
   opacity: 0;
@@ -193,19 +193,6 @@ body.is-unlocked {
 .has-moved .engraved-fill {
   text-shadow: none !important; filter: none !important;
   transition: text-shadow 0.4s ease, filter 0.4s ease;
-}
-
-.nav-menu {
-  position: fixed;
-  bottom: -100px;
-  opacity: 0;
-  transition: all 0.6s cubic-bezier(0.1, 0.9, 0.2, 1);
-}
-
-.nav-menu.is-active {
-  bottom: 2rem;
-  opacity: 1;
-  transition-delay: 0.4s; /* Waits for the circle to snap open */
 }
 
 body.phase-3 {

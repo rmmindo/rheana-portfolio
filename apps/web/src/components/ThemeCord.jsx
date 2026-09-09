@@ -113,7 +113,7 @@ export default function ThemeCord() {
   const springTransition = isSnapping ? 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none';
 
   return (
-    <div className={`theme-cord-wrapper ${showCord ? 'is-active' : ''}`} style={{ position: 'fixed', top: 0, right: '4rem', zIndex: 9000 }}>
+    <div className={`theme-cord-wrapper ${showCord ? 'is-active' : ''}`} style={{ position: 'fixed', top: 0, right: 'clamp(1.5rem, 5vw, 4rem)', zIndex: 9000 }}>
       <div className={`theme-cord-assembly ${isSnapping ? 'is-snapping' : ''}`}>
         <div 
           className="theme-cord-line" 

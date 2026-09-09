@@ -1,6 +1,5 @@
 @use 'abstracts/custom-fonts';
 @use 'abstracts/variables';
-@use 'abstracts/shapes';
 @use 'themes/tokens';
 @use 'base/reset';
 @use 'base/typography';
@@ -112,8 +111,8 @@ html.has-unlocked .scene-balloon::after {
 /* Pill Header */
 .brand-anchor {
   position: fixed;
-  top: 2rem;
-  left: 2rem;
+  top: clamp(1rem, 4vw, 2rem);
+  left: clamp(1rem, 4vw, 2rem);
   z-index: 9000;
   display: flex;
   align-items: center;
