@@ -45,7 +45,7 @@
   --focus: #{v.ink("purple")};
   --focus-halo: #{v.$paper};
   --laser-color: #5E2B97;
-  --hero-shadow: 0 4px 15px rgba(255, 255, 255, 0.9), 0 4px 12px rgba(0, 0, 0, 0.15);
+  --hero-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   --laser-shadow: rgba(255, 255, 255, 0.7);
 }
 
@@ -79,7 +79,7 @@
   --focus: #{v.$brand-yellow};
   --focus-halo: #{v.$night};
   --laser-color: #7DF9FF;
-  --hero-shadow: 0 4px 20px rgba(255, 255, 255, 0.25);
+  --hero-shadow: 0 4px 24px rgba(0, 0, 0, 0.8);
   --laser-shadow: rgba(0, 0, 0, 0.6);
 }
 
@@ -94,6 +94,7 @@
 
 :root[data-theme="dark"] { @include dark-tokens; }
 :root[data-theme="light"] { @include light-tokens; }
+
 
 
 
