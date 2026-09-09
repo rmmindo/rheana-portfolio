@@ -61,19 +61,7 @@ html.has-unlocked .scene-balloon::after {
   100% { opacity: 0; }
 }
 
-.site-mask {
-  position: fixed;
-  inset: 0;
-  z-index: -9;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at center,
-    transparent 0%,
-    transparent 350px,
-    var(--site-bg) 352px,
-    var(--site-bg) 100%
-  );
-}
+
 
 /* Brand Logo Bloom Effect */
 .brand-logo {
@@ -152,3 +140,4 @@ body.is-unlocked .brand-name {
   letter-spacing: 0.05em;
   color: var(--text);
 }
+
