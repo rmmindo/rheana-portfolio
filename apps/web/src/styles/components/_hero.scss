@@ -121,8 +121,8 @@ html.has-unlocked .hero-precision-container {
   stroke-width: 0.015em; 
   
   /* Prepare the path for drawing */
-  stroke-dasharray: 150;
-  stroke-dashoffset: 150;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
   
   opacity: 0; 
 }
@@ -131,7 +131,7 @@ html.has-unlocked .hero-precision-container {
 html.has-unlocked .engraved-char {
   animation: 
     /* 1. Trace the outline using the JS calculated --trace-delay */
-    laser-trace 0.8s calc(var(--base-delay, 3s) + calc(var(--trace-delay) * 1s)) forwards,
+    laser-trace 0.35s calc(var(--base-delay, 3s) + calc(var(--trace-delay) * 1s)) forwards,
     /* 2. Pop the fill using the JS calculated --pop-delay */
     laser-pop-fill 0.15s calc(var(--base-delay, 3s) + calc(var(--pop-delay) * 1s)) forwards;
 }
@@ -140,7 +140,7 @@ html.has-unlocked .engraved-char {
   0% { 
     opacity: 1;
     stroke: #7DF9FF;
-    stroke-dashoffset: 150; 
+    stroke-dashoffset: 200; 
     fill: transparent;
   }
   100% { 
@@ -232,4 +232,6 @@ html.has-unlocked .engraved-char {
     }
   }
 }
+
+
 

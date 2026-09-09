@@ -53,9 +53,9 @@ export default function Hero() {
   const baseDelay = hasCycledPrecision ? 0 : 3;
 
   // --- LASER TIMELINE ALGORITHM ---
-  const traceDuration = 0.7;      
-  const charStagger = 0.15;       
-  const pauseBeforePop = -0.25;     // Near-instant pop after word finishes
+  const traceDuration = 0.35;      
+  const charStagger = 0.08;       
+  const pauseBeforePop = 0.0;     // Near-instant pop after word finishes
 
   const charMetadata = [];
   const words = precisionText.split(' ');
@@ -209,4 +209,5 @@ export default function Hero() {
     </>
   );
 }
+
 
