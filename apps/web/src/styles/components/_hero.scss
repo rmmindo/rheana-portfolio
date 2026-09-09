@@ -130,11 +130,11 @@ html.has-unlocked .hero-precision-container {
 /* The Laser Tracing Sequence */
 html.has-unlocked .engraved-char {
   animation: 
-    /* 1. Draw the laser outline over 1.2 seconds, character by character */
-    laser-trace 1.2s calc(var(--base-delay, 3s) + (var(--char-index) * 0.1s)) forwards,
-    /* 2. Wait 0.4s after the LAST letter of the word finishes tracing, then pop the entire word at once */
-    /* Total trace time = 1.2s. Pause = 0.4s. Delay = 1.6s from the word's last char start time */
-    laser-pop-fill 0.1s calc(var(--base-delay, 3s) + 1.6s + (var(--word-end-index) * 0.1s)) forwards;
+    /* 1. Draw the laser outline rapidly (0.3s per char) so only a few letters trace at once */
+    laser-trace 0.3s calc(var(--base-delay, 3s) + (var(--char-index) * 0.1s)) forwards,
+    /* 2. Wait exactly 0.5s after the LAST letter of the word finishes tracing, then pop */
+    /* Trace time (0.3s) + pause (0.5s) = 0.8s base offset from the word's last char start time */
+    laser-pop-fill 0.1s calc(var(--base-delay, 3s) + 0.8s + (var(--word-end-index) * 0.1s)) forwards;
 }
 
 @keyframes laser-trace {
