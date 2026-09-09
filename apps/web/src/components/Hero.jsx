@@ -103,12 +103,12 @@ export default function Hero() {
     setTimeout(() => {
       setHasMoved(true); // Triggers the text exit animation (3.0s slide, 3.0s fade)
       
-      // 1. At 1.5s (halfway through the 3s slide), start moving the circle
+      // 1. At 0.75s (a quarter through the 3s slide), start moving the circle
       setTimeout(() => {
-        setIsSnapping(true); // Engages the 1.5s glide
-      }, 1500);
+        setIsSnapping(true); // Engages the 2.25s glide
+      }, 750);
 
-      // 2. At 3.0s, the text hits 0 opacity and the 1.5s glide finishes.
+      // 2. At 3.0s, the text hits 0 opacity and the 2.25s glide finishes.
       // They conclude at the exact same millisecond.
       setTimeout(() => {
         setPhase(2); 
