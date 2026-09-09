@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import '../styles/components/_hero.scss';
 
 const TelescopeIcon = ({ className }) => (
-  <svg className={className} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
-    <path d="M12.39 6.22L6.16 12.45c-.32.32-.82.32-1.14 0l-1.9-1.9c-.32-.32-.32-.82 0-1.14l6.23-6.23c.32-.32.82-.32 1.14 0l1.9 1.9c.32.32.32.82 0 1.14z"/>
-    <path d="M14.44 8.27l1.9-1.9c.32-.32.82-.32 1.14 0l3.8 3.8c.32.32.32.82 0 1.14l-1.9 1.9c-.32.32-.82.32-1.14 0l-3.8-3.8c-.32-.32-.32-.82 0-1.14z"/>
-    <path d="M8.27 14.44l-4.5 4.5"/>
-    <path d="M16.5 16.5l-4-4"/>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`lucide lucide-telescope ${className}`} style={{ flexShrink: 0 }}>
+    <path d="m10.065 12.493-6.18 1.318a.934.934 0 0 1-1.108-.702l-.537-2.15a1.07 1.07 0 0 1 .691-1.265l13.504-4.44"/>
+    <path d="m13.56 11.747 4.332-.924"/>
+    <path d="m16 21-3.105-6.21"/>
+    <path d="M16.485 5.338a2 2 0 0 1 2.406-1.328l1.379.37a2 2 0 0 1 1.488 2.411l-.31 1.242a2 2 0 0 1-2.405 1.328l-1.379-.37a2 2 0 0 1-1.488-2.41l.31-1.243z"/>
+    <path d="m6.158 8.933-2.33 1.166"/>
+    <path d="m8 13.5-2 6.5"/>
   </svg>
 );
 
@@ -20,6 +22,7 @@ export default function Hero() {
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
   const [hasMoved, setHasMoved] = useState(false);
   const [isPreparingFlashlight, setIsPreparingFlashlight] = useState(false);
+  const [isSnapping, setIsSnapping] = useState(false);
 
   useEffect(() => {
     // Start phase 1 immediately on mount
@@ -84,15 +87,19 @@ export default function Hero() {
     if (isPreparingFlashlight) return;
     setIsPreparingFlashlight(true);
     
-    // Wait 1.5 seconds before text starts disappearing
+    // Wait 400ms for button to fade out before starting text disappearance
     setTimeout(() => {
-      setHasMoved(true); // Triggers the text exit animation (1.8s)
+      setHasMoved(true); // Triggers the text exit animation (0.8s)
       
-      // Give it extra time (2.5s) so the disappearance is less abrupt before moving
+      // Wait 900ms (0.8s fade + 0.1s buffer) so text is 100% gone
       setTimeout(() => {
+        setIsSnapping(true); // Engages the smooth 0.8s glide CSS
         setPhase(2); // Unlocks the circle mask to follow pointer
-      }, 2500);
-    }, 1500);
+        
+        // After glide finishes, revert to fast mouse follow
+        setTimeout(() => setIsSnapping(false), 800);
+      }, 900);
+    }, 400);
   };
 
   // --- LASER TIMELINE ALGORITHM ---
@@ -141,7 +148,7 @@ export default function Hero() {
   return (
     <>
       <div 
-        className={`circle-mask-layer scene-balloon phase-${phase}`} 
+        className={`circle-mask-layer scene-balloon phase-${phase} ${isSnapping ? 'is-snapping-to-pointer' : ''}`} 
         onMouseMove={handleMouseMove}
         style={{
           '--x': phase >= 2 ? `${mousePos.x}%` : '50%',

@@ -158,6 +158,10 @@ body.is-unlocked {
   transition: clip-path 0.1s ease-out; /* Slight spring delay */
 }
 
+.circle-mask-layer.is-snapping-to-pointer {
+  transition: clip-path 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 /* Phase 3: The Horizon Snap */
 .circle-mask-layer.phase-3 {
   clip-path: circle(200vw at 50% 50%);
@@ -169,17 +173,21 @@ body.is-unlocked {
 }
 
 .has-moved .line-vision {
-  transform: translateX(20vw);
+  transform: translateX(10vw);
   opacity: 0;
-  filter: blur(10px);
-  transition: all 1.8s cubic-bezier(0.25, 1, 0.2, 1);
+  transition: all 0.8s cubic-bezier(0.25, 1, 0.2, 1);
 }
 
 .has-moved .line-precision-container {
-  transform: translateX(-20vw);
+  transform: translateX(-10vw);
   opacity: 0;
-  filter: blur(10px);
-  transition: all 1.4s cubic-bezier(0.25, 1, 0.2, 1);
+  transition: all 0.8s cubic-bezier(0.25, 1, 0.2, 1);
+}
+
+.has-moved .engraved-laser,
+.has-moved .engraved-fill {
+  text-shadow: none !important;
+  transition: text-shadow 0.4s ease;
 }
 
 .nav-menu {
