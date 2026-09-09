@@ -208,8 +208,8 @@
 }
 
 .gate__tooltip {
-  background-color: #eaddcd;
-  color: #1A0B2E;
+  background-color: #1A0B2E;
+  color: #FFFFFF;
   opacity: 0;
   transform: translateY(15px) scale(0.8);
   pointer-events: none;
@@ -233,7 +233,7 @@
   transform: translateX(-50%);
   border-width: 0 6px 6px 6px;
   border-style: solid;
-  border-color: transparent transparent #eaddcd transparent;
+  border-color: transparent transparent #1A0B2E transparent;
 }
 
 .gate__glasses:hover .gate__tooltip,
