@@ -121,11 +121,15 @@
 
 /* Dropdown Animation for Theme Cord */
 .theme-cord-wrapper {
-  transform: translateY(-150vh);
-  transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
 }
 
 html.has-unlocked .theme-cord-wrapper {
   transform: translateY(0);
-  transition-delay: 9s; /* 6s for text trace/pop to finish + 3s wait */
+  opacity: 1;
+  pointer-events: auto;
+  transition: transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 9s, opacity 0s 9s;
 }
