@@ -296,7 +296,7 @@ body.phase-3 {
   opacity: 0;
   pointer-events: none;
   text-align: center;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 4px 12px var(--laser-shadow, rgba(0, 0, 0, 0.6));
   
   /* Mask for center-out reveal */
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
@@ -385,12 +385,12 @@ body.phase-3 {
 
 /* Telescope Icon Animated */
 .telescope-icon-animated {
-  color: var(--laser-color);
-  filter: drop-shadow(0 0 6px var(--laser-color));
+  color: #41fdfe !important;
+  filter: drop-shadow(0 0 6px #41fdfe);
   animation: telescope-blink 2s infinite ease-in-out;
 }
 
 @keyframes telescope-blink {
-  0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 8px var(--laser-color)); }
-  50% { opacity: 0.4; transform: scale(0.95); filter: drop-shadow(0 0 2px var(--laser-color)); }
+  0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 8px #41fdfe); }
+  50% { opacity: 0.4; transform: scale(0.95); filter: drop-shadow(0 0 2px #41fdfe); }
 }

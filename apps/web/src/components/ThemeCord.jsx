@@ -109,7 +109,7 @@ export default function ThemeCord() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  const scale = (80 + dragY) / 80;
+  const scale = (350 + dragY) / 350;
   const springTransition = isSnapping ? 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none';
 
   return (
