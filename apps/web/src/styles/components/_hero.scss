@@ -213,23 +213,44 @@ body.phase-3 {
   overflow-x: hidden;
 }
 
-/* Kinetic Node (Scroll Indicator) */
-.kinetic-node {
+/* Kinetic Node Container (Scroll Indicator) */
+.kinetic-node-container {
   position: fixed;
   bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
-  width: 20px;
-  height: 32px;
-  border: 1px solid var(--text);
-  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.8s ease;
   z-index: 10;
+  
+  --kinetic-color: var(--text);
+  --kinetic-glow: #41fdfe;
+  --kinetic-shadow: rgba(0, 0, 0, 0.8);
+  /* Traces the entire node and text to ensure popping readability */
+  filter: drop-shadow(0 0 12px var(--kinetic-shadow)) drop-shadow(0 2px 4px var(--kinetic-shadow));
 }
 
-.kinetic-node.is-active {
+[data-theme="light"] .kinetic-node-container {
+  --kinetic-color: var(--brand-powder);
+  --kinetic-glow: var(--brand-powder);
+  --kinetic-shadow: rgba(255, 255, 255, 0.9);
+}
+
+.kinetic-node-container.is-active {
+  opacity: 1;
+}
+
+.kinetic-node {
+  position: relative;
+  width: 20px;
+  height: 32px;
+  border: 1px solid var(--kinetic-color);
+  border-radius: 12px;
   opacity: 0.8;
 }
 
@@ -242,7 +263,7 @@ body.phase-3 {
   transform: translateX(-50%);
   width: 2px;
   height: 6px;
-  background: var(--laser-color, #7DF9FF);
+  background: var(--kinetic-glow);
   border-radius: 2px;
   animation: kinetic-drop 1.5s infinite cubic-bezier(0.65, 0, 0.35, 1);
 }
@@ -253,6 +274,17 @@ body.phase-3 {
   70% { transform: translate(-50%, 14px); opacity: 0; }
   100% { transform: translate(-50%, 14px); opacity: 0; }
 }
+
+.kinetic-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--kinetic-color);
+  opacity: 0.8;
+  text-transform: uppercase;
+}
+
 /* Horizon Button */
 .horizon-btn {
   position: fixed;
@@ -275,10 +307,12 @@ body.phase-3 {
   transform: translateY(10px);
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   z-index: 20;
+  --telescope-color: #41fdfe;
 }
 
 [data-theme="light"] .horizon-btn {
   border-color: rgba(26, 11, 46, 0.2);
+  --telescope-color: var(--brand-powder);
 }
 
 .horizon-btn.is-active {
@@ -349,53 +383,14 @@ body.phase-3 {
   }
 }
 
-/* Kinetic Node Container Updates */
-.kinetic-node-container {
-  position: fixed;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.8s ease;
-  z-index: 10;
-}
-
-.kinetic-node-container.is-active {
-  opacity: 1;
-}
-
-.kinetic-node {
-  position: relative;
-  /* Override previous fixed positioning */
-  bottom: auto;
-  left: auto;
-  transform: none;
-  opacity: 0.8; /* Make it visible since container handles opacity now */
-}
-
-.kinetic-text {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  color: var(--text);
-  opacity: 0.4;
-  text-transform: uppercase;
-}
-
 /* Telescope Icon Animated */
 .telescope-icon-animated {
-  color: #41fdfe !important;
-  filter: drop-shadow(0 0 6px #41fdfe);
+  color: var(--telescope-color) !important;
+  filter: drop-shadow(0 0 6px var(--telescope-color));
   animation: telescope-blink 2s infinite ease-in-out;
 }
 
 @keyframes telescope-blink {
-  0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 8px #41fdfe); }
-  50% { opacity: 0.4; transform: scale(0.95); filter: drop-shadow(0 0 2px #41fdfe); }
+  0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 8px var(--telescope-color)); }
+  50% { opacity: 0.4; transform: scale(0.95); filter: drop-shadow(0 0 2px var(--telescope-color)); }
 }
