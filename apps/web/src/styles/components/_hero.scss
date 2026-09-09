@@ -59,7 +59,9 @@
 html.has-unlocked .font-nav-btn,
 html.is-clearing .font-nav-btn,
 html.has-unlocked .font-debugger,
-html.is-clearing .font-debugger {
+html.is-clearing .font-debugger,
+html.has-unlocked .typography-overlay-panel,
+html.is-clearing .typography-overlay-panel {
   opacity: 1;
   transition: opacity 2500ms cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: 2s; /* Wait for text to fully appear before showing UI */
@@ -154,3 +156,53 @@ html.has-unlocked .precision-char {
     animation-delay: 0s !important;
   }
 }
+/* ADD TO THE BOTTOM OF _hero.scss */
+.typography-overlay-panel {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 10, 20, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  gap: 2rem;
+  color: #fff;
+  z-index: 10000;
+  pointer-events: auto; /* Ensure clickable */
+  font-family: monospace;
+  font-size: 0.85rem; opacity: 0;
+}
+
+.panel-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  
+  strong {
+    color: #A0CFEC;
+    margin-bottom: 0.25rem;
+  }
+}
+
+.panel-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  button {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    cursor: pointer;
+    padding: 2px 8px;
+    border-radius: 4px;
+    
+    &:hover {
+      background: rgba(255,255,255,0.3);
+    }
+  }
+}
+
