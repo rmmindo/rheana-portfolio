@@ -54,6 +54,27 @@ export default function Hero() {
   const precisionFontFamily = precisionFontIdx === -1 ? undefined : `"${precisionFonts[precisionFontIdx]}"`;
   const baseDelay = hasCycledPrecision ? 0 : 3;
 
+  // Pre-calculate word boundaries for the word-by-word pop fill animation
+  const charMetadata = [];
+  let charIndex = 0;
+  const words = precisionText.split(' ');
+  
+  for (let w = 0; w < words.length; w++) {
+    const word = words[w];
+    const wordEndIndex = charIndex + word.length - 1;
+    
+    for (let i = 0; i < word.length; i++) {
+      charMetadata.push({ char: word[i], wordEndIndex });
+      charIndex++;
+    }
+    
+    // Add space if it's not the last word
+    if (w < words.length - 1) {
+      charMetadata.push({ char: '\u00A0', wordEndIndex }); // Space pops with the word it follows
+      charIndex++;
+    }
+  }
+
   return (
     <>
       <div className="hero-wrapper">
@@ -117,16 +138,17 @@ export default function Hero() {
                       fontSize: `clamp(${2 * pSize}rem, ${5 * pSize}vw, ${4 * pSize}rem)`
                     }}
                   >
-                    {precisionText.split('').map((char, index) => (
+                    {charMetadata.map((meta, index) => (
                       <tspan 
                         key={index} 
                         className="engraved-char"
                         style={{ 
                           '--char-index': index, 
+                          '--word-end-index': meta.wordEndIndex,
                           '--base-delay': `${baseDelay}s`
                         }}
                       >
-                        {char === ' ' ? '\u00A0' : char}
+                        {meta.char}
                       </tspan>
                     ))}
                   </text>
@@ -192,4 +214,3 @@ export default function Hero() {
     </>
   );
 }
-
