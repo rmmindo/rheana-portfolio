@@ -170,7 +170,8 @@ export default function Hero() {
         </button>
 
         <div className={`ghost-copy ${phase === 3 ? 'is-active' : ''}`}>
-          Welcome to the bigger picture. I'm Rheana.
+          <div className="ghost-main">Welcome to the bigger picture.</div>
+          <div className="ghost-sub">I'm Rheana, a fullstack AI Developer.</div>
         </div>
         
         <div className={`scroll-tooltip ${phase === 2 ? 'is-active' : ''}`}>
@@ -179,69 +180,69 @@ export default function Hero() {
 
         <div className={`kinetic-node ${phase === 3 ? 'is-active' : ''}`}></div>
 
-        <div className="hero-content hero-text-container">
-        
-        {/* VISION LINE */}
-        <h1 className="hero-vision line-vision">
-          Your product vision
-        </h1>
-        
-        {/* PRECISION LINE */}
-        <div className="hero-precision-container line-precision-container" style={{ marginTop: '0.5rem' }}>
-          <div 
-            className="line-precision-engraver" 
-            style={{ width: '100%', height: '1.5em', display: 'flex', justifyContent: 'center' }}
-          >
-            <svg width="100%" height="100%" style={{ overflow: 'visible' }}>
-              
-              {/* LAYER 1: LASER TRACE (Concept Solid) */}
-              <text 
-                x="50%" 
-                y="75%" 
-                textAnchor="middle" 
-                className="engraved-string laser-layer"
+        {phase < 2 && (
+          <div className="hero-content hero-text-container">
+            {/* VISION LINE */}
+            <h1 className="hero-vision line-vision">
+              Your product vision
+            </h1>
+            
+            {/* PRECISION LINE */}
+            <div className="hero-precision-container line-precision-container" style={{ marginTop: '0.5rem' }}>
+              <div 
+                className="line-precision-engraver" 
+                style={{ width: '100%', height: '1.5em', display: 'flex', justifyContent: 'center' }}
               >
-                {charMetadata.map((meta, index) => (
-                  <tspan 
-                    key={`laser-${index}`} 
-                    className="engraved-laser"
-                    style={{ 
-                      '--trace-delay': meta.traceDelay, 
-                      '--pop-delay': meta.popDelay,
-                      '--base-delay': `${baseDelay}s`
-                    }}
+                <svg width="100%" height="100%" style={{ overflow: 'visible' }}>
+                  
+                  {/* LAYER 1: LASER TRACE (Concept Solid) */}
+                  <text 
+                    x="50%" 
+                    y="75%" 
+                    textAnchor="middle" 
+                    className="engraved-string laser-layer"
                   >
-                    {meta.char}
-                  </tspan>
-                ))}
-              </text>
+                    {charMetadata.map((meta, index) => (
+                      <tspan 
+                        key={`laser-${index}`} 
+                        className="engraved-laser"
+                        style={{ 
+                          '--trace-delay': meta.traceDelay, 
+                          '--pop-delay': meta.popDelay,
+                          '--base-delay': `${baseDelay}s`
+                        }}
+                      >
+                        {meta.char}
+                      </tspan>
+                    ))}
+                  </text>
 
-              {/* LAYER 2: POP FILL (Concept) */}
-              <text 
-                x="50%" 
-                y="75%" 
-                textAnchor="middle" 
-                className="engraved-string pop-layer"
-              >
-                {charMetadata.map((meta, index) => (
-                  <tspan 
-                    key={`pop-${index}`} 
-                    className="engraved-fill"
-                    style={{ 
-                      '--pop-delay': meta.popDelay,
-                      '--base-delay': `${baseDelay}s`
-                    }}
+                  {/* LAYER 2: POP FILL (Concept) */}
+                  <text 
+                    x="50%" 
+                    y="75%" 
+                    textAnchor="middle" 
+                    className="engraved-string pop-layer"
                   >
-                    {meta.char}
-                  </tspan>
-                ))}
-              </text>
-              
-            </svg>
+                    {charMetadata.map((meta, index) => (
+                      <tspan 
+                        key={`pop-${index}`} 
+                        className="engraved-fill"
+                        style={{ 
+                          '--pop-delay': meta.popDelay,
+                          '--base-delay': `${baseDelay}s`
+                        }}
+                      >
+                        {meta.char}
+                      </tspan>
+                    ))}
+                  </text>
+                  
+                </svg>
+              </div>
+            </div>
           </div>
-        </div>
-        
-      </div>
+        )}
       </div>
     </>
   );

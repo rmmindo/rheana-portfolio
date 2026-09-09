@@ -108,3 +108,36 @@ html.has-unlocked .scene-balloon::after {
 
 
 
+
+/* Pill Header */
+.brand-anchor {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 8px 20px 8px 12px;
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="light"] .brand-anchor {
+  background: rgba(234, 221, 205, 0.4); /* pale yellow frosted */
+  border-color: rgba(26, 11, 46, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.brand-name {
+  font-weight: bold;
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
+  color: var(--text);
+}
