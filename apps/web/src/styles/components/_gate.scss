@@ -3,27 +3,39 @@
 .is-gated body { overflow: hidden; }
 
 .is-gated #root > *:not(.gate) {
+  -webkit-filter: blur(10px) 
+          drop-shadow(4px 4px 3px rgba(255, 255, 255, 0.6))
+          drop-shadow(8px 8px 6px rgba(255, 255, 255, 0.3))
+          drop-shadow(-3px -3px 2px rgba(0, 0, 0, 0.4));
   filter: blur(10px) 
           drop-shadow(4px 4px 3px rgba(255, 255, 255, 0.6))
           drop-shadow(8px 8px 6px rgba(255, 255, 255, 0.3))
           drop-shadow(-3px -3px 2px rgba(0, 0, 0, 0.4));
+  -webkit-transform: scale(1.04);
   transform: scale(1.04);
   transform-origin: center;
   pointer-events: none;
   user-select: none;
+  -webkit-user-select: none;
+  will-change: filter, transform, -webkit-filter, -webkit-transform;
 }
 
 .is-gated.is-clearing #root > *:not(.gate) {
+  -webkit-filter: blur(0px) 
+          drop-shadow(0 0 0 transparent)
+          drop-shadow(0 0 0 transparent)
+          drop-shadow(0 0 0 transparent);
   filter: blur(0px) 
           drop-shadow(0 0 0 transparent)
           drop-shadow(0 0 0 transparent)
           drop-shadow(0 0 0 transparent);
+  -webkit-transform: none;
   transform: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .is-gated #root > *:not(.gate) {
-    transition: filter 2500ms cubic-bezier(0.4, 0, 0.2, 1), transform 2500ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: filter 2500ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-filter 2500ms cubic-bezier(0.4, 0, 0.2, 1), transform 2500ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 2500ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 

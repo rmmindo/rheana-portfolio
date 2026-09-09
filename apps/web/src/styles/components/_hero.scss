@@ -159,18 +159,24 @@ body.is-unlocked {
   position: absolute;
   inset: 0;
   /* Phase 1 & 2: Flashlight */
+  -webkit-clip-path: circle(27% at var(--x, 50%) var(--y, 50%));
   clip-path: circle(27% at var(--x, 50%) var(--y, 50%));
-  transition: clip-path 0.1s ease-out; /* Slight spring delay */
+  transition: clip-path 0.1s ease-out, -webkit-clip-path 0.1s ease-out; /* Slight spring delay */
+  /* Fix edge artifacts on Chrome/Safari */
+  transform: translateZ(0);
+  will-change: clip-path, -webkit-clip-path;
 }
 
 .circle-mask-layer.is-snapping-to-pointer {
-  transition: clip-path 1.5s cubic-bezier(0.3, 0.8, 0.2, 1);
+  transition: clip-path 1.5s cubic-bezier(0.3, 0.8, 0.2, 1), -webkit-clip-path 1.5s cubic-bezier(0.3, 0.8, 0.2, 1);
 }
 
 /* Phase 3: The Horizon Snap */
 .circle-mask-layer.phase-3 {
-  clip-path: circle(200vw at 50% 50%);
-  transition: clip-path 1.4s cubic-bezier(0.65, 0, 0.2, 1);
+  /* Using 250vmax guarantees the circle completely clears the corners on any screen ratio */
+  -webkit-clip-path: circle(250vmax at 50% 50%);
+  clip-path: circle(250vmax at 50% 50%);
+  transition: clip-path 1.4s cubic-bezier(0.65, 0, 0.2, 1), -webkit-clip-path 1.4s cubic-bezier(0.65, 0, 0.2, 1);
 }
 
 .hero-text-container {
@@ -203,7 +209,7 @@ body.phase-3 {
 /* Kinetic Node Container (Scroll Indicator) */
 .kinetic-node-container {
   position: fixed;
-  bottom: 40px;
+  bottom: clamp(20px, 5vw, 40px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -275,18 +281,18 @@ body.phase-3 {
 /* Horizon Button */
 .horizon-btn {
   position: fixed;
-  bottom: 40px;
-  right: 40px;
+  bottom: clamp(20px, 5vw, 40px);
+  right: clamp(20px, 5vw, 40px);
   display: flex;
   align-items: center;
   gap: 12px;
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 30px;
-  padding: 12px 24px;
+  padding: clamp(8px, 2vw, 12px) clamp(16px, 3vw, 24px);
   color: var(--text);
   font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
+  font-size: clamp(0.7rem, 2vw, 0.875rem);
   letter-spacing: 0.05em;
   cursor: pointer;
   opacity: 0;
@@ -338,7 +344,7 @@ body.phase-3 {
 .ghost-main {
   font-family: v.$font-heading;
   font-weight: 700;
-  font-size: clamp(1.9rem, 4.75vw, 3.8rem);
+  font-size: clamp(1.1rem, 6vw, 3.8rem);
   letter-spacing: 0.03em;
   white-space: nowrap;
 }
@@ -346,7 +352,7 @@ body.phase-3 {
 .ghost-sub {
   font-family: v.$font-heading;
   font-weight: 700;
-  font-size: calc(clamp(1.9rem, 4.75vw, 3.8rem) * 0.6666);
+  font-size: calc(clamp(1.1rem, 6vw, 3.8rem) * 0.6666);
   letter-spacing: 0.03em;
   opacity: 0.8;
 }
