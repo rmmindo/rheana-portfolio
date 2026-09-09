@@ -22,9 +22,20 @@
     var(--text-muted) 3px,
     var(--text-muted) 5px
   ) !important;
-  mix-blend-mode: difference;
+  /* Removed mix-blend-mode so gradient is clearly visible */
   transform-origin: top center !important;
   will-change: transform;
+}
+
+/* Light Mode: The Ribbed String */
+[data-theme="light"] .theme-cord-line {
+  background: repeating-linear-gradient(
+    to bottom,
+    #1A0B2E,
+    #1A0B2E 3px,
+    #4A3B5E 3px,
+    #4A3B5E 5px
+  ) !important;
 }
 
 .theme-cord-handle {
@@ -44,6 +55,12 @@
   will-change: transform;
   touch-action: none;
   border: none;
+}
+
+/* Light Mode: The Handle Icon */
+[data-theme="light"] .theme-cord-handle {
+  background: #FFFFFF !important;
+  color: #1A0B2E !important; 
 }
 
 .theme-cord-handle svg {

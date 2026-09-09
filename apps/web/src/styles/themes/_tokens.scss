@@ -44,9 +44,9 @@
   --education-ink: #{v.$ink-strong};
   --focus: #{v.ink("purple")};
   --focus-halo: #{v.$paper};
-  --laser-color: var(--glow-pink);
-  --hero-shadow: none;
-  --laser-shadow: none;
+  --laser-color: #1A0B2E;
+  --hero-shadow: 0 4px 15px rgba(255, 255, 255, 0.9);
+  --laser-shadow: rgba(255, 255, 255, 0.7);
 }
 
 @mixin dark-tokens {
@@ -94,6 +94,7 @@
 
 :root[data-theme="dark"] { @include dark-tokens; }
 :root[data-theme="light"] { @include light-tokens; }
+
 
 
 

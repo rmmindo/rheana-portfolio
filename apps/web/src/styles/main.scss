@@ -92,3 +92,15 @@ html.has-unlocked .scene-balloon::after {
 
 
 
+
+/* User-Requested Light Mode HUD Overrides */
+[data-theme=""light""] .hud,
+[data-theme=""light""] .top-left,
+[data-theme=""light""] .bottom-left,
+[data-theme=""light""] .bottom-right {
+  color: #1A0B2E !important;
+}
+
+[data-theme=""light""] .top-left svg path {
+  fill: #1A0B2E !important;
+}
