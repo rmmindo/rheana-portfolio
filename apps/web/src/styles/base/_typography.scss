@@ -24,7 +24,7 @@ body {
   font-size: v.$step-0;
   line-height: v.$leading-body;
   color: var(--text);
-  background: var(--paper);
+  background: var(--site-bg);
 }
 
 h1, h2, h3, h4 {
@@ -41,3 +41,4 @@ h4 { font-size: v.$step-1; }
 
 p, li { max-width: v.$measure; text-wrap: pretty; }
 strong { font-weight: v.$weight-bold; }
+
