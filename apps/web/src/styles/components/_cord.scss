@@ -15,7 +15,7 @@
 .theme-cord-line {
   width: 2px !important;
   height: 80px;
-  background: repeating-linear-gradient(to bottom, #361168, #361168 3px, #948b9c 3px, #948b9c 5px) !important;
+  background: repeating-linear-gradient(to bottom, #5E2B97, #5E2B97 3px, #948b9c 3px, #948b9c 5px) !important;
   /* Removed mix-blend-mode so gradient is clearly visible */
   transform-origin: top center !important;
   will-change: transform;
@@ -23,7 +23,7 @@
 
 /* Light Mode: The Ribbed String */
 [data-theme="light"] .theme-cord-line {
-  background: repeating-linear-gradient(to bottom, #361168, #361168 3px, #948b9c 3px, #948b9c 5px) !important;
+  background: repeating-linear-gradient(to bottom, #5E2B97, #5E2B97 3px, #948b9c 3px, #948b9c 5px) !important;
 }
 
 .theme-cord-handle {
@@ -48,7 +48,7 @@
 /* Light Mode: The Handle Icon */
 [data-theme="light"] .theme-cord-handle {
   background: #FFFFFF !important;
-  color: #361168 !important; 
+  color: #5E2B97 !important; 
 }
 
 .theme-cord-handle svg {
@@ -108,5 +108,6 @@
   0% { clip-path: circle(150% at 50% 0%); }
   100% { clip-path: circle(0% at 50% 0%); }
 }
+
 
 

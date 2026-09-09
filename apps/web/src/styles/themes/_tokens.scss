@@ -17,7 +17,7 @@
   --paper: #{v.$paper};
   --site-bg: #eaddcd; /* Soft warm oat/sand to reduce glare */
   --paper-raised: #{v.$paper-raised};
-  --text: #361168;
+  --text: #5E2B97;
   --text-muted: #4A3B5E;
   --brand-blue: #{v.$brand-blue};
   --brand-powder: #{v.$brand-powder};
@@ -41,17 +41,17 @@
   // text (14.61:1); in dark mode the mint surface is itself dark, so the normal
   // text colour applies. Declared per theme rather than hard-coded in the
   // component, so the toggle can reach it.
-  --education-ink: #361168;
+  --education-ink: #5E2B97;
   --focus: #{v.ink("purple")};
   --focus-halo: #{v.$paper};
-  --laser-color: #361168;
-  --hero-shadow: 0 4px 15px rgba(255, 255, 255, 0.9);
+  --laser-color: #5E2B97;
+  --hero-shadow: 0 4px 15px rgba(255, 255, 255, 0.9), 0 4px 12px rgba(0, 0, 0, 0.15);
   --laser-shadow: rgba(255, 255, 255, 0.7);
 }
 
 @mixin dark-tokens {
   --paper: #{v.$night};
-  --site-bg: #361168;
+  --site-bg: #1A0B2E;
   --paper-raised: #{v.$night-raised};
   --text: #{v.$night-ink};
   --text-muted: #{v.$night-muted};
@@ -94,6 +94,7 @@
 
 :root[data-theme="dark"] { @include dark-tokens; }
 :root[data-theme="light"] { @include light-tokens; }
+
 
 
 
