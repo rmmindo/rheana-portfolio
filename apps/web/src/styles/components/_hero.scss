@@ -89,8 +89,9 @@ html.is-clearing .font-debugger {
   font-weight: 500;
   letter-spacing: 0.05em;
   opacity: 0;
-  transition: opacity 2500ms cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: 200ms; 
+  transition: opacity 2000ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* Starts fading in at 1.5s so it's fully visible by 3.5s */
+  transition-delay: 1500ms; 
 }
 
 /* Base Reveal Trigger */
@@ -127,7 +128,8 @@ html.has-unlocked .hero-precision-container {
 
 html.has-unlocked .precision-char {
   animation: magnetic-snap 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25) forwards;
-  animation-delay: calc(1.6s + (var(--char-index) * 0.04s));
+  /* Uses the --base-delay passed from React (3s initially, 0s after cycling) */
+  animation-delay: calc(var(--base-delay, 3s) + (var(--char-index) * 0.04s));
 }
 
 @keyframes magnetic-snap {

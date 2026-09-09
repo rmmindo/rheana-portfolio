@@ -19,6 +19,7 @@ export default function Hero() {
 
   const [visionFontIdx, setVisionFontIdx] = useState(-1);
   const [precisionFontIdx, setPrecisionFontIdx] = useState(-1);
+  const [hasCycledPrecision, setHasCycledPrecision] = useState(false);
 
   const cycleVisionFont = (direction) => {
     setVisionFontIdx((prev) => {
@@ -30,6 +31,7 @@ export default function Hero() {
   };
 
   const cyclePrecisionFont = (direction) => {
+    setHasCycledPrecision(true);
     setPrecisionFontIdx((prev) => {
       let next = prev + direction;
       if (next >= precisionFonts.length) return -1;
@@ -40,6 +42,7 @@ export default function Hero() {
 
   const visionFontFamily = visionFontIdx === -1 ? undefined : `"${visionFonts[visionFontIdx]}"`;
   const precisionFontFamily = precisionFontIdx === -1 ? undefined : `"${precisionFonts[precisionFontIdx]}"`;
+  const baseDelay = hasCycledPrecision ? 0 : 3;
 
   return (
     <div className="hero-wrapper">
@@ -84,13 +87,19 @@ export default function Hero() {
               {precisionText}
             </div>
             
-            {/* Layer 2: The solid letters that magnetically snap in */}
-            <div className="precision-solid">
+            {/* Layer 2: The solid letters that magnetically snap in.
+                Using key={precisionFontIdx} forces React to unmount and remount this block
+                when the font changes, instantly re-triggering the CSS animation! */}
+            <div className="precision-solid" key={precisionFontIdx}>
               {precisionText.split('').map((char, index) => (
                 <span 
                   key={index} 
                   className="precision-char"
-                  style={{ '--char-index': index, fontFamily: precisionFontFamily }}
+                  style={{ 
+                    '--char-index': index, 
+                    '--base-delay': `${baseDelay}s`,
+                    fontFamily: precisionFontFamily 
+                  }}
                 >
                   {char === ' ' ? '\u00A0' : char}
                 </span>
