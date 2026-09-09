@@ -19,6 +19,7 @@ export default function Hero() {
   const [phase, setPhase] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
   const [hasMoved, setHasMoved] = useState(false);
+  const [isPreparingFlashlight, setIsPreparingFlashlight] = useState(false);
 
   useEffect(() => {
     // Start phase 1 immediately on mount
@@ -74,13 +75,24 @@ export default function Hero() {
   }, [phase]);
 
   const handleMouseMove = (e) => {
-    if (phase >= 1) {
-      if (!hasMoved) setHasMoved(true);
+    const xPercent = (e.clientX / window.innerWidth) * 100;
+    const yPercent = (e.clientY / window.innerHeight) * 100;
+    setMousePos({ x: xPercent, y: yPercent });
+  };
+
+  const handleTelescopeClick = () => {
+    if (isPreparingFlashlight) return;
+    setIsPreparingFlashlight(true);
+    
+    // Wait 2 seconds before text starts disappearing
+    setTimeout(() => {
+      setHasMoved(true); // Triggers the text exit animation (1.8s)
       
-      const xPercent = (e.clientX / window.innerWidth) * 100;
-      const yPercent = (e.clientY / window.innerHeight) * 100;
-      setMousePos({ x: xPercent, y: yPercent });
-    }
+      // Wait 1.8 seconds for text/shadows to completely disappear
+      setTimeout(() => {
+        setPhase(2); // Unlocks the circle mask to follow pointer
+      }, 1800);
+    }, 2000);
   };
 
   // --- LASER TIMELINE ALGORITHM ---
@@ -129,11 +141,11 @@ export default function Hero() {
   return (
     <>
       <div 
-        className="circle-mask-layer scene-balloon" 
+        className={`circle-mask-layer scene-balloon phase-${phase}`} 
         onMouseMove={handleMouseMove}
         style={{
-          '--x': `${mousePos.x}%`,
-          '--y': `${mousePos.y}%`,
+          '--x': phase >= 2 ? `${mousePos.x}%` : '50%',
+          '--y': phase >= 2 ? `${mousePos.y}%` : '50%',
           zIndex: 1
         }}
       ></div>
@@ -142,15 +154,15 @@ export default function Hero() {
         className={`hero-wrapper phase-${phase} ${hasMoved ? 'has-moved' : ''}`}
         onMouseMove={handleMouseMove}
         style={{
-          '--x': `${mousePos.x}%`,
-          '--y': `${mousePos.y}%`,
+          '--x': phase >= 2 ? `${mousePos.x}%` : '50%',
+          '--y': phase >= 2 ? `${mousePos.y}%` : '50%',
           zIndex: 2,
           pointerEvents: phase === 2 ? 'none' : 'auto'
         }}
       >
         <button 
-          className={`horizon-btn ${phase === 1 ? 'is-active' : ''}`} 
-          onClick={() => setPhase(2)}
+          className={`horizon-btn ${phase === 1 && !isPreparingFlashlight ? 'is-active' : ''}`} 
+          onClick={handleTelescopeClick}
           aria-label="Snap flashlight to cursor"
         >
           <TelescopeIcon />

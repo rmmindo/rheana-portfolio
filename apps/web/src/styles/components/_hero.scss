@@ -159,8 +159,8 @@ body.is-unlocked {
 }
 
 /* Phase 3: The Horizon Snap */
-.phase-3 .circle-mask-layer {
-  clip-path: circle(150% at 50% 50%);
+.circle-mask-layer.phase-3 {
+  clip-path: circle(200vw at 50% 50%);
   transition: clip-path 1.4s cubic-bezier(0.65, 0, 0.2, 1);
 }
 
