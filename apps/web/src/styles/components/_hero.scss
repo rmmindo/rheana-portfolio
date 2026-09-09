@@ -316,11 +316,11 @@ body.phase-3 {
   border-color: rgba(26, 11, 46, 0.2);
 }
 
-.horizon-btn.is-active {
+html.has-unlocked .horizon-btn.is-active {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
-  transition-delay: 3.5s; /* Wait for initial text pop to finish before showing button */
+  transition-delay: 8s; /* 6s for text trace/pop to finish + 2s wait */
 }
 
 .horizon-btn:hover {
