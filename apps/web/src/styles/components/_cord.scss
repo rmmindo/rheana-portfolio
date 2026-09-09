@@ -15,8 +15,14 @@
 .theme-cord-line {
   width: 2px !important;
   height: 80px;
-  background: repeating-linear-gradient(to bottom, #1A0B2E, #1A0B2E 3px, #948b9c 3px, #948b9c 5px) !important;
-  /* Removed mix-blend-mode so gradient is clearly visible */
+  background: repeating-linear-gradient(
+    to bottom,
+    #FFFFFF,
+    #FFFFFF 3px,
+    #999999 3px,
+    #999999 5px
+  ) !important;
+  mix-blend-mode: difference;
   transform-origin: top center !important;
   will-change: transform;
 }
@@ -30,14 +36,14 @@
   width: 24px !important; 
   height: 44px !important;
   border-radius: 50% 50% 50% 50% / 80% 80% 20% 20% !important;
-  background: var(--text) !important;
+  background: #FFFFFF !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
   display: flex !important;
   flex-direction: column;
   align-items: center;
   justify-content: center !important;
   padding: 0 !important;
-  color: var(--paper) !important; 
+  color: #000000 !important;
   cursor: grab;
   z-index: 2;
   will-change: transform;

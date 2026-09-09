@@ -77,9 +77,9 @@ export default function ThemeCord() {
         
         setTimeout(() => {
           setIsTransitioning(false);
-        }, 1200);
+        }, 2200);
         
-      }, 500); // Short delay before snap triggers the switch
+      }, 1500); // Delay so cord wobble finishes before the theme switch
     }
     
     if (dragY > 0) {
