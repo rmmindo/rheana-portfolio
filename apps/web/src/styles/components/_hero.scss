@@ -21,8 +21,8 @@
 /* ------------------ TEXT LAYERS ------------------ */
 
 .hero-vision {
-  color: #FFFFFF;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  color: var(--text);
+  text-shadow: var(--hero-shadow, 0 4px 12px var(--laser-shadow, rgba(0, 0, 0, 0.6)));
   font-family: v.$font-heading; /* Default font */
   font-size: clamp(1.9rem, 4.75vw, 3.8rem); /* 95% size */
   font-weight: 700;
@@ -80,7 +80,7 @@ html.has-unlocked .hero-precision-container {
 }
 
 .engraved-fill {
-  fill: #FFFFFF;
+  fill: var(--text);
   opacity: 0;
 }
 
@@ -99,13 +99,13 @@ html.has-unlocked .engraved-fill {
 @keyframes laser-trace {
   0% { 
     opacity: 1;
-    stroke: #7DF9FF;
+    stroke: var(--laser-color, #7DF9FF);
     stroke-dashoffset: 200; 
     fill: transparent;
   }
   100% { 
     opacity: 1;
-    stroke: #7DF9FF;
+    stroke: var(--laser-color, #7DF9FF);
     stroke-dashoffset: 0; 
     fill: transparent;
   }
@@ -118,11 +118,11 @@ html.has-unlocked .engraved-fill {
 @keyframes laser-pop {
   0% { 
     opacity: 1;
-    filter: drop-shadow(0 0 20px #FFFFFF);
+    filter: drop-shadow(0 0 20px var(--text));
   }
   100% { 
     opacity: 1;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+    filter: drop-shadow(0 4px 8px var(--laser-shadow, rgba(0, 0, 0, 0.6)));
   }
 }
 
@@ -135,3 +135,4 @@ html.has-unlocked .engraved-fill {
     animation-delay: 0s !important;
   }
 }
+

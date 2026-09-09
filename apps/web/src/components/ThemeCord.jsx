@@ -28,19 +28,18 @@ const AutoGearIcon = () => (
 );
 
 export default function ThemeCord() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark'); // Default to dark as per current look
   const [dragY, setDragY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isWiping, setIsWiping] = useState(false);
   const [isSnapping, setIsSnapping] = useState(false);
   const startY = useRef(0);
 
   const cycleTheme = () => {
     setTheme((prev) => {
-      if (prev === 'light') return 'dark';
-      if (prev === 'dark') return 'auto';
-      return 'light';
+      if (prev === 'dark') return 'light';
+      if (prev === 'light') return 'auto';
+      return 'dark';
     });
   };
 
@@ -63,24 +62,28 @@ export default function ThemeCord() {
     e.currentTarget.releasePointerCapture(e.pointerId);
 
     if (dragY > 100 && !isTransitioning) {
-      setIsTransitioning(true); // Lock the interaction
+      setIsTransitioning(true);
       
       setTimeout(() => {
-        setIsWiping(true); // Mount the wipe DOM element
-        
-        setTimeout(() => cycleTheme(), 600); // Switch theme exactly when the wipe covers the screen
+        // Trigger the View Transitions API!
+        if (document.startViewTransition) {
+          document.startViewTransition(() => {
+            cycleTheme();
+          });
+        } else {
+          // Fallback if browser doesn't support View Transitions
+          cycleTheme();
+        }
         
         setTimeout(() => {
-          setIsWiping(false);
-          setIsTransitioning(false); // Unlock the interaction
-        }, 1200); // Wait for the 1.2s animation to finish
+          setIsTransitioning(false);
+        }, 1200);
         
-      }, 2200); // 2.2s delay before the wipe starts
+      }, 500); // Short delay before snap triggers the switch
     }
     
     if (dragY > 0) {
       setIsSnapping(true);
-      // Wait for the wobble animation to complete (1s)
       setTimeout(() => setIsSnapping(false), 1000);
     }
     
@@ -91,44 +94,36 @@ export default function ThemeCord() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  // Calculate scaling for the line stretch
   const scale = (80 + dragY) / 80;
-
-  // Extremely elastic bounce for the vertical snap back
   const springTransition = isSnapping ? 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none';
 
   return (
-    <>
-      <div className="theme-cord-wrapper" style={{ position: 'fixed', top: 0, right: '4rem', zIndex: 9000 }}>
-        {/* The assembly holds both the line and handle so they rotate as ONE solid object */}
-        <div className={`theme-cord-assembly ${isSnapping ? 'is-snapping' : ''}`}>
-          <div 
-            className="theme-cord-line" 
-            style={{ 
-              transform: `scaleY(${scale})`,
-              transition: springTransition
-            }} 
-          />
-          
-          <button 
-            className="theme-cord-handle"
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            style={{
-              cursor: isDragging ? 'grabbing' : 'grab',
-              transform: `translateY(${dragY}px)`,
-              transition: springTransition
-            }}
-          >
-            {theme === 'light' && <SunIcon />}
-            {theme === 'dark' && <MoonIcon />}
-            {theme === 'auto' && <AutoGearIcon />}
-          </button>
-        </div>
+    <div className="theme-cord-wrapper" style={{ position: 'fixed', top: 0, right: '4rem', zIndex: 9000 }}>
+      <div className={`theme-cord-assembly ${isSnapping ? 'is-snapping' : ''}`}>
+        <div 
+          className="theme-cord-line" 
+          style={{ 
+            transform: `scaleY(${scale})`,
+            transition: springTransition
+          }} 
+        />
+        
+        <button 
+          className="theme-cord-handle"
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          style={{
+            cursor: isDragging ? 'grabbing' : 'grab',
+            transform: `translateY(${dragY}px)`,
+            transition: springTransition
+          }}
+        >
+          {theme === 'light' && <SunIcon />}
+          {theme === 'dark' && <MoonIcon />}
+          {theme === 'auto' && <AutoGearIcon />}
+        </button>
       </div>
-
-      {isWiping && <div className="theme-wipe"></div>}
-    </>
+    </div>
   );
 }

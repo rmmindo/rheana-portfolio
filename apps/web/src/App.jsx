@@ -24,7 +24,7 @@ export default function App() {
           fontSize: '1.25rem', 
           letterSpacing: '0.05em',
           mixBlendMode: 'difference',
-          color: '#FFFFFF'
+          color: 'var(--text)'
         }}>Rheana Mindo</span>
       </a>
 
@@ -38,3 +38,4 @@ export default function App() {
     </I18nProvider>
   );
 }
+

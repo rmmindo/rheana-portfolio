@@ -9,46 +9,36 @@
 }
 
 .theme-cord-assembly.is-snapping {
-  /* Pendulum swing that decays naturally */
   animation: cord-wobble 1s cubic-bezier(0.36, 0, 0.66, -0.56) forwards;
 }
 
-/* The Line */
 .theme-cord-line {
   width: 2px !important;
   height: 80px;
-  /* Horizontal stripes render perfectly crisp */
   background: repeating-linear-gradient(
     to bottom,
-    #FFFFFF,
-    #FFFFFF 3px,
-    #999999 3px,
-    #999999 5px
+    var(--text),
+    var(--text) 3px,
+    var(--text-muted) 3px,
+    var(--text-muted) 5px
   ) !important;
   mix-blend-mode: difference;
-  transform-origin: top center !important; /* Glues it to the ceiling */
+  transform-origin: top center !important;
   will-change: transform;
 }
 
-/* The Handle */
 .theme-cord-handle {
   width: 24px !important; 
   height: 44px !important;
-  
-  /* X-axis remains perfectly round, Y-axis forces the taper to start low near the base */
   border-radius: 50% 50% 50% 50% / 80% 80% 20% 20% !important;
-  
-  background: #FFFFFF !important; /* Solid White */
+  background: var(--text) !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
-  
-  /* Perfect Centering */
   display: flex !important;
   flex-direction: column;
   align-items: center;
   justify-content: center !important;
   padding: 0 !important;
-  
-  color: #000000 !important; /* Black Icon */
+  color: var(--paper) !important; 
   cursor: grab;
   z-index: 2;
   will-change: transform;
@@ -61,10 +51,9 @@
   height: 15px !important;
   flex-shrink: 0;
   stroke-width: 2.5px !important;
-  filter: none !important; /* Remove the old glow */
+  filter: none !important;
 }
 
-/* Because the gear is scaled to 1.15x, a 1.75px stroke visually renders as ~2.0px */
 .theme-cord-handle .icon-gear {
   stroke-width: 1.75px !important;
 }
@@ -78,24 +67,39 @@
   100% { transform: rotate(0deg); }
 }
 
-/* The Wipe Animation */
-.theme-wipe {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  background-color: #1A0B2E; /* Ink Purple */
-  pointer-events: none;
-  animation: solid-wipe 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+/* View Transitions API Animations */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
-@keyframes solid-wipe {
-  0% {
-    clip-path: inset(0 0 100% 0);
-  }
-  40%, 60% {
-    clip-path: inset(0 0 0 0);
-  }
-  100% {
-    clip-path: inset(100% 0 0 0);
-  }
+/* When going TO light mode (Light bulb turning ON) */
+[data-theme="light"]::view-transition-new(root) {
+  animation: turn-on-light 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+  z-index: 2;
+}
+[data-theme="light"]::view-transition-old(root) {
+  z-index: 1;
+}
+
+/* When going TO dark mode (Light bulb turning OFF) */
+[data-theme="dark"]::view-transition-old(root),
+[data-theme="auto"]::view-transition-old(root) {
+  animation: turn-off-light 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+  z-index: 2;
+}
+[data-theme="dark"]::view-transition-new(root),
+[data-theme="auto"]::view-transition-new(root) {
+  z-index: 1;
+}
+
+@keyframes turn-on-light {
+  0% { clip-path: circle(0% at 50% 0%); }
+  100% { clip-path: circle(150% at 50% 0%); }
+}
+
+@keyframes turn-off-light {
+  0% { clip-path: circle(150% at 50% 0%); }
+  100% { clip-path: circle(0% at 50% 0%); }
 }

@@ -43,6 +43,9 @@
   --education-ink: #{v.$ink-strong};
   --focus: #{v.ink("purple")};
   --focus-halo: #{v.$paper};
+  --laser-color: #{v.glow('pink')};
+  --hero-shadow: none;
+  --laser-shadow: none;
 }
 
 @mixin dark-tokens {
@@ -73,6 +76,9 @@
   --education-ink: #{v.$night-ink};
   --focus: #{v.$brand-yellow};
   --focus-halo: #{v.$night};
+  --laser-color: #7DF9FF;
+  --hero-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  --laser-shadow: rgba(0, 0, 0, 0.6);
 }
 
 :root {
@@ -86,3 +92,4 @@
 
 :root[data-theme="dark"] { @include dark-tokens; }
 :root[data-theme="light"] { @include light-tokens; }
+
