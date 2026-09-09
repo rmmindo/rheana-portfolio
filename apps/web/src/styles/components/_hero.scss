@@ -74,8 +74,8 @@ html.has-unlocked .hero-precision-container {
   fill: transparent;
   stroke: transparent;
   stroke-width: 0.015em; 
-  stroke-dasharray: 200;
-  stroke-dashoffset: 200;
+  stroke-dasharray: 8em;
+  stroke-dashoffset: 8em;
   opacity: 0; 
 }
 
@@ -100,7 +100,7 @@ html.has-unlocked .engraved-fill {
   0% { 
     opacity: 1;
     stroke: var(--laser-color, #7DF9FF);
-    stroke-dashoffset: 200; 
+    stroke-dashoffset: 8em; 
     fill: transparent;
   }
   100% { 
@@ -135,4 +135,5 @@ html.has-unlocked .engraved-fill {
     animation-delay: 0s !important;
   }
 }
+
 
