@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   z-index: 10;
-  pointer-events: none; /* Let clicks pass through default layout */
+  pointer-events: none;
 }
 
 .hero-content {
@@ -18,66 +18,14 @@
   width: 100%;
 }
 
-/* FONT CYCLING LAYOUT */
-.font-cycler-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  width: 100%;
-}
-
-.font-nav-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #fff;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  pointer-events: auto; /* Enable clicks */
-  transition: all 0.2s;
-  
-  opacity: 0; /* Hidden initially */
-  flex-shrink: 0;
-}
-
-.font-nav-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.font-debugger {
-  margin-top: 2rem;
-  font-family: monospace;
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.5);
-  text-align: center;
-  opacity: 0;
-}
-
-/* Reveal buttons and debugger on unlock */
-html.has-unlocked .font-nav-btn,
-html.is-clearing .font-nav-btn,
-html.has-unlocked .font-debugger,
-html.is-clearing .font-debugger,
-html.has-unlocked .typography-overlay-panel,
-html.is-clearing .typography-overlay-panel {
-  opacity: 1;
-  transition: opacity 2500ms cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: 2s; /* Wait for text to fully appear before showing UI */
-}
-
 /* ------------------ TEXT LAYERS ------------------ */
 
 .hero-vision {
   color: #FFFFFF;
   text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-  font-family: v.$font-heading;
-  font-size: clamp(2rem, 5vw, 4rem);
-  font-weight: v.$weight-bold;
+  font-family: v.$font-heading; /* Default font */
+  font-size: clamp(1.9rem, 4.75vw, 3.8rem); /* 95% size */
+  font-weight: 700;
   letter-spacing: 0.03em;
   text-align: center;
   margin: 0;
@@ -90,7 +38,7 @@ html.is-clearing .typography-overlay-panel {
 .hero-precision-container {
   position: relative;
   font-family: v.$font-heading;
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(2rem, 5vw, 4rem); /* 100% size */
   font-weight: 500;
   letter-spacing: 0.05em;
   opacity: 0;
@@ -114,26 +62,38 @@ html.has-unlocked .hero-precision-container {
   width: 100%;
 }
 
-.engraved-char {
+/* Hardcoded Font Assignments */
+.laser-layer {
+  font-family: "ConceptSolid-Gmwm", monospace;
+}
+.pop-layer {
+  font-family: "Concept-JLd7", monospace;
+}
+
+.engraved-laser {
   fill: transparent;
   stroke: transparent;
-  /* Use em so the laser thickness scales perfectly with the font size clamp */
   stroke-width: 0.015em; 
-  
-  /* Prepare the path for drawing */
   stroke-dasharray: 200;
   stroke-dashoffset: 200;
-  
   opacity: 0; 
 }
 
+.engraved-fill {
+  fill: #FFFFFF;
+  opacity: 0;
+}
+
 /* The Laser Tracing Sequence */
-html.has-unlocked .engraved-char {
+html.has-unlocked .engraved-laser {
   animation: 
-    /* 1. Trace the outline using the JS calculated --trace-delay */
     laser-trace 0.5s calc(var(--base-delay, 3s) + calc(var(--trace-delay) * 1s)) forwards,
-    /* 2. Pop the fill using the JS calculated --pop-delay */
-    laser-pop-fill 0.15s calc(var(--base-delay, 3s) + calc(var(--pop-delay) * 1s)) forwards;
+    laser-hide 0.1s calc(var(--base-delay, 3s) + calc(var(--pop-delay) * 1s)) forwards;
+}
+
+html.has-unlocked .engraved-fill {
+  animation: 
+    laser-pop 0.15s calc(var(--base-delay, 3s) + calc(var(--pop-delay) * 1s)) forwards;
 }
 
 @keyframes laser-trace {
@@ -151,23 +111,18 @@ html.has-unlocked .engraved-char {
   }
 }
 
-@keyframes laser-pop-fill {
+@keyframes laser-hide {
+  to { opacity: 0; }
+}
+
+@keyframes laser-pop {
   0% { 
     opacity: 1;
-    fill: transparent; 
-    stroke: #7DF9FF; 
-    filter: drop-shadow(0 0 10px #7DF9FF); /* Intense cyan laser flare */
-  }
-  50% {
-    fill: #FFFFFF;
-    stroke: #FFFFFF;
-    filter: drop-shadow(0 0 20px #FFFFFF); /* Burn flash */
+    filter: drop-shadow(0 0 20px #FFFFFF);
   }
   100% { 
     opacity: 1;
-    fill: #FFFFFF; 
-    stroke: transparent; 
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6)); /* Lock into reality */
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
   }
 }
 
@@ -175,64 +130,8 @@ html.has-unlocked .engraved-char {
   .hero-vision, .hero-precision-container {
     transition: opacity 260ms linear;
   }
-  .engraved-char {
+  .engraved-laser, .engraved-fill {
     animation-duration: 0.1s !important;
     animation-delay: 0s !important;
   }
 }
-
-/* ------------------ TYPOGRAPHY OVERLAY PANEL ------------------ */
-
-.typography-overlay-panel {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(10, 10, 20, 0.85);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 8px;
-  padding: 1rem 1.5rem;
-  display: flex;
-  gap: 2rem;
-  color: #fff;
-  z-index: 10000;
-  pointer-events: auto; /* Ensure clickable */
-  font-family: monospace;
-  font-size: 0.85rem;
-  opacity: 0;
-}
-
-.panel-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  
-  strong {
-    color: #A0CFEC;
-    margin-bottom: 0.25rem;
-  }
-}
-
-.panel-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  
-  button {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.3);
-    color: white;
-    cursor: pointer;
-    padding: 2px 8px;
-    border-radius: 4px;
-    
-    &:hover {
-      background: rgba(255,255,255,0.3);
-    }
-  }
-}
-
-
-
-
