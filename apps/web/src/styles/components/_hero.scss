@@ -175,13 +175,13 @@ body.is-unlocked {
 .has-moved .line-vision {
   transform: translateX(100vw);
   opacity: 0;
-  transition: transform 3s cubic-bezier(0.25, 1, 0.2, 1), opacity 1.7s ease-out;
+  transition: transform 3s cubic-bezier(0.25, 1, 0.2, 1), opacity 3s cubic-bezier(0.25, 1, 0.2, 1);
 }
 
 .has-moved .line-precision-container {
   transform: translateX(-100vw);
   opacity: 0;
-  transition: transform 3s cubic-bezier(0.25, 1, 0.2, 1), opacity 1.7s ease-out;
+  transition: transform 3s cubic-bezier(0.25, 1, 0.2, 1), opacity 3s cubic-bezier(0.25, 1, 0.2, 1);
 }
 
 .has-moved .engraved-laser,
@@ -300,17 +300,17 @@ body.phase-3 {
 }
 
 .ghost-main {
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 3rem; /* Much bigger */
-  letter-spacing: 0.02em;
+  font-family: v.$font-heading;
+  font-weight: 700;
+  font-size: clamp(1.9rem, 4.75vw, 3.8rem);
+  letter-spacing: 0.03em;
 }
 
 .ghost-sub {
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 1.25rem;
-  letter-spacing: 0.05em;
+  font-family: v.$font-heading;
+  font-weight: 700;
+  font-size: calc(clamp(1.9rem, 4.75vw, 3.8rem) * 0.6666);
+  letter-spacing: 0.03em;
   opacity: 0.8;
 }
 

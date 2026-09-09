@@ -99,26 +99,23 @@ export default function Hero() {
     if (isPreparingFlashlight) return;
     setIsPreparingFlashlight(true);
     
-    // Wait 1000ms for button to fade out before starting text disappearance
+    // Wait 400ms for button to quickly fade out before starting text disappearance
     setTimeout(() => {
-      setHasMoved(true); // Triggers the text exit animation (3.0s slide, 1.7s fade)
+      setHasMoved(true); // Triggers the text exit animation (3.0s slide, 3.0s fade)
       
-      // 1. At 1.5s (halfway through the slide), start slowly moving the circle
+      // 1. At 1.5s (halfway through the 3s slide), start moving the circle
       setTimeout(() => {
-        setIsSnapping(true); // Engages the slow glide
+        setIsSnapping(true); // Engages the 1.5s glide
       }, 1500);
 
-      // 2. At 1.8s, the text's 1.7s opacity fade is fully complete, so we safely unmount it
+      // 2. At 3.0s, the text hits 0 opacity and the 1.5s glide finishes.
+      // They conclude at the exact same millisecond.
       setTimeout(() => {
         setPhase(2); 
-      }, 1800);
-
-      // 3. At 3.0s (1.5s after the glide started), revert to fast mouse follow
-      setTimeout(() => {
         setIsSnapping(false);
       }, 3000);
 
-    }, 1000);
+    }, 400);
   };
 
   // --- LASER TIMELINE ALGORITHM ---
