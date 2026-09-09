@@ -23,10 +23,22 @@ export default function Hero() {
   const [hasMoved, setHasMoved] = useState(false);
   const [isPreparingFlashlight, setIsPreparingFlashlight] = useState(false);
   const [isSnapping, setIsSnapping] = useState(false);
+  const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
     // Start phase 1 immediately on mount
     setPhase(1);
+
+    const triggerButton = () => {
+      setTimeout(() => setShowButton(true), 9000);
+    };
+
+    if (document.documentElement.classList.contains('has-unlocked')) {
+      triggerButton();
+    } else {
+      window.addEventListener('visionGateUnlocked', triggerButton);
+      return () => window.removeEventListener('visionGateUnlocked', triggerButton);
+    }
   }, []);
 
   useEffect(() => {
@@ -87,19 +99,19 @@ export default function Hero() {
     if (isPreparingFlashlight) return;
     setIsPreparingFlashlight(true);
     
-    // Wait 400ms for button to fade out before starting text disappearance
+    // Wait 1000ms for button to fade out before starting text disappearance
     setTimeout(() => {
-      setHasMoved(true); // Triggers the text exit animation (0.8s)
+      setHasMoved(true); // Triggers the text exit animation (2.0s)
       
-      // Wait 900ms (0.8s fade + 0.1s buffer) so text is 100% gone
+      // Wait 2200ms (2.0s fade + 0.2s buffer) so text slides completely out of sight
       setTimeout(() => {
         setIsSnapping(true); // Engages the smooth 0.8s glide CSS
         setPhase(2); // Unlocks the circle mask to follow pointer
         
         // After glide finishes, revert to fast mouse follow
         setTimeout(() => setIsSnapping(false), 800);
-      }, 900);
-    }, 400);
+      }, 2200);
+    }, 1000);
   };
 
   // --- LASER TIMELINE ALGORITHM ---
@@ -168,7 +180,7 @@ export default function Hero() {
         }}
       >
         <button 
-          className={`horizon-btn ${phase === 1 && !isPreparingFlashlight ? 'is-active' : ''}`} 
+          className={`horizon-btn ${showButton && phase === 1 && !isPreparingFlashlight ? 'is-active' : ''}`} 
           onClick={handleTelescopeClick}
           aria-label="Snap flashlight to cursor"
         >
@@ -178,7 +190,7 @@ export default function Hero() {
 
         <div className={`ghost-copy ${phase === 3 ? 'is-active' : ''}`}>
           <div className="ghost-main">Welcome to the bigger picture.</div>
-          <div className="ghost-sub">I'm Rheana, a fullstack AI Developer.</div>
+          <div className="ghost-sub">I'm Rheana, a Full-Stack AI Developer.</div>
         </div>
         
         <div className={`kinetic-node-container ${phase >= 2 ? 'is-active' : ''}`}>

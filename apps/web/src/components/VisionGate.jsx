@@ -100,6 +100,7 @@ export default function VisionGate() {
     setOpen(false);
     clearTimeout(timer.current);
     document.documentElement.classList.add('has-unlocked');
+    window.dispatchEvent(new Event('visionGateUnlocked'));
   }, []);
 
   const wear = useCallback(() => {
@@ -107,6 +108,7 @@ export default function VisionGate() {
     setWearing(true);
     document.documentElement.classList.add('is-clearing');
     document.documentElement.classList.add('has-unlocked'); // Permanent marker that they entered
+    window.dispatchEvent(new Event('visionGateUnlocked'));
     
     const prefersReduced =
       typeof window !== 'undefined' &&

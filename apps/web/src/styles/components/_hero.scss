@@ -173,15 +173,15 @@ body.is-unlocked {
 }
 
 .has-moved .line-vision {
-  transform: translateX(10vw);
+  transform: translateX(100vw);
   opacity: 0;
-  transition: all 0.8s cubic-bezier(0.25, 1, 0.2, 1);
+  transition: all 2s cubic-bezier(0.25, 1, 0.2, 1);
 }
 
 .has-moved .line-precision-container {
-  transform: translateX(-10vw);
+  transform: translateX(-100vw);
   opacity: 0;
-  transition: all 0.8s cubic-bezier(0.25, 1, 0.2, 1);
+  transition: all 2s cubic-bezier(0.25, 1, 0.2, 1);
 }
 
 .has-moved .engraved-laser,
@@ -275,11 +275,10 @@ body.phase-3 {
   border-color: rgba(26, 11, 46, 0.2);
 }
 
-html.has-unlocked .horizon-btn.is-active {
+.horizon-btn.is-active {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
-  transition-delay: 9s; /* 6s for text trace/pop to finish + 3s wait */
 }
 
 .horizon-btn:hover {
@@ -319,7 +318,7 @@ html.has-unlocked .horizon-btn.is-active {
 }
 
 .ghost-copy.is-active {
-  animation: ghost-fade 5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.6s;
+  animation: ghost-fade 5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 3.4s;
 }
 
 @keyframes ghost-fade {

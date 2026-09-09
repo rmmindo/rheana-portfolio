@@ -33,7 +33,22 @@ export default function ThemeCord() {
   const [isDragging, setIsDragging] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isSnapping, setIsSnapping] = useState(false);
+  const [showCord, setShowCord] = useState(false);
   const startY = useRef(0);
+
+  useEffect(() => {
+    const triggerDrop = () => {
+      // Cord and Button show up exactly 9s after unlock
+      setTimeout(() => setShowCord(true), 9000);
+    };
+
+    if (document.documentElement.classList.contains('has-unlocked')) {
+      triggerDrop();
+    } else {
+      window.addEventListener('visionGateUnlocked', triggerDrop);
+      return () => window.removeEventListener('visionGateUnlocked', triggerDrop);
+    }
+  }, []);
 
   const cycleTheme = () => {
     setTheme((prev) => {
@@ -98,7 +113,7 @@ export default function ThemeCord() {
   const springTransition = isSnapping ? 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none';
 
   return (
-    <div className="theme-cord-wrapper" style={{ position: 'fixed', top: 0, right: '4rem', zIndex: 9000 }}>
+    <div className={`theme-cord-wrapper ${showCord ? 'is-active' : ''}`} style={{ position: 'fixed', top: 0, right: '4rem', zIndex: 9000 }}>
       <div className={`theme-cord-assembly ${isSnapping ? 'is-snapping' : ''}`}>
         <div 
           className="theme-cord-line" 
