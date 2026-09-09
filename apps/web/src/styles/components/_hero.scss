@@ -116,8 +116,9 @@ html.has-unlocked .hero-precision-container {
 
 .engraved-char {
   fill: transparent;
-  stroke: #7DF9FF; /* Electric Cyan Laser */
-  stroke-width: 1.5px;
+  stroke: transparent;
+  /* Use em so the laser thickness scales perfectly with the font size clamp */
+  stroke-width: 0.015em; 
   
   /* Prepare the path for drawing */
   stroke-dasharray: 400;
@@ -129,26 +130,35 @@ html.has-unlocked .hero-precision-container {
 /* The Laser Tracing Sequence */
 html.has-unlocked .engraved-char {
   animation: 
-    laser-fade-in 0.01s calc(var(--base-delay, 3s) + (var(--char-index) * 0.05s)) forwards,
-    laser-trace 0.4s calc(var(--base-delay, 3s) + (var(--char-index) * 0.05s)) forwards,
-    laser-pop-fill 0.2s calc(var(--base-delay, 3s) + 0.3s + (var(--char-index) * 0.05s)) forwards;
-}
-
-@keyframes laser-fade-in {
-  to { opacity: 1; }
+    /* 1. Draw the laser outline over 1.2 seconds */
+    laser-trace 1.2s calc(var(--base-delay, 3s) + (var(--char-index) * 0.1s)) forwards,
+    /* 2. Wait an extra 0.6 seconds of just glowing outline, then snap the fill in */
+    laser-pop-fill 0.1s calc(var(--base-delay, 3s) + 1.8s + (var(--char-index) * 0.1s)) forwards;
 }
 
 @keyframes laser-trace {
-  0% { stroke-dashoffset: 400; }
-  100% { stroke-dashoffset: 0; }
+  0% { 
+    opacity: 1;
+    stroke: #7DF9FF;
+    stroke-dashoffset: 400; 
+    fill: transparent;
+  }
+  100% { 
+    opacity: 1;
+    stroke: #7DF9FF;
+    stroke-dashoffset: 0; 
+    fill: transparent;
+  }
 }
 
 @keyframes laser-pop-fill {
   0% { 
+    opacity: 1;
     fill: transparent; 
     stroke: #7DF9FF; 
   }
   100% { 
+    opacity: 1;
     fill: #FFFFFF; 
     stroke: transparent; 
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
