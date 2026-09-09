@@ -320,3 +320,54 @@ html.has-unlocked .horizon-btn.is-active {
   85% { opacity: 1; transform: translate(-50%, -50%); }
   100% { opacity: 0; transform: translate(-50%, -60%); }
 }
+
+/* Kinetic Node Container Updates */
+.kinetic-node-container {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  z-index: 10;
+}
+
+.kinetic-node-container.is-active {
+  opacity: 1;
+}
+
+.kinetic-node {
+  position: relative;
+  /* Override previous fixed positioning */
+  bottom: auto;
+  left: auto;
+  transform: none;
+  opacity: 0.8; /* Make it visible since container handles opacity now */
+}
+
+.kinetic-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--text);
+  opacity: 0.4;
+  text-transform: uppercase;
+}
+
+/* Telescope Icon Animated */
+.telescope-icon-animated {
+  color: var(--laser-color);
+  filter: drop-shadow(0 0 6px var(--laser-color));
+  animation: telescope-blink 2s infinite ease-in-out;
+}
+
+@keyframes telescope-blink {
+  0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 8px var(--laser-color)); }
+  50% { opacity: 0.4; transform: scale(0.95); filter: drop-shadow(0 0 2px var(--laser-color)); }
+}

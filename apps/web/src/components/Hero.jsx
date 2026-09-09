@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import '../styles/components/_hero.scss';
 
-const TelescopeIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+const TelescopeIcon = ({ className }) => (
+  <svg className={className} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
     <path d="M12.39 6.22L6.16 12.45c-.32.32-.82.32-1.14 0l-1.9-1.9c-.32-.32-.32-.82 0-1.14l6.23-6.23c.32-.32.82-.32 1.14 0l1.9 1.9c.32.32.32.82 0 1.14z"/>
     <path d="M14.44 8.27l1.9-1.9c.32-.32.82-.32 1.14 0l3.8 3.8c.32.32.32.82 0 1.14l-1.9 1.9c-.32.32-.82.32-1.14 0l-3.8-3.8c-.32-.32-.32-.82 0-1.14z"/>
     <path d="M8.27 14.44l-4.5 4.5"/>
@@ -84,15 +84,15 @@ export default function Hero() {
     if (isPreparingFlashlight) return;
     setIsPreparingFlashlight(true);
     
-    // Wait 2 seconds before text starts disappearing
+    // Wait 1.5 seconds before text starts disappearing
     setTimeout(() => {
       setHasMoved(true); // Triggers the text exit animation (1.8s)
       
-      // Wait 1.8 seconds for text/shadows to completely disappear
+      // Give it extra time (2.5s) so the disappearance is less abrupt before moving
       setTimeout(() => {
         setPhase(2); // Unlocks the circle mask to follow pointer
-      }, 1800);
-    }, 2000);
+      }, 2500);
+    }, 1500);
   };
 
   // --- LASER TIMELINE ALGORITHM ---
@@ -165,7 +165,7 @@ export default function Hero() {
           onClick={handleTelescopeClick}
           aria-label="Snap flashlight to cursor"
         >
-          <TelescopeIcon />
+          <TelescopeIcon className="telescope-icon-animated" />
           <span>See what's beyond the horizon</span>
         </button>
 
@@ -174,7 +174,10 @@ export default function Hero() {
           <div className="ghost-sub">I'm Rheana, a fullstack AI Developer.</div>
         </div>
         
-        <div className={`kinetic-node ${phase >= 2 ? 'is-active' : ''}`}></div>
+        <div className={`kinetic-node-container ${phase >= 2 ? 'is-active' : ''}`}>
+          <div className="kinetic-node"></div>
+          <span className="kinetic-text">SCROLL TO EXPLORE</span>
+        </div>
 
         {phase < 2 && (
           <div className="hero-content hero-text-container">
