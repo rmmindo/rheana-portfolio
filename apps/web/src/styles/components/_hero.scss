@@ -148,6 +148,7 @@ html.has-unlocked .engraved-fill {
 body.is-locked {
   overflow: hidden;
   height: 100vh;
+  height: 100dvh;
 }
 
 body.is-unlocked {

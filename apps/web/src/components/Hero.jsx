@@ -90,11 +90,15 @@ export default function Hero() {
     };
   }, [phase]);
 
-  const handleMouseMove = (e) => {
-    const xPercent = (e.clientX / window.innerWidth) * 100;
-    const yPercent = (e.clientY / window.innerHeight) * 100;
-    setMousePos({ x: xPercent, y: yPercent });
-  };
+  useEffect(() => {
+    const handleGlobalPointerMove = (e) => {
+      const xPercent = (e.clientX / window.innerWidth) * 100;
+      const yPercent = (e.clientY / window.innerHeight) * 100;
+      setMousePos({ x: xPercent, y: yPercent });
+    };
+    window.addEventListener('pointermove', handleGlobalPointerMove);
+    return () => window.removeEventListener('pointermove', handleGlobalPointerMove);
+  }, []);
 
   const handleTelescopeClick = () => {
     if (isPreparingFlashlight) return;
@@ -171,7 +175,7 @@ export default function Hero() {
     <>
       <div 
         className={`circle-mask-layer scene-balloon phase-${phase} ${isSnapping ? 'is-snapping-to-pointer' : ''}`} 
-        onMouseMove={handleMouseMove}
+        
         style={{
           '--x': (hasUnlockedMask || phase >= 2) ? `${mousePos.x}%` : '50%',
           '--y': (hasUnlockedMask || phase >= 2) ? `${mousePos.y}%` : '50%',
@@ -181,7 +185,7 @@ export default function Hero() {
 
       <div 
         className={`hero-wrapper phase-${phase} ${hasMoved ? 'has-moved' : ''}`}
-        onMouseMove={handleMouseMove}
+        
         style={{
           '--x': (hasUnlockedMask || phase >= 2) ? `${mousePos.x}%` : '50%',
           '--y': (hasUnlockedMask || phase >= 2) ? `${mousePos.y}%` : '50%',

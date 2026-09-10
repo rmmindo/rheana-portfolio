@@ -4,7 +4,11 @@ html { -webkit-text-size-adjust: 100%; }
 body, h1, h2, h3, h4, p, figure, blockquote, dl, dd, ul, ol { margin: 0; }
 ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
 html:focus-within { scroll-behavior: smooth; }
-body { min-height: 100vh; text-rendering: optimizeSpeed; }
+body { 
+  min-height: 100vh; 
+  min-height: 100dvh; 
+  text-rendering: optimizeSpeed; 
+}
 a:not([class]) { text-decoration-skip-ink: auto; }
 img, picture, svg, video { max-width: 100%; display: block; }
 input, button, textarea, select { font: inherit; color: inherit; }
