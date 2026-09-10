@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+﻿import { useState, useRef, useEffect } from "react";
 
 
 export default function HeaderHUD() {
@@ -21,7 +21,7 @@ export default function HeaderHUD() {
   }, []);
 
   const handleDownloadCV = () => {
-    window.open("/cv.pdf", "_blank");
+    window.open("/rheana-mindo-cv.pdf", "_blank");
     setIsMenuOpen(false);
   };
 
@@ -76,3 +76,5 @@ export default function HeaderHUD() {
     </header>
   );
 }
+
+

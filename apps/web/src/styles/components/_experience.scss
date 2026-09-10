@@ -1,0 +1,176 @@
+/* Experience Section Circuit Board */
+.experience-section {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  z-index: 10;
+  padding-bottom: 200px;
+}
+
+/* Circuit Board Container with Scrollytelling-to-Macro Transition */
+.circuit-timeline-wrapper {
+  position: relative;
+  min-height: 200vh; /* Extended height for scrollytelling */
+  padding: 80px 20px;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.circuit-trace-bg {
+  position: absolute;
+  top: 80px;
+  bottom: 80px;
+  left: 40px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 0;
+}
+
+[data-theme="light"] .circuit-trace-bg {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.circuit-trace-line {
+  position: absolute;
+  top: 80px;
+  left: 40px;
+  width: 2px;
+  background: #A78BFA;
+  z-index: 1;
+  transition: height 0.1s ease-out;
+}
+
+/* State when macro view triggers at the bottom of the scroll */
+.circuit-timeline-wrapper.is-macro-view {
+  transform: scale(0.85);
+  transform-origin: center center;
+}
+
+/* Timeline Node Cards using Landscape-Derived Solid Colors */
+.circuit-node-card {
+  background: var(--node-bg, #2D2B33); /* Adaptive based on light/dark mode */
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.15));
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 40px;
+  margin-left: 60px;
+  position: relative;
+  opacity: 0.3;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.node-connection-dot {
+  position: absolute;
+  left: -25px; /* Half of 40px padding minus half dot width */
+  top: 30px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-color, #A78BFA);
+  box-shadow: 0 0 10px var(--accent-color, #A78BFA);
+  opacity: 0.3;
+  transition: opacity 0.5s ease;
+}
+
+[data-theme="light"] .circuit-node-card {
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+}
+
+/* Active scrollytelling state or manual click state */
+.circuit-node-card.is-active,
+.circuit-node-card:hover {
+  opacity: 1;
+  transform: translateY(0);
+  border-color: var(--accent-color, #A78BFA);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.circuit-node-card.is-active .node-connection-dot,
+.circuit-node-card:hover .node-connection-dot {
+  opacity: 1;
+}
+
+.node-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent-color, #A78BFA);
+  margin-bottom: 12px;
+  display: block;
+  letter-spacing: 0.05em;
+}
+
+.node-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  color: var(--text);
+}
+
+.node-org {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0 0 16px 0;
+  color: var(--text-muted, rgba(255,255,255,0.7));
+}
+
+[data-theme="light"] .node-org {
+  color: var(--text-muted, rgba(0,0,0,0.7));
+}
+
+.node-details p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.node-details p:last-child {
+  margin-bottom: 0;
+}
+
+/* Theme Colors */
+/* Field Green */
+.theme-field-green {
+  --node-bg: #1B3019;
+  --accent-color: #4ade80;
+}
+[data-theme="light"] .theme-field-green {
+  --node-bg: #3B5332;
+  --accent-color: #166534;
+}
+
+/* Road Asphalt */
+.theme-road-asphalt {
+  --node-bg: #16151A;
+  --accent-color: #a78bfa;
+}
+[data-theme="light"] .theme-road-asphalt {
+  --node-bg: #2D2B33;
+  --accent-color: #1e1b4b;
+}
+
+/* Sunset Gold */
+.theme-sunset-gold {
+  --node-bg: #F59E0B;
+  --accent-color: #fde68a;
+}
+[data-theme="light"] .theme-sunset-gold {
+  --node-bg: #D97706;
+  --accent-color: #78350f;
+}
+
+/* Sky Blue */
+.theme-sky-blue {
+  --node-bg: #38BDF8;
+  --accent-color: #e0f2fe;
+}
+[data-theme="light"] .theme-sky-blue {
+  --node-bg: #0EA5E9;
+  --accent-color: #0c4a6e;
+}
