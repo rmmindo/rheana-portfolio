@@ -153,3 +153,7 @@ body.is-unlocked .brand-name {
 }
 
 
+
+body:not(.is-unlocked) {
+  overflow: hidden;
+}
