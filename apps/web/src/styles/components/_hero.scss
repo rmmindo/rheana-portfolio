@@ -230,7 +230,7 @@ body.phase-3 {
 }
 
 [data-theme="light"] .kinetic-node-container {
-  --kinetic-color: var(--brand-powder);
+  --kinetic-color: var(--text); /* Match the black/purple copy color in light mode */
   --kinetic-glow: var(--brand-powder);
   --kinetic-shadow: rgba(255, 255, 255, 0.9);
 }
