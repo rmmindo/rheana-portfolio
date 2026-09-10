@@ -247,7 +247,7 @@ body.phase-3 {
   border-radius: 12px;
   opacity: 0.8;
   /* Adds a glowing blur shadow to the mouse itself that adapts to the mode */
-  box-shadow: 0 0 12px var(--kinetic-color), inset 0 0 4px var(--kinetic-color);
+  box-shadow: 0 0 12px var(--kinetic-shadow), inset 0 0 4px var(--kinetic-shadow);
 }
 
 /* Traveling Dot */

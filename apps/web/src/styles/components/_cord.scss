@@ -96,13 +96,11 @@
 }
 
 /* When going TO dark mode (Light bulb turning OFF) */
-[data-theme="dark"]::view-transition-old(root),
-[data-theme="auto"]::view-transition-old(root) {
+[data-theme="dark"]::view-transition-old(root) {
   animation: turn-off-light 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
   z-index: 2;
 }
-[data-theme="dark"]::view-transition-new(root),
-[data-theme="auto"]::view-transition-new(root) {
+[data-theme="dark"]::view-transition-new(root) {
   z-index: 1;
 }
 
