@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
-export default function ConsentBanner() {
+export default function ConsentBanner({ onResolve }) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const consent = localStorage.getItem('analytics_consent');
     if (!consent) {
       setIsVisible(true);
-    } else if (consent === 'granted') {
-      injectAnalytics();
+    } else {
+      if (consent === 'granted') {
+        injectAnalytics();
+      }
+      if (onResolve) onResolve();
     }
-  }, []);
+  }, [onResolve]);
 
   const injectAnalytics = () => {
     const code = import.meta.env.VITE_GOATCOUNTER || 'rheanamindo';
@@ -24,7 +27,6 @@ export default function ConsentBanner() {
     s.setAttribute('data-goatcounter', 'https://' + code + '.goatcounter.com/count');
     document.head.appendChild(s);
     
-    // Tell components like BottomHUD that they can now fetch safely
     window.dispatchEvent(new Event('analytics_granted'));
   };
 
@@ -32,24 +34,28 @@ export default function ConsentBanner() {
     localStorage.setItem('analytics_consent', 'granted');
     setIsVisible(false);
     injectAnalytics();
+    if (onResolve) onResolve();
   };
 
   const handleDecline = () => {
     localStorage.setItem('analytics_consent', 'denied');
     setIsVisible(false);
+    if (onResolve) onResolve();
   };
 
   if (!isVisible) return null;
 
   return (
-    <div className="consent-banner">
-      <h4 className="consent-title">Privacy & Analytics</h4>
-      <p className="consent-text">
-        We use cookieless, anonymous telemetry to count page views. No personal data is stored. Do you accept this minimal analytics collection?
-      </p>
-      <div className="consent-actions">
-        <button className="consent-btn consent-decline" onClick={handleDecline}>Decline</button>
-        <button className="consent-btn consent-accept" onClick={handleAccept}>Accept</button>
+    <div className="consent-gate-wrapper">
+      <div className="consent-banner centered-modal">
+        <h4 className="consent-title">Privacy & Analytics</h4>
+        <p className="consent-text">
+          We use cookieless, anonymous telemetry to count page views. No personal data is stored. Do you accept this minimal analytics collection?
+        </p>
+        <div className="consent-actions">
+          <button className="consent-btn consent-decline" onClick={handleDecline}>Decline</button>
+          <button className="consent-btn consent-accept" onClick={handleAccept}>Accept</button>
+        </div>
       </div>
     </div>
   );

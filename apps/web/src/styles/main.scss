@@ -159,11 +159,19 @@ body:not(.is-unlocked) {
 }
 
 /* Consent Banner */
-.consent-banner {
+.consent-gate-wrapper {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
-  max-width: 320px;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+}
+
+.consent-banner {
+  max-width: 400px;
   background: var(--bg-card, rgba(26, 11, 46, 0.95));
   border: 1px solid var(--border-color, rgba(255, 255, 255, 0.15));
   backdrop-filter: blur(12px);
@@ -251,3 +259,4 @@ body:not(.is-unlocked) {
   0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
 }
+
