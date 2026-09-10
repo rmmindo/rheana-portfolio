@@ -40,7 +40,7 @@ export default function BottomHUD() {
           </button>
         </div>
         <div className="telemetry-item">
-          <span className="status-dot"></span> Visitors: <span id="visitor-count">{count}</span>
+          <img src="/explorers.webp" alt="Explorers Icon" className="explorers-icon" /> Explorers: <span id="visitor-count">{count}</span>
         </div>
       </div>
 

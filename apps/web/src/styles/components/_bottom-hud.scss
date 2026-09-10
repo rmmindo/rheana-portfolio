@@ -44,9 +44,9 @@ body.is-unlocked .bottom-right-hud {
 .nav-node {
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.5); /* text-muted equivalent */
+  color: rgba(255, 255, 255, 0.7); /* text-muted equivalent */
   font-family: inherit;
-  font-size: 0.75rem;
+  font-size: 1.25rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -60,7 +60,7 @@ body.is-unlocked .bottom-right-hud {
 }
 
 [data-theme="light"] .nav-node {
-  color: rgba(26, 11, 46, 0.5);
+  color: rgba(26, 11, 46, 0.85);
 }
 
 .nav-node::after {
@@ -103,12 +103,15 @@ body.is-unlocked .bottom-right-hud {
   opacity: 0.7;
 }
 
-.status-dot {
-  width: 6px;
-  height: 6px;
-  background-color: #10B981; /* Live green status indicator */
-  border-radius: 50%;
-  box-shadow: 0 0 8px #10B981;
+.explorers-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+}
+
+[data-theme="light"] .explorers-icon {
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.2));
 }
 
 .social-tokens {
@@ -135,3 +138,4 @@ body.is-unlocked .bottom-right-hud {
 [data-theme="light"] .node-number {
   color: #005bb5;
 }
+
