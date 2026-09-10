@@ -1,4 +1,4 @@
-﻿import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 
 
 export default function HeaderHUD() {
@@ -36,13 +36,19 @@ export default function HeaderHUD() {
 
   return (
     <header className="top-left-hud brand-anchor" ref={menuRef}>
-      <div className="hydrangea-container" onClick={toggleMenu} role="button" tabIndex={0}>
+      <button 
+        className="hydrangea-container" 
+        onClick={toggleMenu} 
+        aria-label="Toggle Menu" 
+        aria-expanded={isMenuOpen} 
+        style={{ background: "transparent", border: "none", padding: 0 }}
+      >
         <img 
           src="/petal.webp" 
           alt="Hydrangea Logo" 
           className={`hydrangea-petal ${isMenuOpen ? "is-active" : ""}`} 
         />
-      </div>
+      </button>
       <a href="/" style={{ textDecoration: 'none' }}>
         <span className="brand-name">Rheana Mindo</span>
       </a>
