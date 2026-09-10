@@ -79,11 +79,15 @@
 }
 
 [data-theme="light"] .petal-btn:hover {
-  background: rgba(26, 11, 46, 0.1);
+  background: #00d2ff; /* Matches telescope blue for high contrast */
 }
 
 .petal-btn:hover svg {
   stroke: var(--brand-powder, #00d2ff);
+}
+
+[data-theme="light"] .petal-btn:hover svg {
+  stroke: #1A0B2E; /* Dark ink on blue background */
 }
 
 .petal-btn span {
@@ -99,4 +103,8 @@
   opacity: 1;
   max-width: 80px; /* Smoothly expands text container */
   color: var(--brand-powder, #00d2ff);
+}
+
+[data-theme="light"] .petal-btn:hover span {
+  color: #1A0B2E; /* Dark ink on blue background */
 }
