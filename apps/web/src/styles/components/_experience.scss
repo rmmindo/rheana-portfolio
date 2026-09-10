@@ -2,19 +2,27 @@
 .experience-section {
   position: relative;
   width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  margin-top: 100vh; /* Start strictly below the 100vh Hero section */
   z-index: 10;
-  padding-bottom: 200px;
+  margin-top: 100vh; /* Start after Hero sequence */
 }
 
-/* Circuit Board Container with Scrollytelling-to-Macro Transition */
-.circuit-timeline-wrapper {
+/* Scrollytelling Architecture */
+.scrolly-container {
   position: relative;
-  min-height: 400vh; /* Extremely tall for smooth scrollytelling pacing */
-  padding: 80px 20px;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  height: 700vh; /* Provides 100vh per node + buffer */
+}
+
+.scrolly-sticky-view {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .circuit-svg {
@@ -28,7 +36,7 @@
 
 .circuit-track {
   stroke: rgba(255, 255, 255, 0.1);
-  stroke-width: 2px;
+  stroke-width: 3px;
 }
 [data-theme="light"] .circuit-track {
   stroke: rgba(0, 0, 0, 0.1);
@@ -36,115 +44,105 @@
 
 .circuit-electricity {
   stroke: #00d2ff;
-  stroke-width: 3px;
-  filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.6));
-  transition: stroke-dashoffset 0.1s ease-out;
+  stroke-width: 4px;
+  filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.8));
+  /* stroke-dasharray and offset set by React inline */
+}
+[data-theme="light"] .circuit-electricity {
+  stroke: #005bb5;
+  filter: drop-shadow(0 0 10px rgba(0, 91, 181, 0.6));
 }
 
-/* State when macro view triggers at the bottom of the scroll */
-.circuit-timeline-wrapper.is-macro-view {
-  transform: scale(0.65);
-  transform-origin: center center;
-}
-
-/* Timeline Nodes Positioned on SVG Corners */
-.circuit-node-wrapper {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
+/* Connection Dots on the Circuit Board */
 .node-connection-dot {
-  width: 16px;
-  height: 16px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: var(--node-bg, #2D2B33);
-  border: 3px solid var(--accent-color, #A78BFA);
-  box-shadow: 0 0 10px var(--accent-color, #A78BFA);
-  opacity: 0.3;
-  transition: all 0.5s ease;
-  z-index: 3;
+  border: 4px solid var(--accent-color, #A78BFA);
+  box-shadow: 0 0 15px var(--accent-color, #A78BFA);
+  opacity: 0.2;
+  transform: translate(-50%, -50%);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1;
 }
 
-.circuit-node-wrapper.is-active .node-connection-dot,
-.circuit-timeline-wrapper.is-macro-view .circuit-node-wrapper:hover .node-connection-dot {
+.node-connection-dot.is-active {
   opacity: 1;
-  transform: scale(1.3);
+  transform: translate(-50%, -50%) scale(1.5);
   background: var(--accent-color, #A78BFA);
 }
 
-/* Social Media Style Card */
-.soc-med-card {
+/* Full-Screen Card Overlay */
+.fullscreen-card-overlay {
   position: absolute;
-  top: 30px;
-  left: 50%;
-  margin-left: -160px; /* Center by default */
-  width: 320px;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0);
+  pointer-events: none;
+  transition: background 0.5s ease;
+}
+
+.fullscreen-card-overlay.is-visible {
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: auto;
+}
+
+[data-theme="light"] .fullscreen-card-overlay.is-visible {
+  background: rgba(255,255,255,0.6);
+}
+
+/* The Social Media Style Card */
+.soc-med-card {
+  width: 90%;
+  max-width: 450px;
   background: var(--node-bg, #2D2B33);
   border: 1px solid var(--border-color, rgba(255, 255, 255, 0.15));
-  backdrop-filter: blur(12px);
-  border-radius: 12px;
-  padding: 16px;
+  border-color: var(--accent-color, #A78BFA);
+  border-radius: 16px;
+  padding: 30px;
   opacity: 0;
-  visibility: hidden;
-  transform: translateY(20px) scale(0.9);
-  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  pointer-events: none;
+  transform: translateY(30px) scale(0.95);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  animation: card-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 [data-theme="light"] .soc-med-card {
   border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  border-color: var(--accent-color);
 }
 
-.circuit-node-wrapper.align-right .soc-med-card {
-  left: auto;
-  right: 30px; /* Pop out to the left if node is on the right */
-  margin-left: 0;
-}
-.circuit-node-wrapper.align-left .soc-med-card {
-  left: 30px; /* Pop out to the right if node is on the left */
-  margin-left: 0;
-}
-
-.circuit-node-wrapper.is-active .soc-med-card {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
-  border-color: var(--accent-color, #A78BFA);
-  pointer-events: auto;
-}
-
-.circuit-timeline-wrapper.is-macro-view .soc-med-card {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
-  pointer-events: auto;
+@keyframes card-pop {
+  0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .card-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
 .card-avatar {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: var(--accent-color, #A78BFA);
-  color: #fff; /* Always white or dark based on contrast? Let's use bg color */
   color: var(--node-bg, #2D2B33);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Inter', sans-serif;
-  font-weight: bold;
-  font-size: 1.2rem;
+  font-weight: 800;
+  font-size: 1.5rem;
 }
 
 .card-meta {
@@ -155,63 +153,65 @@
 
 .card-meta strong {
   font-family: 'Inter', sans-serif;
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: var(--text);
 }
 
 .card-period {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  color: var(--text-muted, rgba(255,255,255,0.5));
+  font-size: 0.85rem;
+  color: var(--text-muted, rgba(255,255,255,0.6));
+  margin-top: 4px;
 }
 
 [data-theme="light"] .card-period {
-  color: var(--text-muted, rgba(0,0,0,0.5));
+  color: var(--text-muted, rgba(0,0,0,0.6));
 }
 
 .card-body {
   font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   color: var(--text);
-  line-height: 1.5;
-  margin-bottom: 16px;
+  line-height: 1.6;
+  margin-bottom: 24px;
 }
 
 .card-you {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   opacity: 0.8;
 }
 
 .card-me {
   color: var(--accent-color, #A78BFA);
+  font-weight: 600;
 }
 
 .card-figure {
-  background: rgba(0,0,0,0.2);
-  border-radius: 8px;
-  padding: 12px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 10px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  border-left: 3px solid var(--accent-color, #A78BFA);
+  border-left: 4px solid var(--accent-color, #A78BFA);
 }
 
 [data-theme="light"] .card-figure {
-  background: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.5);
 }
 
 .figure-val {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 800;
   color: var(--text);
   margin-bottom: 4px;
 }
 
 .figure-cap {
   font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   color: var(--text-muted, rgba(255,255,255,0.7));
-  line-height: 1.3;
+  line-height: 1.4;
 }
 
 [data-theme="light"] .figure-cap {
@@ -225,7 +225,7 @@
   --accent-color: #4ade80;
 }
 [data-theme="light"] .theme-field-green {
-  --node-bg: #3B5332;
+  --node-bg: #e6f4ea;
   --accent-color: #166534;
 }
 
@@ -235,7 +235,7 @@
   --accent-color: #a78bfa;
 }
 [data-theme="light"] .theme-road-asphalt {
-  --node-bg: #2D2B33;
+  --node-bg: #f3f0ff;
   --accent-color: #1e1b4b;
 }
 
@@ -245,8 +245,8 @@
   --accent-color: #fde68a;
 }
 [data-theme="light"] .theme-sunset-gold {
-  --node-bg: #D97706;
-  --accent-color: #78350f;
+  --node-bg: #fffbeb;
+  --accent-color: #d97706;
 }
 
 /* Sky Blue */
@@ -255,11 +255,9 @@
   --accent-color: #e0f2fe;
 }
 [data-theme="light"] .theme-sky-blue {
-  --node-bg: #0EA5E9;
-  --accent-color: #0c4a6e;
+  --node-bg: #f0f9ff;
+  --accent-color: #0284c7;
 }
-
-
 
 body:not(.is-unlocked) .experience-section {
   opacity: 0;

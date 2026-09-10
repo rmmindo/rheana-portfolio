@@ -19,7 +19,6 @@ const NODES = [
   { x: 70, y: 90 }
 ];
 
-// Complex zig-zag path string covering all nodes
 const SVG_PATH = `
 M 50,0 
 L 50,7 
@@ -41,11 +40,22 @@ L 50,100
 
 export default function Experience() {
   const containerRef = useRef(null);
+  const pathRef = useRef(null);
   const [activeNode, setActiveNode] = useState(null);
-  const [isMacroView, setIsMacroView] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [pathLength, setPathLength] = useState(10000); // Fallback large number
   
   const entries = workData.roles;
+
+  useEffect(() => {
+    if (pathRef.current) {
+      setPathLength(pathRef.current.getTotalLength());
+      // Re-measure on resize
+      const handleResize = () => setPathLength(pathRef.current.getTotalLength());
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,30 +63,28 @@ export default function Experience() {
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
-      // We want progress to be 0 when the top of the container hits the middle of the screen
-      // and 1 when the bottom of the container hits the middle of the screen.
-      let progress = (-rect.top + windowHeight * 0.5) / rect.height;
+      // Calculate progress across the 700vh container
+      // rect.top is 0 when container top hits viewport top.
+      // We want progress 0 -> 1 as we scroll through the (height - 100vh) distance.
+      const scrollableDistance = rect.height - windowHeight;
+      let progress = -rect.top / scrollableDistance;
+      
       if (progress < 0) progress = 0;
       if (progress > 1) progress = 1;
       
       setScrollProgress(progress);
       
-      if (progress > 0.95) {
-        setIsMacroView(true);
-        setActiveNode(null);
-      } else {
-        setIsMacroView(false);
-        // Determine active node based on progress (electricity tip)
-        // A node is active if progress is slightly past its Y coordinate
-        let currentActive = null;
-        for (let i = 0; i < NODES.length; i++) {
-          const nodeProgress = NODES[i].y / 100;
-          if (progress >= nodeProgress - 0.05 && progress <= nodeProgress + 0.1) {
-            currentActive = i;
-          }
+      // Node activation logic
+      // Progress goes 0 to 1.
+      let currentActive = null;
+      for (let i = 0; i < NODES.length; i++) {
+        const nodeProgress = NODES[i].y / 100;
+        // Node takes up a band of 8% of the scroll space
+        if (progress >= nodeProgress - 0.04 && progress <= nodeProgress + 0.04) {
+          currentActive = i;
         }
-        setActiveNode(currentActive);
       }
+      setActiveNode(currentActive);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -88,71 +96,76 @@ export default function Experience() {
     <section className="experience-section" id="experience">
       <div 
         ref={containerRef} 
-        className={`circuit-timeline-wrapper ${isMacroView ? 'is-macro-view' : ''}`}
+        className="scrolly-container"
       >
-        <svg 
-          className="circuit-svg" 
-          width="100%" 
-          height="100%" 
-          viewBox="0 0 100 100" 
-          preserveAspectRatio="none"
-        >
-          {/* Faint background track */}
-          <path 
-            d={SVG_PATH} 
-            fill="none" 
-            className="circuit-track" 
-            vectorEffect="non-scaling-stroke" 
-          />
-          {/* Glowing electricity line */}
-          <path 
-            d={SVG_PATH} 
-            fill="none" 
-            className="circuit-electricity" 
-            vectorEffect="non-scaling-stroke" 
-            pathLength="100"
-            strokeDasharray="100"
-            strokeDashoffset={100 - (scrollProgress * 100)}
-          />
-        </svg>
+        <div className="scrolly-sticky-view">
+          <svg 
+            className="circuit-svg" 
+            width="100%" 
+            height="100%" 
+            viewBox="0 0 100 100" 
+            preserveAspectRatio="none"
+          >
+            {/* Faint background track */}
+            <path 
+              d={SVG_PATH} 
+              fill="none" 
+              className="circuit-track" 
+              vectorEffect="non-scaling-stroke" 
+            />
+            {/* Glowing electricity line - dynamically calculated length */}
+            <path 
+              ref={pathRef}
+              d={SVG_PATH} 
+              fill="none" 
+              className="circuit-electricity" 
+              vectorEffect="non-scaling-stroke" 
+              strokeDasharray={`${pathLength * 0.15} ${pathLength * 2}`}
+              strokeDashoffset={-(scrollProgress * pathLength)}
+            />
+          </svg>
 
-        {entries.map((exp, i) => {
-          const themeClass = THEMES[exp.org] || 'theme-road-asphalt';
-          const node = NODES[i];
-          const isActive = isMacroView ? false : i === activeNode;
-          
-          return (
-            <div 
-              key={i} 
-              className={`circuit-node-wrapper ${themeClass} ${isActive ? 'is-active' : ''}`}
-              style={{ left: `${node.x}%`, top: `${node.y}%` }}
-              onClick={() => isMacroView && setActiveNode(i)}
-            >
-              <div className="node-connection-dot"></div>
-              
-              <div className="soc-med-card">
+          {/* Connection Dots */}
+          {entries.map((exp, i) => {
+            const themeClass = THEMES[exp.org] || 'theme-road-asphalt';
+            const node = NODES[i];
+            const isActive = i === activeNode;
+            
+            return (
+              <div 
+                key={`dot-${i}`} 
+                className={`node-connection-dot ${themeClass} ${isActive ? 'is-active' : ''}`}
+                style={{ left: `${node.x}%`, top: `${node.y}%` }}
+              ></div>
+            );
+          })}
+
+          {/* Full-Screen Overlay Card */}
+          <div className={`fullscreen-card-overlay ${activeNode !== null ? 'is-visible' : ''}`}>
+            {activeNode !== null && (
+              <div className={`soc-med-card ${THEMES[entries[activeNode].org] || 'theme-road-asphalt'}`}>
                 <div className="card-header">
-                  <div className="card-avatar">{exp.org.charAt(0)}</div>
+                  <div className="card-avatar">{entries[activeNode].org.charAt(0)}</div>
                   <div className="card-meta">
-                    <strong>{exp.org}</strong>
-                    <span className="card-period">{exp.period}</span>
+                    <strong>{entries[activeNode].org}</strong>
+                    <span className="card-period">{entries[activeNode].period}</span>
                   </div>
                 </div>
                 <div className="card-body">
-                  <p className="card-you"><strong>You:</strong> {exp.you}</p>
-                  <p className="card-me"><strong>Me:</strong> {exp.me}</p>
+                  <p className="card-you"><strong>You:</strong> {entries[activeNode].you}</p>
+                  <p className="card-me"><strong>Me:</strong> {entries[activeNode].me}</p>
                 </div>
                 <div className="card-figure">
-                  <span className="figure-val">{exp.figure.value}{exp.figure.unit}</span>
-                  <span className="figure-cap">{exp.figure.caption}</span>
+                  <span className="figure-val">{entries[activeNode].figure.value}{entries[activeNode].figure.unit}</span>
+                  <span className="figure-cap">{entries[activeNode].figure.caption}</span>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            )}
+          </div>
+          
+        </div>
       </div>
     </section>
   );
 }
-
 
