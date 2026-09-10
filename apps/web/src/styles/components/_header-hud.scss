@@ -46,8 +46,8 @@
   box-shadow: none; /* Removed heavy shadow to match dark mode appearance */
 }
 
-/* Remove background, border, and shadow during 'the bigger picture' (Act 1/2) */
-body:not(.is-unlocked) .three-petal-menu {
+/* Remove background, border, and shadow during 'the bigger picture' (Act 3 unlocked) */
+body.is-unlocked .three-petal-menu {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -118,4 +118,5 @@ body:not(.is-unlocked) .three-petal-menu {
 [data-theme="light"] .petal-btn:hover span {
   color: #005bb5; /* Deeper vibrant blue for readability in light mode */
 }
+
 
