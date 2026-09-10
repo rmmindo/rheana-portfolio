@@ -15,7 +15,6 @@
 /* The Bloom Effect on Hover */
 .hydrangea-container:hover .hydrangea-petal {
   transform: scale(1.45) rotate(-20deg); /* Restored original rotation */
-  filter: drop-shadow(0 0 6px var(--brand-powder, #00d2ff));
 }
 
 /* Active state when menu is toggled open */
@@ -44,6 +43,7 @@
 [data-theme="light"] .three-petal-menu {
   background: rgba(234, 221, 205, 0.85); /* eaddcd with opacity */
   border: 1px solid rgba(26, 11, 46, 0.1);
+  box-shadow: none; /* Removed heavy shadow to match dark mode appearance */
 }
 
 @keyframes blossom-open {
