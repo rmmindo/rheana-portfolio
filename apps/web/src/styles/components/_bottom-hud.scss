@@ -23,10 +23,20 @@ body.is-unlocked .bottom-right-hud {
 
 .bottom-left-hud {
   left: clamp(20px, 4vw, 40px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
 }
 
 .bottom-right-hud {
   right: clamp(20px, 4vw, 40px);
+}
+
+.nav-nodes-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
 }
 
 /* Nav Node Styling */
@@ -69,14 +79,7 @@ body.is-unlocked .bottom-right-hud {
 
 .social-tokens {
   display: flex;
-  gap: 10px;
-  margin-left: 10px;
-  padding-left: 10px;
-  border-left: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-[data-theme="light"] .social-tokens {
-  border-left-color: rgba(26, 11, 46, 0.2);
+  gap: 12px;
 }
 
 .social-tokens a {
