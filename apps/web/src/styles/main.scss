@@ -38,11 +38,19 @@
   z-index: 1;
 }
 
+[data-theme="dark"] .scene-balloon::before {
+  background-image: url('/hot-air-balloon-night-1.jpg');
+}
+
 /* Frame 2 */
 .scene-balloon::after {
   background-image: url('/hot-air-balloon-day-2.webp');
   z-index: 2;
   opacity: 0; /* Hidden by default */
+}
+
+[data-theme="dark"] .scene-balloon::after {
+  background-image: url('/hot-air-balloon-night-2.jpg');
 }
 
 /* 
@@ -141,4 +149,5 @@ body.is-unlocked .brand-name {
   letter-spacing: 0.05em;
   color: var(--text);
 }
+
 
