@@ -34,12 +34,24 @@ export default function Hero() {
       setTimeout(() => setShowButton(true), 9000);
     };
 
+    const handleSkipIntro = () => {
+      setHasMoved(true);
+      setHasUnlockedMask(true);
+      setIsSnapping(false);
+      setPhase(3);
+    };
+    window.addEventListener('skipIntro', handleSkipIntro);
+
     if (document.documentElement.classList.contains('has-unlocked')) {
       triggerButton();
     } else {
       window.addEventListener('visionGateUnlocked', triggerButton);
-      return () => window.removeEventListener('visionGateUnlocked', triggerButton);
     }
+
+    return () => {
+      window.removeEventListener('visionGateUnlocked', triggerButton);
+      window.removeEventListener('skipIntro', handleSkipIntro);
+    };
   }, []);
 
   useEffect(() => {

@@ -127,8 +127,13 @@ export default function VisionGate() {
   useEffect(() => {
     if (!open) return;
     const onKey = e => { if (e.key === 'Escape') dismiss(); };
+    const handleSkip = () => dismiss();
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    window.addEventListener('skipIntro', handleSkip);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('skipIntro', handleSkip);
+    };
   }, [open, dismiss]);
 
   useEffect(() => () => clearTimeout(timer.current), []);
