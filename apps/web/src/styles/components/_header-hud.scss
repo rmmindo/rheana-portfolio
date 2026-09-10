@@ -79,7 +79,7 @@
 }
 
 [data-theme="light"] .petal-btn:hover {
-  background: #00d2ff; /* Matches telescope blue for high contrast */
+  background: rgba(26, 11, 46, 0.1);
 }
 
 .petal-btn:hover svg {
@@ -87,7 +87,7 @@
 }
 
 [data-theme="light"] .petal-btn:hover svg {
-  stroke: #1A0B2E; /* Dark ink on blue background */
+  stroke: #005bb5; /* Deeper vibrant blue for readability in light mode */
 }
 
 .petal-btn span {
@@ -106,5 +106,5 @@
 }
 
 [data-theme="light"] .petal-btn:hover span {
-  color: #1A0B2E; /* Dark ink on blue background */
+  color: #005bb5; /* Deeper vibrant blue for readability in light mode */
 }
