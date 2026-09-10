@@ -4,6 +4,7 @@
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
+  margin-top: 100vh; /* Start strictly below the 100vh Hero section */
   z-index: 10;
   padding-bottom: 200px;
 }
@@ -258,3 +259,10 @@
   --accent-color: #0c4a6e;
 }
 
+
+
+body:not(.is-unlocked) .experience-section {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
