@@ -10,7 +10,8 @@ export default function BottomHUD() {
   useEffect(() => {
     if (!code) return;
 
-    fetch('https://' + code + '.goatcounter.com/counter//.json')
+    const fetchCount = () => {
+      fetch('https://' + code + '.goatcounter.com/counter//.json')
       .then(res => res.json())
       .then(data => {
         if (data && data.count) {
@@ -19,6 +20,14 @@ export default function BottomHUD() {
         }
       })
       .catch(err => console.error('Failed to fetch visitor count:', err));
+    };
+
+    if (localStorage.getItem('analytics_consent') === 'granted') {
+      fetchCount();
+    }
+
+    window.addEventListener('analytics_granted', fetchCount);
+    return () => window.removeEventListener('analytics_granted', fetchCount);
   }, [code]);
 
   const scrollToSection = (id) => {
@@ -64,5 +73,6 @@ export default function BottomHUD() {
     </>
   );
 }
+
 
 
