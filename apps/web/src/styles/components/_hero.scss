@@ -415,21 +415,3 @@ body.phase-3 {
 }
 
 
-/* Visitor Count */
-.visitor-count {
-  position: fixed;
-  bottom: clamp(20px, 5vw, 40px);
-  left: clamp(20px, 5vw, 40px);
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(0.7rem, 2vw, 0.875rem);
-  letter-spacing: 0.05em;
-  color: var(--text);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 20;
-  transition: opacity 0.8s ease;
-}
-
-body.is-unlocked .visitor-count.is-active {
-  opacity: 0.8;
-}
