@@ -7,16 +7,15 @@
 }
 
 .hydrangea-petal {
-  width: 20px;
-  height: 20px;
-  fill: var(--text);
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), fill 0.3s ease;
+  width: 22px;
+  height: 22px;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
 }
 
 /* The Bloom Effect on Hover */
 .hydrangea-container:hover .hydrangea-petal {
-  transform: scale(1.35) rotate(15deg);
-  fill: var(--brand-powder, #00d2ff); /* Electric cyan/powder blue accent glow */
+  transform: scale(1.45) rotate(-20deg); /* Restored original rotation */
+  filter: drop-shadow(0 0 6px var(--brand-powder, #00d2ff));
 }
 
 /* Active state when menu is toggled open */

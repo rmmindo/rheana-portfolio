@@ -37,13 +37,11 @@ export default function HeaderHUD() {
   return (
     <header className="top-left-hud brand-anchor" ref={menuRef}>
       <div className="hydrangea-container" onClick={toggleMenu} role="button" tabIndex={0}>
-        <svg 
+        <img 
+          src="/petal.webp" 
+          alt="Hydrangea Logo" 
           className={`hydrangea-petal ${isMenuOpen ? "is-active" : ""}`} 
-          viewBox="0 0 24 24"
-        >
-          {/* Abstract botanical petal path */}
-          <path d="M12 22C12 22 4 16 4 9C4 5 7 2 12 2C17 2 20 5 20 9C20 16 12 22 12 22Z" />
-        </svg>
+        />
       </div>
       <a href="/" style={{ textDecoration: 'none' }}>
         <span className="brand-name">Rheana Mindo</span>
