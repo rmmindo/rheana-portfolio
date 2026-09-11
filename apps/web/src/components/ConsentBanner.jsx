@@ -47,14 +47,18 @@ export default function ConsentBanner({ onResolve }) {
 
   return (
     <div className="consent-gate-wrapper">
-      <div className="consent-banner centered-modal">
-        <h4 className="consent-title">Privacy & Analytics</h4>
-        <p className="consent-text">
-          We use cookieless, anonymous telemetry to count page views. No personal data is stored. Do you accept this minimal analytics collection?
-        </p>
-        <div className="consent-actions">
-          <button className="consent-btn consent-decline" onClick={handleDecline}>Decline</button>
-          <button className="consent-btn consent-accept" onClick={handleAccept}>Accept</button>
+      <div className="modern-popup consent-specific">
+        <div className="modern-popup-top">
+          <svg className="modern-popup-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          <p className="modern-popup-text">
+            We use cookieless, anonymous telemetry to count page views. No personal data is stored. Do you accept this minimal analytics collection?
+          </p>
+        </div>
+        <div className="modern-popup-bottom">
+          <button className="modern-popup-primary-btn" onClick={handleAccept}>ACCEPT</button>
+          <button className="modern-popup-secondary-btn" onClick={handleDecline}>DECLINE</button>
         </div>
       </div>
     </div>

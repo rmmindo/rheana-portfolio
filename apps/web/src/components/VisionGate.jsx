@@ -48,7 +48,7 @@ const BLINK_MS = 1900;
 const CALM_MS = 320;
 
 
-export default function VisionGate() {
+export default function VisionGate({ startSequence = true }) {
   const reduced = useReducedMotion();
   const { t } = useI18n();
 
@@ -67,8 +67,10 @@ export default function VisionGate() {
   // travel and the blinking: they press, and the page is simply clear. A fade
   // is not the kind of motion the setting exists to prevent.
   useEffect(() => {
-    setOpen(true);
-  }, []);
+    if (startSequence) {
+      setOpen(true);
+    }
+  }, [startSequence]);
 
   useEffect(() => {
     if (!open) return;
@@ -167,4 +169,5 @@ export default function VisionGate() {
     </div>
   );
 }
+
 

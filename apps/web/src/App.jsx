@@ -25,13 +25,10 @@ export default function App() {
         <ConsentBanner onResolve={() => setIsConsentResolved(true)} />
       )}
 
-      {isConsentResolved && (
-        <>
-          <Hero />
-          <VisionGate />
-          <Experience />
-        </>
-      )}
+        <Hero />
+      <VisionGate startSequence={isConsentResolved} />
+      <Experience />
     </I18nProvider>
   );
 }
+
