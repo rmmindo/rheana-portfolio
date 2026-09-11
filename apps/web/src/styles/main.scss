@@ -33,6 +33,9 @@
   background-size: cover;
   background-position: center;
   will-change: opacity;
+  /* Fade out the bottom edge to blend seamlessly into the site-bg */
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
 }
 
 /* Frame 1 */
@@ -161,3 +164,18 @@ body:not(.is-unlocked) {
 
 
 
+
+
+/* HUD Visibility Control */
+body:not(.hud-ready) .bottom-left-hud,
+body:not(.hud-ready) .bottom-right-hud,
+body:not(.hud-ready) .theme-cord-container {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bottom-left-hud,
+.bottom-right-hud,
+.theme-cord-container {
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
