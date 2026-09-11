@@ -49,8 +49,9 @@ export default function ConsentBanner({ onResolve }) {
     <div className="consent-gate-wrapper">
       <div className="modern-popup consent-specific">
         <div className="modern-popup-top">
-          <svg className="modern-popup-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          <svg className="modern-popup-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
           </svg>
           <h2 className="modern-popup-title" style={{ marginBottom: '12px' }}>Welcome, explorer.</h2>
           <p className="modern-popup-text">
