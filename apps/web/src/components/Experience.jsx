@@ -138,7 +138,7 @@ export default function Experience() {
                   {/* Faint Background Track */}
                   <path 
                     d={route.path} 
-                    className="circuit-track" 
+                    fill="none" className="circuit-track" 
                     vectorEffect="non-scaling-stroke" 
                     onClick={() => setActiveRoute(route.id)}
                   />
@@ -148,7 +148,7 @@ export default function Experience() {
                     <path 
                       ref={pathRef}
                       d={route.path} 
-                      className={`circuit-electricity ${route.theme}`} 
+                      fill="none" className={`circuit-electricity ${route.theme}`} 
                       vectorEffect="non-scaling-stroke" 
                       strokeDasharray={pathLength}
                       strokeDashoffset={pathLength - (scrollProgress * pathLength)}
@@ -270,3 +270,4 @@ export default function Experience() {
     </section>
   );
 }
+
