@@ -23,7 +23,7 @@ const MoonIcon = () => (
 
 
 export default function ThemeCord() {
-  const [theme, setTheme] = useState('dark'); // Default to dark as per current look
+  const [theme, setTheme] = useState('light'); // Default to dark as per current look
   const [dragY, setDragY] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -132,3 +132,4 @@ export default function ThemeCord() {
     </div>
   );
 }
+
