@@ -9,7 +9,7 @@
 /* Scrollytelling Architecture */
 .scrolly-container {
   position: relative;
-  height: 700vh; /* Provides 100vh per node + buffer */
+  height: 700vh;
 }
 
 .scrolly-sticky-view {
@@ -17,7 +17,7 @@
   top: 0;
   height: 100vh;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   overflow: hidden;
   display: flex;
@@ -27,51 +27,174 @@
 
 .circuit-svg {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
-  height: 100%;
+  height: 90vh;
   z-index: 0;
 }
 
+/* PCB Board Elements */
+.circuit-center-box {
+  fill: #000;
+  stroke: rgba(255,255,255,0.8);
+  stroke-width: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] .circuit-center-box {
+  fill: #fff;
+  stroke: rgba(0,0,0,0.8);
+}
+
+.circuit-center-box:hover {
+  stroke: var(--brand-powder);
+}
+
+.circuit-center-box.is-active {
+  stroke: var(--brand-powder);
+  stroke-width: 1px;
+}
+
+.circuit-center-dot {
+  fill: #fff;
+  pointer-events: none;
+}
+[data-theme="light"] .circuit-center-dot {
+  fill: #000;
+}
+
+.circuit-bg-track {
+  stroke: rgba(255, 204, 0, 0.2);
+  stroke-width: 1.5px;
+  fill: none;
+}
+
+.route-group {
+  transition: opacity 0.4s ease, filter 0.4s ease;
+  cursor: pointer;
+}
+
+.route-group.is-blurry {
+  opacity: 0.25;
+  filter: blur(3px);
+}
+
+.route-group.is-blurry:hover {
+  opacity: 0.6;
+  filter: blur(1px);
+}
+
 .circuit-track {
-  stroke: rgba(255, 255, 255, 0.1);
-  stroke-width: 3px;
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 2px;
+  fill: none;
 }
 [data-theme="light"] .circuit-track {
-  stroke: rgba(0, 0, 0, 0.1);
+  stroke: rgba(0, 0, 0, 0.2);
 }
 
+/* Base Electricity (Animated Stroke) */
 .circuit-electricity {
+  stroke-width: 3.5px;
+  fill: none;
+  pointer-events: none;
+}
+
+/* Theme Colors for Routes/Sparks */
+.theme-sky-blue {
   stroke: #00d2ff;
-  stroke-width: 4px;
-  filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.8));
-  /* stroke-dasharray and offset set by React inline */
+  fill: #00d2ff;
+  color: #00d2ff;
+  filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.8));
 }
-[data-theme="light"] .circuit-electricity {
-  stroke: #005bb5;
-  filter: drop-shadow(0 0 10px rgba(0, 91, 181, 0.6));
+.theme-sunset-gold {
+  stroke: #F59E0B;
+  fill: #F59E0B;
+  color: #F59E0B;
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.8));
+}
+.theme-road-asphalt {
+  stroke: #A78BFA;
+  fill: #A78BFA;
+  color: #A78BFA;
+  filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.8));
+}
+.theme-field-green {
+  stroke: #4ade80;
+  fill: #4ade80;
+  color: #4ade80;
+  filter: drop-shadow(0 0 8px rgba(74, 222, 128, 0.8));
 }
 
-/* Connection Dots on the Circuit Board */
-.node-connection-dot {
+/* Connection Dots (Nodes) */
+.circuit-node {
+  stroke: #2D2B33;
+  stroke-width: 0.5px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.circuit-node.is-active {
+  r: 3px;
+  stroke-width: 1px;
+  stroke: #fff;
+}
+
+/* Interactive Labels */
+.route-labels {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--node-bg, #2D2B33);
-  border: 4px solid var(--accent-color, #A78BFA);
-  box-shadow: 0 0 15px var(--accent-color, #A78BFA);
-  opacity: 0.2;
-  transform: translate(-50%, -50%);
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 1;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  transition: opacity 0.4s ease, filter 0.4s ease;
 }
 
-.node-connection-dot.is-active {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1.5);
-  background: var(--accent-color, #A78BFA);
+.route-labels.is-blurry {
+  opacity: 0.3;
+  filter: blur(2px);
+}
+
+.route-start-label, .route-end-label {
+  position: absolute;
+  transform: translate(-50%, -150%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: auto;
+  cursor: pointer;
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.route-end-label {
+  transform: translate(-50%, 50%);
+}
+
+.label-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--text);
+  box-shadow: 0 0 8px rgba(255,255,255,0.4);
+}
+
+[data-theme="light"] .label-dot {
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+/* Spark Icon */
+.circuit-spark-icon {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+  /* Smoothly interpolates positions between react renders */
+  transition: top 0.1s linear, left 0.1s linear;
 }
 
 /* Full-Screen Card Overlay */
@@ -102,9 +225,8 @@
 .soc-med-card {
   width: 90%;
   max-width: 450px;
-  background: var(--node-bg, #2D2B33);
+  background: var(--bg-card, #1A0B2E);
   border: 1px solid var(--border-color, rgba(255, 255, 255, 0.15));
-  border-color: var(--accent-color, #A78BFA);
   border-radius: 16px;
   padding: 30px;
   opacity: 0;
@@ -114,9 +236,9 @@
 }
 
 [data-theme="light"] .soc-med-card {
+  background: #f7f1eb;
   border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-  border-color: var(--accent-color);
 }
 
 @keyframes card-pop {
@@ -135,14 +257,18 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: var(--accent-color, #A78BFA);
-  color: var(--node-bg, #2D2B33);
+  background: currentColor;
+  color: var(--bg-card, #2D2B33);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Inter', sans-serif;
   font-weight: 800;
   font-size: 1.5rem;
+}
+
+[data-theme="light"] .card-avatar {
+  color: #fff;
 }
 
 .card-meta {
@@ -182,7 +308,7 @@
 }
 
 .card-me {
-  color: var(--accent-color, #A78BFA);
+  color: currentColor;
   font-weight: 600;
 }
 
@@ -192,7 +318,7 @@
   padding: 16px;
   display: flex;
   flex-direction: column;
-  border-left: 4px solid var(--accent-color, #A78BFA);
+  border-left: 4px solid currentColor;
 }
 
 [data-theme="light"] .card-figure {
@@ -218,66 +344,8 @@
   color: var(--text-muted, rgba(0,0,0,0.7));
 }
 
-/* Theme Colors */
-/* Field Green */
-.theme-field-green {
-  --node-bg: #1B3019;
-  --accent-color: #4ade80;
-}
-[data-theme="light"] .theme-field-green {
-  --node-bg: #e6f4ea;
-  --accent-color: #166534;
-}
-
-/* Road Asphalt */
-.theme-road-asphalt {
-  --node-bg: #16151A;
-  --accent-color: #a78bfa;
-}
-[data-theme="light"] .theme-road-asphalt {
-  --node-bg: #f3f0ff;
-  --accent-color: #1e1b4b;
-}
-
-/* Sunset Gold */
-.theme-sunset-gold {
-  --node-bg: #F59E0B;
-  --accent-color: #fde68a;
-}
-[data-theme="light"] .theme-sunset-gold {
-  --node-bg: #fffbeb;
-  --accent-color: #d97706;
-}
-
-/* Sky Blue */
-.theme-sky-blue {
-  --node-bg: #38BDF8;
-  --accent-color: #e0f2fe;
-}
-[data-theme="light"] .theme-sky-blue {
-  --node-bg: #f0f9ff;
-  --accent-color: #0284c7;
-}
-
 body:not(.is-unlocked) .experience-section {
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
-}
-
-.circuit-spark-icon {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.9));
-  pointer-events: none;
-  transition: top 0.1s linear, left 0.1s linear;
-}
-
-[data-theme="light"] .circuit-spark-icon {
-  filter: drop-shadow(0 0 10px rgba(0, 91, 181, 0.9));
-}
-[data-theme="light"] .circuit-spark-icon svg {
-  fill: #005bb5;
-  stroke: #005bb5;
 }
