@@ -43,9 +43,17 @@ export default function Experience() {
   const pathRef = useRef(null);
   const [activeNode, setActiveNode] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [pathLength, setPathLength] = useState(10000); // Fallback large number
+  const [pathLength, setPathLength] = useState(10000);
+  const [sparkPos, setSparkPos] = useState({ x: 50, y: 0 });
   
   const entries = workData.roles;
+
+  useEffect(() => {
+    if (pathRef.current && pathLength < 10000) {
+      const point = pathRef.current.getPointAtLength(scrollProgress * pathLength);
+      setSparkPos({ x: point.x, y: point.y });
+    }
+  }, [scrollProgress, pathLength]);
 
   useEffect(() => {
     if (pathRef.current) {
@@ -120,10 +128,18 @@ export default function Experience() {
               fill="none" 
               className="circuit-electricity" 
               vectorEffect="non-scaling-stroke" 
-              strokeDasharray={`${pathLength * 0.15} ${pathLength * 2}`}
-              strokeDashoffset={-(scrollProgress * pathLength)}
+              strokeDasharray={pathLength}
+              strokeDashoffset={pathLength - (scrollProgress * pathLength)}
             />
           </svg>
+
+          {/* Moving Spark Icon */}
+          <div 
+            className="circuit-spark-icon" 
+            style={{ left: `${sparkPos.x}%`, top: `${sparkPos.y}%` }}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="var(--brand-powder, #00d2ff)" stroke="var(--brand-powder, #00d2ff)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+          </div>
 
           {/* Connection Dots */}
           {entries.map((exp, i) => {
@@ -168,4 +184,5 @@ export default function Experience() {
     </section>
   );
 }
+
 

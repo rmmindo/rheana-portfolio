@@ -264,3 +264,20 @@ body:not(.is-unlocked) .experience-section {
   pointer-events: none;
   visibility: hidden;
 }
+
+.circuit-spark-icon {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.9));
+  pointer-events: none;
+  transition: top 0.1s linear, left 0.1s linear;
+}
+
+[data-theme="light"] .circuit-spark-icon {
+  filter: drop-shadow(0 0 10px rgba(0, 91, 181, 0.9));
+}
+[data-theme="light"] .circuit-spark-icon svg {
+  fill: #005bb5;
+  stroke: #005bb5;
+}

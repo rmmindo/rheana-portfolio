@@ -52,13 +52,14 @@ export default function ConsentBanner({ onResolve }) {
           <svg className="modern-popup-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
           </svg>
+          <h2 className="modern-popup-title" style={{ marginBottom: '12px' }}>Welcome, explorer.</h2>
           <p className="modern-popup-text">
-            We use cookieless, anonymous telemetry to count page views. No personal data is stored. Do you accept this minimal analytics collection?
+            We’d love to count you among our travelers. Total anonymity is guaranteed, with no cookies and no tracking. Ready to leave your mark?
           </p>
         </div>
         <div className="modern-popup-bottom">
-          <button className="modern-popup-primary-btn" onClick={handleAccept}>ACCEPT</button>
-          <button className="modern-popup-secondary-btn" onClick={handleDecline}>DECLINE</button>
+          <button className="modern-popup-primary-btn" onClick={handleAccept}>LOG MY PRESENCE</button>
+          <button className="modern-popup-secondary-btn" onClick={handleDecline}>REMAIN INVISIBLE</button>
         </div>
       </div>
     </div>
