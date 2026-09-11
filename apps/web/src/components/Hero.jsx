@@ -26,7 +26,35 @@ export default function Hero() {
   const [showButton, setShowButton] = useState(false);
   const [hasUnlockedMask, setHasUnlockedMask] = useState(false);
 
-      useEffect(() => {
+  useEffect(() => {
+    // Start phase 1 immediately on mount
+    setPhase(1);
+
+    const triggerButton = () => {
+      setTimeout(() => setShowButton(true), 9000);
+    };
+
+    const handleSkipIntro = () => {
+      setHasMoved(true);
+      setHasUnlockedMask(true);
+      setIsSnapping(false);
+      setPhase(3);
+    };
+    window.addEventListener('skipIntro', handleSkipIntro);
+
+    if (document.documentElement.classList.contains('has-unlocked')) {
+      triggerButton();
+    } else {
+      window.addEventListener('visionGateUnlocked', triggerButton);
+    }
+
+    return () => {
+      window.removeEventListener('visionGateUnlocked', triggerButton);
+      window.removeEventListener('skipIntro', handleSkipIntro);
+    };
+  }, []);
+
+  useEffect(() => {
     if (phase < 3) {
       document.body.classList.add('is-locked');
       document.body.classList.remove('is-unlocked');
@@ -37,8 +65,6 @@ export default function Hero() {
         document.body.classList.add('is-unlocked');
       }, 1400);
 
-      // If user skipped or loaded with phase 3, show HUD immediately.
-      // Otherwise, wait for the animation sequence to finish.
       const isInitialSkip = typeof window !== 'undefined' && localStorage.getItem('hero_skipped');
       const hudDelay = isInitialSkip ? 0 : 7500;
 
@@ -57,34 +83,31 @@ export default function Hero() {
     };
   }, [phase]);
 
-      useEffect(() => {
-    if (phase < 3) {
-      document.body.classList.add('is-locked');
-      document.body.classList.remove('is-unlocked');
-    } else if (phase === 3) {
-      // Wait for the 1.4s circle snap animation before unlocking native scroll
-      const unlockTimer = setTimeout(() => {
-        document.body.classList.remove('is-locked');
-        document.body.classList.add('is-unlocked');
-      }, 1400);
-
-      // If user skipped or loaded with phase 3, show HUD immediately.
-      // Otherwise, wait for the animation sequence to finish.
-      const isInitialSkip = typeof window !== 'undefined' && localStorage.getItem('hero_skipped');
-      const hudDelay = isInitialSkip ? 0 : 7500;
-
-      const hudTimer = setTimeout(() => {
-        document.body.classList.add('hud-ready');
-      }, hudDelay);
-
-      return () => {
-        clearTimeout(unlockTimer);
-        clearTimeout(hudTimer);
-        document.body.classList.remove('is-locked', 'is-unlocked');
-      };
-    }
+  useEffect(() => {
+    const handleWheel = (e) => {
+      if (phase === 2 && e.deltaY > 0) {
+        setPhase(3);
+      }
+    };
+    
+    window.addEventListener('wheel', handleWheel);
+    // Also support touch swipe up for mobile
+    let touchStartY = 0;
+    const handleTouchStart = (e) => { touchStartY = e.touches[0].clientY; };
+    const handleTouchMove = (e) => {
+      if (phase === 2) {
+        const touchEndY = e.touches[0].clientY;
+        if (touchStartY - touchEndY > 20) setPhase(3);
+      }
+    };
+    
+    window.addEventListener('touchstart', handleTouchStart);
+    window.addEventListener('touchmove', handleTouchMove);
+    
     return () => {
-      document.body.classList.remove('is-locked', 'is-unlocked');
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
     };
   }, [phase]);
 
@@ -171,7 +194,7 @@ export default function Hero() {
 
   return (
     <>
-      <div 
+            <div 
         className={`circle-mask-layer scene-balloon phase-${phase} ${isSnapping ? 'is-snapping-to-pointer' : ''}`} 
         
         style={{
@@ -179,7 +202,10 @@ export default function Hero() {
           '--y': (hasUnlockedMask || phase >= 2) ? `${mousePos.y}%` : '50%',
           zIndex: 1
         }}
-      ></div>
+      >
+        {/* Gradient overlay to fade bottom into site-bg */}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '30vh', background: 'linear-gradient(to bottom, transparent, var(--site-bg))', zIndex: 3, pointerEvents: 'none' }}></div>
+      </div>
 
       <div 
         className={`hero-wrapper phase-${phase} ${hasMoved ? 'has-moved' : ''}`}
@@ -277,7 +303,6 @@ export default function Hero() {
     </>
   );
 }
-
 
 
 
