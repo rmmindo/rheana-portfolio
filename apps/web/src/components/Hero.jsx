@@ -59,14 +59,15 @@ export default function Hero() {
       document.body.classList.add('is-locked');
       document.body.classList.remove('is-unlocked');
     } else if (phase === 3) {
-      // Wait for the 1.4s circle snap animation before unlocking native scroll
+      const isInitialSkip = typeof window !== 'undefined' && localStorage.getItem('hero_skipped');
+      const unlockDelay = isInitialSkip ? 0 : 1400;
+      const hudDelay = isInitialSkip ? 0 : 7500;
+
+      // Wait for the circle snap animation before unlocking native scroll
       const unlockTimer = setTimeout(() => {
         document.body.classList.remove('is-locked');
         document.body.classList.add('is-unlocked');
-      }, 1400);
-
-      const isInitialSkip = typeof window !== 'undefined' && localStorage.getItem('hero_skipped');
-      const hudDelay = isInitialSkip ? 0 : 7500;
+      }, unlockDelay);
 
       const hudTimer = setTimeout(() => {
         document.body.classList.add('hud-ready');
@@ -303,6 +304,8 @@ export default function Hero() {
     </>
   );
 }
+
+
 
 
 

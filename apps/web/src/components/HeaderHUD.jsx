@@ -30,6 +30,7 @@ export default function HeaderHUD() {
   };
 
   const handleSkip = () => {
+    localStorage.setItem('hero_skipped', 'true');
     window.dispatchEvent(new Event("skipIntro"));
     setIsMenuOpen(false);
   };
@@ -82,5 +83,6 @@ export default function HeaderHUD() {
     </header>
   );
 }
+
 
 
