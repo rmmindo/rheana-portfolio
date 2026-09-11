@@ -205,7 +205,7 @@ export default function Hero() {
         }}
       >
         {/* Gradient overlay to fade bottom into site-bg */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '30vh', background: 'linear-gradient(to bottom, transparent, var(--site-bg))', zIndex: 3, pointerEvents: 'none' }}></div>
+        <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '30vh', background: 'linear-gradient(to bottom, transparent, var(--site-bg))', zIndex: 3, pointerEvents: 'none', opacity: phase === 3 ? 1 : 0, transition: 'opacity 1.4s ease' }}></div>
       </div>
 
       <div 
@@ -304,6 +304,10 @@ export default function Hero() {
     </>
   );
 }
+
+
+
+
 
 
 
