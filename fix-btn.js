@@ -1,0 +1,20 @@
+import fs from 'fs';
+let content = fs.readFileSync('apps/web/src/styles/components/_popup.scss', 'utf8');
+content = content.replace(/\.modern-popup-primary-btn \{[\s\S]*?box-shadow:/, `.modern-popup-primary-btn {
+  width: 100%;
+  max-width: 280px;
+  padding: 16px 24px;
+  border-radius: 40px;
+  background: var(--brand-powder, #00d2ff);
+  color: #1A0B2E;
+  border: none;
+  font-family: v.$font-body;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow:`);
+fs.writeFileSync('apps/web/src/styles/components/_popup.scss', content);
