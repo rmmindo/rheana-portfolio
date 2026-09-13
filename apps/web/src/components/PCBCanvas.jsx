@@ -28,7 +28,7 @@ const createCurvePath = (pointsArray) => {
 const pcbCategories = {
   work: { 
     color: '#38BDF8',
-    path: "M 50,8 L 50,30 L 65,30 L 65,65 L 45,65 L 45,60 L 30,60 L 30,70 L 45,70 L 45,75 L 55,75 L 55,80 L 65,80 L 65,85 L 75,85 L 75,92",
+    path: "M 50,8 L 50,25 L 55,30 L 60,30 L 65,35 L 65,45 L 65,55 L 55,65 L 45,65 L 40,60 L 30,60 L 30,65 L 30,75 L 35,70 L 45,70 L 50,75 L 55,75 L 60,75 L 65,80 L 70,80 L 75,85 L 75,92",
     nodes: [
       { pos2D: [50, 25] },
       { pos2D: [65, 45] },
@@ -40,7 +40,7 @@ const pcbCategories = {
   },
   voluntary: { 
     color: '#F59E0B',
-    path: "M 85,20 L 85,25 L 75,25 L 75,30 L 65,30 L 65,25 L 55,25 L 55,15 L 45,15 L 45,20 L 30,20 L 30,35 L 25,35 L 25,60 L 20,60 L 20,80 L 50,80 L 50,90 L 20,90",
+    path: "M 85,20 L 75,20 L 70,25 L 60,25 L 50,15 L 45,15 L 30,15 L 25,20 L 25,30 L 30,35 L 30,40 L 25,45 L 25,50 L 35,60 L 45,60 L 50,65 L 50,75 L 45,80 L 35,80 L 25,80 L 20,85 L 20,90",
     nodes: [
       { pos2D: [45, 15] },
       { pos2D: [25, 45] },
@@ -49,11 +49,36 @@ const pcbCategories = {
   },
   awards: { 
     color: '#A78BFA',
-    path: "M 80,75 L 65,75 L 65,65 L 55,65",
+    path: "M 80,75 L 70,75 L 65,70 L 55,70",
     nodes: [
       { pos2D: [70, 75] },
-      { pos2D: [60, 65] }
+      { pos2D: [55, 70] }
     ]
+  },
+  dec1: {
+    color: '#F59E0B',
+    path: "M 85,35 L 80,40 L 80,45 L 85,50 L 85,55",
+    nodes: [ { pos2D: [85, 35] }, { pos2D: [85, 55] } ]
+  },
+  dec2: {
+    color: '#F59E0B',
+    path: "M 45,95 L 50,90 L 60,90",
+    nodes: [ { pos2D: [45, 95] }, { pos2D: [60, 90] } ]
+  },
+  dec3: {
+    color: '#F59E0B',
+    path: "M 20,0 L 20,5 L 30,15",
+    nodes: [ { pos2D: [30, 15] } ]
+  },
+  dec4: {
+    color: '#F59E0B',
+    path: "M 0,35 L 10,35 L 20,45 L 20,55 L 10,65 L 0,65",
+    nodes: []
+  },
+  dec5: {
+    color: '#F59E0B',
+    path: "M 75,65 L 75,60 L 70,55",
+    nodes: [ { pos2D: [75, 65] }, { pos2D: [70, 55] } ]
   }
 };
 
@@ -327,6 +352,11 @@ export default function PCBCanvas({ activeCategory, setActiveCategory, scrollPro
         <Track categoryKey="work" data={pcbCategories.work} isActive={activeCategory === 'work'} scrollProgress={scrollProgress} entries={workData} setActiveCategory={setActiveCategory} />
         <Track categoryKey="voluntary" data={pcbCategories.voluntary} isActive={activeCategory === 'voluntary'} scrollProgress={scrollProgress} entries={volData} setActiveCategory={setActiveCategory} />
         <Track categoryKey="awards" data={pcbCategories.awards} isActive={activeCategory === 'awards'} scrollProgress={scrollProgress} entries={projData} setActiveCategory={setActiveCategory} />
+        <Track categoryKey="dec1" data={pcbCategories.dec1} isActive={false} scrollProgress={0} entries={[]} />
+        <Track categoryKey="dec2" data={pcbCategories.dec2} isActive={false} scrollProgress={0} entries={[]} />
+        <Track categoryKey="dec3" data={pcbCategories.dec3} isActive={false} scrollProgress={0} entries={[]} />
+        <Track categoryKey="dec4" data={pcbCategories.dec4} isActive={false} scrollProgress={0} entries={[]} />
+        <Track categoryKey="dec5" data={pcbCategories.dec5} isActive={false} scrollProgress={0} entries={[]} />
 
       </Canvas>
     </div>
