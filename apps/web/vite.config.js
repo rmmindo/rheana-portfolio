@@ -14,6 +14,7 @@ const htmlEnv = () => ({
 
 export default defineConfig({
   plugins: [react(), htmlEnv()],
+  ssr: { noExternal: ['three', '@react-three/fiber', '@react-three/drei'] },
   build: {
     target: 'es2020',
     cssCodeSplit: false,
@@ -26,3 +27,4 @@ export default defineConfig({
     exclude: ['**/node_modules/**', '**/dist/**', '**/deprecated/**'],
   },
 });
+
