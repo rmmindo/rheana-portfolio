@@ -27,15 +27,15 @@ const createCurvePath = (pointsArray) => {
 
 const pcbCategories = {
   work: { 
-    color: '#38BDF8',
-    path: "M 50,8 L 50,25 L 65,40 L 65,45 L 55,55 L 20,55 L 15,60 L 15,68 L 19,72 L 55,72 L 55,80 L 60,85 L 75,85 L 82,92",
+    color: '#ffffff',
+    path: "M 50,8 L 50,15 L 50,18 L 53,21 L 60,21 L 65,26 L 65,30 L 60,35 L 60,38 L 55,43 L 40,43 L 40,48 L 35,53 L 35,58 L 25,58 L 30,63 L 30,68 L 35,68 L 35,73 L 40,73 L 45,78 L 45,81 L 35,81 L 30,86 L 45,86 L 45,89 L 35,89 L 30,94 L 50,94 L 50,96 L 52,98 L 60,98 L 64,102",
     nodes: [
-      { pos2D: [50, 20] },
-      { pos2D: [65, 40] },
-      { pos2D: [20, 55] },
-      { pos2D: [15, 68] },
-      { pos2D: [55, 72] },
-      { pos2D: [75, 85] }
+      { pos2D: [50, 15], color: '#ffffff' },
+      { pos2D: [65, 26], color: '#38BDF8' },
+      { pos2D: [25, 58], color: '#38BDF8' },
+      { pos2D: [45, 78], color: '#38BDF8' },
+      { pos2D: [50, 94], color: '#38BDF8' },
+      { pos2D: [60, 98], color: '#38BDF8' }
     ]
   },
   voluntary: { 
@@ -48,11 +48,11 @@ const pcbCategories = {
     ]
   },
   awards: { 
-    color: '#A78BFA',
-    path: "M 80,75 L 70,75 L 65,70 L 55,70",
+    color: '#ef4444',
+    path: "M 80,75 L 70,75 L 65,80",
     nodes: [
-      { pos2D: [70, 75] },
-      { pos2D: [55, 70] }
+      { pos2D: [70, 75], color: '#A78BFA' },
+      { pos2D: [65, 80], color: '#991B1B' }
     ]
   },
   dec1: {
@@ -82,8 +82,9 @@ const pcbCategories = {
   }
 };
 
-const NodeCard = ({ data, categoryKey }) => {
+const NodeCard = ({ data, categoryKey, nodeColor }) => {
   if (!data) return null;
+  const color = nodeColor || pcbCategories[categoryKey]?.color || '#fff';
   return (
     <div className="soc-med-card" style={{ 
       width: '320px', 
@@ -91,12 +92,12 @@ const NodeCard = ({ data, categoryKey }) => {
       background: 'rgba(20, 25, 35, 0.75)', 
       backdropFilter: 'blur(12px)', 
       WebkitBackdropFilter: 'blur(12px)',
-      border: `1px solid ${pcbCategories[categoryKey]?.color || '#fff'}`, 
+      border: `1px solid ${color}`, 
       borderRadius: '12px', 
       padding: '16px', 
       color: '#fff', 
       fontSize: '13px',
-      boxShadow: `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 10px ${pcbCategories[categoryKey]?.color}40`,
+      boxShadow: `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 10px ${color}40`,
       transform: 'translate(20px, -20px)',
       fontFamily: 'system-ui, -apple-system, sans-serif'
     }}>
@@ -104,7 +105,7 @@ const NodeCard = ({ data, categoryKey }) => {
         <div style={{ 
           width: '36px', height: '36px', 
           borderRadius: '8px', 
-          background: pcbCategories[categoryKey]?.color || '#fff', 
+          background: color, 
           display: 'flex', alignItems: 'center', justifyContent: 'center', 
           fontWeight: 'bold', color: '#000', marginRight: '12px',
           fontSize: '16px'
@@ -117,7 +118,7 @@ const NodeCard = ({ data, categoryKey }) => {
         </div>
       </div>
       <div>
-        <strong style={{ color: pcbCategories[categoryKey]?.color, display: 'block', marginBottom: '6px' }}>
+        <strong style={{ color: color, display: 'block', marginBottom: '6px' }}>
           {data.title || 'Role'}
         </strong>
         {data.bullets && data.bullets[0] && (
@@ -181,7 +182,7 @@ function Node({ position, color, isActive, scrollProgress, curvePath, nodeData, 
           transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
           pointerEvents: isNodeActive ? 'auto' : 'none'
         }}>
-          {isNodeActive && nodeData && <NodeCard data={nodeData} categoryKey={categoryKey} />}
+          {isNodeActive && nodeData && <NodeCard data={nodeData} categoryKey={categoryKey} nodeColor={color} />}
         </div>
       </Html>
     </group>
@@ -249,7 +250,7 @@ function Track({ categoryKey, data, isActive, scrollProgress, entries, setActive
           <Node 
             key={i} 
             position={[x, y, targetZ]} 
-            color={data.color} 
+            color={n.color || data.color} 
             isActive={isActive} 
             scrollProgress={scrollProgress}
             curvePath={curvePath}
