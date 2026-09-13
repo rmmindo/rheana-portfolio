@@ -26,16 +26,28 @@ const createCurvePath = (pointsArray) => {
 };
 
 const pcbCategories = {
+  work_start_red: {
+    color: '#7f1d1d',
+    path: "M 50,2 L 50,8",
+    nodes: []
+  },
+  work_end_red: {
+    color: '#7f1d1d',
+    path: "M 60,83 L 60,89",
+    nodes: []
+  },
   work: { 
     color: '#ffffff',
-    path: "M 50,8 L 50,15 L 50,18 L 53,21 L 60,21 L 65,26 L 65,30 L 60,35 L 60,38 L 55,43 L 40,43 L 40,48 L 35,53 L 35,58 L 25,58 L 30,63 L 30,68 L 35,68 L 35,73 L 40,73 L 45,78 L 45,81 L 35,81 L 30,86 L 45,86 L 45,89 L 35,89 L 30,94 L 50,94 L 50,96 L 52,98 L 60,98 L 64,102",
+    path: "M 50,8 L 50,12 L 50,15 L 53,18 L 60,18 L 65,23 L 65,26 L 62,29 L 62,32 L 59,35 L 50,35 L 50,38 L 45,43 L 45,46 L 30,46 L 34,50 L 34,53 L 40,53 L 40,56 L 45,56 L 50,61 L 50,64 L 38,64 L 34,60 L 42,60 L 42,68 L 34,68 L 30,72 L 45,72 L 45,75 L 48,78 L 55,78 L 60,83",
     nodes: [
-      { pos2D: [50, 15], color: '#ffffff' },
-      { pos2D: [65, 26], color: '#38BDF8' },
-      { pos2D: [25, 58], color: '#38BDF8' },
-      { pos2D: [45, 78], color: '#38BDF8' },
-      { pos2D: [50, 94], color: '#38BDF8' },
-      { pos2D: [60, 98], color: '#38BDF8' }
+      { pos2D: [50, 8], color: '#ffffff', entryIndex: -1 },
+      { pos2D: [50, 12], color: '#38BDF8', entryIndex: 0 },
+      { pos2D: [65, 23], color: '#38BDF8', entryIndex: 1 },
+      { pos2D: [30, 46], color: '#38BDF8', entryIndex: 2 },
+      { pos2D: [50, 61], color: '#38BDF8', entryIndex: 3 },
+      { pos2D: [45, 72], color: '#38BDF8', entryIndex: 4 },
+      { pos2D: [55, 78], color: '#38BDF8', entryIndex: 5 },
+      { pos2D: [60, 83], color: '#ffffff', entryIndex: -1 }
     ]
   },
   voluntary: { 
@@ -246,6 +258,10 @@ function Track({ categoryKey, data, isActive, scrollProgress, entries, setActive
       {/* Nodes */}
       {data.nodes.map((n, i) => {
         const [x, y, z] = map2D(n.pos2D[0], n.pos2D[1]);
+        const nodeData = n.entryIndex !== undefined 
+          ? (n.entryIndex >= 0 ? entries?.[n.entryIndex] : null)
+          : entries?.[i];
+          
         return (
           <Node 
             key={i} 
@@ -254,7 +270,7 @@ function Track({ categoryKey, data, isActive, scrollProgress, entries, setActive
             isActive={isActive} 
             scrollProgress={scrollProgress}
             curvePath={curvePath}
-            nodeData={entries?.[i]}
+            nodeData={nodeData}
             categoryKey={categoryKey}
           />
         );
@@ -350,6 +366,8 @@ export default function PCBCanvas({ activeCategory, setActiveCategory, scrollPro
         </group>
 
         {/* Tracks */}
+        <Track categoryKey="work_start_red" data={pcbCategories.work_start_red} isActive={activeCategory === 'work'} scrollProgress={scrollProgress} entries={[]} setActiveCategory={setActiveCategory} />
+        <Track categoryKey="work_end_red" data={pcbCategories.work_end_red} isActive={activeCategory === 'work'} scrollProgress={scrollProgress} entries={[]} setActiveCategory={setActiveCategory} />
         <Track categoryKey="work" data={pcbCategories.work} isActive={activeCategory === 'work'} scrollProgress={scrollProgress} entries={workData} setActiveCategory={setActiveCategory} />
         <Track categoryKey="voluntary" data={pcbCategories.voluntary} isActive={activeCategory === 'voluntary'} scrollProgress={scrollProgress} entries={volData} setActiveCategory={setActiveCategory} />
         <Track categoryKey="awards" data={pcbCategories.awards} isActive={activeCategory === 'awards'} scrollProgress={scrollProgress} entries={projData} setActiveCategory={setActiveCategory} />
