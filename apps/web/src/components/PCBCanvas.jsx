@@ -38,16 +38,16 @@ const pcbCategories = {
   },
   work: { 
     color: '#ffffff',
-    path: "M 50,8 L 50,12 L 50,15 L 53,18 L 60,18 L 65,23 L 65,26 L 62,29 L 62,32 L 59,35 L 50,35 L 50,38 L 45,43 L 45,46 L 30,46 L 34,50 L 34,53 L 40,53 L 40,56 L 45,56 L 50,61 L 50,64 L 38,64 L 34,60 L 42,60 L 42,68 L 34,68 L 30,72 L 45,72 L 45,75 L 48,78 L 55,78 L 60,83",
+    path: "M 50,8 L 50,15 L 50,20 L 55,25 L 65,25 L 65,40 L 70,40 L 70,50 L 65,55 L 45,55 L 35,55 L 35,50 L 30,50 L 25,45 L 20,45 L 20,55 L 10,55 L 5,60 L 5,65 L 15,65 L 15,60 L 35,60 L 35,55 L 45,55 L 45,65 L 35,75 L 65,75 L 65,65 L 70,60 L 80,60 L 80,80 L 90,80 L 95,85",
     nodes: [
       { pos2D: [50, 8], color: '#ffffff', entryIndex: -1 },
-      { pos2D: [50, 12], color: '#38BDF8', entryIndex: 0 },
-      { pos2D: [65, 23], color: '#38BDF8', entryIndex: 1 },
-      { pos2D: [30, 46], color: '#38BDF8', entryIndex: 2 },
-      { pos2D: [50, 61], color: '#38BDF8', entryIndex: 3 },
-      { pos2D: [45, 72], color: '#38BDF8', entryIndex: 4 },
-      { pos2D: [55, 78], color: '#38BDF8', entryIndex: 5 },
-      { pos2D: [60, 83], color: '#ffffff', entryIndex: -1 }
+      { pos2D: [50, 15], color: '#38BDF8', entryIndex: 0 },
+      { pos2D: [65, 25], color: '#38BDF8', entryIndex: 1 },
+      { pos2D: [45, 55], color: '#38BDF8', entryIndex: 2 },
+      { pos2D: [25, 45], color: '#38BDF8', entryIndex: 3 },
+      { pos2D: [15, 60], color: '#38BDF8', entryIndex: 4 },
+      { pos2D: [80, 80], color: '#38BDF8', entryIndex: 5 },
+      { pos2D: [95, 85], color: '#ffffff', entryIndex: -1 }
     ]
   },
   voluntary: { 
