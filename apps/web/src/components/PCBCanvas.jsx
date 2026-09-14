@@ -248,7 +248,7 @@ function Track({ categoryKey, data, isActive, scrollProgress, entries, setActive
         color={data.color}
         lineWidth={isActive ? 3 : 1}
         transparent
-        opacity={targetOpacity}
+        opacity={baseTargetOpacity}
         onClick={(e) => {
           e.stopPropagation();
           setActiveCategory && setActiveCategory(categoryKey);
