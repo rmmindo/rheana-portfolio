@@ -195,7 +195,7 @@ export default function Hero() {
 
   return (
     <>
-            <div 
+      <div 
         className={`circle-mask-layer scene-balloon phase-${phase} ${isSnapping ? 'is-snapping-to-pointer' : ''}`} 
         
         style={{
@@ -204,8 +204,6 @@ export default function Hero() {
           zIndex: 1
         }}
       >
-        {/* Gradient overlay to fade bottom into site-bg */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '30vh', background: 'linear-gradient(to bottom, transparent, var(--site-bg))', zIndex: 3, pointerEvents: 'none', opacity: phase === 3 ? 1 : 0, transition: 'opacity 1.4s ease' }}></div>
       </div>
 
       <div 
