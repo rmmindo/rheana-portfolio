@@ -53,7 +53,7 @@ export default function Experience() {
           // Focus slightly towards bottom center where the burner might be
           balloon.style.transformOrigin = `50% 70%`;
           balloon.style.opacity = Math.max(0, opacity);
-          balloon.style.zIndex = '100';
+          balloon.style.zIndex = '';
         } else {
           balloon.style.opacity = 0;
           balloon.style.zIndex = '';
