@@ -1,5 +1,4 @@
-import { chromium } from 'playwright';
-
+const { chromium } = require('playwright');
 (async () => {
   const browser = await chromium.launch();
   const page = await browser.newPage();
@@ -12,16 +11,21 @@ import { chromium } from 'playwright';
   await page.reload();
   await page.waitForTimeout(2000);
   
-  // Set a large viewport so we can see the whole circuit board
   await page.setViewportSize({ width: 1280, height: 2000 });
   
   await page.evaluate(() => {
-    const el = document.getElementById('experience');
-    if (el) el.scrollIntoView();
-    else console.log('not found');
+    window.scrollTo(0, window.innerHeight * 0.2);
+  });
+  await page.waitForTimeout(2000);
+  
+  await page.screenshot({ path: 'screenshot-scroll-0.2.png' });
+  
+  await page.evaluate(() => {
+    window.scrollTo(0, window.innerHeight * 0.4);
   });
   await page.waitForTimeout(1000);
   
-  await page.screenshot({ path: 'screenshot-experience.png' });
+  await page.screenshot({ path: 'screenshot-scroll-0.4.png' });
+  
   await browser.close();
 })();

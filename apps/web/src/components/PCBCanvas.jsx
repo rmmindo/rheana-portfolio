@@ -1,6 +1,6 @@
-import React, { useRef, useMemo, useState } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Line, Html } from '@react-three/drei';
+import { OrbitControls, Line, Html, Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
 
 const map2D = (x, y) => [(x - 50) * 0.4, (50 - y) * 0.4, 0];
@@ -279,6 +279,113 @@ function Track({ categoryKey, data, isActive, scrollProgress, entries, setActive
   );
 }
 
+function Poof({ position }) {
+  const [active, setActive] = useState(true);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => setActive(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!active) return null;
+
+  return (
+    <Sparkles 
+      position={[position[0], position[1], 1.5]}
+      count={40}
+      scale={3}
+      size={6}
+      speed={1}
+      opacity={1}
+      color="#F97316"
+      noise={1}
+    />
+  );
+}
+
+function EmberSystem({ activeCategory, scrollProgress }) {
+  const emberRef = useRef();
+  const [poofPos, setPoofPos] = useState(null);
+  const [poofTrigger, setPoofTrigger] = useState(0);
+  const prevCategory = useRef(activeCategory);
+
+  const startNodes = useMemo(() => ({
+    work: map2D(50, 8),
+    voluntary: map2D(45, 15),
+    awards: map2D(70, 75)
+  }), []);
+
+  useEffect(() => {
+    if (activeCategory !== prevCategory.current) {
+      if (prevCategory.current !== null) {
+        // Trigger poof
+        setPoofPos([...(startNodes[prevCategory.current] || startNodes['work'])]);
+        setPoofTrigger(t => t + 1);
+      }
+      
+      // Instantly move ember
+      if (emberRef.current && activeCategory) {
+        const target = startNodes[activeCategory] || startNodes['work'];
+        emberRef.current.position.set(target[0], target[1], 1.5);
+      }
+      prevCategory.current = activeCategory;
+    }
+  }, [activeCategory, startNodes]);
+
+  useFrame(() => {
+    if (!emberRef.current) return;
+    
+    // Intro logic
+    if (scrollProgress < 0.1) {
+      // Phase B: Flame extraction
+      const phase = scrollProgress / 0.1; // 0 to 1
+      emberRef.current.position.set(0, -2 + phase * 7, 25); // Float near camera, moving up slightly
+      emberRef.current.scale.setScalar(2 + (1 - phase) * 2); 
+      emberRef.current.material.color.set('#EA580C');
+      emberRef.current.material.opacity = Math.max(0, phase * 2); // fade in
+    } else if (scrollProgress < 0.15) {
+      // Phase C: Docking
+      const phase = (scrollProgress - 0.1) / 0.05; // 0 to 1
+      const targetPos = new THREE.Vector3(...(startNodes['work']));
+      targetPos.z = 1.5;
+      
+      const startPos = new THREE.Vector3(0, 5, 25);
+      emberRef.current.position.lerpVectors(startPos, targetPos, phase);
+      emberRef.current.scale.setScalar(1 + (1 - phase));
+      emberRef.current.material.color.set('#F97316');
+      emberRef.current.material.opacity = 1;
+    } else {
+      // Docked / Teleporting
+      const targetPos = new THREE.Vector3(...(startNodes[activeCategory] || startNodes['work']));
+      targetPos.z = 1.5;
+      emberRef.current.position.copy(targetPos);
+      
+      // Ignite color
+      let targetColor = '#ffffff';
+      if (activeCategory === 'voluntary') targetColor = '#F59E0B';
+      if (activeCategory === 'awards') targetColor = '#ef4444';
+      emberRef.current.material.color.lerp(new THREE.Color(targetColor), 0.1);
+    }
+  });
+
+  return (
+    <group>
+      <mesh ref={emberRef}>
+        <sphereGeometry args={[0.5, 32, 32]} />
+        <meshBasicMaterial color="#F97316" transparent />
+        <mesh position={[0,0,-0.1]}>
+          <circleGeometry args={[1.2, 32]} />
+          <meshBasicMaterial color="#EA580C" transparent opacity={0.4} />
+        </mesh>
+        <pointLight color="#EA580C" intensity={3} distance={15} />
+      </mesh>
+      {poofPos && (
+        <Poof key={poofTrigger} position={poofPos} />
+      )}
+    </group>
+  );
+}
+
 function CameraController({ activeCategory, scrollProgress }) {
   const { camera } = useThree();
   
@@ -311,7 +418,7 @@ function CameraController({ activeCategory, scrollProgress }) {
 
 export default function PCBCanvas({ activeCategory, setActiveCategory, scrollProgress, workData, volData, projData }) {
   return (
-    <div style={{ width: '100%', height: '100%', background: '#080c14' }}>
+    <div style={{ width: '100%', height: '100%' }}>
       <Canvas camera={{ position: [0, 0, 32], fov: 45 }}>
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 20]} intensity={1.5} />
@@ -321,7 +428,7 @@ export default function PCBCanvas({ activeCategory, setActiveCategory, scrollPro
         {/* Substrate */}
         <mesh position={[0, 0, -2]}>
           <planeGeometry args={[70, 70]} />
-          <meshStandardMaterial color="#0a1a12" roughness={0.9} /> {/* Deep Chassis / PCB Green */}
+          <meshStandardMaterial color="#0a1a12" roughness={0.9} transparent opacity={0} /> {/* Deep Chassis / PCB Green */}
         </mesh>
 
         {/* Foundation Core */}
@@ -377,6 +484,7 @@ export default function PCBCanvas({ activeCategory, setActiveCategory, scrollPro
         <Track categoryKey="dec4" data={pcbCategories.dec4} isActive={false} scrollProgress={0} entries={[]} />
         <Track categoryKey="dec5" data={pcbCategories.dec5} isActive={false} scrollProgress={0} entries={[]} />
 
+        <EmberSystem activeCategory={activeCategory} scrollProgress={scrollProgress} />
       </Canvas>
     </div>
   );

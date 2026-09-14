@@ -10,13 +10,18 @@ const projEntries = resumeData.sections.find(s => s.id === 'projects')?.entries 
 export default function Experience() {
   const containerRef = useRef(null);
   
-  const [activeRoute, setActiveRoute] = useState('work');
+  const [activeRoute, setActiveRoute] = useState(null);
+  const activeRouteRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  useEffect(() => {
+    activeRouteRef.current = activeRoute;
+  }, [activeRoute]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,6 +36,29 @@ export default function Experience() {
       if (progress > 1) progress = 1;
       
       setScrollProgress(progress);
+
+      if (progress >= 0.15 && !activeRouteRef.current) {
+        setActiveRoute('work');
+      }
+      
+      // Phase A Zoom
+      const balloon = document.querySelector('.scene-balloon');
+      if (balloon) {
+        if (progress < 0.1) {
+          // Scale from 1 to 5, fade out opacity from 1 to 0 over the 0-0.1 progress
+          const zoomProgress = progress / 0.1;
+          const scale = 1 + zoomProgress * 4; 
+          const opacity = 1 - zoomProgress;
+          balloon.style.transform = `scale(${scale})`;
+          // Focus slightly towards bottom center where the burner might be
+          balloon.style.transformOrigin = `50% 70%`;
+          balloon.style.opacity = Math.max(0, opacity);
+          balloon.style.zIndex = '100';
+        } else {
+          balloon.style.opacity = 0;
+          balloon.style.zIndex = '';
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -39,12 +67,12 @@ export default function Experience() {
   }, [activeRoute]);
 
   return (
-    <section className="experience-section" id="experience" style={{ position: 'relative', background: '#0b0f19' }}>
+    <section className="experience-section" id="experience" style={{ position: 'relative' }}>
       <div ref={containerRef} style={{ height: '400vh', width: '100%' }}>
         <div style={{ position: 'sticky', top: 0, height: '100vh', width: '100%', overflow: 'hidden' }}>
           
           {isMounted && (
-            <Suspense fallback={<div style={{ width: '100%', height: '100%', background: '#080c14' }} />}>
+            <Suspense fallback={<div style={{ width: '100%', height: '100%' }} />}>
               <PCBCanvas 
                 activeCategory={activeRoute}
                 setActiveCategory={setActiveRoute}
@@ -57,7 +85,7 @@ export default function Experience() {
           )}
           
           {/* Category Switcher UI */}
-          <div className="story-choice-container">
+          <div className="story-choice-container" style={{ opacity: scrollProgress > 0.15 ? 1 : 0, transition: 'opacity 0.5s', pointerEvents: scrollProgress > 0.15 ? 'auto' : 'none' }}>
             {['work', 'voluntary', 'awards', 'foundation'].map(cat => (
               <button 
                 key={cat} 

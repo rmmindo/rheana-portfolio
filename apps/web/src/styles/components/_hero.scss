@@ -175,6 +175,7 @@ body.is-unlocked {
 /* Phase 3: The Horizon Snap */
 .circle-mask-layer.phase-3 {
   /* Using 250vmax guarantees the circle completely clears the corners on any screen ratio */
+  position: fixed;
   -webkit-clip-path: circle(250vmax at 50% 50%);
   clip-path: circle(250vmax at 50% 50%);
   transition: clip-path 1.4s cubic-bezier(0.65, 0, 0.2, 1), -webkit-clip-path 1.4s cubic-bezier(0.65, 0, 0.2, 1);
