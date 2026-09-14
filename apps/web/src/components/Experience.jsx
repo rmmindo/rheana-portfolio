@@ -37,26 +37,31 @@ export default function Experience() {
       
       setScrollProgress(progress);
 
-      if (progress >= 0.15 && !activeRouteRef.current) {
+      if (progress >= 0.06 && !activeRouteRef.current) {
         setActiveRoute('work');
       }
       
       // Phase A Zoom
       const balloon = document.querySelector('.scene-balloon');
+      const heroWrapper = document.querySelector('.hero-wrapper');
+      
       if (balloon) {
-        if (progress < 0.1) {
-          // Scale from 1 to 5, fade out opacity from 1 to 0 over the 0-0.1 progress
-          const zoomProgress = progress / 0.1;
-          const scale = 1 + zoomProgress * 4; 
+        if (progress < 0.03) {
+          // Scale from 1 to 2 (instead of 5), fade out opacity from 1 to 0 over the 0-0.1 progress
+          const zoomProgress = progress / 0.03;
+          const scale = 1 + zoomProgress * 1; 
           const opacity = 1 - zoomProgress;
           balloon.style.transform = `scale(${scale})`;
-          // Focus slightly towards bottom center where the burner might be
           balloon.style.transformOrigin = `50% 70%`;
           balloon.style.opacity = Math.max(0, opacity);
           balloon.style.zIndex = '';
+          
+          if (heroWrapper) heroWrapper.style.opacity = Math.max(0, opacity);
         } else {
           balloon.style.opacity = 0;
           balloon.style.zIndex = '';
+          
+          if (heroWrapper) heroWrapper.style.opacity = 0;
         }
       }
     };
@@ -85,7 +90,7 @@ export default function Experience() {
           )}
           
           {/* Category Switcher UI */}
-          <div className="story-choice-container" style={{ opacity: scrollProgress > 0.15 ? 1 : 0, transition: 'opacity 0.5s', pointerEvents: scrollProgress > 0.15 ? 'auto' : 'none' }}>
+          <div className="story-choice-container" style={{ opacity: scrollProgress > 0.06 ? 1 : 0, transition: 'opacity 0.5s', pointerEvents: scrollProgress > 0.06 ? 'auto' : 'none' }}>
             {['work', 'voluntary', 'awards', 'foundation'].map(cat => (
               <button 
                 key={cat} 
@@ -100,18 +105,12 @@ export default function Experience() {
             ))}
           </div>
 
-          {/* Scroll instruction */}
-          <div style={{
-            position: 'absolute', bottom: 30, left: '50%', transform: 'translateX(-50%)',
-            color: '#aaa', fontSize: '14px', pointerEvents: 'none',
-            opacity: scrollProgress > 0.1 ? 0 : 1, transition: 'opacity 0.5s'
-          }}>
-            Scroll down to explore circuit
-          </div>
+
         </div>
       </div>
     </section>
   );
 }
+
 
 
