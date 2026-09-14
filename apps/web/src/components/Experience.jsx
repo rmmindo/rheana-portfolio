@@ -57,25 +57,14 @@ export default function Experience() {
           )}
           
           {/* Category Switcher UI */}
-          <div style={{ position: 'absolute', top: 30, left: 30, zIndex: 10, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div className="story-choice-container">
             {['work', 'voluntary', 'awards', 'foundation'].map(cat => (
               <button 
                 key={cat} 
+                className={`story-choice-btn ${activeRoute === cat ? 'is-active' : ''}`}
                 onClick={() => setActiveRoute(cat)}
-                style={{
-                  padding: '10px 20px',
-                  background: activeRoute === cat ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.3)',
-                  color: activeRoute === cat ? '#fff' : '#888',
-                  border: `1px solid ${activeRoute === cat ? 'rgba(255,255,255,0.3)' : 'transparent'}`,
-                  borderRadius: '6px',
-                  cursor: 'pointer',
-                  textTransform: 'capitalize',
-                  textAlign: 'left',
-                  backdropFilter: 'blur(4px)',
-                  transition: 'all 0.2s',
-                  fontWeight: activeRoute === cat ? 'bold' : 'normal'
-                }}
               >
+                <span className="choice-indicator"></span>
                 {cat === 'work' ? 'Work Experience' : 
                  cat === 'voluntary' ? 'Voluntary Experience' : 
                  cat === 'awards' ? 'Awards & Projects' : 'Foundation Core'}
