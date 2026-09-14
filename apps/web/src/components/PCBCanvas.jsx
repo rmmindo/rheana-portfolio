@@ -37,17 +37,17 @@ const pcbCategories = {
     nodes: []
   },
   work: { 
-    color: '#ffffff',
+    color: '#0ea5e9',
     path: "M 50,8 L 50,15 L 50,20 L 55,25 L 65,25 L 65,40 L 70,40 L 70,50 L 65,55 L 45,55 L 35,55 L 35,50 L 30,50 L 25,45 L 20,45 L 20,55 L 10,55 L 5,60 L 5,75 L 15,75 L 15,60 L 25,60 L 25,57 L 35,57 L 35,65 L 25,75 L 50,75 L 50,65 L 55,60 L 80,60 L 80,80 L 90,80 L 95,85",
     nodes: [
-      { pos2D: [50, 8], color: '#ffffff', entryIndex: -1 },
+      { pos2D: [50, 8], color: '#0ea5e9', entryIndex: -1 },
       { pos2D: [50, 15], color: '#38BDF8', entryIndex: 0 },
       { pos2D: [65, 25], color: '#38BDF8', entryIndex: 1 },
       { pos2D: [45, 55], color: '#38BDF8', entryIndex: 2 },
       { pos2D: [25, 45], color: '#38BDF8', entryIndex: 3 },
       { pos2D: [15, 60], color: '#38BDF8', entryIndex: 4 },
       { pos2D: [80, 80], color: '#38BDF8', entryIndex: 5 },
-      { pos2D: [95, 85], color: '#ffffff', entryIndex: -1 }
+      { pos2D: [95, 85], color: '#0ea5e9', entryIndex: -1 }
     ]
   },
   voluntary: { 
@@ -144,12 +144,21 @@ const NodeCard = ({ data, categoryKey, nodeColor }) => {
 
 function Node({ position, color, isActive, scrollProgress, curvePath, nodeData, categoryKey }) {
   const nodeRef = useRef();
+  const matRef1 = useRef();
+  const matRef2 = useRef();
   const [pulseActive, setPulseActive] = useState(false);
   const [clicked, setClicked] = useState(false);
 
   useFrame(() => {
     if (nodeRef.current) {
       nodeRef.current.position.z = position[2];
+      
+      let globalFade = 1;
+      if (scrollProgress < 0.1) globalFade = 0;
+      else if (scrollProgress < 0.15) globalFade = (scrollProgress - 0.1) / 0.05;
+
+      if (matRef1.current) matRef1.current.opacity = (isActive ? 1 : 0.3) * globalFade;
+      if (matRef2.current) matRef2.current.opacity = 0.3 * globalFade;
       
       if (isActive) {
         const pulsePos = curvePath.getPointAt(scrollProgress);
@@ -177,12 +186,12 @@ function Node({ position, color, isActive, scrollProgress, curvePath, nodeData, 
         onPointerOut={() => document.body.style.cursor = 'auto'}
       >
         <circleGeometry args={[0.5, 32]} />
-        <meshBasicMaterial color={isActive ? color : '#555'} transparent opacity={isActive ? 1 : 0.3} />
+        <meshBasicMaterial ref={matRef1} color={isActive ? color : '#555'} transparent opacity={0} />
       </mesh>
       {isActive && (
         <mesh position={[0, 0, -0.1]}>
           <circleGeometry args={[0.8, 32]} />
-          <meshBasicMaterial color={color} transparent opacity={0.3} />
+          <meshBasicMaterial ref={matRef2} color={color} transparent opacity={0} />
         </mesh>
       )}
       
@@ -209,12 +218,18 @@ function Track({ categoryKey, data, isActive, scrollProgress, entries, setActive
   const curvePath = useMemo(() => createCurvePath(points), [points]);
 
   const targetZ = isActive ? 1.5 : 0;
-  const targetOpacity = isActive ? 1.0 : 0.15;
+  const baseTargetOpacity = isActive ? 1.0 : 0.15;
 
   useFrame((state, delta) => {
     if (lineRef.current) {
+      let globalFade = 1;
+      if (scrollProgress < 0.1) globalFade = 0;
+      else if (scrollProgress < 0.15) globalFade = (scrollProgress - 0.1) / 0.05;
+      
+      const currentTargetOpacity = baseTargetOpacity * globalFade;
+      
       lineRef.current.position.z = THREE.MathUtils.damp(lineRef.current.position.z, targetZ, 4, delta);
-      lineRef.current.material.opacity = THREE.MathUtils.damp(lineRef.current.material.opacity, targetOpacity, 4, delta);
+      lineRef.current.material.opacity = THREE.MathUtils.damp(lineRef.current.material.opacity, currentTargetOpacity, 4, delta);
     }
     if (particleRef.current && isActive) {
       const p = curvePath.getPointAt(scrollProgress);
@@ -417,6 +432,10 @@ function CameraController({ activeCategory, scrollProgress }) {
 }
 
 export default function PCBCanvas({ activeCategory, setActiveCategory, scrollProgress, workData, volData, projData }) {
+  let globalFade = 1;
+  if (scrollProgress < 0.1) globalFade = 0;
+  else if (scrollProgress < 0.15) globalFade = (scrollProgress - 0.1) / 0.05;
+
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <Canvas camera={{ position: [0, 0, 32], fov: 45 }}>
@@ -442,7 +461,7 @@ export default function PCBCanvas({ activeCategory, setActiveCategory, scrollPro
             <meshStandardMaterial 
               color={activeCategory === 'foundation' ? '#ffffff' : '#222222'} 
               transparent 
-              opacity={activeCategory === 'foundation' ? 0.9 : 0.3} 
+              opacity={globalFade * (activeCategory === 'foundation' ? 1 : 0.8)} 
               roughness={0.2}
             />
           </mesh>
