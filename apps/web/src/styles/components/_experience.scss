@@ -349,9 +349,9 @@ body:not(.is-unlocked) .experience-section {
 // Story Choice Game Button Styles
 .story-choice-container {
   position: absolute;
-  bottom: 40px; /* Moved to bottom */
+  top: 100px; /* Moved to top */
+  bottom: auto;
   left: 50%;
-  top: auto;
   transform: translateX(-50%);
   z-index: 10;
   display: flex;
