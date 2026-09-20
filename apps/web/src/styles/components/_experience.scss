@@ -371,11 +371,12 @@ body:not(.is-unlocked) .experience-section {
   align-items: center;
   justify-content: center;
   padding: 12px 20px;
-  background: var(--bg-card, rgba(5, 8, 12, 0.6));
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(120, 120, 120, 0.2);
+  background: transparent;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(120, 120, 120, 0.15);
   border-radius: 30px; /* Rounded corners */
   color: var(--text-muted, #777);
+  opacity: 0.6;
   font-family: var(--font-secondary, sans-serif);
   font-size: 12px;
   letter-spacing: 2px;
@@ -395,6 +396,7 @@ body:not(.is-unlocked) .experience-section {
   }
 
   &:hover {
+    opacity: 0.8;
     color: var(--text, #ccc);
     border-color: rgba(120, 120, 120, 0.5);
     background: var(--bg-card-hover, rgba(20, 25, 35, 0.7));
@@ -406,6 +408,7 @@ body:not(.is-unlocked) .experience-section {
   }
 
   &.is-active {
+    opacity: 1;
     color: var(--bg, #fff);
     background: var(--text, rgba(25, 30, 45, 0.8));
     border-color: transparent;
@@ -428,3 +431,4 @@ body:not(.is-unlocked) .experience-section {
     transform: scale(1.5);
   }
 }
+

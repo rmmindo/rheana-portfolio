@@ -154,8 +154,7 @@ function Node({ position, color, isActive, scrollProgress, curvePath, nodeData, 
       nodeRef.current.position.z = position[2];
       
       let globalFade = 1;
-      if (scrollProgress < 0.03) globalFade = 0;
-      else if (scrollProgress < 0.06) globalFade = (scrollProgress - 0.03) / 0.03;
+      if (scrollProgress < 0.1) globalFade = scrollProgress / 0.1;
 
       if (matRef1.current) matRef1.current.opacity = (isActive ? 1 : 0.3) * globalFade;
       if (matRef2.current) matRef2.current.opacity = 0.3 * globalFade;
@@ -223,8 +222,7 @@ function Track({ categoryKey, data, isActive, scrollProgress, entries, setActive
   useFrame((state, delta) => {
     if (lineRef.current) {
       let globalFade = 1;
-      if (scrollProgress < 0.03) globalFade = 0;
-      else if (scrollProgress < 0.06) globalFade = (scrollProgress - 0.03) / 0.03;
+      if (scrollProgress < 0.1) globalFade = scrollProgress / 0.1;
       
       const currentTargetOpacity = baseTargetOpacity * globalFade;
       
@@ -319,7 +317,9 @@ function Poof({ position }) {
 }
 
 function EmberSystem({ activeCategory, scrollProgress }) {
-  const emberRef = useRef();
+  const innerRef = useRef();
+  const outerRef = useRef();
+  const lightRef = useRef();
   const [poofPos, setPoofPos] = useState(null);
   const [poofTrigger, setPoofTrigger] = useState(0);
   const prevCategory = useRef(activeCategory);
@@ -333,70 +333,81 @@ function EmberSystem({ activeCategory, scrollProgress }) {
   useEffect(() => {
     if (activeCategory !== prevCategory.current) {
       if (prevCategory.current !== null) {
-        // Trigger poof
         setPoofPos([...(startNodes[prevCategory.current] || startNodes['work'])]);
         setPoofTrigger(t => t + 1);
-      }
-      
-      // Instantly move ember
-      if (emberRef.current && activeCategory) {
-        const target = startNodes[activeCategory] || startNodes['work'];
-        emberRef.current.position.set(target[0], target[1], 1.5);
       }
       prevCategory.current = activeCategory;
     }
   }, [activeCategory, startNodes]);
 
   useFrame(() => {
-    if (!emberRef.current) return;
+    if (!innerRef.current || !outerRef.current) return;
     
     // Intro logic
-    if (scrollProgress < 0.03) {
+    if (scrollProgress < 0.1) {
       // Phase B: Flame extraction
-      const phase = scrollProgress / 0.03; // 0 to 1
-      emberRef.current.position.set(0, -2 + phase * 7, 25); // Float near camera, moving up slightly
-      emberRef.current.scale.setScalar(1.2 + (1 - phase) * 0.5); 
-      emberRef.current.material.color.set('#EA580C');
-      emberRef.current.material.opacity = Math.max(0, phase * 2); // fade in
-    } else if (scrollProgress < 0.06) {
-      // Phase C: Docking
-      const phase = (scrollProgress - 0.03) / 0.03; // 0 to 1
+      const phase = scrollProgress / 0.1; // 0 to 1
+      innerRef.current.position.set(0, -2 + phase * 7, 25);
+      outerRef.current.position.set(0, -2 + phase * 7, 25 - 0.1);
+      if (lightRef.current) lightRef.current.position.set(0, -2 + phase * 7, 25);
+
+      const baseScale = 1.2 + (1 - phase) * 0.5;
+      innerRef.current.scale.setScalar(baseScale);
+      outerRef.current.scale.setScalar(baseScale);
+
+      innerRef.current.material.opacity = Math.max(0, phase * 2);
+      outerRef.current.material.opacity = Math.max(0, phase * 2) * 0.6;
+    } else if (scrollProgress < 0.15) {
+      // Phase C: Docking & Flash
+      const phase = (scrollProgress - 0.1) / 0.05; // 0 to 1
       const targetPos = new THREE.Vector3(...(startNodes[activeCategory] || startNodes['work']));
       targetPos.z = 1.5;
       
       const startPos = new THREE.Vector3(0, 5, 25);
-      emberRef.current.position.lerpVectors(startPos, targetPos, phase);
-      emberRef.current.scale.setScalar(1 + (1 - phase) * 0.2);
-      emberRef.current.material.color.set('#F97316');
-      emberRef.current.material.opacity = 1;
+      const currPos = new THREE.Vector3().lerpVectors(startPos, targetPos, phase);
+      
+      innerRef.current.position.copy(currPos);
+      outerRef.current.position.copy(currPos).setZ(currPos.z - 0.1);
+      if (lightRef.current) lightRef.current.position.copy(currPos);
+
+      // Flash at phase = 0.5
+      const flash = Math.sin(phase * Math.PI); // 0 -> 1 -> 0
+      const baseScale = 1 + (1 - phase) * 0.2;
+      
+      innerRef.current.scale.setScalar(baseScale + flash * 0.5);
+      outerRef.current.scale.setScalar(baseScale + flash * 1.5);
+
+      innerRef.current.material.opacity = 1;
+      outerRef.current.material.opacity = 0.6 + flash * 0.4;
     } else {
       // Docked / Teleporting
       const targetPos = new THREE.Vector3(...(startNodes[activeCategory] || startNodes['work']));
       targetPos.z = 1.5;
-      emberRef.current.position.copy(targetPos);
       
-      // Ignite color
-      let targetColor = '#ffffff';
-      if (activeCategory === 'voluntary') targetColor = '#F59E0B';
-      if (activeCategory === 'awards') targetColor = '#ef4444';
-      emberRef.current.material.color.lerp(new THREE.Color(targetColor), 0.1);
+      innerRef.current.position.copy(targetPos);
+      outerRef.current.position.copy(targetPos).setZ(targetPos.z - 0.1);
+      if (lightRef.current) lightRef.current.position.copy(targetPos);
+
+      innerRef.current.scale.setScalar(1);
+      outerRef.current.scale.setScalar(1);
+      innerRef.current.material.opacity = 1;
+      outerRef.current.material.opacity = 0.6;
     }
   });
 
   return (
     <group>
-      <mesh ref={emberRef}>
+      <mesh ref={innerRef}>
         <sphereGeometry args={[0.5, 32, 32]} />
-        <meshBasicMaterial color="#F97316" transparent />
-        <mesh position={[0,0,-0.1]}>
-          <circleGeometry args={[1.2, 32]} />
-          <meshBasicMaterial color="#EA580C" transparent opacity={0.4} />
-        </mesh>
-        <pointLight color="#EA580C" intensity={3} distance={15} />
+        <meshBasicMaterial color="#FFEFB3" transparent />
       </mesh>
-      {poofPos && (
-        <Poof key={poofTrigger} position={poofPos} />
-      )}
+      <mesh ref={outerRef}>
+        <circleGeometry args={[1.2, 32]} />
+        <meshBasicMaterial color="#FCA327" transparent opacity={0.6} />
+      </mesh>
+      <pointLight ref={lightRef} color="#A66A53" intensity={3} distance={15} />
+
+      {poofTrigger > 0 && poofPos && <Poof key={poofTrigger} position={poofPos} />}
     </group>
   );
 }
@@ -433,8 +444,7 @@ function CameraController({ activeCategory, scrollProgress }) {
 
 export default function PCBCanvas({ activeCategory, setActiveCategory, scrollProgress, workData, volData, projData }) {
   let globalFade = 1;
-  if (scrollProgress < 0.03) globalFade = 0;
-  else if (scrollProgress < 0.06) globalFade = (scrollProgress - 0.03) / 0.03;
+  if (scrollProgress < 0.1) globalFade = scrollProgress / 0.1;
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
@@ -508,4 +518,6 @@ export default function PCBCanvas({ activeCategory, setActiveCategory, scrollPro
     </div>
   );
 }
+
+
 

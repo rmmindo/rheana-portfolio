@@ -37,7 +37,7 @@ export default function Experience() {
       
       setScrollProgress(progress);
 
-      if (progress >= 0.06 && !activeRouteRef.current) {
+      if (progress >= 0.15 && !activeRouteRef.current) {
         setActiveRoute('work');
       }
       
@@ -46,19 +46,21 @@ export default function Experience() {
       const heroWrapper = document.querySelector('.hero-wrapper');
       
       if (balloon) {
-        if (progress < 0.03) {
+        if (progress < 0.1) {
           // Scale from 1 to 2 (instead of 5), fade out opacity from 1 to 0 over the 0-0.1 progress
-          const zoomProgress = progress / 0.03;
+          const zoomProgress = progress / 0.1;
           const scale = 1 + zoomProgress * 1; 
           const opacity = 1 - zoomProgress;
           balloon.style.transform = `scale(${scale})`;
           balloon.style.transformOrigin = `50% 70%`;
           balloon.style.opacity = Math.max(0, opacity);
+          balloon.style.filter = `blur(${zoomProgress * 10}px)`;
           balloon.style.zIndex = '';
           
           if (heroWrapper) heroWrapper.style.opacity = Math.max(0, opacity);
         } else {
           balloon.style.opacity = 0;
+          balloon.style.filter = 'blur(10px)';
           balloon.style.zIndex = '';
           
           if (heroWrapper) heroWrapper.style.opacity = 0;
@@ -90,19 +92,22 @@ export default function Experience() {
           )}
           
           {/* Category Switcher UI */}
-          <div className="story-choice-container" style={{ opacity: scrollProgress > 0.06 ? 1 : 0, transition: 'opacity 0.5s', pointerEvents: scrollProgress > 0.06 ? 'auto' : 'none' }}>
-            {['work', 'voluntary', 'awards', 'foundation'].map(cat => (
-              <button 
-                key={cat} 
-                className={`story-choice-btn ${activeRoute === cat ? 'is-active' : ''}`}
-                onClick={() => setActiveRoute(cat)}
-              >
-                <span className="choice-indicator"></span>
-                {cat === 'work' ? 'Work Experience' : 
-                 cat === 'voluntary' ? 'Voluntary Experience' : 
-                 cat === 'awards' ? 'Awards & Projects' : 'Foundation Core'}
-              </button>
-            ))}
+          <div className="story-choice-container" style={{ opacity: scrollProgress > 0.15 ? 1 : 0, transition: 'opacity 0.5s', pointerEvents: scrollProgress > 0.15 ? 'auto' : 'none' }}>
+            {['work', 'voluntary', 'awards', 'foundation'].map(cat => {
+              const catNames = { work: 'Work', voluntary: 'Voluntary', awards: 'Distinction', foundation: 'Foundation' };
+              const catColors = { work: '#38BDF8', voluntary: '#ea4c3e', awards: '#f7f1eb', foundation: '#3a265e' };
+              return (
+                <button 
+                  key={cat} 
+                  className={`story-choice-btn ${activeRoute === cat ? 'is-active' : ''}`}
+                  onClick={() => setActiveRoute(cat)}
+                  style={{ '--btn-color': catColors[cat] }}
+                >
+                  <span className="choice-indicator" style={{ color: catColors[cat] }}></span>
+                  {catNames[cat]}
+                </button>
+              );
+            })}
           </div>
 
 
@@ -111,6 +116,7 @@ export default function Experience() {
     </section>
   );
 }
+
 
 
 
