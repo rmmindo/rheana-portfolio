@@ -7,6 +7,9 @@ const workEntries = resumeData.sections.find(s => s.id === 'experience')?.entrie
 const volEntries = resumeData.sections.find(s => s.id === 'volunteering')?.entries || [];
 const projEntries = resumeData.sections.find(s => s.id === 'projects')?.entries || [];
 
+const catNames = { work: 'Work', voluntary: 'Voluntary', awards: 'Distinction', foundation: 'Foundation' };
+const catColors = { work: '#38BDF8', voluntary: '#ea4c3e', awards: '#f7f1eb', foundation: '#3a265e' };
+
 export default function Experience() {
   const containerRef = useRef(null);
   
@@ -93,21 +96,17 @@ export default function Experience() {
           
           {/* Category Switcher UI */}
           <div className="story-choice-container" style={{ opacity: scrollProgress > 0.15 ? 1 : 0, transition: 'opacity 0.5s', pointerEvents: scrollProgress > 0.15 ? 'auto' : 'none' }}>
-            {['work', 'voluntary', 'awards', 'foundation'].map(cat => {
-              const catNames = { work: 'Work', voluntary: 'Voluntary', awards: 'Distinction', foundation: 'Foundation' };
-              const catColors = { work: '#38BDF8', voluntary: '#ea4c3e', awards: '#f7f1eb', foundation: '#3a265e' };
-              return (
-                <button 
-                  key={cat} 
-                  className={`story-choice-btn ${activeRoute === cat ? 'is-active' : ''}`}
-                  onClick={() => setActiveRoute(cat)}
-                  style={{ '--btn-color': catColors[cat] }}
-                >
-                  <span className="choice-indicator" style={{ color: catColors[cat] }}></span>
-                  {catNames[cat]}
-                </button>
-              );
-            })}
+            {['work', 'voluntary', 'awards', 'foundation'].map(cat => (
+              <button 
+                key={cat} 
+                className={`story-choice-btn ${activeRoute === cat ? 'is-active' : ''}`}
+                onClick={() => setActiveRoute(cat)}
+                style={{ '--btn-color': catColors[cat] }}
+              >
+                <span className="choice-indicator" style={{ color: catColors[cat] }}></span>
+                {catNames[cat]}
+              </button>
+            ))}
           </div>
 
 
