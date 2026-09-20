@@ -373,10 +373,10 @@ body:not(.is-unlocked) .experience-section {
   padding: 12px 20px;
   background: transparent;
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(120, 120, 120, 0.15);
+  border: 2px solid rgba(160, 160, 160, 0.3); /* Thicker, clearer border */
   border-radius: 30px; /* Rounded corners */
   color: var(--text-muted, #777);
-  opacity: 0.6;
+  opacity: 0.7; /* Slightly more visible */
   font-family: var(--font-secondary, sans-serif);
   font-size: 12px;
   letter-spacing: 2px;

@@ -40,7 +40,7 @@ export default function Experience() {
       
       setScrollProgress(progress);
 
-      if (progress >= 0.15 && !activeRouteRef.current) {
+      if (progress >= 0.2 && !activeRouteRef.current) {
         setActiveRoute('work');
       }
       
@@ -49,9 +49,9 @@ export default function Experience() {
       const heroWrapper = document.querySelector('.hero-wrapper');
       
       if (balloon) {
-        if (progress < 0.1) {
+        if (progress < 0.15) {
           // Scale from 1 to 2 (instead of 5), fade out opacity from 1 to 0 over the 0-0.1 progress
-          const zoomProgress = progress / 0.1;
+          const zoomProgress = progress / 0.15;
           const scale = 1 + zoomProgress * 1; 
           const opacity = 1 - zoomProgress;
           balloon.style.transform = `scale(${scale})`;
@@ -95,7 +95,7 @@ export default function Experience() {
           )}
           
           {/* Category Switcher UI */}
-          <div className="story-choice-container" style={{ opacity: scrollProgress > 0.15 ? 1 : 0, transition: 'opacity 0.5s', pointerEvents: scrollProgress > 0.15 ? 'auto' : 'none' }}>
+          <div className="story-choice-container" style={{ opacity: scrollProgress > 0.2 ? 1 : 0, transition: 'opacity 0.5s', pointerEvents: scrollProgress > 0.2 ? 'auto' : 'none' }}>
             {['work', 'voluntary', 'awards', 'foundation'].map(cat => (
               <button 
                 key={cat} 
@@ -115,6 +115,7 @@ export default function Experience() {
     </section>
   );
 }
+
 
 
 

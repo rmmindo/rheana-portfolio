@@ -154,7 +154,7 @@ function Node({ position, color, isActive, scrollProgress, curvePath, nodeData, 
       nodeRef.current.position.z = position[2];
       
       let globalFade = 1;
-      if (scrollProgress < 0.1) globalFade = scrollProgress / 0.1;
+      if (scrollProgress < 0.15) globalFade = scrollProgress / 0.15;
 
       if (matRef1.current) matRef1.current.opacity = (isActive ? 1 : 0.3) * globalFade;
       if (matRef2.current) matRef2.current.opacity = 0.3 * globalFade;
@@ -222,7 +222,7 @@ function Track({ categoryKey, data, isActive, scrollProgress, entries, setActive
   useFrame((state, delta) => {
     if (lineRef.current) {
       let globalFade = 1;
-      if (scrollProgress < 0.1) globalFade = scrollProgress / 0.1;
+      if (scrollProgress < 0.15) globalFade = scrollProgress / 0.15;
       
       const currentTargetOpacity = baseTargetOpacity * globalFade;
       
@@ -344,26 +344,26 @@ function EmberSystem({ activeCategory, scrollProgress }) {
     if (!innerRef.current || !outerRef.current) return;
     
     // Intro logic
-    if (scrollProgress < 0.1) {
+    if (scrollProgress < 0.15) {
       // Phase B: Flame extraction
-      const phase = scrollProgress / 0.1; // 0 to 1
-      innerRef.current.position.set(0, -2 + phase * 7, 25);
-      outerRef.current.position.set(0, -2 + phase * 7, 25 - 0.1);
-      if (lightRef.current) lightRef.current.position.set(0, -2 + phase * 7, 25);
+      const phase = scrollProgress / 0.15; // 0 to 1
+      innerRef.current.position.set(0, 0.5, 1.5);
+      outerRef.current.position.set(0, 0.5, 1.4);
+      if (lightRef.current) lightRef.current.position.set(0, 0.5, 1.5);
 
-      const baseScale = 1.2 + (1 - phase) * 0.5;
+      const baseScale = 1.0;
       innerRef.current.scale.setScalar(baseScale);
       outerRef.current.scale.setScalar(baseScale);
 
       innerRef.current.material.opacity = Math.max(0, phase * 2);
       outerRef.current.material.opacity = Math.max(0, phase * 2) * 0.6;
-    } else if (scrollProgress < 0.15) {
+    } else if (scrollProgress < 0.2) {
       // Phase C: Docking & Flash
-      const phase = (scrollProgress - 0.1) / 0.05; // 0 to 1
+      const phase = (scrollProgress - 0.15) / 0.05; // 0 to 1
       const targetPos = new THREE.Vector3(...(startNodes[activeCategory] || startNodes['work']));
       targetPos.z = 1.5;
       
-      const startPos = new THREE.Vector3(0, 5, 25);
+      const startPos = new THREE.Vector3(0, 0.5, 1.5);
       const currPos = new THREE.Vector3().lerpVectors(startPos, targetPos, phase);
       
       innerRef.current.position.copy(currPos);
@@ -444,7 +444,7 @@ function CameraController({ activeCategory, scrollProgress }) {
 
 export default function PCBCanvas({ activeCategory, setActiveCategory, scrollProgress, workData, volData, projData }) {
   let globalFade = 1;
-  if (scrollProgress < 0.1) globalFade = scrollProgress / 0.1;
+  if (scrollProgress < 0.15) globalFade = scrollProgress / 0.15;
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
@@ -518,6 +518,7 @@ export default function PCBCanvas({ activeCategory, setActiveCategory, scrollPro
     </div>
   );
 }
+
 
 
 
