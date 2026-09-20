@@ -81,7 +81,7 @@ export default function VisionGate({ startSequence = true }) {
 
     // Block interaction on the background layer
     const root = document.getElementById('root');
-    const siblings = root ? Array.from(root.children).filter(child => !child.classList.contains('gate')) : [];
+    const siblings = root ? Array.from(root.children).filter(child => !child.classList.contains('gate') && !child.classList.contains('consent-gate-wrapper')) : [];
     siblings.forEach(s => {
       s.setAttribute('aria-hidden', 'true');
       s.setAttribute('inert', 'true'); // Native block for focus and screen readers
