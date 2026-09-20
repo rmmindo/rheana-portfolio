@@ -420,3 +420,12 @@ body.phase-3 {
 
 
 
+
+body:not(.is-unlocked) .scene-balloon {
+  filter: blur(15px) !important;
+  transition: filter 2.5s ease-in-out;
+}
+body.is-unlocked .scene-balloon {
+  transition: filter 2.5s ease-in-out;
+}
+
