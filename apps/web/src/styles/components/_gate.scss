@@ -20,7 +20,7 @@
   will-change: filter, transform, -webkit-filter, -webkit-transform;
 }
 
-.is-gated.is-clearing #root > *:not(.gate) {
+.is-gated.is-clearing #root > *:not(.gate):not(.consent-gate-wrapper) {
   -webkit-filter: blur(0px) 
           drop-shadow(0 0 0 transparent)
           drop-shadow(0 0 0 transparent)
@@ -163,7 +163,7 @@
 
   @keyframes gate-fade-calm { to { opacity: 0; } }
 
-  .is-gated.is-clearing #root > *:not(.gate) { transition: filter 260ms linear; }
+  .is-gated.is-clearing #root > *:not(.gate):not(.consent-gate-wrapper) { transition: filter 260ms linear; }
 }
 
 .gate__lens {
