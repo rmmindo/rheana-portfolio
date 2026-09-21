@@ -53,6 +53,7 @@ export default function VisionGate({ startSequence = true }) {
   const { t } = useI18n();
 
   const [open, setOpen] = useState(false);
+  const [hasDismissed, setHasDismissed] = useState(false);
   const [wearing, setWearing] = useState(false);
   const dialogRef = useRef(null);
   const timer = useRef(0);
@@ -73,11 +74,14 @@ export default function VisionGate({ startSequence = true }) {
   }, [startSequence]);
 
   useEffect(() => {
-    if (!open) return;
+    if (hasDismissed) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     document.documentElement.classList.add('is-gated');
-    dialogRef.current?.focus();
+    
+    if (open) {
+      dialogRef.current?.focus();
+    }
 
     // Block interaction on the background layer
     const root = document.getElementById('root');
@@ -96,9 +100,10 @@ export default function VisionGate({ startSequence = true }) {
         s.removeAttribute('inert');
       });
     };
-  }, [open]);
+  }, [open, hasDismissed]);
 
   const dismiss = useCallback(() => {
+    setHasDismissed(true);
     setOpen(false);
     clearTimeout(timer.current);
     document.documentElement.classList.add('has-unlocked');
@@ -123,7 +128,7 @@ export default function VisionGate({ startSequence = true }) {
     }
 
     // The glasses reach your face and unblur over ~2.5s
-    timer.current = setTimeout(() => setOpen(false), 2500);
+    timer.current = setTimeout(() => { setOpen(false); setHasDismissed(true); }, 2500);
   }, [wearing]);
 
   useEffect(() => {
