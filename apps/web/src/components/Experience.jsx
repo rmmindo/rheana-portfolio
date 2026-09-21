@@ -94,8 +94,7 @@ export default function Experience() {
             </Suspense>
           )}
           
-          {/* Category Switcher UI */}
-          <div className="story-choice-container" style={{ opacity: scrollProgress > 0.2 ? 1 : 0, transition: 'opacity 0.5s', pointerEvents: scrollProgress > 0.2 ? 'auto' : 'none' }}>
+          <div className="story-choice-container" style={{ display: 'none' }}>
             {['work', 'voluntary', 'awards', 'foundation'].map(cat => (
               <button 
                 key={cat} 

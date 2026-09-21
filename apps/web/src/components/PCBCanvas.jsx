@@ -446,6 +446,8 @@ export default function PCBCanvas({ activeCategory, setActiveCategory, scrollPro
   let globalFade = 1;
   if (scrollProgress < 0.15) globalFade = scrollProgress / 0.15;
 
+  const IS_STEP_BY_STEP = true;
+
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <Canvas camera={{ position: [0, 0, 32], fov: 45 }}>
@@ -454,7 +456,9 @@ export default function PCBCanvas({ activeCategory, setActiveCategory, scrollPro
         
         <CameraController activeCategory={activeCategory} scrollProgress={scrollProgress} />
 
-        {/* Substrate */}
+        {!IS_STEP_BY_STEP && (
+          <>
+            {/* Substrate */}
         <mesh position={[0, 0, -2]}>
           <planeGeometry args={[70, 70]} />
           <meshStandardMaterial color="#0a1a12" roughness={0.9} transparent opacity={0} /> {/* Deep Chassis / PCB Green */}
@@ -512,6 +516,8 @@ export default function PCBCanvas({ activeCategory, setActiveCategory, scrollPro
         <Track categoryKey="dec3" data={pcbCategories.dec3} isActive={false} scrollProgress={0} entries={[]} />
         <Track categoryKey="dec4" data={pcbCategories.dec4} isActive={false} scrollProgress={0} entries={[]} />
         <Track categoryKey="dec5" data={pcbCategories.dec5} isActive={false} scrollProgress={0} entries={[]} />
+          </>
+        )}
 
         <EmberSystem activeCategory={activeCategory} scrollProgress={scrollProgress} />
       </Canvas>

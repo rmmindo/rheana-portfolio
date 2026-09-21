@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import '../styles/components/_hero.scss';
 
 const TelescopeIcon = ({ className }) => (
@@ -23,6 +23,7 @@ export default function Hero() {
   const [hasMoved, setHasMoved] = useState(false);
   const [isPreparingFlashlight, setIsPreparingFlashlight] = useState(false);
   const [isSnapping, setIsSnapping] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [showButton, setShowButton] = useState(false);
   const [hasUnlockedMask, setHasUnlockedMask] = useState(false);
 
@@ -193,6 +194,37 @@ export default function Hero() {
     }
   }
 
+  
+  const rawText = "I'm Rheana, a Full-Stack AI Dev";
+  const eloperStr = "eloper.";
+  
+  // 20 dots from PCB
+  const dotPositions = [
+    [50, 8], [50, 15], [65, 25], [45, 55], [25, 45], [15, 60], [80, 80], [95, 85],
+    [45, 15], [25, 45], [35, 80],
+    [70, 75], [65, 80],
+    [85, 35], [85, 55],
+    [45, 95], [60, 90],
+    [30, 15],
+    [75, 65], [70, 55]
+  ];
+  
+  const letterData = useMemo(() => {
+    const data = [];
+    let letterIndex = 0;
+    for (let i = 0; i < rawText.length; i++) {
+      const char = rawText[i];
+      if (/[a-zA-Z]/.test(char)) {
+        const dot = dotPositions[letterIndex % dotPositions.length];
+        data.push({ char, isLetter: true, tx: (dot[0] - 50) * 1.5, ty: (dot[1] - 50) * 1.5 });
+        letterIndex++;
+      } else {
+        data.push({ char, isLetter: false, tx: 0, ty: 0 });
+      }
+    }
+    return data;
+  }, []);
+
   return (
     <>
       <div 
@@ -226,8 +258,27 @@ export default function Hero() {
         </button>
 
         <div className={`ghost-copy ${phase === 3 ? 'is-active' : ''}`}>
-          <div className="ghost-main">Welcome to the bigger picture.</div>
-          <div className="ghost-sub">I'm Rheana, a Full-Stack AI Developer.</div>
+          <div className="ghost-main" style={{ opacity: 1 - Math.min(scrollProgress / 0.1, 1) }}>Welcome to the bigger picture.</div>
+          <div className="ghost-sub">
+              {letterData.map((l, i) => {
+                // If scrollProgress goes 0 -> 0.15, move the letters
+                const p = Math.min(scrollProgress / 0.15, 1);
+                const x = l.isLetter ? p * l.tx + 'vw' : '0px';
+                const y = l.isLetter ? p * l.ty + 'vh' : '0px';
+                const o = 1 - p; // fade out as they reach destination
+                
+                return (
+                  <span key={i} style={{ 
+                    display: 'inline-block', 
+                    transform: `translate(${x}, ${y})`,
+                    opacity: o
+                  }}>
+                    {l.char === ' ' ? '\u00A0' : l.char}
+                  </span>
+                );
+              })}
+              <span style={{ opacity: 1 - Math.min(scrollProgress / 0.1, 1) }}>eloper.</span>
+            </div>
         </div>
         
         <div className={`kinetic-node-container ${phase >= 2 ? 'is-active' : ''}`}>
