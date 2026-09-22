@@ -57,7 +57,11 @@ export default function Experience() {
           balloon.style.transform = `scale(${scale})`;
           balloon.style.transformOrigin = `50% 70%`;
           balloon.style.opacity = Math.max(0, opacity);
-          balloon.style.filter = `blur(${zoomProgress * 10}px)`;
+          if (!document.documentElement.classList.contains('is-gated') && !document.documentElement.classList.contains('is-clearing')) {
+            balloon.style.filter = `blur(${zoomProgress * 10}px)`;
+          } else {
+            balloon.style.filter = '';
+          }
           balloon.style.zIndex = '';
           
           if (heroWrapper) heroWrapper.style.opacity = Math.max(0, opacity);

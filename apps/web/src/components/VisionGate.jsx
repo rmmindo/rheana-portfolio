@@ -74,8 +74,20 @@ export default function VisionGate({ startSequence = true }) {
   }, [startSequence]);
 
   useEffect(() => {
-    if (hasDismissed) return;
-    const prev = document.body.style.overflow;
+    if (hasDismissed) {
+      document.body.style.overflow = '';
+      document.documentElement.classList.remove('is-gated');
+      document.documentElement.classList.remove('is-clearing');
+      const root = document.getElementById('root');
+      if (root) {
+        Array.from(root.children).forEach(s => {
+          s.removeAttribute('aria-hidden');
+          s.removeAttribute('inert');
+        });
+      }
+      return;
+    }
+    
     document.body.style.overflow = 'hidden';
     document.documentElement.classList.add('is-gated');
     
@@ -91,15 +103,6 @@ export default function VisionGate({ startSequence = true }) {
       s.setAttribute('inert', 'true'); // Native block for focus and screen readers
     });
 
-    return () => {
-      document.body.style.overflow = prev;
-      document.documentElement.classList.remove('is-gated');
-      document.documentElement.classList.remove('is-clearing');
-      siblings.forEach(s => {
-        s.removeAttribute('aria-hidden');
-        s.removeAttribute('inert');
-      });
-    };
   }, [open, hasDismissed]);
 
   const dismiss = useCallback(() => {
