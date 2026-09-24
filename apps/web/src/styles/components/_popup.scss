@@ -89,7 +89,9 @@
 .modern-popup-primary-btn {
   width: auto;
   max-width: none;
-  padding: 14px 20px;
+  padding: 14px 32px;
+  min-height: 52px;
+  flex-shrink: 0;
   border-radius: 40px;
   display: flex;
   align-items: center;
@@ -101,6 +103,7 @@
   font-family: v.$font-body;
   font-weight: 700;
   font-size: 0.9rem;
+  white-space: nowrap;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   text-transform: uppercase;
