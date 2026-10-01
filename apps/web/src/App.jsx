@@ -8,8 +8,28 @@ import HeaderHUD from './components/HeaderHUD.jsx';
 import Experience from './components/Experience.jsx';
 import ConsentBanner from './components/ConsentBanner.jsx';
 import { I18nProvider } from './hooks/useI18n.jsx';
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 
 export default function App() {
+  React.useEffect(() => {
+    const lenis = new Lenis({
+      lerp: 0.08, 
+      wheelMultiplier: 1,
+      smoothWheel: true,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
   const [isConsentResolved, setIsConsentResolved] = useState(
     () => typeof window !== 'undefined' ? !!localStorage.getItem('analytics_consent') : false
   );
